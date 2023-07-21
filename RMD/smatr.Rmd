@@ -1,0 +1,82 @@
+---
+title: "Using smatr"
+author: "Josh and Fonti"
+date: "2023-07-21"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# install.packages(c("smatr", "here"))
+library(tidyverse)
+library(here)
+library(skimr)
+library(smatr)
+```
+
+## Using RMD files
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
+
+Alternativly, you can click on the green play button next to each chunk to run each chunk locally. 
+
+You can embed an R code chunk like this:
+
+```{r, eval=FALSE}
+biomass_data <- read_csv("data/biomass_conversions.csv")
+```
+
+One _very_ minor caveat of RMD is that they mess up file paths in a R project.
+
+```{r bad RMD, echo=FALSE}
+knitr::include_graphics(here("output/png/RMD_filepath_error.png"), error=TRUE)
+```
+
+So we have to rely on the `here` R package to tell R/RMD where the heck we are working from. Run this code chunk to install and load the `here`
+
+```{r, eval=FALSE}
+install.packages("here")
+
+library(here)
+```
+
+The `here()` function will spit out the absolute file path to your project without you having to type it out. 
+
+```{r}
+here()
+```
+
+### Read in data
+
+We can use it in RMD code chunks so we can read in data and images smoothly! 
+
+Also noticed I am used `read_csv()`? `read_csv()` is the tidyverse cousin of `read.csv()`. The benefit of using this version is a much tidier output!
+
+```{r, warning=FALSE}
+biomass_data <- read_csv(here("data/biomass_conversions.csv"))
+```
+
+### Overview of data
+
+```{r}
+str(biomass_data)
+skim(biomass_data)
+```
+
+### Filter Frozen Samples
+
+```{r}
+biomass_data_frozen <- biomass_data %>%
+  filter(`Preservation Method` == "Frozen")
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
