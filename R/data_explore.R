@@ -4,6 +4,7 @@
 library(tidyverse)
 
 # install.packages("skimr")
+# install.packages(c("tidyverse", "skimr"))
 library(skimr)
 
 # Reading in data
