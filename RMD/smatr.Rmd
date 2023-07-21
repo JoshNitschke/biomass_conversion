@@ -8,11 +8,11 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-# install.packages(c("smatr", "here"))
+# install.packages(c("here"))
 library(tidyverse)
 library(here)
 library(skimr)
-library(smatr)
+
 ```
 
 ## Using RMD files
@@ -80,3 +80,24 @@ plot(pressure)
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+### Install smatr
+
+Have a go installing `smatr` from [CRAN](https://cran.r-project.org/). CRAN is where all R packages live but generally the version on CRAN is not the latest version of the package 
+
+```{r, eval=FALSE}
+# install.packages("smatr")
+```
+
+Now try install the 'active development' version from [GitHub](https://github.com/traitecoevo/smatr). As the maintainer of `smatr` I suggest working off this version as we fixed some pretty big bugs that are not yet updated on CRAN! 
+
+You will probably need to uncomment the `install.packages("remotes")` line and install `remotes` first.
+
+```{r, eval=FALSE}
+# install.packages("remotes")
+remotes::install_github("traitecoevo/smatr")
+
+library(smatr)
+```
+
+
