@@ -100,4 +100,170 @@ remotes::install_github("traitecoevo/smatr")
 library(smatr)
 ```
 
+Frozen samples: 
+Dry mass
+Wet mass
+Individual counts
 
+- Determine slope and intercept 
+- DM - WM
+- DM - Counts
+- WM - Counts
+
+```{r}
+leaf.low <- subset(leaflife, soilp == 'low' & rain == 'low')
+
+ma <- ma(longev ~ lma, data=leaf.low) 
+
+plot(ma)
+```
+
+## Data exploration plots
+
+Some historgrams
+
+Untransformed data looks quite right skewed (long right tail) - suggests transformation needed because wide range of data, lots small values, not a lot of big values
+
+```{r}
+hist(biomass_data_frozen$`DM (g)`)
+hist(biomass_data_frozen$`WM (g)`)
+hist(biomass_data_frozen$`raw individual count`)
+```
+
+Attempting to log raw data
+
+`Removed 476 rows containing non-finite values`
+```{r}
+library(ggplot2)
+
+# Log scale
+log10(1)
+log10(10)
+log10(100)
+log10(1000)
+
+# Log tranformed
+ggplot(biomass_data_frozen, aes(x = `DM (g)`)) + 
+  geom_histogram() + 
+  scale_x_log10()
+```
+
+# Investigate those 476 values
+
+Fonti to investigate how to get these values - WHICH ONE ARE THEY! 
+
+```{r}
+biomass_data_frozen_withlog <- biomass_data_frozen |> 
+  mutate(logDM_g = log10(`DM (g)`))
+
+hist(biomass_data_frozen_withlog$logDM_g, breaks = 30)
+
+ggplot(biomass_data_frozen_withlog, aes(x = logDM_g)) + 
+  geom_histogram() 
+```
+
+# Excluding tiny values
+
+```{r}
+# This filters the tiny values
+biomass_data_frozen |> 
+  filter(`DM (g)` < 0.001) |> 
+  select(`DM (g)`)
+
+# This filters the inverse/opposite e.g. we want to exclude the tiny values
+biomass_data_frozen |> 
+  filter(! `DM (g)` < 0.001) |> 
+  select(`DM (g)`) # Check values
+  
+# Assign to a new data object 
+biomass_frozen_notiny_logged <- biomass_data_frozen |> 
+  filter(! `DM (g)` < 0.001)  |>
+  mutate(log10_DM_g = log10(`DM (g)`), 
+         log10_WM_g = log10(`WM (g)`))
+```
+
+# Clean up variable names 
+
+R doesn't like spaces in varaible names
+
+```{r}
+library(janitor)
+
+cleannamed_frozen_notiny_logged <- biomass_frozen_notiny_logged |> clean_names()
+
+colnames(cleannamed_frozen_notiny_logged)
+```
+
+## Our first sma! 
+
+```{r}
+# Raw untransformed 
+untransformed_sma <- cleannamed_frozen_notiny_logged |> 
+  select(dm_g, wm_g) |> 
+  sma(method = "SMA")
+
+untransformed_sma
+
+plot(untransformed_sma)
+
+# Verifying with example data that hack is ok
+sma(longev ~ lma, data=leaf.low)
+
+leaf.low |> 
+  select(longev, lma) |> 
+  sma()
+
+# data argument not working hacking up
+# untransformed_sma <- sma(dm_g, wm_g, data = cleannamed_frozen_notiny_logged)
+
+# Log transform with smatr CAUTIO
+log_sma <- cleannamed_frozen_notiny_logged |> 
+  select(dm_g, wm_g) |> 
+  sma(method = "SMA", log = "xy")
+
+plot(log_sma)
+
+# Warning message:
+# In sma(select(cleannamed_frozen_notiny_logged, dm_g, wm_g), method = "SMA",  :
+#   Deleted negative and/or zero values in X variable.
+
+# Log transform ourselves _ NOT WORKING!
+hist(cleannamed_frozen_notiny_logged$log10_dm_g)
+hist(cleannamed_frozen_notiny_logged$log10_wm_g)
+
+diy_log_sma <- cleannamed_frozen_notiny_logged |> 
+  select(log10_dm_g, log10_wm_g) |> 
+  sma(method = "SMA")
+
+```
+
+<!-- https://math.stackexchange.com/questions/2018673/what-does-the-slope-of-a-log-log-plot-represent -->
+
+y = m(x) + c
+y = slope(x) + intercept
+y = B1(x) + B0
+
+log(DM) = log(WM)
+log(DM) =  slope(logWM) + log(intercept) 
+
+# Log Addition rule 1
+log(WM x intercept)  = log(WM) + log(intercept)
+
+# Log multiplication rule 3
+log(WM^slope) = slope(logWM)
+
+
+
+
+
+# Explore taxa
+
+```{r}
+cleannamed_frozen_notiny_logged |> 
+  pull(taxa) |> 
+  tabyl() |> 
+  arrange(-n)
+```
+
+
+Eventually - compare with diff preservation methods
