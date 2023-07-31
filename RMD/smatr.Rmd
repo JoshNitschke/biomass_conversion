@@ -187,6 +187,7 @@ biomass_frozen_notiny_logged <- biomass_data_frozen |>
 R doesn't like spaces in varaible names
 
 ```{r}
+#install.packages("janitor")
 library(janitor)
 
 cleannamed_frozen_notiny_logged <- biomass_frozen_notiny_logged |> clean_names()
@@ -263,6 +264,94 @@ cleannamed_frozen_notiny_logged |>
   pull(taxa) |> 
   tabyl() |> 
   arrange(-n)
+
+
+# I know there must be a better way to do this but was just curious to see what the log plots looked like for the main (most abundant) taxa. Tried group_by(taxa) without much luck...
+
+# Amphipoda
+# Raw untransformed 
+untransformed_sma_amphipoda <- cleannamed_frozen_notiny_logged |> 
+  filter(taxa == "Amphipoda") |>
+  select(dm_g, wm_g) |> 
+  sma(method = "SMA")
+untransformed_sma_amphipoda
+plot(untransformed_sma_amphipoda)
+
+# log10 transformed
+log10_sma_amphipoda <- cleannamed_frozen_notiny_logged |> 
+  filter(taxa == "Amphipoda") |>
+  select(log10_dm_g, log10_wm_g) |> 
+  sma(method = "SMA")
+log10_sma_amphipoda
+plot(log10_sma_amphipoda)
+
+# Arthritica
+# Raw untransformed 
+untransformed_sma_arthritica <- cleannamed_frozen_notiny_logged |> 
+  filter(taxa == "Arthritica") |>
+  select(dm_g, wm_g) |> 
+  sma(method = "SMA")
+untransformed_sma_arthritica
+plot(untransformed_sma_arthritica)
+
+# log10 transformed
+log10_sma_arthritica <- cleannamed_frozen_notiny_logged |> 
+  filter(taxa == "Arthritica") |>
+  select(log10_dm_g, log10_wm_g) |> 
+  sma(method = "SMA")
+log10_sma_arthritica
+plot(log10_sma_arthritica)
+
+# Capitella
+# Raw untransformed 
+untransformed_sma_capitella <- cleannamed_frozen_notiny_logged |> 
+  filter(taxa == "Capitella") |>
+  select(dm_g, wm_g) |> 
+  sma(method = "SMA")
+untransformed_sma_capitella
+plot(untransformed_sma_capitella)
+
+# log10 transformed
+log10_sma_capitella <- cleannamed_frozen_notiny_logged |> 
+  filter(taxa == "Capitella") |>
+  select(log10_dm_g, log10_wm_g) |> 
+  sma(method = "SMA")
+log10_sma_capitella
+plot(log10_sma_capitella)
+
+# Simplisetia
+# Raw untransformed 
+untransformed_sma_simplisetia <- cleannamed_frozen_notiny_logged |> 
+  filter(taxa == "Simplisetia") |>
+  select(dm_g, wm_g) |> 
+  sma(method = "SMA")
+untransformed_sma_simplisetia
+plot(untransformed_sma_simplisetia)
+
+# log10 transformed
+log10_sma_simplisetia <- cleannamed_frozen_notiny_logged |> 
+  filter(taxa == "Simplisetia") |>
+  select(log10_dm_g, log10_wm_g) |> 
+  sma(method = "SMA")
+log10_sma_simplisetia
+plot(log10_sma_simplisetia)
+
+# Chironomidae
+# Raw untransformed 
+untransformed_sma_chironomidae <- cleannamed_frozen_notiny_logged |> 
+  filter(taxa == "Chironomidae") |>
+  select(dm_g, wm_g) |> 
+  sma(method = "SMA")
+untransformed_sma_chironomidae
+plot(untransformed_sma_chironomidae)
+
+# log10 transformed
+log10_sma_chironomidae <- cleannamed_frozen_notiny_logged |> 
+  filter(taxa == "Chironomidae") |>
+  select(log10_dm_g, log10_wm_g) |> 
+  sma(method = "SMA")
+log10_sma_chironomidae
+plot(log10_sma_chironomidae)
 ```
 
 
