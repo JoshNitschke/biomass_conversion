@@ -36,7 +36,7 @@ biomass_frozen <- biomass_data %>%
 
 ### Exploration plots
 
-What are these groupings?! 
+What are these groupings we see in the smatr plots??
 
 ```{r}
 # By zone
