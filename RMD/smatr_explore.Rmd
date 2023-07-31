@@ -1,0 +1,84 @@
+---
+title: "smatr"
+author: "Fonti"
+date: "2023-07-31"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(here)
+library(smatr)
+library(janitor)
+library(skimr)
+```
+
+```{r, warning=FALSE}
+biomass_data <- read_csv(here("data/biomass_conversions.csv"), na = c('#DIV/0!', 'NA'))
+```
+
+### Overview
+
+```{r}
+skim(biomass_frozen)
+```
+
+### Precleaning
+
+```{r}
+biomass_frozen <- biomass_data %>%
+  filter(`Preservation Method` == "Frozen") |> 
+  clean_names() |> 
+  data.frame()
+```
+
+### Exploration plots
+
+What are these groupings?! 
+
+```{r}
+# By zone
+ggplot(data = biomass_frozen, aes(x = dm_g, y= wm_g)) +
+  geom_point() + 
+  geom_line(aes(group = zone, colour = zone), stat="smooth", method =
+"lm", lwd = 0.5) + 
+  scale_x_log10() +
+  scale_y_log10() 
+
+# By site
+ggplot(data = biomass_frozen, aes(x = dm_g, y= wm_g)) +
+  geom_point() + 
+  geom_line(aes(group = site, colour = site), stat="smooth", method =
+"lm", lwd = 0.5) + 
+  scale_x_log10() +
+  scale_y_log10() 
+```
+
+### Preanalysis
+
+```{r}
+data <- biomass_frozen |> 
+  select(dm_g, wm_g) |> 
+  mutate(log_dm_g = log10(dm_g + 0.5),
+         log_wm_g = log10(wm_g + 0.5))
+```
+
+### Run a SMA
+
+```{r}
+dry_wet_sma <- sma(log_dm_g~wm_g, 
+    log = "xy",
+    data = data) 
+
+plot(dry_wet_sma)
+
+log10_dry_wet_sma <- sma(log_dm_g~log_wm_g, 
+    data = data) 
+
+plot(log10_dry_wet_sma)
+```
+
+
+
