@@ -19,12 +19,6 @@ library(skimr)
 biomass_data <- read_csv(here("data/biomass_conversions.csv"), na = c('#DIV/0!', 'NA'))
 ```
 
-### Overview
-
-```{r}
-skim(biomass_frozen)
-```
-
 ### Precleaning
 
 ```{r}
@@ -32,6 +26,14 @@ biomass_frozen <- biomass_data %>%
   filter(`Preservation Method` == "Frozen") |> 
   clean_names() |> 
   data.frame()
+
+
+### Overview
+
+```{r}
+skim(biomass_frozen)
+```
+
 ```
 
 ### Exploration plots
