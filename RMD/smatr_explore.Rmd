@@ -29,12 +29,9 @@ biomass_frozen <- biomass_data %>%
 
 
 ### Overview
-
-```{r}
 skim(biomass_frozen)
 ```
 
-```
 
 ### Exploration plots
 
@@ -56,6 +53,17 @@ ggplot(data = biomass_frozen, aes(x = dm_g, y= wm_g)) +
 "lm", lwd = 0.5) + 
   scale_x_log10() +
   scale_y_log10() 
+
+biomass_frozen |> 
+  filter(taxa == "Amphipoda") |> 
+ggplot(aes(x = dm_g, y= wm_g)) +
+  geom_point(alpha = 0.50) + stat_smooth(method = "lm")
+
+# Linear or non-linear?
+biomass_frozen |> 
+  filter(taxa == "Amphipoda") |> 
+ggplot(aes(x = dm_g, y= wm_g)) +
+  geom_point(alpha = 0.50) + stat_smooth(method = "lm")
 ```
 
 ### Preanalysis
@@ -79,8 +87,94 @@ plot(dry_wet_sma)
 log10_dry_wet_sma <- sma(log_dm_g~log_wm_g, 
     data = data) 
 
+log10_dry_wet_sma
+
 plot(log10_dry_wet_sma)
 ```
+
+### Pull out regression equation for back transformation
+
+```{r}
+# Get coefficients from SMA
+smatr:::coef.sma(log10_dry_wet_sma)
+
+intercept <- smatr:::coef.sma(log10_dry_wet_sma)[1] # Take the first value
+intercept
+
+slope <- smatr:::coef.sma(log10_dry_wet_sma)[2] # Take the second value
+slope
+
+# log10(DM) = slope * log10(WM) + intercept
+# Exponentiate log10 using 10^
+# DM = WM^slope * 10^intercept
+# Create a new variable BT = Back transformed 
+data_BF <- data |> 
+  mutate(BT_DM = (wm_g^slope) * (10^intercept))  
+
+# Plot back transformed data
+# Histograms
+hist(data_BF$dm_g) # Raw data
+hist(data_BF$BT_DM) # Back transformed
+
+# Scatterplots
+# Raw data
+ggplot(data_BF, aes(x = dm_g, y= wm_g)) +
+  geom_point(alpha = 0.50) 
+
+# Back transformed
+ggplot(data_BF, aes(x = BT_DM, y= wm_g)) +
+  geom_point(alpha = 0.50)
+```
+
+
+### Pulling out the residuals to calculate SF (smearing factor)
+
+cf Mährlein et al 2016 pg 43
+
+```{r}
+# To get residuals of SMA
+resid <- residuals(log10_dry_wet_sma)
+resid 
+
+# To get sample size
+n <- length(resid)
+n
+
+# Calculate SF
+SF <- 1/n * sum(10^resid) 
+SF # Similar to values in paper
+
+# Now correct our back transformed values with SF
+data_BF_corrected <- data_BF |> 
+  mutate(BT_DM_corrected = BT_DM*SF)
+
+# Plot back transformed data
+# Histograms
+hist(data_BF$dm_g) # Raw data
+hist(data_BF_corrected$BT_DM_corrected) # Back transformed
+
+# Scatterplots
+# Raw data
+ggplot(data_BF, aes(x = dm_g, y= wm_g)) +
+  geom_point(alpha = 0.50) 
+
+# Back transformed
+ggplot(data_BF_corrected, aes(x = BT_DM_corrected, y= wm_g)) +
+  geom_point(alpha = 0.50)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
