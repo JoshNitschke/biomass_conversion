@@ -13,6 +13,7 @@ library(here)
 library(smatr)
 library(janitor)
 library(skimr)
+library(gridExtra)
 ```
 
 ```{r, warning=FALSE}
@@ -34,6 +35,31 @@ skim(biomass_frozen)
 
 
 ### Exploration plots
+
+minimum mass cut-off
+
+```{r}
+#No cut-off
+biomass_frozen_all <- ggplot(data = biomass_frozen, aes(x = dm_g, y= wm_g)) +
+  geom_point() + 
+  geom_line(stat="smooth", method =
+"lm", lwd = 0.5) + 
+  scale_x_log10() +
+  scale_y_log10() 
+
+# mass >= 0.001 g
+biomass_frozen_mass_cutoff <- biomass_frozen |>
+  filter(wm_g >=0.001, dm_g >=0.001) |>
+  ggplot(aes(x = dm_g, y= wm_g)) +
+  geom_point() + 
+  geom_line(stat="smooth", method =
+"lm", lwd = 0.5) + 
+  scale_x_log10() +
+  scale_y_log10() 
+
+cutoff_compare <- grid.arrange(biomass_frozen_all, biomass_frozen_mass_cutoff, nrow = 1)
+cutoff_compare
+```
 
 What are these groupings we see in the smatr plots??
 
