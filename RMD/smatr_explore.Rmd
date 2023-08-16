@@ -96,9 +96,13 @@ ggplot(aes(x = dm_g, y= wm_g)) +
 
 ```{r}
 data <- biomass_frozen |> 
+  filter(wm_g >= 0.001, dm_g >=0.001) |>
   select(dm_g, wm_g) |> 
-  mutate(log_dm_g = log10(dm_g + 0.5),
-         log_wm_g = log10(wm_g + 0.5))
+  mutate(log_dm_g = log10(dm_g),
+         log_wm_g = log10(wm_g))
+
+hist(data$log_dm_g)
+hist(data$log_wm_g)
 ```
 
 ### Run a SMA
@@ -116,6 +120,31 @@ log10_dry_wet_sma <- sma(log_dm_g~log_wm_g,
 log10_dry_wet_sma
 
 plot(log10_dry_wet_sma)
+```
+### Check assumptions
+
+#### homogeneity of variance
+```{r}
+plot(fitted(log10_dry_wet_sma), residuals(log10_dry_wet_sma))
+plot(log10_dry_wet_sma, which = "residual") #alternative
+```
+#### Normality
+```{r}
+qqnorm(residuals(log10_dry_wet_sma))
+qqline(residuals(log10_dry_wet_sma), col = "red")
+
+plot(log10_dry_wet_sma, which = "qq") #alternative
+```
+### Separate by taxa attempt
+```{r, fig.width = 10, fig.height = 20}
+biomass_frozen |> 
+  group_by(taxa) |>
+  filter(wm_g >= 0.001, dm_g >=0.001) |>
+  select(dm_g, wm_g) |> 
+  mutate(log_dm_g = log10(dm_g),
+         log_wm_g = log10(wm_g)) |>
+  ggplot(aes(x = wm_g, y= dm_g)) +
+  geom_point(alpha = 0.50) + facet_wrap(~ taxa, ncol = 3, scales = "free") + stat_smooth(method = "lm")
 ```
 
 ### Pull out regression equation for back transformation
