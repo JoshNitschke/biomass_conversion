@@ -49,10 +49,24 @@ biomass_data_taxaclean <- biomass_data |>
 biomass_data_taxaclean$taxa_clean |> tabyl()
 ``` 
 
+## minimum mass cut-off (due to higher proportional measurement error at very small mass values)
+
+```{r}
+biomass_data_taxaclean_mass_cutoff <- biomass_data_taxaclean |>
+  filter(wm_g >= 0.001, dm_g >=0.001) 
+```
+
+## filter frozen samples only
+
+```{r}
+biomass_frozen_taxaclean_mass_cutoff <- biomass_data_taxaclean_mass_cutoff |>
+  filter(preservation_method == "Frozen")
+```
+
 ## Create observation number
 
 ```{r}
-biomass_wobs <- biomass_data_taxaclean |> 
+biomass_wobs <- biomass_frozen_taxaclean_mass_cutoff |> 
   mutate(obs_num = row_number())
 ```
 
@@ -66,20 +80,6 @@ ggplot(biomass_wobs, aes(x = dm_g, y = obs_num, label = obs_num)) +
   geom_point(colour = "white") +
   geom_text() + 
   theme_bw()         
-```
-
-### By species
-
-Compute z scores for dm and wm for each species 
-```{r}
-# Compute SD and Mean
-biomass_wobs_z |> 
-  group_by(taxa_clean) |> 
-  summarise(sp_n = n(),
-            sp_mean_dm = mean(dm_g,na.rm = TRUE),
-            sp_sd_dm = sd(dm_g, na.rm = TRUE))
-
-
 ```
 
 
@@ -111,6 +111,41 @@ ggplot(biomass_wobs_z, aes(x = z_dm, y = obs_num, label = obs_num)) +
   geom_vline(xintercept = sd_dm*3, colour = "yellow") 
 
 summary(biomass_wobs_z$z_dm)
+```
+
+### By species
+
+Compute z scores for dm and wm for each species 
+```{r}
+
+biomass_wobs_z <- biomass_wobs |>  
+  group_by(taxa_clean) |> 
+            mutate(z_dm = scale(dm_g, center = TRUE, scale = TRUE),
+            z_wm = scale(wm_g, center = TRUE, scale = TRUE))
+
+biomass_wobs_z |> ggplot(aes(x = z_dm, y = obs_num, label = obs_num)) +
+  facet_wrap(~ taxa_clean, scale = "free") +
+  geom_point(colour = "white") +
+  geom_text() + 
+  geom_vline(xintercept = 3, colour = "orange")
+
+biomass_wobs_z |> ggplot(aes(x = z_wm, y = obs_num, label = obs_num)) +
+  facet_wrap(~ taxa_clean, scale = "free") +
+  geom_point(colour = "white") +
+  geom_text() + 
+  geom_vline(xintercept = 3, colour = "orange")
+```
+
+## Percentiles
+```{r}
+
+biomass_percentiles <- biomass_wobs_z |>  
+  summarize("wm_2.5_percentile" = quantile(wm_g, 0.025, na.rm = TRUE),
+            "wm_97.5_percentile" = quantile(wm_g, 0.975, na.rm = TRUE),
+            "dm_2.5_percentile" = quantile(dm_g, 0.025, na.rm = TRUE),
+            "dm_97.5_percentile" = quantile(dm_g, 0.975, na.rm = TRUE))
+biomass_percentiles
+         
 ```
 
 ## Cooks Distance
