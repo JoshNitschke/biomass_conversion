@@ -136,7 +136,7 @@ biomass_wobs_z |> ggplot(aes(x = z_wm, y = obs_num, label = obs_num)) +
   geom_vline(xintercept = 3, colour = "orange")
 ```
 
-## Percentiles
+## Percentiles (2.5 and 97.5)
 ```{r}
 
 biomass_percentiles <- biomass_wobs_z |>  
@@ -146,6 +146,29 @@ biomass_percentiles <- biomass_wobs_z |>
             "dm_97.5_percentile" = quantile(dm_g, 0.975, na.rm = TRUE))
 biomass_percentiles
          
+biomass_frozen_outliers_removed <- biomass_wobs_z |>
+ mutate(wm_g_trimmed = ifelse(wm_g >= quantile(wm_g, 0.025, na.rm = TRUE) & wm_g <= quantile(wm_g, 0.975, na.rm = TRUE), wm_g, NA),
+        dm_g_trimmed = ifelse(dm_g >= quantile(dm_g, 0.025, na.rm = TRUE) & dm_g <= quantile(dm_g, 0.975, na.rm = TRUE), dm_g, NA))
+
+#trying to check if trimming worked properly
+biomass_frozen_outliers_removed |>
+  summarize(wm_g_min = min(wm_g, na.rm = TRUE),
+            wm_g_max = max(wm_g, na.rm = TRUE),
+            wm_g_trimmed_min = min(wm_g_trimmed, na.rm = TRUE),
+            wm_g_trimmed_max = max(wm_g_trimmed, na.rm = TRUE))
+
+# testing more efficient method of above
+biomass_frozen_outliers_removed |>
+  summarize_at(vars("wm_g", "wm_g_trimmed"), funs(min = min(., na.rm = TRUE),
+            max = max(., na.rm = TRUE)))
+
+biomass_frozen_outliers_removed|>
+  summarise(wm_g_trimmed_na = sum(is.na(wm_g_trimmed)),
+            wm_g_trimmed_na_pct = sum(is.na(wm_g_trimmed))/n(),
+            dm_g_trimmed_na = sum(is.na(dm_g_trimmed)),
+            dm_g_trimmed_na_pct = sum(is.na(dm_g_trimmed))/n()) |>
+  print(n = 30)
+               
 ```
 
 ## Cooks Distance
