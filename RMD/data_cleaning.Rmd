@@ -14,6 +14,7 @@ library(smatr)
 library(janitor)
 library(skimr)
 library(gridExtra)
+library(olsrr)
 ```
 
 
@@ -108,13 +109,13 @@ biomass_wobs_z |>
 ggplot(biomass_wobs_z, aes(x = z_dm, y = obs_num, label = obs_num)) +
   geom_point(colour = "white") +
   geom_text() + 
-  geom_vline(xintercept = sd_dm*3, colour = "yellow") 
+  geom_vline(xintercept = sd_dm*3, colour = "yellow") #After looking into z scores more, it seems like standard deviations is their unit, so the vline can be placed at 3 rather than 3*sd's of dm
 
 summary(biomass_wobs_z$z_dm)
 ```
 
 ### By species
-
+## Z scores
 Compute z scores for dm and wm for each species 
 ```{r}
 
@@ -146,23 +147,24 @@ biomass_percentiles <- biomass_wobs_z |>
             "dm_97.5_percentile" = quantile(dm_g, 0.975, na.rm = TRUE))
 biomass_percentiles
          
-biomass_frozen_outliers_removed <- biomass_wobs_z |>
+biomass_frozen_percentiles_removed <- biomass_wobs_z |>
  mutate(wm_g_trimmed = ifelse(wm_g >= quantile(wm_g, 0.025, na.rm = TRUE) & wm_g <= quantile(wm_g, 0.975, na.rm = TRUE), wm_g, NA),
         dm_g_trimmed = ifelse(dm_g >= quantile(dm_g, 0.025, na.rm = TRUE) & dm_g <= quantile(dm_g, 0.975, na.rm = TRUE), dm_g, NA))
 
 #trying to check if trimming worked properly
-biomass_frozen_outliers_removed |>
+biomass_frozen_percentiles_removed |>
   summarize(wm_g_min = min(wm_g, na.rm = TRUE),
             wm_g_max = max(wm_g, na.rm = TRUE),
             wm_g_trimmed_min = min(wm_g_trimmed, na.rm = TRUE),
             wm_g_trimmed_max = max(wm_g_trimmed, na.rm = TRUE))
 
 # testing more efficient method of above
-biomass_frozen_outliers_removed |>
+biomass_frozen_percentiles_removed |>
   summarize_at(vars("wm_g", "wm_g_trimmed"), funs(min = min(., na.rm = TRUE),
             max = max(., na.rm = TRUE)))
 
-biomass_frozen_outliers_removed|>
+# still trying to check if trimming worked properly
+biomass_frozen_percentiles_removed|>
   summarise(wm_g_trimmed_na = sum(is.na(wm_g_trimmed)),
             wm_g_trimmed_na_pct = sum(is.na(wm_g_trimmed))/n(),
             dm_g_trimmed_na = sum(is.na(dm_g_trimmed)),
@@ -176,6 +178,37 @@ biomass_frozen_outliers_removed|>
 Cook statistic in linear regression
 
 ```{r}
+#OLS regression of dm~wm for Amphipoda
+amphipoda_ols_data <- biomass_frozen_percentiles_removed |>
+  filter(taxa_clean == "Amphipoda")
+
+amphipoda_ols <- lm(dm_g~wm_g, data = amphipoda_ols_data)
+summary(amphipoda_ols)
+
+ggplot(amphipoda_ols, aes(x = dm_g, y= wm_g)) +
+  geom_point(alpha = 0.50) + stat_smooth(method = "lm")
+
+#cook's distance based on the OLS regression
+cooks.distance(amphipoda_ols)
+
+#filtering outliers based on threshold value of cook's D, i.e. critical value from F distribution, as per Aguinis et al. (2013)  
+biomass_frozen_outliers_amphipoda <- biomass_frozen_percentiles_removed |>
+  filter(taxa_clean == "Amphipoda") |>
+  mutate(cooks_d = cooks.distance(amphipoda_ols)) |>
+  filter(cooks_d >= qf(0.5, 2, 224, lower.tail = FALSE))
+biomass_frozen_outliers_amphipoda |>
+  select(wm_g, dm_g, cooks_d)
+
+biomass_frozen_outliers_removed_amphipoda <- biomass_frozen_percentiles_removed |>
+  filter(taxa_clean == "Amphipoda") |>
+  mutate(cooks_d = cooks.distance(amphipoda_ols)) |>
+  filter(cooks_d < qf(0.5, 2, 224, lower.tail = FALSE))
+biomass_frozen_outliers_removed_amphipoda |>
+  select(wm_g, dm_g, cooks_d) |>
+  arrange(desc(cooks_d))
+
+#plot of cook's D
+ols_plot_cooksd_bar(amphipoda_ols)
 
 ```
 
