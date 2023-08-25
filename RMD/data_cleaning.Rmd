@@ -118,11 +118,17 @@ summary(biomass_wobs_z$z_dm)
 ## Z scores
 Compute z scores for dm and wm for each species 
 ```{r}
-
 biomass_wobs_z <- biomass_wobs |>  
   group_by(taxa_clean) |> 
             mutate(z_dm = scale(dm_g, center = TRUE, scale = TRUE),
             z_wm = scale(wm_g, center = TRUE, scale = TRUE))
+
+### Generally good practice to ungroup() after group_by()
+# biomass_wobs |>  
+#   group_by(taxa_clean) |> 
+#             mutate(z_dm = scale(dm_g, center = TRUE, scale = TRUE),
+#             z_wm = scale(wm_g, center = TRUE, scale = TRUE)) |> 
+#   ungroup()
 
 biomass_wobs_z |> ggplot(aes(x = z_dm, y = obs_num, label = obs_num)) +
   facet_wrap(~ taxa_clean, scale = "free") +
@@ -141,15 +147,29 @@ biomass_wobs_z |> ggplot(aes(x = z_wm, y = obs_num, label = obs_num)) +
 ```{r}
 
 biomass_percentiles <- biomass_wobs_z |>  
+  group_by(taxa_clean) |> 
   summarize("wm_2.5_percentile" = quantile(wm_g, 0.025, na.rm = TRUE),
             "wm_97.5_percentile" = quantile(wm_g, 0.975, na.rm = TRUE),
             "dm_2.5_percentile" = quantile(dm_g, 0.025, na.rm = TRUE),
             "dm_97.5_percentile" = quantile(dm_g, 0.975, na.rm = TRUE))
 biomass_percentiles
-         
-biomass_frozen_percentiles_removed <- biomass_wobs_z |>
+
+biomass_frozen_percentiles_removed <- 
+  biomass_wobs_z |>
  mutate(wm_g_trimmed = ifelse(wm_g >= quantile(wm_g, 0.025, na.rm = TRUE) & wm_g <= quantile(wm_g, 0.975, na.rm = TRUE), wm_g, NA),
         dm_g_trimmed = ifelse(dm_g >= quantile(dm_g, 0.025, na.rm = TRUE) & dm_g <= quantile(dm_g, 0.975, na.rm = TRUE), dm_g, NA))
+
+# Checking for peace of mind
+  biomass_wobs_z |>
+ mutate(wm_g_trimmed = ifelse(wm_g >= quantile(wm_g, 0.025, na.rm = TRUE) & wm_g <= quantile(wm_g, 0.975, na.rm = TRUE), wm_g, NA),
+        dm_g_trimmed = ifelse(dm_g >= quantile(dm_g, 0.025, na.rm = TRUE) & dm_g <= quantile(dm_g, 0.975, na.rm = TRUE), dm_g, NA),
+        quantile_2_5_wm = quantile(wm_g, 0.025, na.rm = TRUE),
+        quantile_97_5_wm = quantile(wm_g, 0.975, na.rm = TRUE),
+        quantile_2_5_dm = quantile(dm_g, 0.025, na.rm = TRUE),
+        quantile_97_5_dm = quantile(dm_g, 0.975, na.rm = TRUE)) |> 
+  select(taxa_clean, wm_g_trimmed, dm_g_trimmed, starts_with("quantile")) |> 
+    arrange(taxa_clean) |> 
+    View()
 
 #trying to check if trimming worked properly
 biomass_frozen_percentiles_removed |>
@@ -170,6 +190,13 @@ biomass_frozen_percentiles_removed|>
             dm_g_trimmed_na = sum(is.na(dm_g_trimmed)),
             dm_g_trimmed_na_pct = sum(is.na(dm_g_trimmed))/n()) |>
   print(n = 30)
+
+
+# Which observations are removed by percentile method
+biomass_frozen_percentiles_removed |> 
+  ungroup() |> 
+  filter(is.na(wm_g_trimmed)) |> 
+  select(taxa_clean, wm_g, wm_g_trimmed, obs_num)
                
 ```
 
@@ -203,6 +230,9 @@ biomass_frozen_outliers_removed_amphipoda <- biomass_frozen_percentiles_removed 
   filter(taxa_clean == "Amphipoda") |>
   mutate(cooks_d = cooks.distance(amphipoda_ols)) |>
   filter(cooks_d < qf(0.5, 2, 224, lower.tail = FALSE))
+
+# amphipoda_ols$df.residual == 224
+
 biomass_frozen_outliers_removed_amphipoda |>
   select(wm_g, dm_g, cooks_d) |>
   arrange(desc(cooks_d))
@@ -210,5 +240,115 @@ biomass_frozen_outliers_removed_amphipoda |>
 #plot of cook's D
 ols_plot_cooksd_bar(amphipoda_ols)
 
+# Get 'our' observation number
+biomass_frozen_percentiles_removed |>
+  filter(taxa_clean == "Amphipoda") |>
+  mutate(cooks_d = cooks.distance(amphipoda_ols)) |>
+  filter(cooks_d > qf(0.5, 2, 224, lower.tail = FALSE)) |> 
+  select(taxa_clean, cooks_d, obs_num)
+```
+
+## Iterating over different taxa for Cook's Distance
+
+```{r}
+# install.package(c("purrr", "tidyr")
+library(purrr)
+library(tidyr)
+
+
+# Classic approach, splitting data into seperate lists
+classic_list_by_taxa <- split(biomass_frozen_percentiles_removed, biomass_frozen_percentiles_removed$taxa_clean)
+
+# or we can repeat ourselves
+biomass_frozen_percentiles_removed |> 
+  select(taxa_clean, wm_g, dm_g) |> 
+  filter(taxa_clean == "Simplisetia")
+
+# Tidier version is using nest
+taxa_nested <- biomass_frozen_percentiles_removed |> 
+  select(taxa_clean, wm_g, dm_g) |> 
+  nest(data = c(wm_g, dm_g)) |> 
+  print(n = 30)
+
+# ways of accessing nested data
+taxa_nested |> pluck("data", 1)
+simplisetia <- taxa_nested |> filter(taxa_clean == "Simplisetia") 
+simplisetia$data
+```
+
+### Introducing map() 
+
+```{r}
+taxa_lm <- taxa_nested |> 
+  mutate(lm_object = map(.x = data, # The input we want to iterate/ repeat processes on
+                         ~ lm(dm_g ~ wm_g, data = .x)) # The thing/action we need to do on each chunk)
+  )
+
+# Take a look
+taxa_lm |> pluck("lm_object", 1)
+```
+
+```{r}
+taxa_lm |> 
+  mutate(cooks_d = map(.x = lm_object,
+    ~ cooks.distance(.x)))
+  
+# Chaining your maps
+taxa_cook <- taxa_nested |> 
+  mutate(lm_object = map(.x = data, # The input we want to iterate/ repeat processes on
+                         ~ lm(dm_g ~ wm_g, data = .x)), # The thing/action we need to do on each chunk)
+         cooks_d = map(.x = lm_object, 
+                       ~ cooks.distance(.x)),
+         df_residual = map(.x = lm_object, 
+                       ~ .x$df.residual)
+         
+  )
+
+taxa_cook$df_residual
+```
+
+## Introducing map2
+
+```{r}
+  filter(cooks_d < qf(0.5, 2, 224, lower.tail = FALSE))
+
+taxa_lgl <- taxa_cook |> 
+  mutate(keep_data = map2(.x = cooks_d,
+                          .y = df_residual,
+                          ~.x < qf(0.5, 2, .y, lower.tail = FALSE))
+  )
+
+```
+
+## Unnesting time
+
+```{r}
+# Check your rows pre and post nest
+taxa_lgl |> 
+  select(data, keep_data) |> 
+  unnest(cols = c(data, keep_data)) |> 
+  nrow()
+
+nrow(biomass_frozen_percentiles_removed)
+
+taxa_unnested <- taxa_lgl |> 
+  select(data, keep_data) |> 
+  unnest(cols = c(data, keep_data)) 
+
+# Filter out values less than what was determined by cooks d
+taxa_unnested |> 
+  pull(keep_data) |> 
+  janitor::tabyl()
+
+taxa_unnested |> 
+  filter(keep_data == TRUE)
+
+```
+
+
+# Save the cleaned data
+
+```{r}
+write_csv(thing_you_want_tosave, here("data/processed/biomass_conversions_frozen_nooutliers.csv"))
 ```
 
