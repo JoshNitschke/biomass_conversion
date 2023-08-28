@@ -90,8 +90,8 @@ Z scores = (dm - mean(dm))/sd(dm)
 
 Make clevaland plot for each speices and plot where their 3SD is using geom_vline
 ```{r}
-mean_dm <- mean(biomass_wobs_z$dm_g, na.rm = TRUE)
-sd_dm <- sd(biomass_wobs_z$dm_g, na.rm = TRUE)
+mean_dm <- mean(biomass_wobs$dm_g, na.rm = TRUE)
+sd_dm <- sd(biomass_wobs$dm_g, na.rm = TRUE)
 
 
 biomass_wobs_z <- biomass_wobs  |> 
@@ -251,7 +251,7 @@ biomass_frozen_percentiles_removed |>
 ## Iterating over different taxa for Cook's Distance
 
 ```{r}
-# install.package(c("purrr", "tidyr")
+#install.packages(c("purrr", "tidyr"))
 library(purrr)
 library(tidyr)
 
@@ -300,47 +300,126 @@ taxa_cook <- taxa_nested |>
          cooks_d = map(.x = lm_object, 
                        ~ cooks.distance(.x)),
          df_residual = map(.x = lm_object, 
-                       ~ .x$df.residual)
-         
+                       ~ .x$df.residual),
+         leverage = map(.x = lm_object,
+                        ~ hatvalues(.x)),
+         n = map(.x = lm_object,
+                 ~ nrow(.x$model)),
+         predictors = map(.x = lm_object,
+                          ~length(coef(.x))-1),
+         alpha_tdist = map(.x = n,
+                           ~0.05/.x),
+         df_tdist = map2(.x = n,
+                         .y = predictors,
+                         ~.x-.y-1),
+         critical_t = map2(.x = alpha_tdist,
+                           .y = df_tdist,
+                           ~qt(.x/2, .y, lower.tail = FALSE, log.p = FALSE)),
+         stud_residual = map(.x = lm_object,
+                             ~rstudent(.x)),
+         dffits = map(.x = lm_object,
+                      ~dffits(.x)),
+         dffits_cutoff = map2(.x = n,
+                              .y = predictors,
+                              ~2*sqrt((.y+1)/.x)),
+         dfbetas = map(.x = lm_object,
+                       ~dfbetas(.x)),
+         dfbetas_cutoff = map(.x = n,
+                              ~2/sqrt(.x))
   )
 
-taxa_cook$df_residual
+taxa_cook$dfbetas_cutoff
+
+# (length(coef(lm_object))-1)      formula for no. of predictors 
 ```
 
 ## Introducing map2
 
 ```{r}
-  filter(cooks_d < qf(0.5, 2, 224, lower.tail = FALSE))
 
-taxa_lgl <- taxa_cook |> 
-  mutate(keep_data = map2(.x = cooks_d,
+taxa_lgl <- taxa_cook |> mutate(leverage_cutoff = map2(.x = lm_object,
+                                                      .y = n,
+                                                      ~ 2*((length(coef(.x))-1)+1)/.y)) |>
+  mutate(keep_data_cook = map2(.x = cooks_d,
                           .y = df_residual,
-                          ~.x < qf(0.5, 2, .y, lower.tail = FALSE))
-  )
+                          ~.x < qf(0.5, 2, .y, lower.tail = FALSE))) |>
+  mutate(keep_data_leverage = map2(.x = leverage,
+                         .y = leverage_cutoff,
+                         ~.x < .y)) |>
+  mutate(keep_data_stud_resid = map2(.x = stud_residual,
+                                     .y = critical_t,
+                                     ~.x < .y & .x > -.y)) |>
+  mutate(keep_data_dffits = map2(.x = dffits,
+                                 .y = dffits_cutoff,
+                                 ~.x < .y & .x > -.y)) |>
+  mutate(keep_data_dfbetas = map2(.x = dfbetas,
+                                  .y = dfbetas_cutoff,
+                                  ~.x < .y & .x > -.y))
 
+
+#Why does this return all zero's?
+taxa_lgl <- taxa_cook |> mutate(leverage_cutoff = map(.x = n,
+                                                      ~ 2*((length(coef(lm_object))-1)+1)/.x))
+taxa_lgl$leverage_cutoff
+#but this works?
+taxa_lgl <- taxa_cook |> mutate(leverage_cutoff = map2(.x = lm_object,
+                                                      .y = n,
+                                                      ~ 2*((length(coef(.x))-1)+1)/.y))
+taxa_lgl$stud_residual
+
+
+#Checking leverage value cutoff for Amphipoda
+2*((length(coef(amphipoda_ols))-1)+1)/226
+
+taxa_lgl |>
+  select(leverage, stud_residual, cooks_d, dffits, dfbetas, keep_data_cook, keep_data_leverage, keep_data_stud_resid, keep_data_dffits, keep_data_dfbetas, taxa_clean)|>
+  unnest(cols = leverage, stud_residual, cooks_d, dffits, dfbetas, keep_data_cook, keep_data_leverage, keep_data_stud_resid, keep_data_dffits, keep_data_dfbetas, taxa_clean) |>
+  filter(taxa_clean == "Amphipoda") |>
+  select(dfbetas, keep_data_dfbetas) |>
+  arrange(desc(dfbetas))|> print(n = Inf) |>
+  tabyl(keep_data_dfbetas)
+
+
+#trying some fancy shit
+#failed :'(
+x <- list(taxa_cook$leverage)
+y <- list(taxa_cook$n)
+z <- list(taxa_cook$predictors)
+taxa_lgl |> mutate(keep_data_leverage = pmap(list(x, y, z),
+                                             ~x < 2*(z+1)/y))
+
+                          
 ```
+
 
 ## Unnesting time
 
 ```{r}
 # Check your rows pre and post nest
-taxa_lgl |> 
-  select(data, keep_data) |> 
-  unnest(cols = c(data, keep_data)) |> 
+taxa_lgl |>
+  select(data, keep_data_cook, keep_data_leverage, keep_data_stud_resid, keep_data_dffits, keep_data_dfbetas) |> 
+  unnest(cols = c(data, keep_data_cook, keep_data_leverage, keep_data_stud_resid, keep_data_dffits, keep_data_dfbetas)) |> 
   nrow()
 
 nrow(biomass_frozen_percentiles_removed)
 
-taxa_unnested <- taxa_lgl |> 
-  select(data, keep_data) |> 
-  unnest(cols = c(data, keep_data)) 
+taxa_unnested <- taxa_lgl |>
+  select(data, keep_data_cook, keep_data_leverage, keep_data_stud_resid, keep_data_dffits, keep_data_dfbetas) |> 
+  unnest(cols = c(data, keep_data_cook, keep_data_leverage, keep_data_stud_resid, keep_data_dffits, keep_data_dfbetas)) 
 
 # Filter out values less than what was determined by cooks d
+taxa_unnested <- taxa_unnested |>
+  mutate(keep_data_wm_percentiles = ifelse(wm_g >= quantile(wm_g, 0.025, na.rm = TRUE) & wm_g <= quantile(wm_g, 0.975, na.rm = TRUE), TRUE, FALSE),
+        keep_data_dm_percentiles = ifelse(dm_g >= quantile(dm_g, 0.025, na.rm = TRUE) & dm_g <= quantile(dm_g, 0.975, na.rm = TRUE), TRUE, FALSE)) |>
+  mutate(keep_data = ifelse(keep_data_wm_percentiles == TRUE & keep_data_dm_percentiles == TRUE & keep_data_cook == TRUE & keep_data_leverage == TRUE & keep_data_stud_resid == TRUE & keep_data_dffits == TRUE & keep_data_dfbetas == TRUE, TRUE, FALSE)) 
+
 taxa_unnested |> 
   pull(keep_data) |> 
   janitor::tabyl()
 
-taxa_unnested |> 
+taxa_unnested$keep_data
+
+biomass_frozen_outliers_removed <- taxa_unnested |> 
   filter(keep_data == TRUE)
 
 ```
@@ -349,6 +428,6 @@ taxa_unnested |>
 # Save the cleaned data
 
 ```{r}
-write_csv(thing_you_want_tosave, here("data/processed/biomass_conversions_frozen_nooutliers.csv"))
+write_csv(biomass_frozen_outliers_removed, here("data/processed/biomass_conversions_frozen_nooutliers.csv"))
 ```
 
