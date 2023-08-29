@@ -358,14 +358,14 @@ taxa_lgl <- taxa_cook |> mutate(leverage_cutoff = map2(.x = lm_object,
 
 
 #Why does this return all zero's?
-taxa_lgl <- taxa_cook |> mutate(leverage_cutoff = map(.x = n,
-                                                      ~ 2*((length(coef(lm_object))-1)+1)/.x))
-taxa_lgl$leverage_cutoff
+#taxa_lgl <- taxa_cook |> mutate(leverage_cutoff = map(.x = n,
+#                                                      ~ #2*((length(coef(lm_object))-1)+1)/.x))
+#taxa_lgl$leverage_cutoff
 #but this works?
-taxa_lgl <- taxa_cook |> mutate(leverage_cutoff = map2(.x = lm_object,
-                                                      .y = n,
-                                                      ~ 2*((length(coef(.x))-1)+1)/.y))
-taxa_lgl$stud_residual
+# taxa_lgl <- taxa_cook |> mutate(leverage_cutoff = map2(.x = lm_object,
+#                                                       .y = n,
+#                                                       ~ 2*((length(coef(.x))-1)+1)/.y))
+# taxa_lgl$stud_residual
 
 
 #Checking leverage value cutoff for Amphipoda
@@ -378,16 +378,6 @@ taxa_lgl |>
   select(dfbetas, keep_data_dfbetas) |>
   arrange(desc(dfbetas))|> print(n = Inf) |>
   tabyl(keep_data_dfbetas)
-
-
-#trying some fancy shit
-#failed :'(
-x <- list(taxa_cook$leverage)
-y <- list(taxa_cook$n)
-z <- list(taxa_cook$predictors)
-taxa_lgl |> mutate(keep_data_leverage = pmap(list(x, y, z),
-                                             ~x < 2*(z+1)/y))
-
                           
 ```
 
@@ -407,17 +397,23 @@ taxa_unnested <- taxa_lgl |>
   select(data, keep_data_cook, keep_data_leverage, keep_data_stud_resid, keep_data_dffits, keep_data_dfbetas) |> 
   unnest(cols = c(data, keep_data_cook, keep_data_leverage, keep_data_stud_resid, keep_data_dffits, keep_data_dfbetas)) 
 
-# Filter out values less than what was determined by cooks d
+# checking separation of dfbetas values for intercept and slope
+taxa_unnested$keep_data_dfbetas
+keep_data_dfbetas_int <- taxa_unnested$keep_data_dfbetas[,1]
+keep_data_dfbetas_slope <- taxa_unnested$keep_data_dfbetas[,2]
+keep_data_dfbetas_int == keep_data_dfbetas_slope
+
+# Filter out values based on thresholds of outlier measures
 taxa_unnested <- taxa_unnested |>
+  mutate(keep_data_dfbetas_int = keep_data_dfbetas[,1], 
+         keep_data_dfbetas_slope = keep_data_dfbetas[,2]) |>
   mutate(keep_data_wm_percentiles = ifelse(wm_g >= quantile(wm_g, 0.025, na.rm = TRUE) & wm_g <= quantile(wm_g, 0.975, na.rm = TRUE), TRUE, FALSE),
         keep_data_dm_percentiles = ifelse(dm_g >= quantile(dm_g, 0.025, na.rm = TRUE) & dm_g <= quantile(dm_g, 0.975, na.rm = TRUE), TRUE, FALSE)) |>
-  mutate(keep_data = ifelse(keep_data_wm_percentiles == TRUE & keep_data_dm_percentiles == TRUE & keep_data_cook == TRUE & keep_data_leverage == TRUE & keep_data_stud_resid == TRUE & keep_data_dffits == TRUE & keep_data_dfbetas == TRUE, TRUE, FALSE)) 
+  mutate(keep_data = ifelse(keep_data_wm_percentiles == TRUE & keep_data_dm_percentiles == TRUE & keep_data_cook == TRUE & keep_data_leverage == TRUE & keep_data_stud_resid == TRUE & keep_data_dffits == TRUE & keep_data_dfbetas_int == TRUE & keep_data_dfbetas_slope == TRUE, TRUE, FALSE)) 
 
 taxa_unnested |> 
   pull(keep_data) |> 
   janitor::tabyl()
-
-taxa_unnested$keep_data
 
 biomass_frozen_outliers_removed <- taxa_unnested |> 
   filter(keep_data == TRUE)
