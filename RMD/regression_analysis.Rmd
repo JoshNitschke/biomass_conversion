@@ -1,0 +1,49 @@
+---
+title: "regression_analysis"
+author: "Josh Nitschke"
+date: "2023-08-31"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(here)
+library(smatr)
+library(janitor)
+library(skimr)
+library(gridExtra)
+library(olsrr)
+library(purrr)
+library(tidyr)
+```
+
+## read in processed data
+```{r}
+biomass_frozen_outliers_removed <- read_csv(here("data/processed/biomass_conversions_frozen_nooutliers.csv"))
+```
+
+## filtering out taxa with small sample size, then nesting data by taxa
+```{r}
+taxa_nested <- biomass_frozen_outliers_removed |> 
+  group_by(taxa_clean) |> 
+  filter (n() >= 10) |>
+  nest()
+
+```
+
+## running SMA's
+```{r}
+taxa_sma <- taxa_nested |> 
+  mutate(sma_object = map(.x = data,
+                         ~ sma(dm_g ~ wm_g, data = .x)))
+  )
+
+#testing with lm first
+lm_fun <- function(x, y){ggplot(taxa_sma, aes(x = .data[[x]], y= .data[[y]])) +
+  geom_point(alpha = 0.50) + stat_smooth(method = "lm")}
+  
+lm_fun(x = "wm_g", y = "dm_g")
+
+```
