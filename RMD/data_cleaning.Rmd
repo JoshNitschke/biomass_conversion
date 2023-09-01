@@ -416,7 +416,10 @@ taxa_unnested |>
   janitor::tabyl()
 
 biomass_frozen_outliers_removed <- taxa_unnested |> 
-  filter(keep_data == TRUE)
+  filter(keep_data == TRUE) |>
+  select(taxa_clean, wm_g, dm_g)
+
+biomass_frozen_outliers_removed
 
 ```
 
