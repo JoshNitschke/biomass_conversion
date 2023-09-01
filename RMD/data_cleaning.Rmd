@@ -288,6 +288,8 @@ taxa_lm <- taxa_nested |>
 taxa_lm |> pluck("lm_object", 1)
 ```
 
+Here we are generating [descriptive stats] for outlier detection and subseq
+
 ```{r}
 taxa_lm |> 
   mutate(cooks_d = map(.x = lm_object,
@@ -336,7 +338,6 @@ taxa_cook$dfbetas_cutoff
 ## Introducing map2
 
 ```{r}
-
 taxa_lgl <- taxa_cook |> mutate(leverage_cutoff = map2(.x = lm_object,
                                                       .y = n,
                                                       ~ 2*((length(coef(.x))-1)+1)/.y)) |>
@@ -358,8 +359,8 @@ taxa_lgl <- taxa_cook |> mutate(leverage_cutoff = map2(.x = lm_object,
 
 
 #Why does this return all zero's?
-#taxa_lgl <- taxa_cook |> mutate(leverage_cutoff = map(.x = n,
-#                                                      ~ #2*((length(coef(lm_object))-1)+1)/.x))
+# taxa_lgl <- taxa_cook |> mutate(leverage_cutoff = map(.x = n,
+#                                                      ~ 2*((length(coef(lm_object))-1)+1)/.x))
 #taxa_lgl$leverage_cutoff
 #but this works?
 # taxa_lgl <- taxa_cook |> mutate(leverage_cutoff = map2(.x = lm_object,
@@ -373,12 +374,11 @@ taxa_lgl <- taxa_cook |> mutate(leverage_cutoff = map2(.x = lm_object,
 
 taxa_lgl |>
   select(leverage, stud_residual, cooks_d, dffits, dfbetas, keep_data_cook, keep_data_leverage, keep_data_stud_resid, keep_data_dffits, keep_data_dfbetas, taxa_clean)|>
-  unnest(cols = leverage, stud_residual, cooks_d, dffits, dfbetas, keep_data_cook, keep_data_leverage, keep_data_stud_resid, keep_data_dffits, keep_data_dfbetas, taxa_clean) |>
+  unnest(cols = c(leverage, stud_residual, cooks_d, dffits, dfbetas, keep_data_cook, keep_data_leverage, keep_data_stud_resid, keep_data_dffits, keep_data_dfbetas, taxa_clean)) |>
   filter(taxa_clean == "Amphipoda") |>
   select(dfbetas, keep_data_dfbetas) |>
   arrange(desc(dfbetas))|> print(n = Inf) |>
   tabyl(keep_data_dfbetas)
-                          
 ```
 
 
@@ -421,6 +421,64 @@ biomass_frozen_outliers_removed <- taxa_unnested |>
 
 biomass_frozen_outliers_removed
 
+
+### A possible alternative but not as good as yours! because u can't check the remaining FALSEs
+taxa_unnested |> 
+  mutate(keep_data_dfbetas_int = keep_data_dfbetas[,1], 
+         keep_data_dfbetas_slope = keep_data_dfbetas[,2]) |>
+  mutate(keep_data_wm_percentiles = ifelse(wm_g >= quantile(wm_g, 0.025, na.rm = TRUE) & wm_g <= quantile(wm_g, 0.975, na.rm = TRUE), TRUE, FALSE),
+         keep_data_dm_percentiles = ifelse(dm_g >= quantile(dm_g, 0.025, na.rm = TRUE) & dm_g <= quantile(dm_g, 0.975, na.rm = TRUE), TRUE, FALSE)) |>
+  filter(keep_data_wm_percentiles == TRUE & keep_data_dm_percentiles == TRUE & keep_data_cook == TRUE & keep_data_leverage == TRUE & keep_data_stud_resid == TRUE & keep_data_dffits == TRUE & keep_data_dfbetas_int == TRUE & keep_data_dfbetas_slope == TRUE) 
+```
+
+### Get a summary table of counts for all outlier methods 
+```{r}
+# Get n for each taxa
+taxa_lgl |>
+  select(n) |> 
+  unnest() |> 
+  print(n = Inf)
+
+# The NAs are ok!
+taxa_unnested |> 
+  ungroup() |> 
+  filter(is.na(keep_data_cook))
+  #colSums(na.rm = )
+
+# Hacky
+taxa_unnested |> 
+  ungroup() |> 
+  select(starts_with("keep")) |> 
+  colSums(na.rm = TRUE) # Sums all the TRUES in each column
+
+# Wrangling way
+long_data <- taxa_unnested |> 
+  ungroup() |> 
+  select(-c(keep_data_dfbetas)) |> 
+  pivot_longer(starts_with("keep"), names_to = "outlier_method") 
+
+# Summary of counts
+long_data |> 
+  group_by(outlier_method) |> 
+  summarise(n = n(),
+            n_FALSE = length(which(value == FALSE)),
+            n_TRUE = length(which(value == TRUE)),
+            n_NA = length(which(is.na(value))),
+            n_add_check = n_FALSE + n_TRUE + n_NA
+  )
+
+# Treating as numeric TRUE becomes 1 FALSE becomes 0
+# Then we spcify condition == 0 means identifying the false ones
+# Wrapping which around the identified values, tells us the index/observation number of the ones we've identified
+long_data$value
+as.numeric(long_data$value)
+as.numeric(long_data$value) == 0
+
+which(as.numeric(long_data$value) == 0)
+
+length(long_data$value)
+
+length(which(as.numeric(long_data$value) == 0))
 ```
 
 
