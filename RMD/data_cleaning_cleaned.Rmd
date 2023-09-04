@@ -15,6 +15,8 @@ library(janitor)
 library(skimr)
 library(gridExtra)
 library(olsrr)
+
+source(here("R/func/min_cutoff.R"))
 ```
 
 
@@ -25,14 +27,21 @@ biomass_data_taxaclean <- read_csv(here("data/processed/biomass_data_cleannames.
 ## setting minimum mass cut-off (due to higher proportional measurement error at very small mass values)
 
 ```{r}
-#biomass_data_taxaclean_mass_cutoff <- 
+
   
 tabyl(biomass_data_taxaclean$taxa_clean)
-biomass_data_taxaclean |>
+biomass_data_taxaclean_mass_cutoff <- biomass_data_taxaclean |>
     filter(wm_g >= 0.001, dm_g >=0.001, afdm_g >=0.001, wm_g >= dm_g, dm_g >= afdm_g) |>
   select(source, taxa_clean, preservation_method, wm_g, dm_g, afdm_g) |>
   print(n = Inf)
 ```
+
+```{r}
+min_cutoff(data = biomass_data_taxaclean, dm_g)
+
+```
+
+
 
 ## filter frozen samples only
 
@@ -62,7 +71,6 @@ ggplot(biomass_wobs, aes(x = dm_g, y = obs_num, label = obs_num)) +
 
 ## Percentiles (2.5 and 97.5)
 ```{r}
-
 biomass_percentiles <- biomass_wobs |>  
   group_by(taxa_clean) |> 
   summarize("wm_2.5_percentile" = quantile(wm_g, 0.025, na.rm = TRUE),
@@ -72,7 +80,7 @@ biomass_percentiles <- biomass_wobs |>
 biomass_percentiles
 
 biomass_frozen_percentiles_removed <- 
-  biomass_wobs_z |>
+  biomass_wobs |>
  mutate(wm_g_trimmed = ifelse(wm_g >= quantile(wm_g, 0.025, na.rm = TRUE) & wm_g <= quantile(wm_g, 0.975, na.rm = TRUE), wm_g, NA),
         dm_g_trimmed = ifelse(dm_g >= quantile(dm_g, 0.025, na.rm = TRUE) & dm_g <= quantile(dm_g, 0.975, na.rm = TRUE), dm_g, NA))
 
