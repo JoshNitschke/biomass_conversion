@@ -60,70 +60,10 @@ ggplot(biomass_wobs, aes(x = dm_g, y = obs_num, label = obs_num)) +
   theme_bw()         
 ```
 
-
-### Z score method
-
-Z scores = (dm - mean(dm))/sd(dm)
-
-Make clevaland plot for each speices and plot where their 3SD is using geom_vline
-```{r}
-mean_dm <- mean(biomass_wobs$dm_g, na.rm = TRUE)
-sd_dm <- sd(biomass_wobs$dm_g, na.rm = TRUE)
-
-
-biomass_wobs_z <- biomass_wobs  |> 
-  mutate(z_dm = scale(dm_g, center = TRUE, scale = TRUE),
-         centered_dm = scale(dm_g, center = TRUE, scale = FALSE),
-         manual_z_dm = (dm_g-mean_dm)/sd_dm,
-         manual_centered_dm = (dm_g-mean_dm)
-  )
-
-# An illustration of scale()
-biomass_wobs_z |> 
-  select(ends_with("dm"), -starts_with("af"))
-
-# A Clevaland plot
-ggplot(biomass_wobs_z, aes(x = z_dm, y = obs_num, label = obs_num)) +
-  geom_point(colour = "white") +
-  geom_text() + 
-  geom_vline(xintercept = sd_dm*3, colour = "yellow") #After looking into z scores more, it seems like standard deviations is their unit, so the vline can be placed at 3 rather than 3*sd's of dm
-
-summary(biomass_wobs_z$z_dm)
-```
-
-### By species
-## Z scores
-Compute z scores for dm and wm for each species 
-```{r}
-biomass_wobs_z <- biomass_wobs |>  
-  group_by(taxa_clean) |> 
-            mutate(z_dm = scale(dm_g, center = TRUE, scale = TRUE),
-            z_wm = scale(wm_g, center = TRUE, scale = TRUE))
-
-### Generally good practice to ungroup() after group_by()
-# biomass_wobs |>  
-#   group_by(taxa_clean) |> 
-#             mutate(z_dm = scale(dm_g, center = TRUE, scale = TRUE),
-#             z_wm = scale(wm_g, center = TRUE, scale = TRUE)) |> 
-#   ungroup()
-
-biomass_wobs_z |> ggplot(aes(x = z_dm, y = obs_num, label = obs_num)) +
-  facet_wrap(~ taxa_clean, scale = "free") +
-  geom_point(colour = "white") +
-  geom_text() + 
-  geom_vline(xintercept = 3, colour = "orange")
-
-biomass_wobs_z |> ggplot(aes(x = z_wm, y = obs_num, label = obs_num)) +
-  facet_wrap(~ taxa_clean, scale = "free") +
-  geom_point(colour = "white") +
-  geom_text() + 
-  geom_vline(xintercept = 3, colour = "orange")
-```
-
 ## Percentiles (2.5 and 97.5)
 ```{r}
 
-biomass_percentiles <- biomass_wobs_z |>  
+biomass_percentiles <- biomass_wobs |>  
   group_by(taxa_clean) |> 
   summarize("wm_2.5_percentile" = quantile(wm_g, 0.025, na.rm = TRUE),
             "wm_97.5_percentile" = quantile(wm_g, 0.975, na.rm = TRUE),
