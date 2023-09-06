@@ -1,6 +1,6 @@
 ---
 title: "R Notebook"
-output: html_notebook
+output: html_document
 editor_options: 
   chunk_output_type: console
 ---
@@ -15,8 +15,10 @@ library(janitor)
 library(skimr)
 library(gridExtra)
 library(olsrr)
+library(purrr)
+library(tidyr)
 
-source(here("R/func/min_cutoff.R"))
+#source(here("R/func/min_cutoff.R"))
 ```
 
 
@@ -41,8 +43,6 @@ min_cutoff(data = biomass_data_taxaclean, dm_g)
 
 ```
 
-
-
 ## filter frozen samples only
 
 ```{r}
@@ -57,183 +57,57 @@ biomass_wobs <- biomass_frozen_taxaclean_mass_cutoff |>
   mutate(obs_num = row_number())
 ```
 
-## Outliers
+## Identifying outlier candidates
 
-Obs: 5747, 3859
+Creating Cleveland plots for each taxa as a visual tool to help identify observations that are far-removed from the rest.
 
-```{r}
-# A Clevaland plot
-ggplot(biomass_wobs, aes(x = dm_g, y = obs_num, label = obs_num)) +
+```{r fig.height=15, fig.width=10}
+biomass_wobs |> ggplot(aes(x = wm_g, y = obs_num, label = obs_num)) +
+  facet_wrap(~ taxa_clean, ncol = 4, scale = "free") +
   geom_point(colour = "white") +
-  geom_text() + 
-  theme_bw()         
+  geom_text()
 ```
 
-## Percentiles (2.5 and 97.5)
+Percentage analysis - identifying top and bottom 2.5% of the data for each mass variable
+
 ```{r}
-biomass_percentiles <- biomass_wobs |>  
-  group_by(taxa_clean) |> 
-  summarize("wm_2.5_percentile" = quantile(wm_g, 0.025, na.rm = TRUE),
-            "wm_97.5_percentile" = quantile(wm_g, 0.975, na.rm = TRUE),
-            "dm_2.5_percentile" = quantile(dm_g, 0.025, na.rm = TRUE),
-            "dm_97.5_percentile" = quantile(dm_g, 0.975, na.rm = TRUE))
-biomass_percentiles
 
-biomass_frozen_percentiles_removed <- 
-  biomass_wobs |>
- mutate(wm_g_trimmed = ifelse(wm_g >= quantile(wm_g, 0.025, na.rm = TRUE) & wm_g <= quantile(wm_g, 0.975, na.rm = TRUE), wm_g, NA),
-        dm_g_trimmed = ifelse(dm_g >= quantile(dm_g, 0.025, na.rm = TRUE) & dm_g <= quantile(dm_g, 0.975, na.rm = TRUE), dm_g, NA))
-
-# Checking for peace of mind
-  biomass_wobs_z |>
- mutate(wm_g_trimmed = ifelse(wm_g >= quantile(wm_g, 0.025, na.rm = TRUE) & wm_g <= quantile(wm_g, 0.975, na.rm = TRUE), wm_g, NA),
-        dm_g_trimmed = ifelse(dm_g >= quantile(dm_g, 0.025, na.rm = TRUE) & dm_g <= quantile(dm_g, 0.975, na.rm = TRUE), dm_g, NA),
-        quantile_2_5_wm = quantile(wm_g, 0.025, na.rm = TRUE),
-        quantile_97_5_wm = quantile(wm_g, 0.975, na.rm = TRUE),
-        quantile_2_5_dm = quantile(dm_g, 0.025, na.rm = TRUE),
-        quantile_97_5_dm = quantile(dm_g, 0.975, na.rm = TRUE)) |> 
-  select(taxa_clean, wm_g_trimmed, dm_g_trimmed, starts_with("quantile")) |> 
-    arrange(taxa_clean) |> 
-    View()
-
-#trying to check if trimming worked properly
-biomass_frozen_percentiles_removed |>
-  summarize(wm_g_min = min(wm_g, na.rm = TRUE),
-            wm_g_max = max(wm_g, na.rm = TRUE),
-            wm_g_trimmed_min = min(wm_g_trimmed, na.rm = TRUE),
-            wm_g_trimmed_max = max(wm_g_trimmed, na.rm = TRUE))
-
-# testing more efficient method of above
-biomass_frozen_percentiles_removed |>
-  summarize_at(vars("wm_g", "wm_g_trimmed"), funs(min = min(., na.rm = TRUE),
-            max = max(., na.rm = TRUE)))
-
-# still trying to check if trimming worked properly
-biomass_frozen_percentiles_removed|>
-  summarise(wm_g_trimmed_na = sum(is.na(wm_g_trimmed)),
-            wm_g_trimmed_na_pct = sum(is.na(wm_g_trimmed))/n(),
-            dm_g_trimmed_na = sum(is.na(dm_g_trimmed)),
-            dm_g_trimmed_na_pct = sum(is.na(dm_g_trimmed))/n()) |>
-  print(n = 30)
-
-
-# Which observations are removed by percentile method
-biomass_frozen_percentiles_removed |> 
+biomass_frozen_percentiles <- biomass_wobs |>
+  mutate(keep_data_wm_percentiles = ifelse(wm_g >= quantile(wm_g, 0.025, na.rm = TRUE) & wm_g <= quantile(wm_g, 0.975, na.rm = TRUE), TRUE, FALSE),
+        keep_data_dm_percentiles = ifelse(dm_g >= quantile(dm_g, 0.025, na.rm = TRUE) & dm_g <= quantile(dm_g, 0.975, na.rm = TRUE), TRUE, FALSE))
+  
+# Which observations are identified by the percentile method
+biomass_frozen_percentiles |> 
   ungroup() |> 
-  filter(is.na(wm_g_trimmed)) |> 
-  select(taxa_clean, wm_g, wm_g_trimmed, obs_num)
+  filter(keep_data_wm_percentiles == FALSE) |> 
+  select(taxa_clean, wm_g, keep_data_wm_percentiles, obs_num) |>
+  print(n = Inf)
                
 ```
 
-## Cooks Distance
-
-Cook statistic in linear regression
+Here we are calculating measures of outlyingness and associated cutoff values for outlier identification
 
 ```{r}
-#OLS regression of dm~wm for Amphipoda
-amphipoda_ols_data <- biomass_frozen_percentiles_removed |>
-  filter(taxa_clean == "Amphipoda")
-
-amphipoda_ols <- lm(dm_g~wm_g, data = amphipoda_ols_data)
-summary(amphipoda_ols)
-
-ggplot(amphipoda_ols, aes(x = dm_g, y= wm_g)) +
-  geom_point(alpha = 0.50) + stat_smooth(method = "lm")
-
-#cook's distance based on the OLS regression
-cooks.distance(amphipoda_ols)
-
-#filtering outliers based on threshold value of cook's D, i.e. critical value from F distribution, as per Aguinis et al. (2013)  
-biomass_frozen_outliers_amphipoda <- biomass_frozen_percentiles_removed |>
-  filter(taxa_clean == "Amphipoda") |>
-  mutate(cooks_d = cooks.distance(amphipoda_ols)) |>
-  filter(cooks_d >= qf(0.5, 2, 224, lower.tail = FALSE))
-biomass_frozen_outliers_amphipoda |>
-  select(wm_g, dm_g, cooks_d)
-
-biomass_frozen_outliers_removed_amphipoda <- biomass_frozen_percentiles_removed |>
-  filter(taxa_clean == "Amphipoda") |>
-  mutate(cooks_d = cooks.distance(amphipoda_ols)) |>
-  filter(cooks_d < qf(0.5, 2, 224, lower.tail = FALSE))
-
-# amphipoda_ols$df.residual == 224
-
-biomass_frozen_outliers_removed_amphipoda |>
-  select(wm_g, dm_g, cooks_d) |>
-  arrange(desc(cooks_d))
-
-#plot of cook's D
-ols_plot_cooksd_bar(amphipoda_ols)
-
-# Get 'our' observation number
-biomass_frozen_percentiles_removed |>
-  filter(taxa_clean == "Amphipoda") |>
-  mutate(cooks_d = cooks.distance(amphipoda_ols)) |>
-  filter(cooks_d > qf(0.5, 2, 224, lower.tail = FALSE)) |> 
-  select(taxa_clean, cooks_d, obs_num)
-```
-
-## Iterating over different taxa for Cook's Distance
-
-```{r}
-#install.packages(c("purrr", "tidyr"))
-library(purrr)
-library(tidyr)
-
-
-# Classic approach, splitting data into seperate lists
-classic_list_by_taxa <- split(biomass_frozen_percentiles_removed, biomass_frozen_percentiles_removed$taxa_clean)
-
-# or we can repeat ourselves
-biomass_frozen_percentiles_removed |> 
+#nesting by taxa
+taxa_nested <- biomass_frozen_percentiles |> 
   select(taxa_clean, wm_g, dm_g) |> 
-  filter(taxa_clean == "Simplisetia")
-
-# Tidier version is using nest
-taxa_nested <- biomass_frozen_percentiles_removed |> 
-  select(taxa_clean, wm_g, dm_g) |> 
-  nest(data = c(wm_g, dm_g)) |> 
-  print(n = 30)
-
-# ways of accessing nested data
-taxa_nested |> pluck("data", 1)
-simplisetia <- taxa_nested |> filter(taxa_clean == "Simplisetia") 
-simplisetia$data
-```
-
-### Introducing map() 
-
-```{r}
-taxa_lm <- taxa_nested |> 
-  mutate(lm_object = map(.x = data, # The input we want to iterate/ repeat processes on
-                         ~ lm(dm_g ~ wm_g, data = .x)) # The thing/action we need to do on each chunk)
-  )
-
-# Take a look
-taxa_lm |> pluck("lm_object", 1)
-```
-
-Here we are generating [descriptive stats] for outlier detection and subseq
-
-```{r}
-taxa_lm |> 
-  mutate(cooks_d = map(.x = lm_object,
-    ~ cooks.distance(.x)))
+  nest(data = c(wm_g, dm_g))
   
 # Chaining your maps
-taxa_cook <- taxa_nested |> 
-  mutate(lm_object = map(.x = data, # The input we want to iterate/ repeat processes on
-                         ~ lm(dm_g ~ wm_g, data = .x)), # The thing/action we need to do on each chunk)
-         cooks_d = map(.x = lm_object, 
-                       ~ cooks.distance(.x)),
-         df_residual = map(.x = lm_object, 
-                       ~ .x$df.residual),
-         leverage = map(.x = lm_object,
-                        ~ hatvalues(.x)),
+taxa_nested_outlier_measures <- taxa_nested |> 
+  mutate(lm_object = map(.x = data,
+                         ~ lm(dm_g ~ wm_g, data = .x)),
          n = map(.x = lm_object,
                  ~ nrow(.x$model)),
          predictors = map(.x = lm_object,
                           ~length(coef(.x))-1),
+         leverage = map(.x = lm_object,
+                        ~ hatvalues(.x)),
+         leverage_cutoff = map2(.x = predictors,
+                           .y = n,
+                           ~ 2*(.x+1)/.y),
+         stud_residual = map(.x = lm_object,
+                             ~rstudent(.x)),
          alpha_tdist = map(.x = n,
                            ~0.05/.x),
          df_tdist = map2(.x = n,
@@ -242,8 +116,11 @@ taxa_cook <- taxa_nested |>
          critical_t = map2(.x = alpha_tdist,
                            .y = df_tdist,
                            ~qt(.x/2, .y, lower.tail = FALSE, log.p = FALSE)),
-         stud_residual = map(.x = lm_object,
-                             ~rstudent(.x)),
+         cooks_d = map(.x = lm_object, 
+                       ~ cooks.distance(.x)),
+         cooks_d_cutoff = map2(.x = predictors,
+                          .y = n,
+                          ~qf(0.5, .x+1, .y-.x-1, lower.tail = FALSE)),
          dffits = map(.x = lm_object,
                       ~dffits(.x)),
          dffits_cutoff = map2(.x = n,
@@ -255,26 +132,21 @@ taxa_cook <- taxa_nested |>
                               ~2/sqrt(.x))
   )
 
-taxa_cook$dfbetas_cutoff
-
-# (length(coef(lm_object))-1)      formula for no. of predictors 
 ```
 
 ## Introducing map2
 
 ```{r}
-taxa_lgl <- taxa_cook |> mutate(leverage_cutoff = map2(.x = lm_object,
-                                                      .y = n,
-                                                      ~ 2*((length(coef(.x))-1)+1)/.y)) |>
-  mutate(keep_data_cook = map2(.x = cooks_d,
-                          .y = df_residual,
-                          ~.x < qf(0.5, 2, .y, lower.tail = FALSE))) |>
+taxa_nested_outliers_identified <- taxa_nested_outlier_measures |>
   mutate(keep_data_leverage = map2(.x = leverage,
                          .y = leverage_cutoff,
                          ~.x < .y)) |>
   mutate(keep_data_stud_resid = map2(.x = stud_residual,
                                      .y = critical_t,
                                      ~.x < .y & .x > -.y)) |>
+  mutate(keep_data_cook = map2(.x = cooks_d,
+                          .y = cooks_d_cutoff,
+                          ~.x < .y)) |>
   mutate(keep_data_dffits = map2(.x = dffits,
                                  .y = dffits_cutoff,
                                  ~.x < .y & .x > -.y)) |>
