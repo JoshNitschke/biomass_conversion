@@ -26,57 +26,64 @@ library(tidyr)
 biomass_data_taxaclean <- read_csv(here("data/processed/biomass_data_cleannames.csv"))
 ```
 
-## setting minimum mass cut-off (due to higher proportional measurement error at very small mass values)
+## Pre-cleaning the data
 
+setting minimum mass cut-off (due to higher proportional measurement error at very small mass values) and removing observations when wet mass is less than dry mass (considering these errors in measurement or recording)
 ```{r}
 
-  
-tabyl(biomass_data_taxaclean$taxa_clean)
 biomass_data_taxaclean_mass_cutoff <- biomass_data_taxaclean |>
-    filter(wm_g >= 0.001, dm_g >=0.001, afdm_g >=0.001, wm_g >= dm_g, dm_g >= afdm_g) |>
-  select(source, taxa_clean, preservation_method, wm_g, dm_g, afdm_g) |>
-  print(n = Inf)
-```
-
-```{r}
-min_cutoff(data = biomass_data_taxaclean, dm_g)
+   filter(wm_g >= 0.001, dm_g >=0.001, wm_g >= dm_g)
+ 
+  # filter(wm_g >= 0.001, dm_g >=0.001, afdm_g >=0.001, wm_g >= dm_g, dm_g >= afdm_g) |>
+  # select(source, taxa_clean, preservation_method, wm_g, dm_g, afdm_g) |>
+  # print(n = Inf)
 
 ```
 
-## filter frozen samples only
-
 ```{r}
+
+#min_cutoff(data = biomass_data_taxaclean, dm_g)
+
+```
+
+filtering frozen samples only
+```{r}
+
 biomass_frozen_taxaclean_mass_cutoff <- biomass_data_taxaclean_mass_cutoff |>
   filter(preservation_method == "Frozen")
+
 ```
 
-## Create observation number
-
+Creating observation number
 ```{r}
+
 biomass_wobs <- biomass_frozen_taxaclean_mass_cutoff |> 
   mutate(obs_num = row_number())
+
 ```
 
 ## Identifying outlier candidates
 
+### Cleveland Plots
 Creating Cleveland plots for each taxa as a visual tool to help identify observations that are far-removed from the rest.
-
 ```{r fig.height=15, fig.width=10}
+
 biomass_wobs |> ggplot(aes(x = wm_g, y = obs_num, label = obs_num)) +
   facet_wrap(~ taxa_clean, ncol = 4, scale = "free") +
   geom_point(colour = "white") +
   geom_text()
+
 ```
 
-Percentage analysis - identifying top and bottom 2.5% of the data for each mass variable
-
+### Percentage analysis 
+Identifying top and bottom 2.5% of the data for each mass variable
 ```{r}
 
 biomass_frozen_percentiles <- biomass_wobs |>
   mutate(keep_data_wm_percentiles = ifelse(wm_g >= quantile(wm_g, 0.025, na.rm = TRUE) & wm_g <= quantile(wm_g, 0.975, na.rm = TRUE), TRUE, FALSE),
         keep_data_dm_percentiles = ifelse(dm_g >= quantile(dm_g, 0.025, na.rm = TRUE) & dm_g <= quantile(dm_g, 0.975, na.rm = TRUE), TRUE, FALSE))
   
-# Which observations are identified by the percentile method
+# Checking which observations are identified by the percentile method
 biomass_frozen_percentiles |> 
   ungroup() |> 
   filter(keep_data_wm_percentiles == FALSE) |> 
@@ -85,15 +92,16 @@ biomass_frozen_percentiles |>
                
 ```
 
-Here we are calculating measures of outlyingness and associated cutoff values for outlier identification
-
+### Measures of outlyingness
+Calculating measures of outlyingness and associated cutoff values for outlier identification
 ```{r}
-#nesting by taxa
+
+#Nesting by taxa
 taxa_nested <- biomass_frozen_percentiles |> 
-  select(taxa_clean, wm_g, dm_g) |> 
-  nest(data = c(wm_g, dm_g))
+  select(taxa_clean, wm_g, dm_g, obs_num, keep_data_wm_percentiles, keep_data_dm_percentiles) |> 
+  nest(data = c(wm_g, dm_g, obs_num, keep_data_wm_percentiles, keep_data_dm_percentiles))
   
-# Chaining your maps
+#Calculating measures of outlyingness and associated cutoff values
 taxa_nested_outlier_measures <- taxa_nested |> 
   mutate(lm_object = map(.x = data,
                          ~ lm(dm_g ~ wm_g, data = .x)),
@@ -134,154 +142,84 @@ taxa_nested_outlier_measures <- taxa_nested |>
 
 ```
 
-## Introducing map2
-
+Creating logical vectors identifying which observations fall outside the cutoff value or range for each measure of outlyingness
 ```{r}
+
 taxa_nested_outliers_identified <- taxa_nested_outlier_measures |>
   mutate(keep_data_leverage = map2(.x = leverage,
                          .y = leverage_cutoff,
-                         ~.x < .y)) |>
-  mutate(keep_data_stud_resid = map2(.x = stud_residual,
+                         ~.x < .y),
+         keep_data_stud_resid = map2(.x = stud_residual,
                                      .y = critical_t,
-                                     ~.x < .y & .x > -.y)) |>
-  mutate(keep_data_cook = map2(.x = cooks_d,
+                                     ~.x < .y & .x > -.y),
+         keep_data_cook = map2(.x = cooks_d,
                           .y = cooks_d_cutoff,
-                          ~.x < .y)) |>
-  mutate(keep_data_dffits = map2(.x = dffits,
+                          ~.x < .y),
+         keep_data_dffits = map2(.x = dffits,
                                  .y = dffits_cutoff,
-                                 ~.x < .y & .x > -.y)) |>
-  mutate(keep_data_dfbetas = map2(.x = dfbetas,
+                                 ~.x < .y & .x > -.y),
+         keep_data_dfbetas = map2(.x = dfbetas,
                                   .y = dfbetas_cutoff,
                                   ~.x < .y & .x > -.y))
 
+```
 
-#Why does this return all zero's?
-# taxa_lgl <- taxa_cook |> mutate(leverage_cutoff = map(.x = n,
-#                                                      ~ 2*((length(coef(lm_object))-1)+1)/.x))
-#taxa_lgl$leverage_cutoff
-#but this works?
-# taxa_lgl <- taxa_cook |> mutate(leverage_cutoff = map2(.x = lm_object,
-#                                                       .y = n,
-#                                                       ~ 2*((length(coef(.x))-1)+1)/.y))
-# taxa_lgl$stud_residual
+Checking which observations of a particular taxa are identified by different measures of outlyingess
+```{r}
 
-
-#Checking leverage value cutoff for Amphipoda
-2*((length(coef(amphipoda_ols))-1)+1)/226
-
-taxa_lgl |>
-  select(leverage, stud_residual, cooks_d, dffits, dfbetas, keep_data_cook, keep_data_leverage, keep_data_stud_resid, keep_data_dffits, keep_data_dfbetas, taxa_clean)|>
-  unnest(cols = c(leverage, stud_residual, cooks_d, dffits, dfbetas, keep_data_cook, keep_data_leverage, keep_data_stud_resid, keep_data_dffits, keep_data_dfbetas, taxa_clean)) |>
+taxa_nested_outliers_identified |>
+  unnest(cols = c(data, leverage,
+  stud_residual, cooks_d, dffits,
+  dfbetas, keep_data_leverage, keep_data_stud_resid,
+  keep_data_cook, keep_data_dffits, keep_data_dfbetas)) |>
   filter(taxa_clean == "Amphipoda") |>
-  select(dfbetas, keep_data_dfbetas) |>
-  arrange(desc(dfbetas))|> print(n = Inf) |>
-  tabyl(keep_data_dfbetas)
+  select(leverage, keep_data_leverage, obs_num) |>
+  arrange(desc(leverage))|> print(n = Inf) |>
+  tabyl(keep_data_leverage)
+
 ```
 
-
-## Unnesting time
-
+Unnesting the data and consolidating all outlier candidates into one vector
 ```{r}
-# Check your rows pre and post nest
-taxa_lgl |>
-  select(data, keep_data_cook, keep_data_leverage, keep_data_stud_resid, keep_data_dffits, keep_data_dfbetas) |> 
-  unnest(cols = c(data, keep_data_cook, keep_data_leverage, keep_data_stud_resid, keep_data_dffits, keep_data_dfbetas)) |> 
-  nrow()
 
-nrow(biomass_frozen_percentiles_removed)
+taxa_unnested <- taxa_nested_outliers_identified |>
+  select(taxa_clean, data, keep_data_leverage, keep_data_stud_resid, keep_data_cook, keep_data_dffits, keep_data_dfbetas) |> 
+  unnest(cols = c(taxa_clean, data, keep_data_leverage, keep_data_stud_resid, keep_data_cook, keep_data_dffits, keep_data_dfbetas)) 
 
-taxa_unnested <- taxa_lgl |>
-  select(data, keep_data_cook, keep_data_leverage, keep_data_stud_resid, keep_data_dffits, keep_data_dfbetas) |> 
-  unnest(cols = c(data, keep_data_cook, keep_data_leverage, keep_data_stud_resid, keep_data_dffits, keep_data_dfbetas)) 
-
-# checking separation of dfbetas values for intercept and slope
-taxa_unnested$keep_data_dfbetas
-keep_data_dfbetas_int <- taxa_unnested$keep_data_dfbetas[,1]
-keep_data_dfbetas_slope <- taxa_unnested$keep_data_dfbetas[,2]
-keep_data_dfbetas_int == keep_data_dfbetas_slope
-
-# Filter out values based on thresholds of outlier measures
-taxa_unnested <- taxa_unnested |>
-  mutate(keep_data_dfbetas_int = keep_data_dfbetas[,1], 
+taxa_unnested_keep_data_merged <- taxa_unnested |>
+ # assigning dfbetas values for intercept and slope to separate vectors
+   mutate(keep_data_dfbetas_int = keep_data_dfbetas[,1], 
          keep_data_dfbetas_slope = keep_data_dfbetas[,2]) |>
-  mutate(keep_data_wm_percentiles = ifelse(wm_g >= quantile(wm_g, 0.025, na.rm = TRUE) & wm_g <= quantile(wm_g, 0.975, na.rm = TRUE), TRUE, FALSE),
-        keep_data_dm_percentiles = ifelse(dm_g >= quantile(dm_g, 0.025, na.rm = TRUE) & dm_g <= quantile(dm_g, 0.975, na.rm = TRUE), TRUE, FALSE)) |>
-  mutate(keep_data = ifelse(keep_data_wm_percentiles == TRUE & keep_data_dm_percentiles == TRUE & keep_data_cook == TRUE & keep_data_leverage == TRUE & keep_data_stud_resid == TRUE & keep_data_dffits == TRUE & keep_data_dfbetas_int == TRUE & keep_data_dfbetas_slope == TRUE, TRUE, FALSE)) 
+ # Consolidating all outlier candidates into one vector
+   mutate(keep_data = ifelse(keep_data_wm_percentiles == TRUE & keep_data_dm_percentiles == TRUE & keep_data_cook == TRUE & keep_data_leverage == TRUE & keep_data_stud_resid == TRUE & keep_data_dffits == TRUE & keep_data_dfbetas_int == TRUE & keep_data_dfbetas_slope == TRUE, TRUE, FALSE)) 
 
-taxa_unnested |> 
-  pull(keep_data) |> 
-  janitor::tabyl()
-
-biomass_frozen_outliers_removed <- taxa_unnested |> 
-  filter(keep_data == TRUE) |>
-  select(taxa_clean, wm_g, dm_g)
-
-biomass_frozen_outliers_removed
-
-
-### A possible alternative but not as good as yours! because u can't check the remaining FALSEs
-taxa_unnested |> 
-  mutate(keep_data_dfbetas_int = keep_data_dfbetas[,1], 
-         keep_data_dfbetas_slope = keep_data_dfbetas[,2]) |>
-  mutate(keep_data_wm_percentiles = ifelse(wm_g >= quantile(wm_g, 0.025, na.rm = TRUE) & wm_g <= quantile(wm_g, 0.975, na.rm = TRUE), TRUE, FALSE),
-         keep_data_dm_percentiles = ifelse(dm_g >= quantile(dm_g, 0.025, na.rm = TRUE) & dm_g <= quantile(dm_g, 0.975, na.rm = TRUE), TRUE, FALSE)) |>
-  filter(keep_data_wm_percentiles == TRUE & keep_data_dm_percentiles == TRUE & keep_data_cook == TRUE & keep_data_leverage == TRUE & keep_data_stud_resid == TRUE & keep_data_dffits == TRUE & keep_data_dfbetas_int == TRUE & keep_data_dfbetas_slope == TRUE) 
 ```
 
-### Get a summary table of counts for all outlier methods 
+### Getting a summary table of counts for all outlier methods 
 ```{r}
-# Get n for each taxa
-taxa_lgl |>
-  select(n) |> 
-  unnest() |> 
-  print(n = Inf)
 
-# The NAs are ok!
-taxa_unnested |> 
-  ungroup() |> 
-  filter(is.na(keep_data_cook))
-  #colSums(na.rm = )
-
-# Hacky
-taxa_unnested |> 
-  ungroup() |> 
-  select(starts_with("keep")) |> 
-  colSums(na.rm = TRUE) # Sums all the TRUES in each column
-
-# Wrangling way
-long_data <- taxa_unnested |> 
+long_data <- taxa_unnested_keep_data_merged |> 
   ungroup() |> 
   select(-c(keep_data_dfbetas)) |> 
   pivot_longer(starts_with("keep"), names_to = "outlier_method") 
 
-# Summary of counts
 long_data |> 
   group_by(outlier_method) |> 
   summarise(n = n(),
             n_FALSE = length(which(value == FALSE)),
             n_TRUE = length(which(value == TRUE)),
             n_NA = length(which(is.na(value))),
-            n_add_check = n_FALSE + n_TRUE + n_NA
+            n_add_check = n_FALSE + n_TRUE + n_NA,
+            percent_false_or_NA = (n_FALSE+n_NA)/(n_FALSE+n_TRUE+n_NA)*100
   )
 
-# Treating as numeric TRUE becomes 1 FALSE becomes 0
-# Then we spcify condition == 0 means identifying the false ones
-# Wrapping which around the identified values, tells us the index/observation number of the ones we've identified
-long_data$value
-as.numeric(long_data$value)
-as.numeric(long_data$value) == 0
-
-which(as.numeric(long_data$value) == 0)
-
-length(long_data$value)
-
-length(which(as.numeric(long_data$value) == 0))
 ```
 
-
-# Save the cleaned data
-
+# Save the data
 ```{r}
-write_csv(biomass_frozen_outliers_removed, here("data/processed/biomass_conversions_frozen_nooutliers.csv"))
+biomass_frozen_outliers_identified <- taxa_unnested_keep_data_merged |>
+  select(taxa_clean, wm_g, dm_g, keep_data)
+
+write_csv(biomass_frozen_outliers_identified, here("data/processed/biomass_frozen_outliers_identified.csv"))
 ```
 
