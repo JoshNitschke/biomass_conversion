@@ -72,7 +72,8 @@ step_3 |>
 
 
 ```{r}
-taxa_notenough_obs(step_3, taxa_clean)
+taxa_notenough_obs(step_3, taxa_clean) |> 
+  pull(taxa_clean) |> tabyl()
 ```
 
 ## Identifying outlier candidates
