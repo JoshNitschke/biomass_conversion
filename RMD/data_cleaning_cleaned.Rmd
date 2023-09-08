@@ -98,17 +98,26 @@ step_3 |> ggplot(aes(x = wm_g, y = obs_num, label = obs_num)) +
 Identifying top and bottom 2.5% of the data for each mass variable
 ```{r}
 
-biomass_frozen_percentiles <- biomass_wobs |>
-  mutate(keep_data_wm_percentiles = ifelse(wm_g >= quantile(wm_g, 0.025, na.rm = TRUE) & wm_g <= quantile(wm_g, 0.975, na.rm = TRUE), TRUE, FALSE),
-        keep_data_dm_percentiles = ifelse(dm_g >= quantile(dm_g, 0.025, na.rm = TRUE) & dm_g <= quantile(dm_g, 0.975, na.rm = TRUE), TRUE, FALSE))
+#biomass_frozen_percentiles <- biomass_wobs |>
+#  mutate(keep_data_wm_percentiles = ifelse(wm_g >= quantile(wm_g, 0.025, na.rm = TRUE) & wm_g <= quantile(wm_g, #0.975, na.rm = TRUE), TRUE, FALSE),
+#        keep_data_dm_percentiles = ifelse(dm_g >= quantile(dm_g, 0.025, na.rm = TRUE) & dm_g <= quantile(dm_g, #0.975, na.rm = TRUE), TRUE, FALSE))
+  
+biomass_percentiles <- function(mass_measure){
+  ifelse(mass_measure >= quantile(mass_measure, 0.025, na.rm = TRUE) 
+         & mass_measure <= quantile(mass_measure, 0.975, na.rm = TRUE), TRUE, FALSE)
+}
+
+biomass_frozen_percentiles <- step_3 |>
+  group_by(taxa_clean) |>
+  mutate(keep_data_mass1_percentiles = biomass_percentiles(wm_g),
+         keep_data_mass2_percentiles = biomass_percentiles(dm_g))
   
 # Checking which observations are identified by the percentile method
 biomass_frozen_percentiles |> 
-  ungroup() |> 
-  filter(keep_data_wm_percentiles == FALSE) |> 
-  select(taxa_clean, wm_g, keep_data_wm_percentiles, obs_num) |>
+  filter(keep_data_mass1_percentiles == FALSE) |> 
+  select(taxa_clean, wm_g, keep_data_mass1_percentiles, obs_num) |>
+  arrange(taxa_clean, wm_g) |>
   print(n = Inf)
-               
 ```
 
 ### Measures of outlyingness
@@ -159,6 +168,39 @@ taxa_nested_outlier_measures <- taxa_nested |>
                               ~2/sqrt(.x))
   )
 
+#testing the principle of filtering by taxa within a function
+taxa_filter <- function(preservation_method_data, taxon){
+  taxon <- rlang::parse_expr(taxon)
+  dplyr::filter(preservation_method_data, !!taxon)
+}
+
+taxa_filter(biomass_frozen_percentiles, "taxa_clean == 'Amphipoda'")
+
+#Trying to filter taxa within the function
+leverage <- function(preservation_method_data, taxon, mass_measure_1, mass_measure_2){
+  taxon <- rlang::parse_expr(taxon)
+  data <- dplyr::filter(preservation_method_data, !!taxon)
+  lm_object <- lm({{mass_measure_2}} ~ {{mass_measure_1}}, data = data)
+  leverage_values <- hatvalues(lm_object)
+  predictors <- length(coef(lm_object))-1
+  n <- nrow(lm_object$model)
+  leverage_cutoff <- 2*(predictors+1)/n
+  ifelse(leverage_values < leverage_cutoff, TRUE, FALSE)
+  }
+
+leverage(biomass_frozen_percentiles, "taxa_clean == 'Amphipoda'", wm_g, dm_g)
+
+# not worrying about taxa
+leverage <- function(preservation_method_data, mass_measure_1, mass_measure_2){
+  lm_object <- lm({{mass_measure_2}} ~ {{mass_measure_1}}, data = preservation_method_data)
+  leverage_values <- hatvalues(lm_object)
+  predictors <- length(coef(lm_object))-1
+  n <- nrow(lm_object$model)
+  leverage_cutoff <- 2*(predictors+1)/n
+  ifelse(leverage_values < leverage_cutoff, TRUE, FALSE)
+}
+
+leverage(biomass_frozen_percentiles, wm_g, dm_g)
 ```
 
 Creating logical vectors identifying which observations fall outside the cutoff value or range for each measure of outlyingness

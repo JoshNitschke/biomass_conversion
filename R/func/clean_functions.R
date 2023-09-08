@@ -2,7 +2,7 @@ library(tidyverse)
 library(rlang)
 library(janitor)
 
-#' Excludes values over a certain cut off
+#' Excludes values under a certain cutoff mass
 #'
 #' @param data 
 #' @param weight_measure_1 
@@ -38,7 +38,7 @@ min_cutoff <- function(data,
 # biomass_data_taxaclean |>
 #   filter(wm_g >= 0.001, dm_g >=0.001) |> nrow()
 
-#' Excluding light-heavier ones
+#' Excluding observations where dried samples are heavier than wet, or burnt are heavier than dried
 #'
 #' @param data
 #' @param heavier_weight_measure 
@@ -84,6 +84,16 @@ check_mass_diff <- function(data,  # Must not contain NAs for the two weight mea
 # lighter_weight_measure <- expr(dm_g)
 
 
+#' Removing taxa with less than 10 observations
+#'
+#' @param preserved_method_data 
+#' @param taxa_names 
+#'
+#' @return data including only taxa with at least 10 observations
+#'
+#' @examples
+#' taxa_notenough_obs(step_3, taxa_clean)
+
 taxa_notenough_obs <- function(preserved_method_data,
                                taxa_names){
   
@@ -105,6 +115,8 @@ taxa_notenough_obs <- function(preserved_method_data,
   
   return(output)
 }
+
+
 
 
 
