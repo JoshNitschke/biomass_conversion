@@ -18,19 +18,21 @@ library(olsrr)
 library(purrr)
 library(tidyr)
 
-#source(here("R/func/min_cutoff.R"))
+source(here("R/func/clean_functions.R"))
 ```
 
+# Read in data and create observation numer
 
 ```{r, warning=FALSE}
-biomass_data_taxaclean <- read_csv(here("data/processed/biomass_data_cleannames.csv"))
+biomass_data_taxaclean <-
+  read_csv(here("data/processed/biomass_data_cleannames.csv")) |> 
+  mutate(obs_num = row_number())
 ```
 
 ## Pre-cleaning the data
 
 setting minimum mass cut-off (due to higher proportional measurement error at very small mass values) and removing observations when wet mass is less than dry mass (considering these errors in measurement or recording)
 ```{r}
-
 biomass_data_taxaclean_mass_cutoff <- biomass_data_taxaclean |>
    filter(wm_g >= 0.001, dm_g >=0.001, wm_g >= dm_g)
  
@@ -41,25 +43,36 @@ biomass_data_taxaclean_mass_cutoff <- biomass_data_taxaclean |>
 ```
 
 ```{r}
-
-#min_cutoff(data = biomass_data_taxaclean, dm_g)
-
+step_1 <- min_cutoff(data = biomass_data_taxaclean, wm_g, dm_g)  
+step_2 <- check_mass_diff(step_1,  wm_g, dm_g)
 ```
 
 filtering frozen samples only
 ```{r}
-
-biomass_frozen_taxaclean_mass_cutoff <- biomass_data_taxaclean_mass_cutoff |>
+step_3 <- step_2 |>
   filter(preservation_method == "Frozen")
-
 ```
 
-Creating observation number
+filter taxa that have enough obs for analysis
+
+find taxa less than 10 obs
+
 ```{r}
+notenough_taxa <- step_3 |> 
+  group_by(taxa_clean) |> 
+  summarise(n = n()) |> 
+  filter(n < 10) |> 
+  pull(taxa_clean)
 
-biomass_wobs <- biomass_frozen_taxaclean_mass_cutoff |> 
-  mutate(obs_num = row_number())
+# Checking
+step_3 |> 
+    filter(! taxa_clean %in% notenough_taxa) |> 
+  pull(taxa_clean) |> tabyl()
+```
 
+
+```{r}
+taxa_notenough_obs(step_3, taxa_clean)
 ```
 
 ## Identifying outlier candidates
@@ -68,12 +81,17 @@ biomass_wobs <- biomass_frozen_taxaclean_mass_cutoff |>
 Creating Cleveland plots for each taxa as a visual tool to help identify observations that are far-removed from the rest.
 ```{r fig.height=15, fig.width=10}
 
-biomass_wobs |> ggplot(aes(x = wm_g, y = obs_num, label = obs_num)) +
+step_3 |> ggplot(aes(x = wm_g, y = obs_num, label = obs_num)) +
   facet_wrap(~ taxa_clean, ncol = 4, scale = "free") +
   geom_point(colour = "white") +
   geom_text()
 
 ```
+
+```{r}
+
+```
+
 
 ### Percentage analysis 
 Identifying top and bottom 2.5% of the data for each mass variable
