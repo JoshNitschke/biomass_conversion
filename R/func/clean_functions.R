@@ -117,10 +117,93 @@ taxa_notenough_obs <- function(preserved_method_data,
 }
 
 
+#' comparing leverage values to cutoff value, with inbuilt filter for taxa
+#'
+#' @param preservation_method_data 
+#' @param taxon 
+#' @param mass_measure_1 
+#' @param mass_measure_2 
+#'
+#' @return logical vector indicating TRUE where leverage value is under the cutoff value for outlier designation, otherwise FALSE
+#'
+#' @examples
+#' leverage_with_taxa(biomass_frozen_percentiles, "taxa_clean == 'Amphipoda'", "wm_g", "dm_g")
+
+leverage_with_taxa <- function(preservation_method_data, taxon, mass_measure_1, mass_measure_2){
+  # filtering for a particular taxon
+  taxon <- rlang::parse_expr(taxon)
+  data <- dplyr::filter(preservation_method_data, !!taxon)
+  
+  #running an OLS regression and calculating associated leverage values
+  lm_object <- lm(eval(as.name(mass_measure_2)) ~ eval(as.name(mass_measure_1)), data = data)
+  leverage_values <- hatvalues(lm_object)
+  
+  #calculating cutoff leverage value, based on Aguinis et al. (2013)
+  predictors <- length(coef(lm_object))-1
+  n <- nrow(lm_object$model)
+  leverage_cutoff <- 2*(predictors+1)/n
+  
+  #creating logical vector indicating whether leverage value is under the cutoff
+  output <- ifelse(leverage_values < leverage_cutoff, TRUE, FALSE)
+  return(output)
+}
 
 
+#' comparing leverage values to cutoff value
+#'
+#' @param preservation_method_data 
+#' @param mass_measure_1 
+#' @param mass_measure_2 
+#'
+#' @return logical vector indicating TRUE where leverage value is under the cutoff value for outlier designation, otherwise FALSE
+#'
+#' @examples
+#' keep_data_leverage(biomass_frozen_percentiles, "wm_g", "dm_g")
 
+keep_data_leverage <- function(preservation_method_data, mass_measure_1, mass_measure_2){
+  #running an OLS regression and calculating associated leverage values
+  lm_object <- lm(eval(as.name(mass_measure_2)) ~ eval(as.name(mass_measure_1)), data = preservation_method_data)
+  leverage_values <- hatvalues(lm_object)
+  
+  #calculating cutoff leverage value, based on Aguinis et al. (2013)
+  predictors <- length(coef(lm_object))-1
+  n <- nrow(lm_object$model)
+  leverage_cutoff <- 2*(predictors+1)/n
+  
+  #creating logical vector indicating whether leverage value is under the cutoff
+  output <- ifelse(leverage_values < leverage_cutoff, TRUE, FALSE)
+  return(output)
+}
 
+#' comparing studentized deleted residuals to cutoff value
+#'
+#' @param preservation_method_data 
+#' @param mass_measure_1 
+#' @param mass_measure_2 
+#'
+#' @return logical vector indicating TRUE where studentized deleted residuals are within the cutoff range for outlier candidate designation, otherwise FALSE
+#'
+#' @examples
+#' keep_data_stud_resid(biomass_frozen_percentiles, "wm_g", "dm_g")
+
+keep_data_stud_resid <- function(preservation_method_data, mass_measure_1, mass_measure_2){
+  #running an OLS regression and calculating associated studentized deleted residuals
+  lm_object <- lm(eval(as.name(mass_measure_2)) ~ eval(as.name(mass_measure_1)), data = preservation_method_data)
+  stud_resid <- rstudent(lm_object)
+  
+  #calculating cutoff value, based on Aguinis et al. (2013)
+  predictors <- length(coef(lm_object))-1
+  n <- nrow(lm_object$model)
+  alpha_tdist <- 0.05/n
+  df_tdist <- n-predictors-1
+  critical_t <- qt(alpha_tdist/2, df_tdist, lower.tail = FALSE, log.p = FALSE)
+  
+  #creating logical vector indicating whether leverage value is under the cutoff
+  output <- ifelse(stud_resid < critical_t & stud_resid > -critical_t, TRUE, FALSE)
+  return(output)
+}
 
 # https://dplyr.tidyverse.org/articles/programming.html#data-masking
 # https://brad-cannell.github.io/r_notes/tidy-evaluation.html
+# https://stackoverflow.com/questions/72356097/how-to-pass-dplyr-filter-a-character-vector-as-part-of-a-function
+# https://stackoverflow.com/questions/52856711/use-function-arguments-in-lm-formula-within-function-environment?rq=3
