@@ -166,13 +166,13 @@ leverage_with_taxa <- function(preservation_method_data, taxon, mass_measure_1, 
 }
 
 
-#' comparing leverage values to cutoff value
+#' comparing leverage values to cutoff value for outlier candidate designation
 #'
 #' @param preservation_method_data 
 #' @param mass_measure_1 
 #' @param mass_measure_2 
 #'
-#' @return logical vector indicating TRUE where leverage value is under the cutoff value for outlier designation, otherwise FALSE
+#' @return logical vector indicating TRUE where leverage value is under the cutoff value, otherwise FALSE
 #'
 #' @examples
 #' keep_data_leverage(biomass_frozen_percentiles, "wm_g", "dm_g")
@@ -215,8 +215,88 @@ keep_data_stud_resid <- function(preservation_method_data, mass_measure_1, mass_
   df_tdist <- n-predictors-1
   critical_t <- qt(alpha_tdist/2, df_tdist, lower.tail = FALSE, log.p = FALSE)
   
-  #creating logical vector indicating whether leverage value is under the cutoff
+  #creating logical vector indicating whether studentized deleted residual is within the cutoff range
   output <- ifelse(stud_resid < critical_t & stud_resid > -critical_t, TRUE, FALSE)
+  return(output)
+}
+
+
+#' Comparing Cook's distance to cutoff value for outlier candidate designation
+#'
+#' @param preservation_method_data 
+#' @param mass_measure_1 
+#' @param mass_measure_2 
+#'
+#' @return logical vector indicating TRUE where leverage value is under the cutoff value, otherwise FALSE
+#'
+#' @examples
+#' keep_data_cook(biomass_frozen_percentiles, "wm_g", "dm_g")
+
+keep_data_cook <- function(preservation_method_data, mass_measure_1, mass_measure_2){
+  #running an OLS regression and calculating associated cook's distance
+  lm_object <- lm(eval(as.name(mass_measure_2)) ~ eval(as.name(mass_measure_1)), data = preservation_method_data)
+  cooks_d <- cooks.distance(lm_object)
+  
+  #calculating cutoff value, based on Aguinis et al. (2013)
+  predictors <- length(coef(lm_object))-1
+  n <- nrow(lm_object$model)
+  cooks_d_cutoff <- qf(0.5, predictors+1, n-predictors-1, lower.tail = FALSE)
+  
+  #creating logical vector indicating whether cook's distance is under the cutoff
+  output <- ifelse(cooks_d < cooks_d_cutoff, TRUE, FALSE)
+  return(output)
+}
+
+
+#' Comparing dffits value to cutoff value for outlier candidate designation
+#'
+#' @param preservation_method_data 
+#' @param mass_measure_1 
+#' @param mass_measure_2 
+#'
+#' @return logical vector indicating TRUE where dffits values are within the cutoff range for outlier candidate designation, otherwise FALSE
+#'
+#' @examples
+#' keep_data_dffits(biomass_frozen_percentiles, "wm_g", "dm_g")
+
+keep_data_dffits <- function(preservation_method_data, mass_measure_1, mass_measure_2){
+  #running an OLS regression and calculating associated dffits values
+  lm_object <- lm(eval(as.name(mass_measure_2)) ~ eval(as.name(mass_measure_1)), data = preservation_method_data)
+  dffits <- dffits(lm_object)
+  
+  #calculating cutoff value, based on Aguinis et al. (2013)
+  predictors <- length(coef(lm_object))-1
+  n <- nrow(lm_object$model)
+  dffits_cutoff <- 2*sqrt((predictors+1)/n)
+  
+  #creating logical vector indicating whether dffits value is within the cutoff range
+  output <- ifelse(dffits < dffits_cutoff & dffits > -dffits_cutoff, TRUE, FALSE)
+  return(output)
+}
+
+
+#' Comparing dfbetas value to cutoff value for outlier candidate designation
+#'
+#' @param preservation_method_data 
+#' @param mass_measure_1 
+#' @param mass_measure_2 
+#'
+#' @return list of two logical vectors, one for the intercept and one for the slope, indicating TRUE where dfbetas values are within the cutoff range for outlier candidate designation, otherwise FALSE
+#'
+#' @examples
+#' keep_data_dfbetas(biomass_frozen_percentiles, "wm_g", "dm_g")
+keep_data_dfbetas(biomass_frozen_percentiles, "wm_g", "dm_g")
+keep_data_dfbetas <- function(preservation_method_data, mass_measure_1, mass_measure_2){
+  #running an OLS regression and calculating associated dfbetas values
+  lm_object <- lm(eval(as.name(mass_measure_2)) ~ eval(as.name(mass_measure_1)), data = preservation_method_data)
+  dfbetas <- dfbetas(lm_object)
+  
+  #calculating cutoff value, based on Aguinis et al. (2013)
+  n <- nrow(lm_object$model)
+  dfbetas_cutoff <- 2/sqrt(n)
+  
+  #creating logical vector indicating whether dfbetas values are within the cutoff range
+  output <- ifelse(dfbetas < dfbetas_cutoff & dfbetas > -dfbetas_cutoff, TRUE, FALSE)
   return(output)
 }
 

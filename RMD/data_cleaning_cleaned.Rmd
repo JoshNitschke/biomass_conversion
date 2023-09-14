@@ -74,6 +74,8 @@ step_3 |>
 ```{r}
 taxa_notenough_obs(step_3, taxa_clean) |> 
   pull(taxa_clean) |> tabyl()
+
+step_4 <- taxa_notenough_obs(step_3, taxa_clean)
 ```
 
 ## Identifying outlier candidates
@@ -82,7 +84,7 @@ taxa_notenough_obs(step_3, taxa_clean) |>
 Creating Cleveland plots for each taxa as a visual tool to help identify observations that are far-removed from the rest.
 ```{r fig.height=15, fig.width=10}
 
-step_3 |> ggplot(aes(x = wm_g, y = obs_num, label = obs_num)) +
+step_4 |> ggplot(aes(x = wm_g, y = obs_num, label = obs_num)) +
   facet_wrap(~ taxa_clean, ncol = 4, scale = "free") +
   geom_point(colour = "white") +
   geom_text()
@@ -102,7 +104,7 @@ Identifying top and bottom 2.5% of the data for each mass variable
 #  mutate(keep_data_wm_percentiles = ifelse(wm_g >= quantile(wm_g, 0.025, na.rm = TRUE) & wm_g <= quantile(wm_g, #0.975, na.rm = TRUE), TRUE, FALSE),
 #        keep_data_dm_percentiles = ifelse(dm_g >= quantile(dm_g, 0.025, na.rm = TRUE) & dm_g <= quantile(dm_g, #0.975, na.rm = TRUE), TRUE, FALSE))
   
-biomass_frozen_percentiles <- step_3 |>
+biomass_frozen_percentiles <- step_4 |>
   group_by(taxa_clean) |>
   mutate(keep_data_mass1_percentiles = biomass_percentiles(wm_g, 0.025, 0.975),
          keep_data_mass2_percentiles = biomass_percentiles(dm_g, 0.025, 0.975))
@@ -116,7 +118,7 @@ biomass_frozen_percentiles |>
 ```
 
 ### Measures of outlyingness
-Calculating measures of outlyingness and associated cutoff values for outlier identification
+Creating logical vectors identifying which observations fall outside the cutoff value or range for each measure of outlyingness
 ```{r}
 
 #Nesting by taxa
@@ -125,70 +127,18 @@ taxa_nested <- biomass_frozen_percentiles |>
   nest(data = c(wm_g, dm_g, obs_num, keep_data_mass1_percentiles, keep_data_mass2_percentiles))
   
 #Calculating measures of outlyingness and associated cutoff values
-taxa_nested_outlier_measures <- taxa_nested |> 
+taxa_nested_outlier_candidates_identified <- taxa_nested |> 
   mutate(keep_data_leverage = map(.x = data,
                                   ~ keep_data_leverage(.x, "wm_g", "dm_g")),
          keep_data_stud_resid = map(.x = data,
-                                    ~ keep_data_stud_resid(.x, "wm_g", "dm_g")))
+                                    ~ keep_data_stud_resid(.x, "wm_g", "dm_g")),
+         keep_data_cook = map(.x = data,
+                              ~ keep_data_cook(.x, "wm_g", "dm_g")),
+         keep_data_dffits = map(.x = data,
+                                ~ keep_data_dffits(.x, "wm_g", "dm_g")),
+         keep_data_dfbetas = map(.x = data,
+                                ~ keep_data_dfbetas(.x, "wm_g", "dm_g")))
 
-  mutate(lm_object = map(.x = data,
-                         ~ lm(dm_g ~ wm_g, data = .x)),
-         n = map(.x = lm_object,
-                 ~ nrow(.x$model)),
-         predictors = map(.x = lm_object,
-                          ~length(coef(.x))-1),
-         leverage = map(.x = lm_object,
-                        ~ hatvalues(.x)),
-         leverage_cutoff = map2(.x = predictors,
-                           .y = n,
-                           ~ 2*(.x+1)/.y),
-         stud_residual = map(.x = lm_object,
-                             ~rstudent(.x)),
-         alpha_tdist = map(.x = n,
-                           ~0.05/.x),
-         df_tdist = map2(.x = n,
-                         .y = predictors,
-                         ~.x-.y-1),
-         critical_t = map2(.x = alpha_tdist,
-                           .y = df_tdist,
-                           ~qt(.x/2, .y, lower.tail = FALSE, log.p = FALSE)),
-         cooks_d = map(.x = lm_object, 
-                       ~ cooks.distance(.x)),
-         cooks_d_cutoff = map2(.x = predictors,
-                          .y = n,
-                          ~qf(0.5, .x+1, .y-.x-1, lower.tail = FALSE)),
-         dffits = map(.x = lm_object,
-                      ~dffits(.x)),
-         dffits_cutoff = map2(.x = n,
-                              .y = predictors,
-                              ~2*sqrt((.y+1)/.x)),
-         dfbetas = map(.x = lm_object,
-                       ~dfbetas(.x)),
-         dfbetas_cutoff = map(.x = n,
-                              ~2/sqrt(.x))
-  )
-
-```
-
-Creating logical vectors identifying which observations fall outside the cutoff value or range for each measure of outlyingness
-```{r}
-
-taxa_nested_outliers_identified <- taxa_nested_outlier_measures |>
-  mutate(keep_data_leverage = map2(.x = leverage,
-                         .y = leverage_cutoff,
-                         ~.x < .y),
-         keep_data_stud_resid = map2(.x = stud_residual,
-                                     .y = critical_t,
-                                     ~.x < .y & .x > -.y),
-         keep_data_cook = map2(.x = cooks_d,
-                          .y = cooks_d_cutoff,
-                          ~.x < .y),
-         keep_data_dffits = map2(.x = dffits,
-                                 .y = dffits_cutoff,
-                                 ~.x < .y & .x > -.y),
-         keep_data_dfbetas = map2(.x = dfbetas,
-                                  .y = dfbetas_cutoff,
-                                  ~.x < .y & .x > -.y))
 
 ```
 
