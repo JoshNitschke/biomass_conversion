@@ -128,7 +128,7 @@ taxa_nested <- biomass_frozen_percentiles |>
   
 #Calculating measures of outlyingness and associated cutoff values
 taxa_nested_outlier_candidates_identified <- taxa_nested |> 
-  mutate(keep_data_leverage = map(.x = data,
+  mutate(leverage = map(.x = data,
                                   ~ keep_data_leverage(.x, "wm_g", "dm_g")),
          keep_data_stud_resid = map(.x = data,
                                     ~ keep_data_stud_resid(.x, "wm_g", "dm_g")),
@@ -139,20 +139,20 @@ taxa_nested_outlier_candidates_identified <- taxa_nested |>
          keep_data_dfbetas = map(.x = data,
                                 ~ keep_data_dfbetas(.x, "wm_g", "dm_g")))
 
-
 ```
 
 Checking which observations of a particular taxa are identified by different measures of outlyingess
 ```{r}
 
-taxa_nested_outliers_identified |>
-  unnest(cols = c(data, leverage,
-  stud_residual, cooks_d, dffits,
-  dfbetas, keep_data_leverage, keep_data_stud_resid,
-  keep_data_cook, keep_data_dffits, keep_data_dfbetas)) |>
+taxa_unnested_outlier_candidates_identified <- taxa_nested_outlier_candidates_identified |>
+  unnest(cols = c(data, leverage, keep_data_stud_resid,
+  keep_data_cook, keep_data_dffits, keep_data_dfbetas)) 
+
+taxa_unnested_outlier_candidates_identified |>
   filter(taxa_clean == "Amphipoda") |>
-  select(leverage, keep_data_leverage, obs_num) |>
-  arrange(desc(leverage))|> print(n = Inf) |>
+  select(leverage_values, keep_data_leverage, obs_num) |>
+  arrange(desc(leverage_values))|> 
+  print(n = Inf) |>
   tabyl(keep_data_leverage)
 
 ```
