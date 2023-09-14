@@ -102,15 +102,10 @@ Identifying top and bottom 2.5% of the data for each mass variable
 #  mutate(keep_data_wm_percentiles = ifelse(wm_g >= quantile(wm_g, 0.025, na.rm = TRUE) & wm_g <= quantile(wm_g, #0.975, na.rm = TRUE), TRUE, FALSE),
 #        keep_data_dm_percentiles = ifelse(dm_g >= quantile(dm_g, 0.025, na.rm = TRUE) & dm_g <= quantile(dm_g, #0.975, na.rm = TRUE), TRUE, FALSE))
   
-biomass_percentiles <- function(mass_measure){
-  ifelse(mass_measure >= quantile(mass_measure, 0.025, na.rm = TRUE) 
-         & mass_measure <= quantile(mass_measure, 0.975, na.rm = TRUE), TRUE, FALSE)
-}
-
 biomass_frozen_percentiles <- step_3 |>
   group_by(taxa_clean) |>
-  mutate(keep_data_mass1_percentiles = biomass_percentiles(wm_g),
-         keep_data_mass2_percentiles = biomass_percentiles(dm_g))
+  mutate(keep_data_mass1_percentiles = biomass_percentiles(wm_g, 0.025, 0.975),
+         keep_data_mass2_percentiles = biomass_percentiles(dm_g, 0.025, 0.975))
   
 # Checking which observations are identified by the percentile method
 biomass_frozen_percentiles |> 
