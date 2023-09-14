@@ -117,6 +117,23 @@ taxa_notenough_obs <- function(preserved_method_data,
 }
 
 
+#' Identifying observations outside given percentiles
+#'
+#' @param mass_measure 
+#' @param lower_percentile
+#' @param upper_percentile
+#'
+#' @return A logical vector indicating whether each observation of the specified mass measure is between the specified percentiles
+#'
+#' @examples
+#' df |> mutate(keep_data_mass1_percentiles = biomass_percentiles(wm_g, 0.025, 0.975))
+
+biomass_percentiles <- function(mass_measure, lower_percentile, upper_percentile){
+    ifelse(mass_measure >= quantile(mass_measure, lower_percentile, na.rm = TRUE) 
+         & mass_measure <= quantile(mass_measure, upper_percentile, na.rm = TRUE), TRUE, FALSE)
+}
+
+
 #' comparing leverage values to cutoff value, with inbuilt filter for taxa
 #'
 #' @param preservation_method_data 
