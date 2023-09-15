@@ -285,7 +285,7 @@ keep_data_dffits <- function(preservation_method_data, mass_measure_1, mass_meas
 #'
 #' @examples
 #' keep_data_dfbetas(biomass_frozen_percentiles, "wm_g", "dm_g")
-keep_data_dfbetas(biomass_frozen_percentiles, "wm_g", "dm_g")
+# keep_data_dfbetas(biomass_frozen_percentiles, "wm_g", "dm_g")
 keep_data_dfbetas <- function(preservation_method_data, mass_measure_1, mass_measure_2){
   #running an OLS regression and calculating associated dfbetas values
   lm_object <- lm(eval(as.name(mass_measure_2)) ~ eval(as.name(mass_measure_1)), data = preservation_method_data)
@@ -311,7 +311,7 @@ outlier_check <- function(preservation_method_data, taxon, outlier_measure, keep
   print(n = Inf) |>
   tabyl(keep_data_outlier_measure)
 }
-outlier_check(taxa_unnested_outlier_candidates_identified, "taxa_clean == 'Amphipoda'", leverage_values, keep_data_leverage)
+# outlier_check(taxa_unnested_outlier_candidates_identified, "taxa_clean == 'Amphipoda'", leverage_values, keep_data_leverage)
 
 
 # https://dplyr.tidyverse.org/articles/programming.html#data-masking

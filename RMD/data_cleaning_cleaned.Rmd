@@ -84,8 +84,10 @@ step_4 <- taxa_notenough_obs(step_3, taxa_clean)
 Creating Cleveland plots for each taxa as a visual tool to help identify observations that are far-removed from the rest.
 ```{r fig.height=15, fig.width=10}
 
-step_4 |> ggplot(aes(x = wm_g, y = obs_num, label = obs_num)) +
-  facet_wrap(~ taxa_clean, ncol = 4, scale = "free") +
+step_4 |> 
+  filter(taxa_clean == taxa) |> 
+  ggplot(aes(x = wm_g, y = obs_num, label = obs_num)) +
+  # facet_wrap(~ taxa_clean, ncol = 4, scale = "free") +
   geom_point(colour = "white") +
   geom_text()
 
