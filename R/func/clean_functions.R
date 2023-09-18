@@ -116,6 +116,33 @@ taxa_notenough_obs <- function(preserved_method_data,
   return(output)
 }
 
+#' Cleveland plot
+#'
+#' @param preservation_method_data 
+#' @param mass_measure 
+#'
+#' @return A cleveland plot of observations of the chosen mass measure
+#'
+#' @examples
+#' a plot for each taxon
+#' cleveland_plots <- step_4 |>
+#' group_nest(taxa_clean) |>
+#'   mutate(plot = map2(.x = data,
+#'                      .y = taxa_clean,
+#'                      ~cleveland_plot(.x, "wm_g") + ggtitle(.y)))
+#' cleveland_plots$plot
+
+cleveland_plot <- function(preservation_method_data, mass_measure){
+  # creating Cleveland plot
+  ggplot(data = preservation_method_data, aes(x = .data[[mass_measure]], y = obs_num, label = obs_num,)) +
+    geom_text() +
+    labs(x = mass_measure, y = "observation number") +
+    theme_bw() + 
+    theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"),
+          axis.text = element_text(size = 12, colour = "black"), axis.title = element_text(size = 14))
+}
+
 
 #' Identifying observations outside given percentiles
 #'
@@ -285,7 +312,7 @@ keep_data_dffits <- function(preservation_method_data, mass_measure_1, mass_meas
 #'
 #' @examples
 #' keep_data_dfbetas(biomass_frozen_percentiles, "wm_g", "dm_g")
-keep_data_dfbetas(biomass_frozen_percentiles, "wm_g", "dm_g")
+
 keep_data_dfbetas <- function(preservation_method_data, mass_measure_1, mass_measure_2){
   #running an OLS regression and calculating associated dfbetas values
   lm_object <- lm(eval(as.name(mass_measure_2)) ~ eval(as.name(mass_measure_1)), data = preservation_method_data)
@@ -300,18 +327,6 @@ keep_data_dfbetas <- function(preservation_method_data, mass_measure_1, mass_mea
   return(output)
 }
 
-
-#Trying to make a function for checking which observations of a particular taxa are identified by different measures of outlyingess
-outlier_check <- function(preservation_method_data, taxon, outlier_measure, keep_data_outlier_measure){ 
-  taxon <- rlang::parse_expr(taxon)
-  data <- dplyr::filter(preservation_method_data, !!taxon)
-  data |>
-  select(outlier_measure, keep_data_outlier_measure, obs_num) |>
-  arrange(desc(outlier_measure))|> 
-  print(n = Inf) |>
-  tabyl(keep_data_outlier_measure)
-}
-outlier_check(taxa_unnested_outlier_candidates_identified, "taxa_clean == 'Amphipoda'", leverage_values, keep_data_leverage)
 
 
 # https://dplyr.tidyverse.org/articles/programming.html#data-masking

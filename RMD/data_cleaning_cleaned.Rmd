@@ -84,17 +84,14 @@ step_4 <- taxa_notenough_obs(step_3, taxa_clean)
 Creating Cleveland plots for each taxa as a visual tool to help identify observations that are far-removed from the rest.
 ```{r fig.height=15, fig.width=10}
 
-step_4 |> ggplot(aes(x = wm_g, y = obs_num, label = obs_num)) +
-  facet_wrap(~ taxa_clean, ncol = 4, scale = "free") +
-  geom_point(colour = "white") +
-  geom_text()
+cleveland_plots <- step_4 |>
+  group_nest(taxa_clean) |>
+  mutate(plot = map2(.x = data,
+                    .y = taxa_clean,
+                    ~cleveland_plot(.x, "wm_g") + ggtitle(.y)))
+cleveland_plots$plot
 
 ```
-
-```{r}
-
-```
-
 
 ### Percentage analysis 
 Identifying top and bottom 2.5% of the data for each mass variable
