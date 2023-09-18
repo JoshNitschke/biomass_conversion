@@ -125,7 +125,7 @@ taxa_nested <- biomass_frozen_percentiles |>
   
 #Calculating measures of outlyingness and associated cutoff values
 taxa_nested_outlier_candidates_identified <- taxa_nested |> 
-  mutate(leverage = map(.x = data,
+  mutate(keep_data_leverage = map(.x = data,
                                   ~ keep_data_leverage(.x, "wm_g", "dm_g")),
          keep_data_stud_resid = map(.x = data,
                                     ~ keep_data_stud_resid(.x, "wm_g", "dm_g")),
@@ -142,31 +142,26 @@ Checking which observations of a particular taxa are identified by different mea
 ```{r}
 
 taxa_unnested_outlier_candidates_identified <- taxa_nested_outlier_candidates_identified |>
-  unnest(cols = c(data, leverage, keep_data_stud_resid,
-  keep_data_cook, keep_data_dffits, keep_data_dfbetas)) 
+  unnest(cols = c(data, keep_data_leverage, keep_data_stud_resid, keep_data_cook, 
+                  keep_data_dffits, keep_data_dfbetas)) 
 
 taxa_unnested_outlier_candidates_identified |>
   filter(taxa_clean == "Amphipoda") |>
-  select(leverage_values, keep_data_leverage, obs_num) |>
-  arrange(desc(leverage_values))|> 
-  print(n = Inf) |>
-  tabyl(keep_data_leverage)
+  select(keep_data_leverage, obs_num) |>
+  filter(keep_data_leverage == FALSE) |>
+  print(n = Inf)
 
 ```
 
-Unnesting the data and consolidating all outlier candidates into one vector
+Consolidating all outlier candidates into one vector
 ```{r}
 
-taxa_unnested <- taxa_nested_outliers_identified |>
-  select(taxa_clean, data, keep_data_leverage, keep_data_stud_resid, keep_data_cook, keep_data_dffits, keep_data_dfbetas) |> 
-  unnest(cols = c(taxa_clean, data, keep_data_leverage, keep_data_stud_resid, keep_data_cook, keep_data_dffits, keep_data_dfbetas)) 
-
-taxa_unnested_keep_data_merged <- taxa_unnested |>
+taxa_unnested_keep_data_merged <- taxa_unnested_outlier_candidates_identified |>
  # assigning dfbetas values for intercept and slope to separate vectors
    mutate(keep_data_dfbetas_int = keep_data_dfbetas[,1], 
          keep_data_dfbetas_slope = keep_data_dfbetas[,2]) |>
  # Consolidating all outlier candidates into one vector
-   mutate(keep_data = ifelse(keep_data_wm_percentiles == TRUE & keep_data_dm_percentiles == TRUE & keep_data_cook == TRUE & keep_data_leverage == TRUE & keep_data_stud_resid == TRUE & keep_data_dffits == TRUE & keep_data_dfbetas_int == TRUE & keep_data_dfbetas_slope == TRUE, TRUE, FALSE)) 
+   mutate(keep_data = ifelse(keep_data_mass1_percentiles == TRUE & keep_data_mass2_percentiles == TRUE & keep_data_cook == TRUE & keep_data_leverage == TRUE & keep_data_stud_resid == TRUE & keep_data_dffits == TRUE & keep_data_dfbetas_int == TRUE & keep_data_dfbetas_slope == TRUE, TRUE, FALSE)) 
 
 ```
 

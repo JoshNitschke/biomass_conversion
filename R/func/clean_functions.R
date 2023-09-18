@@ -215,7 +215,7 @@ keep_data_leverage <- function(preservation_method_data, mass_measure_1, mass_me
   leverage_cutoff <- 2*(predictors+1)/n
   
   #creating logical vector indicating whether leverage value is under the cutoff
-  output <- tibble(leverage_values = leverage, keep_data_leverage = ifelse(leverage < leverage_cutoff, TRUE, FALSE))
+  output <- ifelse(leverage < leverage_cutoff, TRUE, FALSE)
   return(output)
 }
 

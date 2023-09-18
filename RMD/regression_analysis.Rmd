@@ -8,6 +8,9 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
+# install.packages("remotes")
+remotes::install_github("traitecoevo/smatr")
+
 library(tidyverse)
 library(here)
 library(smatr)
@@ -21,16 +24,40 @@ library(tidyr)
 
 ## read in processed data
 ```{r}
-biomass_frozen_outliers_removed <- read_csv(here("data/processed/biomass_conversions_frozen_nooutliers.csv"))
+biomass_frozen_outliers_identified <- read_csv(here("data/processed/biomass_frozen_outliers_identified.csv"))
 ```
 
-## filtering out taxa with small sample size, then nesting data by taxa
+## running SMA's on untransformed data
 ```{r}
-taxa_nested <- biomass_frozen_outliers_removed |> 
-  group_by(taxa_clean) |> 
-  filter (n() >= 10) |>
-  nest()
+taxa_nested_sma <- biomass_frozen_outliers_identified |> 
+  group_nest(taxa_clean) |>
+  mutate(sma_object = map(.x = data,
+                          ~ sma(dm_g ~ wm_g, data = .x)))
 
+```
+
+### Check assumptions
+
+#### homogeneity of variance
+```{r}
+taxa_nested_sma_fitted_resid <- taxa_nested_sma |> 
+  mutate(fitted = map(.x = sma_object,
+                       ~fitted(.x)),
+         residuals = map(.x = sma_object,
+                          ~residuals(.x)))
+taxa_nested_sma_fitted_resid_plot <- taxa_nested_sma_fitted_resid |>
+  mutate(plot = map(.x = taxa_nested_sma_fitted_resid,
+                    ~ggplot(data = .x, aes(x = fitted, y = residuals)) + geom_point()))
+
+
+```
+
+#### Normality
+```{r}
+qqnorm(residuals(log10_dry_wet_sma))
+qqline(residuals(log10_dry_wet_sma), col = "red")
+
+plot(log10_dry_wet_sma, which = "qq") #alternative
 ```
 
 ## running SMA's
