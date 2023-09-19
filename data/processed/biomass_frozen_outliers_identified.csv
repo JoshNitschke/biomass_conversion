@@ -4,7 +4,7 @@ Simplisetia,0.2371,0.0233,TRUE
 Simplisetia,0.1273,0.0074,TRUE
 Simplisetia,0.0678,0.0015,TRUE
 Simplisetia,0.2576,0.0157,TRUE
-Simplisetia,0.0119,0.0027,TRUE
+Simplisetia,0.0119,0.0027,FALSE
 Simplisetia,0.0276,0.0026,TRUE
 Simplisetia,0.0163,0.0018,TRUE
 Simplisetia,0.0311,0.0052,TRUE
@@ -31,7 +31,7 @@ Simplisetia,1.2772,0.1226,TRUE
 Simplisetia,2.4156,0.2318,FALSE
 Simplisetia,1.9861,0.192,FALSE
 Simplisetia,0.3294,0.023,TRUE
-Simplisetia,1.1412,0.0789,TRUE
+Simplisetia,1.1412,0.0789,FALSE
 Simplisetia,0.5744,0.0343,TRUE
 Simplisetia,1.1355,0.0714,FALSE
 Simplisetia,1.0154,0.059,FALSE
@@ -50,7 +50,7 @@ Simplisetia,0.0788,0.0057,TRUE
 Simplisetia,0.0768,0.0045,TRUE
 Simplisetia,1.2169,0.0716,FALSE
 Simplisetia,1.0665,0.0879,TRUE
-Simplisetia,1.3585,0.1094,TRUE
+Simplisetia,1.3585,0.1094,FALSE
 Simplisetia,1.4694,0.1091,FALSE
 Simplisetia,1.0434,0.0587,FALSE
 Simplisetia,0.3943,0.0284,TRUE
@@ -58,7 +58,7 @@ Simplisetia,0.1293,0.0135,TRUE
 Simplisetia,0.8228,0.043,TRUE
 Simplisetia,0.2883,0.0193,TRUE
 Simplisetia,0.57,0.0268,TRUE
-Simplisetia,0.0298,0.0013,TRUE
+Simplisetia,0.0298,0.0013,FALSE
 Simplisetia,0.4255,0.0334,TRUE
 Simplisetia,0.2176,0.0147,TRUE
 Simplisetia,0.0297,0.0045,TRUE
@@ -193,6 +193,17 @@ Simplisetia,0.473,0.0753,TRUE
 Simplisetia,1.05,0.113,TRUE
 Simplisetia,0.4396,0.0463,TRUE
 Simplisetia,0.4549,0.049,TRUE
+Simplisetia,0.2205,0.0147,TRUE
+Simplisetia,0.2121,0.009,TRUE
+Simplisetia,0.0489,0.0021,TRUE
+Simplisetia,0.2904,0.0226,TRUE
+Simplisetia,0.1178,0.0139,TRUE
+Simplisetia,0.2196,0.0231,TRUE
+Simplisetia,0.352,0.0505,TRUE
+Simplisetia,0.5064,0.0369,TRUE
+Simplisetia,0.4332,0.0452,TRUE
+Simplisetia,0.0141,0.0016,TRUE
+Simplisetia,0.2388,0.0385,TRUE
 Chironomidae,0.0854,0.0307,TRUE
 Chironomidae,0.0393,0.0066,TRUE
 Chironomidae,0.047,0.008,TRUE
@@ -330,6 +341,23 @@ Chironomidae,0.0041,0.0011,TRUE
 Chironomidae,0.012,0.0046,TRUE
 Chironomidae,0.0146,0.0018,TRUE
 Chironomidae,0.0021,0.0013,FALSE
+Chironomidae,0.0258,0.004,TRUE
+Chironomidae,0.0318,0.0053,TRUE
+Chironomidae,0.0307,0.0046,TRUE
+Chironomidae,0.0138,0.0021,TRUE
+Chironomidae,0.0206,0.0043,TRUE
+Chironomidae,0.0043,0.0012,TRUE
+Chironomidae,0.0069,0.0015,TRUE
+Chironomidae,0.0069,0.0014,TRUE
+Chironomidae,0.0098,0.001,FALSE
+Chironomidae,0.0106,0.0025,TRUE
+Chironomidae,0.0068,0.0014,TRUE
+Chironomidae,0.0066,0.0016,TRUE
+Chironomidae,0.0154,0.0033,TRUE
+Chironomidae,0.0082,0.0016,TRUE
+Chironomidae,0.0329,0.008,TRUE
+Chironomidae,0.2352,0.0446,FALSE
+Chironomidae,0.1569,0.0258,FALSE
 Amphipoda,0.0302,0.0053,TRUE
 Amphipoda,0.0173,0.0025,TRUE
 Amphipoda,0.0188,0.0039,TRUE
@@ -478,7 +506,7 @@ Amphipoda,0.0219,0.0033,TRUE
 Amphipoda,0.0205,0.0032,TRUE
 Amphipoda,0.0127,0.0017,TRUE
 Amphipoda,0.0106,0.0029,TRUE
-Amphipoda,0.0237,0.0166,TRUE
+Amphipoda,0.0237,0.0166,FALSE
 Amphipoda,0.0118,0.001,FALSE
 Amphipoda,0.0085,0.002,TRUE
 Amphipoda,0.0063,0.0021,TRUE
@@ -556,6 +584,24 @@ Amphipoda,0.182,0.0276,TRUE
 Amphipoda,0.0234,0.0035,TRUE
 Amphipoda,0.0173,0.0018,TRUE
 Amphipoda,0.0209,0.0028,TRUE
+Amphipoda,0.0184,0.0029,TRUE
+Amphipoda,0.1255,0.017,TRUE
+Amphipoda,0.0144,0.0024,TRUE
+Amphipoda,0.1482,0.0194,TRUE
+Amphipoda,0.0063,0.0014,TRUE
+Amphipoda,0.2046,0.0232,TRUE
+Amphipoda,0.0356,0.0049,TRUE
+Amphipoda,0.0208,0.0034,TRUE
+Amphipoda,0.0484,0.0068,TRUE
+Amphipoda,0.0518,0.0103,TRUE
+Amphipoda,0.0085,0.001,FALSE
+Amphipoda,0.0786,0.011,TRUE
+Amphipoda,0.0265,0.0042,TRUE
+Amphipoda,0.0077,0.0012,FALSE
+Amphipoda,0.072,0.0091,TRUE
+Amphipoda,0.0609,0.0096,TRUE
+Amphipoda,0.0132,0.0023,TRUE
+Amphipoda,0.0315,0.0034,TRUE
 Arthritica,1.1183,0.5609,TRUE
 Arthritica,1.3663,0.7619,TRUE
 Arthritica,1.0121,0.57,TRUE
@@ -587,7 +633,7 @@ Arthritica,1.4427,0.7836,TRUE
 Arthritica,1.9264,0.9535,FALSE
 Arthritica,1.3098,0.7689,TRUE
 Arthritica,0.9351,0.5773,TRUE
-Arthritica,1.4451,0.8417,TRUE
+Arthritica,1.4451,0.8417,FALSE
 Arthritica,1.3007,0.7168,TRUE
 Arthritica,0.6657,0.3415,TRUE
 Arthritica,0.73,0.4249,TRUE
@@ -841,6 +887,14 @@ Arthritica,0.6514,0.3123,TRUE
 Arthritica,1.3769,0.6252,FALSE
 Arthritica,0.602,0.2907,TRUE
 Arthritica,0.6105,0.296,TRUE
+Arthritica,0.0357,0.02,TRUE
+Arthritica,0.0162,0.0094,TRUE
+Arthritica,0.0237,0.0111,TRUE
+Arthritica,0.0194,0.0128,TRUE
+Arthritica,0.0027,0.0016,FALSE
+Arthritica,0.0106,0.0069,TRUE
+Arthritica,0.0177,0.011,TRUE
+Arthritica,0.0091,0.0061,TRUE
 Hydrobiidae,0.8027,0.4704,FALSE
 Hydrobiidae,0.5597,0.3114,TRUE
 Hydrobiidae,0.6787,0.3948,TRUE
@@ -997,6 +1051,11 @@ Hydrobiidae,0.039,0.0154,TRUE
 Hydrobiidae,0.0132,0.007,TRUE
 Hydrobiidae,0.029,0.0141,TRUE
 Hydrobiidae,0.1294,0.0635,TRUE
+Hydrobiidae,0.3067,0.155,TRUE
+Hydrobiidae,0.2239,0.1144,TRUE
+Hydrobiidae,0.1092,0.0564,TRUE
+Hydrobiidae,0.0038,0.0025,TRUE
+Hydrobiidae,0.0055,0.0022,TRUE
 Salinator,0.0222,0.0084,TRUE
 Salinator,0.366,0.1445,TRUE
 Salinator,0.0079,0.0036,TRUE
@@ -1061,13 +1120,20 @@ Salinator,0.7513,0.2428,FALSE
 Salinator,0.0149,0.0063,TRUE
 Salinator,0.2062,0.0769,TRUE
 Salinator,0.935,0.3415,FALSE
-Salinator,0.854,0.3432,TRUE
+Salinator,0.854,0.3432,FALSE
 Salinator,0.1496,0.0848,TRUE
 Salinator,0.1852,0.0682,TRUE
 Salinator,0.2165,0.0774,TRUE
 Salinator,0.4385,0.1717,TRUE
 Salinator,0.2218,0.0844,TRUE
 Salinator,0.279,0.1061,TRUE
+Salinator,0.717,0.2969,TRUE
+Salinator,0.0348,0.0147,TRUE
+Salinator,0.0038,0.0018,TRUE
+Salinator,0.0056,0.0023,TRUE
+Salinator,0.0048,0.0022,TRUE
+Salinator,0.2232,0.0931,TRUE
+Salinator,0.183,0.0323,FALSE
 Phyllodoce,0.23,0.0122,TRUE
 Phyllodoce,0.1301,0.0045,TRUE
 Phyllodoce,0.1456,0.0099,TRUE
@@ -1234,7 +1300,7 @@ Capitella,0.0394,0.002,TRUE
 Capitella,0.0206,0.0024,TRUE
 Capitella,0.3977,0.0321,FALSE
 Capitella,0.3193,0.0173,TRUE
-Capitella,0.0042,0.0019,FALSE
+Capitella,0.0042,0.0019,TRUE
 Capitella,0.0493,0.0028,TRUE
 Capitella,0.0176,0.0028,TRUE
 Capitella,0.0328,0.0017,TRUE
@@ -1254,52 +1320,54 @@ Capitella,0.2209,0.0073,TRUE
 Capitella,0.1768,0.0066,TRUE
 Capitella,0.2086,0.0146,TRUE
 Capitella,0.218,0.0178,TRUE
-Soletellina,0.0482,0.0045,TRUE
-Soletellina,3.9624,0.4797,FALSE
-Soletellina,0.7017,0.1273,TRUE
-Soletellina,3.0916,0.3562,FALSE
-Soletellina,0.5483,0.1202,TRUE
-Soletellina,0.0453,0.0057,TRUE
-Soletellina,0.0216,0.0022,TRUE
-Soletellina,0.0715,0.0052,TRUE
-Soletellina,0.0161,0.0011,FALSE
-Soletellina,0.0172,0.0058,TRUE
-Soletellina,0.0157,0.003,TRUE
-Soletellina,0.2349,0.0417,TRUE
-Soletellina,0.1226,0.0118,TRUE
-Soletellina,1.6241,0.238,TRUE
-Soletellina,1.0929,0.1051,TRUE
-Soletellina,0.3294,0.0359,TRUE
-Soletellina,0.1595,0.0186,TRUE
-Soletellina,2.2,0.332,TRUE
-Soletellina,2.0391,0.3561,TRUE
-Soletellina,0.1805,0.0276,TRUE
-Soletellina,1.0084,0.1272,TRUE
-Soletellina,1.6575,0.4554,FALSE
-Soletellina,1.6231,0.2605,TRUE
-Soletellina,1.5227,0.2029,TRUE
-Soletellina,2.1026,0.2915,TRUE
-Soletellina,1.2017,0.2097,TRUE
-Soletellina,0.0074,0.0023,FALSE
-Soletellina,0.4661,0.0453,TRUE
-Soletellina,0.2153,0.0382,TRUE
-Soletellina,0.246,0.0389,TRUE
-Soletellina,0.0721,0.0095,TRUE
-Soletellina,0.3382,0.0593,TRUE
-Soletellina,0.0761,0.0116,TRUE
-Soletellina,0.3,0.0281,TRUE
-Soletellina,1.5665,0.3296,FALSE
-Soletellina,1.9817,0.2396,TRUE
-Soletellina,1.0287,0.1449,TRUE
-Soletellina,0.0213,0.0015,TRUE
-Soletellina,1.9317,0.2631,TRUE
+Capitella,0.0017,0.001,FALSE
+Capitella,0.0039,0.0018,TRUE
+Hiatula alba,0.0482,0.0045,TRUE
+Hiatula alba,3.9624,0.4797,FALSE
+Hiatula alba,0.7017,0.1273,TRUE
+Hiatula alba,3.0916,0.3562,FALSE
+Hiatula alba,0.5483,0.1202,TRUE
+Hiatula alba,0.0453,0.0057,TRUE
+Hiatula alba,0.0216,0.0022,TRUE
+Hiatula alba,0.0715,0.0052,TRUE
+Hiatula alba,0.0161,0.0011,FALSE
+Hiatula alba,0.0172,0.0058,TRUE
+Hiatula alba,0.0157,0.003,TRUE
+Hiatula alba,0.2349,0.0417,TRUE
+Hiatula alba,0.1226,0.0118,TRUE
+Hiatula alba,1.6241,0.238,TRUE
+Hiatula alba,1.0929,0.1051,TRUE
+Hiatula alba,0.3294,0.0359,TRUE
+Hiatula alba,0.1595,0.0186,TRUE
+Hiatula alba,2.2,0.332,TRUE
+Hiatula alba,2.0391,0.3561,TRUE
+Hiatula alba,0.1805,0.0276,TRUE
+Hiatula alba,1.0084,0.1272,TRUE
+Hiatula alba,1.6575,0.4554,FALSE
+Hiatula alba,1.6231,0.2605,TRUE
+Hiatula alba,1.5227,0.2029,TRUE
+Hiatula alba,2.1026,0.2915,TRUE
+Hiatula alba,1.2017,0.2097,TRUE
+Hiatula alba,0.0074,0.0023,FALSE
+Hiatula alba,0.4661,0.0453,TRUE
+Hiatula alba,0.2153,0.0382,TRUE
+Hiatula alba,0.246,0.0389,TRUE
+Hiatula alba,0.0721,0.0095,TRUE
+Hiatula alba,0.3382,0.0593,TRUE
+Hiatula alba,0.0761,0.0116,TRUE
+Hiatula alba,0.3,0.0281,TRUE
+Hiatula alba,1.5665,0.3296,FALSE
+Hiatula alba,1.9817,0.2396,TRUE
+Hiatula alba,1.0287,0.1449,TRUE
+Hiatula alba,0.0213,0.0015,TRUE
+Hiatula alba,1.9317,0.2631,TRUE
 Spisula,0.4231,0.0626,TRUE
 Spisula,0.6251,0.0613,TRUE
 Spisula,0.1697,0.0289,TRUE
 Spisula,0.6106,0.1101,TRUE
 Spisula,0.7517,0.1869,TRUE
 Spisula,0.6516,0.1699,TRUE
-Spisula,0.0114,0.0022,FALSE
+Spisula,0.0114,0.0022,TRUE
 Spisula,0.8555,0.1081,TRUE
 Spisula,0.5502,0.1258,TRUE
 Spisula,0.106,0.0075,TRUE
@@ -1319,7 +1387,23 @@ Spisula,0.599,0.1171,TRUE
 Spisula,0.3423,0.0247,TRUE
 Spisula,0.0509,0.0043,TRUE
 Spisula,0.0416,0.0252,TRUE
-Spisula,0.0053,0.0049,FALSE
+Spisula,0.0053,0.0049,TRUE
+Spisula,0.0042,0.0018,FALSE
+Spisula,0.0031,0.0013,FALSE
+Spisula,0.0254,0.0047,TRUE
+Spisula,0.01,0.0013,FALSE
+Spisula,0.0219,0.0036,TRUE
+Spisula,0.0466,0.0092,TRUE
+Spisula,0.0826,0.0155,TRUE
+Spisula,0.1011,0.033,TRUE
+Spisula,0.056,0.0042,TRUE
+Spisula,0.1153,0.0127,TRUE
+Spisula,0.1059,0.0416,TRUE
+Spisula,0.1964,0.022,TRUE
+Spisula,0.0756,0.0135,TRUE
+Spisula,0.0754,0.0154,TRUE
+Spisula,0.1305,0.0224,TRUE
+Spisula,0.0511,0.0062,TRUE
 Mysidacea,0.0073,0.0018,TRUE
 Mysidacea,0.0212,0.0026,TRUE
 Mysidacea,0.0153,0.0029,TRUE
@@ -1330,7 +1414,7 @@ Mysidacea,0.0189,0.0031,TRUE
 Mysidacea,0.0144,0.0047,TRUE
 Mysidacea,0.02,0.0046,TRUE
 Mysidacea,0.0112,0.0017,TRUE
-Mysidacea,0.0894,0.0147,TRUE
+Mysidacea,0.0894,0.0147,FALSE
 Mysidacea,0.0327,0.0063,TRUE
 Mysidacea,0.0184,0.003,TRUE
 Mysidacea,0.0068,0.0014,TRUE
@@ -1347,12 +1431,12 @@ Mysidacea,0.0089,0.0022,TRUE
 Mysidacea,0.0077,0.0018,TRUE
 Mysidacea,0.0109,0.0028,TRUE
 Mysidacea,0.0377,0.0045,TRUE
-Mysidacea,0.0065,0.0015,TRUE
+Mysidacea,0.0065,0.0015,FALSE
 Mysidacea,0.0395,0.005,TRUE
 Mysidacea,0.0061,0.001,FALSE
 Mysidacea,0.028,0.0043,TRUE
 Mysidacea,0.0101,0.0018,TRUE
-Mysidacea,0.0147,0.0012,TRUE
+Mysidacea,0.0147,0.0012,FALSE
 Mysidacea,0.0134,0.002,TRUE
 Mysidacea,0.0171,0.0016,TRUE
 Mysidacea,0.1181,0.0124,FALSE
@@ -1361,3 +1445,13 @@ Mysidacea,0.0136,0.0016,TRUE
 Mysidacea,0.0079,0.002,TRUE
 Mysidacea,0.0188,0.0013,TRUE
 Mysidacea,0.0931,0.0098,FALSE
+Mysidacea,0.0079,0.0013,TRUE
+Mysidacea,0.0179,0.003,TRUE
+Mysidacea,0.0146,0.0034,TRUE
+Mysidacea,0.0214,0.0044,TRUE
+Mysidacea,0.0113,0.0018,TRUE
+Mysidacea,0.0091,0.0016,TRUE
+Mysidacea,0.0126,0.0028,TRUE
+Mysidacea,0.0073,0.0019,TRUE
+Mysidacea,0.0424,0.0088,TRUE
+Mysidacea,0.0387,0.0061,TRUE
