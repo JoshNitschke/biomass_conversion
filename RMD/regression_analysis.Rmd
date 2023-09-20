@@ -97,6 +97,13 @@ taxa_nested_sma_outliers_removed_fitted_resid <- taxa_nested_sma_outliers_remove
 taxa_nested_sma_outliers_removed_fitted_resid$fitted_resid_plot
 
 ```
+Alternative method
+```{r}
+taxa_nested_sma_outliers_removed_fitted_resid2 <- taxa_nested_sma_outliers_removed |>
+  mutate(scat = map2(.x = sma_object,
+                  .y = taxa_clean,
+                  .f = ~ plot(.x, which = "residual", main = .y)))
+```
 
 #### Normality
 ```{r}
@@ -107,17 +114,58 @@ taxa_nested_sma_outliers_removed_fitted_resid_qq <- taxa_nested_sma_outliers_rem
 ```
 
 
-## running SMA's
+## Running SMA's on log10-transformed data and plotting
 ```{r}
-taxa_sma <- taxa_nested |> 
-  mutate(sma_object = map(.x = data,
-                         ~ sma(dm_g ~ wm_g, data = .x)))
-  )
+taxa_nested_sma_log10_plot <- biomass_frozen_outliers_identified |> 
+  group_nest(taxa_clean) |>
+  mutate(sma_log10_object = map(.x = data,
+                          ~ sma(dm_g ~ wm_g, log = "xy", data = .x)),
+         sma_log10_plots = map2(.x = sma_log10_object,
+                         .y = taxa_clean,
+                         .f = ~ plot(.x, xlab = "wet mass (g)", ylab = "dry mass (g)", main = .y)))
+         
+taxa_nested_sma_log10_plot$sma_log10_object
+```
 
-#testing with lm first
-lm_fun <- function(x, y){ggplot(taxa_sma, aes(x = .data[[x]], y= .data[[y]])) +
-  geom_point(alpha = 0.50) + stat_smooth(method = "lm")}
-  
-lm_fun(x = "wm_g", y = "dm_g")
+### Pull out regression equation for back transformation
 
+```{r}
+# Get coefficients from SMA
+
+taxa_nested_sma_log10_plot |>
+  mutate(coef = map(.x = sma_log10_object,
+                    .f = ~smatr:::coef.sma(.x)))|>
+  pull(coef)
+
+
+
+
+smatr:::coef.sma(taxa_nested_sma_log10_plot$sma_log10_object)
+
+intercept <- smatr:::coef.sma(log10_dry_wet_sma)[1] # Take the first value
+intercept
+
+slope <- smatr:::coef.sma(log10_dry_wet_sma)[2] # Take the second value
+slope
+
+# log10(DM) = slope * log10(WM) + intercept
+# Exponentiate log10 using 10^
+# DM = WM^slope * 10^intercept
+# Create a new variable BT = Back transformed 
+data_BF <- data |> 
+  mutate(BT_DM = (wm_g^slope) * (10^intercept))  
+
+# Plot back transformed data
+# Histograms
+hist(data_BF$dm_g) # Raw data
+hist(data_BF$BT_DM) # Back transformed
+
+# Scatterplots
+# Raw data
+ggplot(data_BF, aes(x = dm_g, y= wm_g)) +
+  geom_point(alpha = 0.50) 
+
+# Back transformed
+ggplot(data_BF, aes(x = BT_DM, y= wm_g)) +
+  geom_point(alpha = 0.50)
 ```
