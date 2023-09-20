@@ -41,24 +41,71 @@ taxa_nested_sma <- biomass_frozen_outliers_identified |>
 #### homogeneity of variance
 ```{r}
 taxa_nested_sma_fitted_resid <- taxa_nested_sma |> 
-  mutate(fitted = map(.x = sma_object,
-                       ~fitted(.x)),
-         residuals = map(.x = sma_object,
-                          ~residuals(.x)))
-taxa_nested_sma_fitted_resid_plot <- taxa_nested_sma_fitted_resid |>
-  mutate(plot = map(.x = taxa_nested_sma_fitted_resid,
-                    ~ggplot(data = .x, aes(x = fitted, y = residuals)) + geom_point()))
-
+  mutate(fitted_resid = map(.x = sma_object,
+                             .f = ~ tibble(fitted = fitted(.x), residuals = residuals(.x))),
+         fitted_resid_plot = map2(.x = fitted_resid,
+                     .y = taxa_clean,
+                     .f = ~ ggplot(data = .x, aes(x = fitted, y = residuals)) + 
+                       ggtitle(.y) +
+                       labs(x = "fitted value", y = "residual") +
+                       geom_point() + 
+                       geom_hline(yintercept = 0) +
+                       theme_bw() + 
+                       theme(panel.border = element_blank(), panel.grid.major = element_blank(), 
+                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"), 
+                       axis.text = element_text(size = 12, colour = "black"), axis.title = element_text(size = 14))))
+taxa_nested_sma_fitted_resid$fitted_resid_plot
 
 ```
 
 #### Normality
 ```{r}
-qqnorm(residuals(log10_dry_wet_sma))
-qqline(residuals(log10_dry_wet_sma), col = "red")
-
-plot(log10_dry_wet_sma, which = "qq") #alternative
+taxa_nested_sma_fitted_resid_qq <- taxa_nested_sma_fitted_resid |>
+  mutate(qq = map2(.x = sma_object,
+                  .y = taxa_clean,
+                  .f = ~ plot(.x, which = "qq", main = paste("qq-plot:",.y))))
 ```
+# Excluding outliers
+## running SMA's on untransformed data
+```{r}
+taxa_nested_sma_outliers_removed <- biomass_frozen_outliers_identified |> 
+  filter(keep_data == TRUE) |>
+  group_nest(taxa_clean) |>
+  mutate(sma_object = map(.x = data,
+                          ~ sma(dm_g ~ wm_g, data = .x)))
+
+```
+
+### Check assumptions
+
+#### homogeneity of variance
+```{r}
+taxa_nested_sma_outliers_removed_fitted_resid <- taxa_nested_sma_outliers_removed |> 
+  mutate(fitted_resid = map(.x = sma_object,
+                             .f = ~ tibble(fitted = fitted(.x), residuals = residuals(.x))),
+         fitted_resid_plot = map2(.x = fitted_resid,
+                     .y = taxa_clean,
+                     .f = ~ ggplot(data = .x, aes(x = fitted, y = residuals)) + 
+                       ggtitle(.y) +
+                       labs(x = "fitted value", y = "residual") +
+                       geom_point() + 
+                       geom_hline(yintercept = 0) +
+                       theme_bw() + 
+                       theme(panel.border = element_blank(), panel.grid.major = element_blank(), 
+                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"), 
+                       axis.text = element_text(size = 12, colour = "black"), axis.title = element_text(size = 14))))
+taxa_nested_sma_outliers_removed_fitted_resid$fitted_resid_plot
+
+```
+
+#### Normality
+```{r}
+taxa_nested_sma_outliers_removed_fitted_resid_qq <- taxa_nested_sma_outliers_removed_fitted_resid |>
+  mutate(qq = map2(.x = sma_object,
+                  .y = taxa_clean,
+                  .f = ~ plot(.x, which = "qq", main = paste("qq-plot:",.y))))
+```
+
 
 ## running SMA's
 ```{r}

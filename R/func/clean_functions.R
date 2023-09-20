@@ -134,7 +134,7 @@ taxa_notenough_obs <- function(preserved_method_data,
 
 cleveland_plot <- function(preservation_method_data, mass_measure){
   # creating Cleveland plot
-  ggplot(data = preservation_method_data, aes(x = .data[[mass_measure]], y = obs_num, label = obs_num,)) +
+  ggplot(data = preservation_method_data, aes(x = .data[[mass_measure]], y = obs_num, label = obs_num)) +
     geom_text() +
     labs(x = mass_measure, y = "observation number") +
     theme_bw() + 
