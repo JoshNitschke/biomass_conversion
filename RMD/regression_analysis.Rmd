@@ -153,8 +153,9 @@ coefs_
 coefs <- data.frame(taxon = taxa_nested_sma_log10_plot_coef$taxa_clean, 
                     coef_value = list_c(taxa_nested_sma_log10_plot_coef$coef), 
                     coefficient = names(list_c(taxa_nested_sma_log10_plot_coef$coef)),
-                    conf_int_value = list_c(taxa_nested_sma_log10_plot_coef$"95_conf_int")) |> pivot_wider(names_from = "coefficient", values_from = "coef_value")|>
-  data.frame(elevation = list_c(coefs$elevation), slope = list_c(coefs$slope))
+                    conf_int_value = list_c(taxa_nested_sma_log10_plot_coef$"95_conf_int")) |> 
+  pivot_wider(names_from = "coefficient", values_from = "coef_value")|>
+  data.frame(elevation = c(coefs$elevation), slope = c(coefs$slope))
 
 coefs
 
