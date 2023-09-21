@@ -132,15 +132,15 @@ taxa_nested_sma_log10_plot$sma_log10_object
 ```{r}
 # Get coefficients from SMA
 
-taxa_nested_sma_log10_plot |>
+taxa_nested_sma_log10_plot_coef <- taxa_nested_sma_log10_plot |>
   mutate(coef = map(.x = sma_log10_object,
-                    .f = ~smatr:::coef.sma(.x)))|>
-  pull(coef)
+                    .f = ~smatr:::coef.sma(.x)),
+         "95_conf_int" = map(.x = sma_log10_object,
+                             .f = ~confint(.x, level = 0.95)))
+taxa_nested_sma_log10_plot_coef$"95_conf_int"
 
 
 
-
-smatr:::coef.sma(taxa_nested_sma_log10_plot$sma_log10_object)
 
 intercept <- smatr:::coef.sma(log10_dry_wet_sma)[1] # Take the first value
 intercept
