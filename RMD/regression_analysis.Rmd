@@ -139,6 +139,26 @@ taxa_nested_sma_log10_plot_coef <- taxa_nested_sma_log10_plot |>
                              .f = ~confint(.x, level = 0.95)))
 taxa_nested_sma_log10_plot_coef$"95_conf_int"
 
+taxa_unnested_sma_log10_plot_coef <- taxa_nested_sma_log10_plot_coef |>
+  unnest(cols = c(data))
+
+
+coefs_ <- taxa_unnested_sma_log10_plot_coef |>
+  mutate(coef_as_df = lapply(coef, as.data.frame)) |>
+  select(taxa_clean, coef_as_df, "95_conf_int") |>
+  unique()
+coefs_
+
+
+coefs <- data.frame(taxon = taxa_nested_sma_log10_plot_coef$taxa_clean, 
+                    coef_value = list_c(taxa_nested_sma_log10_plot_coef$coef), 
+                    coefficient = names(list_c(taxa_nested_sma_log10_plot_coef$coef)),
+                    conf_int_value = list_c(taxa_nested_sma_log10_plot_coef$"95_conf_int")) |> pivot_wider(names_from = "coefficient", values_from = "coef_value")|>
+  data.frame(elevation = list_c(coefs$elevation), slope = list_c(coefs$slope))
+
+coefs
+
+
 
 
 

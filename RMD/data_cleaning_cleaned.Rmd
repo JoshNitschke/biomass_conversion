@@ -163,6 +163,7 @@ taxa_unnested_keep_data_merged <- taxa_unnested_outlier_candidates_identified |>
  # Consolidating all outlier candidates into one vector
    mutate(keep_data = ifelse(keep_data_mass1_percentiles == TRUE & keep_data_mass2_percentiles == TRUE & keep_data_cook == TRUE & keep_data_leverage == TRUE & keep_data_stud_resid == TRUE & keep_data_dffits == TRUE & keep_data_dfbetas_int == TRUE & keep_data_dfbetas_slope == TRUE, TRUE, FALSE)) 
 
+str(taxa_unnested_keep_data_merged$keep_data_dfbetas)
 ```
 
 ### Getting a summary table of counts for all outlier methods 
