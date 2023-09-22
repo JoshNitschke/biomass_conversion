@@ -7,7 +7,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-
+# Conflicted
 # install.packages("remotes")
 remotes::install_github("traitecoevo/smatr")
 
