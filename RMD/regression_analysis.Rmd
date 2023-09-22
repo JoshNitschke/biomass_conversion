@@ -154,6 +154,27 @@ coefs_ <- taxa_unnested_sma_log10_plot_coef |>
 coefs_
 
 
+##### Fonti's try
+# Goal is to get a df with taxa clean, coeffs and CI as columns
+long_coefs <- taxa_nested_sma_log10_plot_coef |> 
+  select(taxa_clean, coef, conf_int) |> 
+  unnest(c(coef, conf_int)) |>  # Not what we want
+  mutate(coef_type = rep(c("elevation", "slope"), length(taxa_nested_sma_log10_plot_coef$taxa_clean))) |> 
+  select(taxa_clean, coef_type, coef, Lower, Upper) |> 
+  clean_names()
+
+# Pivot wider multiple columns
+long_coefs |> 
+  pivot_wider(names_from = coef_type, values_from = c(coef, lower, upper)) |> 
+  select(taxa_clean, 
+         ends_with("elevation"), 
+         ends_with("slope")) 
+
+
+
+
+
+
 coefs <- data.frame(taxon = taxa_nested_sma_log10_plot_coef$taxa_clean, 
                     coef_value = list_c(taxa_nested_sma_log10_plot_coef$coef), 
                     coefficient = names(list_c(taxa_nested_sma_log10_plot_coef$coef)),
@@ -162,6 +183,18 @@ coefs <- data.frame(taxon = taxa_nested_sma_log10_plot_coef$taxa_clean,
   data.frame(elevation = c(coefs$elevation), slope = c(coefs$slope))
 
 coefs
+
+#####
+
+long_coefs <- data.frame(taxon = taxa_nested_sma_log10_plot_coef$taxa_clean, 
+                    coef_value = list_c(taxa_nested_sma_log10_plot_coef$coef), 
+                    coefficient = names(list_c(taxa_nested_sma_log10_plot_coef$coef)),
+                    conf_int_value = list_c(taxa_nested_sma_log10_plot_coef$conf_int)) 
+
+row.names(long_coefs) <- NULL
+
+long_coefs |> 
+  pivot_wider(values_from = c(coef_value, conf_int_value.Lower, conf_int_value.Upper))
 
 
 
