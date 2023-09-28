@@ -160,41 +160,19 @@ taxa_nested_sma_log10_plot_fitted_resid_qq <- taxa_nested_sma_log10_plot_fitted_
 ```
 
 
-### Pull out regression equation for back transformation
+### Pull out regression summary statistics
 
 ```{r}
 # Get coefficients from SMA
 
 taxa_nested_sma_log10_plot_coef <- taxa_nested_sma_log10_plot |>
-  mutate(coef = map(.x = sma_log10_object,
-                    .f = ~smatr:::coef.sma(.x)),
-         conf_int = map(.x = sma_log10_object,
-                             .f = ~confint(.x, level = 0.95)),
-         summary = map(.x = sma_log10_object,
+  mutate(summary = map(.x = sma_log10_object,
                        .f = ~ (smatr:::summary.sma(.x))))
-str(taxa_nested_sma_log10_plot_coef$sma_log10_object[1])
 
 long_summary <- taxa_nested_sma_log10_plot_coef |> 
   select(taxa_clean, summary) |> 
   unnest(summary) |> 
   select(taxa_clean, n, r2, pval, Slope, Slope_lowCI, Slope_highCI, Int, Int_lowCI, Int_highCI)
-
-# Alternative method
-##### Fonti's try
-# Goal is to get a df with taxa clean, coeffs and CI as columns
-long_coefs <- taxa_nested_sma_log10_plot_coef |> 
-  select(taxa_clean, coef, conf_int) |> 
-  unnest(c(coef, conf_int)) |>  # Not what we want
-  mutate(coef_type = rep(c("elevation", "slope"), length(taxa_nested_sma_log10_plot_coef$taxa_clean))) |> 
-  select(taxa_clean, coef_type, coef, Lower, Upper) |> 
-  clean_names()
-
-# Pivot wider multiple columns
-long_coefs |> 
-  pivot_wider(names_from = coef_type, values_from = c(coef, lower, upper)) |> 
-  select(taxa_clean, 
-         ends_with("elevation"), 
-         ends_with("slope")) 
 
 # back-transforming intercept and confidence intervals to get parameter 'a' in power equation: y = ax^b
 long_summary_a <- long_summary |> 
@@ -202,68 +180,42 @@ long_summary_a <- long_summary |>
          a_low_ci = 10^Int_lowCI,
          a_high_ci = 10^Int_highCI)
 
+```
 
-# manual calculation of SE's of coefs
-#SE of slope: sqrt [ Σ(yi – ŷi)2 / (n – 2) ] / sqrt [ Σ(xi – x)2 ].
-biomass_frozen_outliers_identified_amp <- biomass_frozen_outliers_identified |>
-  filter(taxa_clean == "Amphipoda")
+### Calculating SF (smearing factor) (mean of back-transformed residuals)
 
-sqrt((sum(biomass_frozen_outliers_identified_amp$dm_g-mean(biomass_frozen_outliers_identified_amp$dm_g))^2)/(length(biomass_frozen_outliers_identified_amp$dm_g)-2))/sqrt(sum(biomass_frozen_outliers_identified_amp$wm_g-mean(biomass_frozen_outliers_identified_amp$wm_g))^2)
+cf Mährlein et al 2016 pg 43
 
+```{r}
 
+taxa_nested_sma_log10_plot_coef_sf <- taxa_nested_sma_log10_plot_coef |>
+  mutate(sf = map(.x = sma_log10_object,
+                  .f = ~ (1/length(residuals(.x)))*sum(10^residuals(.x))))
 
----
-coefs <- data.frame(taxon = taxa_nested_sma_log10_plot_coef$taxa_clean, 
-                    coef_value = list_c(taxa_nested_sma_log10_plot_coef$coef), 
-                    coefficient = names(list_c(taxa_nested_sma_log10_plot_coef$coef)),
-                    conf_int_value = list_c(taxa_nested_sma_log10_plot_coef$conf_int)) |> 
-  pivot_wider(names_from = "coefficient", values_from = "coef_value")|>
-  data.frame(elevation = c(coefs$elevation), slope = c(coefs$slope))
+taxa_sf <- taxa_nested_sma_log10_plot_coef_sf |>
+  select(taxa_clean, sf) |>
+  unnest(sf)
 
-coefs
+# adding smearing factor to SMA summary table
+long_summary_a_sf <- merge(long_summary_a, taxa_sf)
+```
 
-#####
+## Plotting back-transformed regression equation, with and without smearing factor correction
 
-long_coefs <- data.frame(taxon = taxa_nested_sma_log10_plot_coef$taxa_clean, 
-                    coef_value = list_c(taxa_nested_sma_log10_plot_coef$coef), 
-                    coefficient = names(list_c(taxa_nested_sma_log10_plot_coef$coef)),
-                    conf_int_value = list_c(taxa_nested_sma_log10_plot_coef$conf_int)) 
+```{r}
 
-row.names(long_coefs) <- NULL
+taxa_nested_sma_log10_plot_coef_BT <- taxa_nested_sma_log10_plot_coef_sf |> 
+  select(taxa_clean, data, summary, sf) |> 
+  unnest(summary) |>
+  mutate(BT_plot = pmap(.l = list(data, Slope, Int, sf, taxa_clean),
+                        .f = ~ggplot(..1, aes(x = wm_g, y = dm_g)) +
+                          geom_point() +
+                          geom_function(fun = function(x) (10^..3)*x^..2) +
+                          geom_function(fun = function(x) (10^..3)*(x^..2)*..4, 
+                                        col = "green") +
+                          ggtitle(..5)))
+taxa_nested_sma_log10_plot_coef_BT$BT_plot
 
-long_coefs |> 
-  pivot_wider(values_from = c(coef_value, conf_int_value.Lower, conf_int_value.Upper))
----
-
-
-
-
-intercept <- smatr:::coef.sma(log10_dry_wet_sma)[1] # Take the first value
-intercept
-
-slope <- smatr:::coef.sma(log10_dry_wet_sma)[2] # Take the second value
-slope
-
-# log10(DM) = slope * log10(WM) + intercept
-# Exponentiate log10 using 10^
-# DM = WM^slope * 10^intercept
-# Create a new variable BT = Back transformed 
-data_BF <- data |> 
-  mutate(BT_DM = (wm_g^slope) * (10^intercept))  
-
-# Plot back transformed data
-# Histograms
-hist(data_BF$dm_g) # Raw data
-hist(data_BF$BT_DM) # Back transformed
-
-# Scatterplots
-# Raw data
-ggplot(data_BF, aes(x = dm_g, y= wm_g)) +
-  geom_point(alpha = 0.50) 
-
-# Back transformed
-ggplot(data_BF, aes(x = BT_DM, y= wm_g)) +
-  geom_point(alpha = 0.50)
 ```
 
 ### calculating ratios and associated summary statistics
