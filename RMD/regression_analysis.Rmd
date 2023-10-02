@@ -200,7 +200,7 @@ taxa_sf <- taxa_nested_sma_log10_plot_coef_sf |>
 long_summary_a_sf <- merge(long_summary_a, taxa_sf)
 ```
 
-## Plotting back-transformed regression equation, with and without smearing factor correction
+### Plotting back-transformed regression equation, with and without smearing factor correction
 
 ```{r}
 taxa_nested_sma_log10_plot_coef_BT <- taxa_nested_sma_log10_plot_coef_sf |> 
@@ -229,6 +229,135 @@ biomass_frozen_outliers_identified_ratios <- biomass_frozen_outliers_identified 
   mutate(dm_wm = dm_g/wm_g)
   
 biomass_frozen_outliers_identified_ratios |>
+  group_by(taxa_clean) |>
+  summarise(n = n(),
+            mean_dm_wm = mean(dm_wm),
+            sd_dm_wm = sd(dm_wm),
+            lower_ci_mean_dm_wm = mean_dm_wm-0.95*(sd_dm_wm/sqrt(n)),
+            upper_ci_mean_dm_wm = mean_dm_wm+0.95*(sd_dm_wm/sqrt(n)),
+            geom_mean = prod(dm_wm)^(1/n),
+            min_dm_wm = min(dm_wm),
+            median_dm_wm = median(dm_wm),
+            max_dm_wm = max(dm_wm))
+
+```
+
+##Exclude outlier candidates
+
+### Running SMA's on log10-transformed data and plotting
+```{r}
+taxa_nested_outliers_removed_sma_log10_plot <- biomass_frozen_outliers_identified |> 
+  filter(keep_data == TRUE) |>
+  group_nest(taxa_clean) |>
+  mutate(sma_log10_object = map(.x = data,
+                          ~ sma(dm_g ~ wm_g, log = "xy", data = .x)),
+         sma_log10_plots = map2(.x = sma_log10_object,
+                         .y = taxa_clean,
+                         .f = ~ plot(.x, xlab = "wet mass (g)", ylab = "dry mass (g)", main = .y)))
+taxa_nested_sma_log10_plot$sma_log10_plots
+```
+### check assumptions again
+
+#### homogeneity of variance
+```{r}
+taxa_nested_outliers_removed_sma_log10_plot_fitted_resid <- taxa_nested_outliers_removed_sma_log10_plot |> 
+  mutate(fitted_resid = map(.x = sma_log10_object,
+                             .f = ~ tibble(fitted = fitted(.x), residuals = residuals(.x))),
+         fitted_resid_plot = map2(.x = fitted_resid,
+                     .y = taxa_clean,
+                     .f = ~ ggplot(data = .x, aes(x = fitted, y = residuals)) + 
+                       ggtitle(.y) +
+                       labs(x = "fitted value", y = "residual") +
+                       geom_point() + 
+                       geom_hline(yintercept = 0) +
+                       theme_bw() + 
+                       theme(panel.border = element_blank(), panel.grid.major = element_blank(), 
+                       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"), 
+                       axis.text = element_text(size = 12, colour = "black"), axis.title = element_text(size = 14))))
+taxa_nested_outliers_removed_sma_log10_plot_fitted_resid$fitted_resid_plot
+
+```
+
+#### Normality
+```{r}
+taxa_nested_outliers_removed_sma_log10_plot_fitted_resid_qq <- taxa_nested_outliers_removed_sma_log10_plot_fitted_resid |>
+  mutate(qq = map2(.x = sma_log10_object,
+                  .y = taxa_clean,
+                  .f = ~ plot(.x, which = "qq", main = paste("qq-plot:",.y))))
+taxa_nested_outliers_removed_sma_log10_plot_fitted_resid_qq$qq
+```
+
+
+### Pull out regression summary statistics
+
+```{r}
+# Get coefficients from SMA
+
+taxa_nested_outliers_removed_sma_log10_plot_coef <- taxa_nested_outliers_removed_sma_log10_plot |>
+  mutate(summary = map(.x = sma_log10_object,
+                       .f = ~ (smatr:::summary.sma(.x))))
+
+long_summary_outliers_removed <- taxa_nested_outliers_removed_sma_log10_plot_coef |> 
+  select(taxa_clean, summary) |> 
+  unnest(summary) |> 
+  select(taxa_clean, n, r2, pval, Slope, Slope_lowCI, Slope_highCI, Int, Int_lowCI, Int_highCI)
+
+# back-transforming intercept and confidence intervals to get parameter 'a' in power equation: y = ax^b
+long_summary_a_outliers_removed <- long_summary_outliers_removed |> 
+  mutate(a = 10^Int,
+         a_low_ci = 10^Int_lowCI,
+         a_high_ci = 10^Int_highCI)
+
+```
+
+### Calculating SF (smearing factor) (mean of back-transformed residuals)
+
+cf Mährlein et al 2016 pg 43
+
+```{r}
+
+taxa_nested_outliers_removed_sma_log10_plot_coef_sf <- taxa_nested_outliers_removed_sma_log10_plot_coef |>
+  mutate(sf = map(.x = sma_log10_object,
+                  .f = ~ (1/length(residuals(.x)))*sum(10^residuals(.x))))
+
+taxa_sf_outliers_removed <- taxa_nested_outliers_removed_sma_log10_plot_coef_sf |>
+  select(taxa_clean, sf) |>
+  unnest(sf)
+
+# adding smearing factor to SMA summary table
+long_summary_a_sf_outliers_removed <- merge(long_summary_a_outliers_removed, taxa_sf_outliers_removed)
+```
+
+### Plotting back-transformed regression equation, with and without smearing factor correction
+
+```{r}
+taxa_nested_outliers_removed_sma_log10_plot_coef_sf_BT <- taxa_nested_outliers_removed_sma_log10_plot_coef_sf |> 
+  unnest(c(data, summary, sf)) |>
+  mutate(lower_CI_line = (10^Int_lowCI)*(wm_g^Slope_lowCI)*sf,
+         upper_CI_line = (10^Int_highCI)*(wm_g^Slope_highCI)*sf) |>
+  nest(data = c(wm_g, dm_g, lower_CI_line, upper_CI_line, keep_data)) |>
+  select(taxa_clean, data, Slope, Slope_lowCI, Slope_highCI, Int, Int_lowCI, Int_highCI, sf) |>
+  mutate(BT_plot = pmap(.l = list(data, Slope, Slope_lowCI, Slope_highCI, Int, Int_lowCI, Int_highCI, sf, taxa_clean),
+                        .f = ~ggplot(..1, aes(x = wm_g, y = dm_g)) +
+                          geom_point() +
+                          geom_function(fun = function(x) (10^..5)*x^..2) +
+                          geom_function(fun = function(x) (10^..5)*(x^..2)*..8, 
+                                        col = "darkgreen", linewidth  = 1) +
+                          geom_ribbon(aes(ymin = lower_CI_line, ymax = upper_CI_line), fill = "darkgreen", alpha = 0.2) +
+                          ggtitle(..9)))
+taxa_nested_outliers_removed_sma_log10_plot_coef_sf_BT$BT_plot
+
+```
+
+### calculating ratios and associated summary statistics
+
+```{r}
+
+biomass_frozen_outliers_removed_ratios <- biomass_frozen_outliers_identified |>
+  filter(keep_data == TRUE) |>
+  mutate(dm_wm = dm_g/wm_g)
+  
+biomass_frozen_outliers_removed_ratios |>
   group_by(taxa_clean) |>
   summarise(n = n(),
             mean_dm_wm = mean(dm_wm),
