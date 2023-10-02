@@ -1,5 +1,5 @@
 ---
-title: "R Notebook"
+title: "Cleaning biomass data - wet mass and dry mass"
 output: html_document
 editor_options: 
   chunk_output_type: console

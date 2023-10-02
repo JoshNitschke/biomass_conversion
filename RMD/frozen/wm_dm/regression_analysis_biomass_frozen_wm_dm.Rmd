@@ -1,5 +1,5 @@
 ---
-title: "regression_analysis_SMA"
+title: "SMA regression analysis"
 author: "Josh Nitschke"
 date: "2023-08-31"
 output: html_document
@@ -24,23 +24,25 @@ library(purrr)
 library(tidyr)
 ```
 
-## read in processed data
+## Reading in cleaned data
+
 ```{r}
 biomass_frozen_outliers_identified <- read_csv(here("data/processed/biomass_frozen_outliers_identified.csv"))
 ```
 
-## running SMA's on untransformed data
+## Running SMA's on untransformed data
+
 ```{r}
 taxa_nested_sma <- biomass_frozen_outliers_identified |> 
   group_nest(taxa_clean) |>
   mutate(sma_object = map(.x = data,
                           ~ sma(dm_g ~ wm_g, data = .x)))
-
 ```
 
-### Check assumptions
+### Checking assumptions
 
-#### homogeneity of variance
+#### Homogeneity of variance
+
 ```{r}
 taxa_nested_sma_fitted_resid <- taxa_nested_sma |> 
   mutate(fitted_resid = map(.x = sma_object,
@@ -57,30 +59,33 @@ taxa_nested_sma_fitted_resid <- taxa_nested_sma |>
                        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"), 
                        axis.text = element_text(size = 12, colour = "black"), axis.title = element_text(size = 14))))
 taxa_nested_sma_fitted_resid$fitted_resid_plot
-
 ```
 
 #### Normality
+
 ```{r}
 taxa_nested_sma_fitted_resid_qq <- taxa_nested_sma_fitted_resid |>
   mutate(qq = map2(.x = sma_object,
                   .y = taxa_clean,
                   .f = ~ plot(.x, which = "qq", main = paste("qq-plot:",.y))))
 ```
-# Excluding outliers
-## running SMA's on untransformed data
+
+## Excluding outliers
+
+### Running SMA's on untransformed data
+
 ```{r}
 taxa_nested_sma_outliers_removed <- biomass_frozen_outliers_identified |> 
   filter(keep_data == TRUE) |>
   group_nest(taxa_clean) |>
   mutate(sma_object = map(.x = data,
                           ~ sma(dm_g ~ wm_g, data = .x)))
-
 ```
 
-### Check assumptions
+### Checking assumptions
 
-#### homogeneity of variance
+#### Homogeneity of variance
+
 ```{r}
 taxa_nested_sma_outliers_removed_fitted_resid <- taxa_nested_sma_outliers_removed |> 
   mutate(fitted_resid = map(.x = sma_object,
@@ -97,17 +102,10 @@ taxa_nested_sma_outliers_removed_fitted_resid <- taxa_nested_sma_outliers_remove
                        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"), 
                        axis.text = element_text(size = 12, colour = "black"), axis.title = element_text(size = 14))))
 taxa_nested_sma_outliers_removed_fitted_resid$fitted_resid_plot
-
-```
-Alternative method
-```{r}
-taxa_nested_sma_outliers_removed_fitted_resid2 <- taxa_nested_sma_outliers_removed |>
-  mutate(scat = map2(.x = sma_object,
-                  .y = taxa_clean,
-                  .f = ~ plot(.x, which = "residual", main = .y)))
 ```
 
 #### Normality
+
 ```{r}
 taxa_nested_sma_outliers_removed_fitted_resid_qq <- taxa_nested_sma_outliers_removed_fitted_resid |>
   mutate(qq = map2(.x = sma_object,
@@ -115,8 +113,10 @@ taxa_nested_sma_outliers_removed_fitted_resid_qq <- taxa_nested_sma_outliers_rem
                   .f = ~ plot(.x, which = "qq", main = paste("qq-plot:",.y))))
 ```
 
+## Log-transforming to stabilise variance and improve normality
 
-## Running SMA's on log10-transformed data and plotting
+### Running SMA's on log10-transformed data and plotting
+
 ```{r}
 taxa_nested_sma_log10_plot <- biomass_frozen_outliers_identified |> 
   group_nest(taxa_clean) |>
@@ -129,9 +129,10 @@ taxa_nested_sma_log10_plot <- biomass_frozen_outliers_identified |>
 taxa_nested_sma_log10_plot$sma_log10_object
 ```
 
-## check assumptions again
+### Checking assumptions again
 
-#### homogeneity of variance
+#### Homogeneity of variance
+
 ```{r}
 taxa_nested_sma_log10_plot_fitted_resid <- taxa_nested_sma_log10_plot |> 
   mutate(fitted_resid = map(.x = sma_log10_object,
@@ -148,10 +149,10 @@ taxa_nested_sma_log10_plot_fitted_resid <- taxa_nested_sma_log10_plot |>
                        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"), 
                        axis.text = element_text(size = 12, colour = "black"), axis.title = element_text(size = 14))))
 taxa_nested_sma_log10_plot_fitted_resid$fitted_resid_plot
-
 ```
 
 #### Normality
+
 ```{r}
 taxa_nested_sma_log10_plot_fitted_resid_qq <- taxa_nested_sma_log10_plot_fitted_resid |>
   mutate(qq = map2(.x = sma_log10_object,
@@ -159,12 +160,12 @@ taxa_nested_sma_log10_plot_fitted_resid_qq <- taxa_nested_sma_log10_plot_fitted_
                   .f = ~ plot(.x, which = "qq", main = paste("qq-plot:",.y))))
 ```
 
+### Regression summary statistics
 
-### Pull out regression summary statistics
+Pulling out regression summary statistics
 
 ```{r}
-# Get coefficients from SMA
-
+# Getting coefficients from SMA
 taxa_nested_sma_log10_plot_coef <- taxa_nested_sma_log10_plot |>
   mutate(summary = map(.x = sma_log10_object,
                        .f = ~ (smatr:::summary.sma(.x))))
@@ -174,20 +175,16 @@ long_summary <- taxa_nested_sma_log10_plot_coef |>
   unnest(summary) |> 
   select(taxa_clean, n, r2, pval, Slope, Slope_lowCI, Slope_highCI, Int, Int_lowCI, Int_highCI)
 
-# back-transforming intercept and confidence intervals to get parameter 'a' in power equation: y = ax^b
+# Back-transforming intercept and confidence intervals to get parameter 'a' in power equation: y = ax^b
 long_summary_a <- long_summary |> 
   mutate(a = 10^Int,
          a_low_ci = 10^Int_lowCI,
          a_high_ci = 10^Int_highCI)
-
 ```
 
-### Calculating SF (smearing factor) (mean of back-transformed residuals)
-
-cf Mährlein et al 2016 pg 43
+Calculating SF (smearing factor - mean of back-transformed residuals) as per Mährlein, M., M. Pätzig, M. Brauns and A. M. Dolman. Length–mass relationships for lake macroinvertebrates corrected for back-transformation and preservation effects. Hydrobiologia, 768, 37-50 (2016).
 
 ```{r}
-
 taxa_nested_sma_log10_plot_coef_sf <- taxa_nested_sma_log10_plot_coef |>
   mutate(sf = map(.x = sma_log10_object,
                   .f = ~ (1/length(residuals(.x)))*sum(10^residuals(.x))))
@@ -196,11 +193,13 @@ taxa_sf <- taxa_nested_sma_log10_plot_coef_sf |>
   select(taxa_clean, sf) |>
   unnest(sf)
 
-# adding smearing factor to SMA summary table
+# Adding smearing factor to SMA summary table
 long_summary_a_sf <- merge(long_summary_a, taxa_sf)
 ```
 
-### Plotting back-transformed regression equation, with and without smearing factor correction
+### Back-transformation 
+
+Plotting back-transformed regression equation, with and without smearing factor correction
 
 ```{r}
 taxa_nested_sma_log10_plot_coef_BT <- taxa_nested_sma_log10_plot_coef_sf |> 
@@ -218,13 +217,11 @@ taxa_nested_sma_log10_plot_coef_BT <- taxa_nested_sma_log10_plot_coef_sf |>
                           geom_ribbon(aes(ymin = lower_CI_line, ymax = upper_CI_line), fill = "darkgreen", alpha = 0.2) +
                           ggtitle(..9)))
 taxa_nested_sma_log10_plot_coef_BT$BT_plot
-
 ```
 
-### calculating ratios and associated summary statistics
+### Calculating biomass ratios and associated summary statistics
 
 ```{r}
-
 biomass_frozen_outliers_identified_ratios <- biomass_frozen_outliers_identified |>
   mutate(dm_wm = dm_g/wm_g)
   
@@ -239,12 +236,12 @@ biomass_frozen_outliers_identified_ratios |>
             min_dm_wm = min(dm_wm),
             median_dm_wm = median(dm_wm),
             max_dm_wm = max(dm_wm))
-
 ```
 
-##Exclude outlier candidates
+## Excluding outlier candidates
 
 ### Running SMA's on log10-transformed data and plotting
+
 ```{r}
 taxa_nested_outliers_removed_sma_log10_plot <- biomass_frozen_outliers_identified |> 
   filter(keep_data == TRUE) |>
@@ -256,9 +253,11 @@ taxa_nested_outliers_removed_sma_log10_plot <- biomass_frozen_outliers_identifie
                          .f = ~ plot(.x, xlab = "wet mass (g)", ylab = "dry mass (g)", main = .y)))
 taxa_nested_sma_log10_plot$sma_log10_plots
 ```
-### check assumptions again
 
-#### homogeneity of variance
+### Checking assumptions again
+
+#### Homogeneity of variance
+
 ```{r}
 taxa_nested_outliers_removed_sma_log10_plot_fitted_resid <- taxa_nested_outliers_removed_sma_log10_plot |> 
   mutate(fitted_resid = map(.x = sma_log10_object,
@@ -275,10 +274,10 @@ taxa_nested_outliers_removed_sma_log10_plot_fitted_resid <- taxa_nested_outliers
                        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"), 
                        axis.text = element_text(size = 12, colour = "black"), axis.title = element_text(size = 14))))
 taxa_nested_outliers_removed_sma_log10_plot_fitted_resid$fitted_resid_plot
-
 ```
 
 #### Normality
+
 ```{r}
 taxa_nested_outliers_removed_sma_log10_plot_fitted_resid_qq <- taxa_nested_outliers_removed_sma_log10_plot_fitted_resid |>
   mutate(qq = map2(.x = sma_log10_object,
@@ -287,12 +286,12 @@ taxa_nested_outliers_removed_sma_log10_plot_fitted_resid_qq <- taxa_nested_outli
 taxa_nested_outliers_removed_sma_log10_plot_fitted_resid_qq$qq
 ```
 
+### Regression summary statistics
 
-### Pull out regression summary statistics
+Pulling out regression summary statistics
 
 ```{r}
-# Get coefficients from SMA
-
+# Getting coefficients from SMA
 taxa_nested_outliers_removed_sma_log10_plot_coef <- taxa_nested_outliers_removed_sma_log10_plot |>
   mutate(summary = map(.x = sma_log10_object,
                        .f = ~ (smatr:::summary.sma(.x))))
@@ -302,20 +301,16 @@ long_summary_outliers_removed <- taxa_nested_outliers_removed_sma_log10_plot_coe
   unnest(summary) |> 
   select(taxa_clean, n, r2, pval, Slope, Slope_lowCI, Slope_highCI, Int, Int_lowCI, Int_highCI)
 
-# back-transforming intercept and confidence intervals to get parameter 'a' in power equation: y = ax^b
+# Back-transforming intercept and confidence intervals to get parameter 'a' in power equation: y = ax^b
 long_summary_a_outliers_removed <- long_summary_outliers_removed |> 
   mutate(a = 10^Int,
          a_low_ci = 10^Int_lowCI,
          a_high_ci = 10^Int_highCI)
-
 ```
 
-### Calculating SF (smearing factor) (mean of back-transformed residuals)
-
-cf Mährlein et al 2016 pg 43
+Calculating SF (smearing factor - mean of back-transformed residuals) as per Mährlein, M., M. Pätzig, M. Brauns and A. M. Dolman. Length–mass relationships for lake macroinvertebrates corrected for back-transformation and preservation effects. Hydrobiologia, 768, 37-50 (2016).3
 
 ```{r}
-
 taxa_nested_outliers_removed_sma_log10_plot_coef_sf <- taxa_nested_outliers_removed_sma_log10_plot_coef |>
   mutate(sf = map(.x = sma_log10_object,
                   .f = ~ (1/length(residuals(.x)))*sum(10^residuals(.x))))
@@ -324,11 +319,13 @@ taxa_sf_outliers_removed <- taxa_nested_outliers_removed_sma_log10_plot_coef_sf 
   select(taxa_clean, sf) |>
   unnest(sf)
 
-# adding smearing factor to SMA summary table
+# Adding smearing factor to SMA summary table
 long_summary_a_sf_outliers_removed <- merge(long_summary_a_outliers_removed, taxa_sf_outliers_removed)
 ```
 
-### Plotting back-transformed regression equation, with and without smearing factor correction
+### Back-transformation 
+
+Plotting back-transformed regression equation, with and without smearing factor correction
 
 ```{r}
 taxa_nested_outliers_removed_sma_log10_plot_coef_sf_BT <- taxa_nested_outliers_removed_sma_log10_plot_coef_sf |> 
@@ -346,13 +343,11 @@ taxa_nested_outliers_removed_sma_log10_plot_coef_sf_BT <- taxa_nested_outliers_r
                           geom_ribbon(aes(ymin = lower_CI_line, ymax = upper_CI_line), fill = "darkgreen", alpha = 0.2) +
                           ggtitle(..9)))
 taxa_nested_outliers_removed_sma_log10_plot_coef_sf_BT$BT_plot
-
 ```
 
-### calculating ratios and associated summary statistics
+### Calculating biomass ratios and associated summary statistics
 
 ```{r}
-
 biomass_frozen_outliers_removed_ratios <- biomass_frozen_outliers_identified |>
   filter(keep_data == TRUE) |>
   mutate(dm_wm = dm_g/wm_g)
@@ -368,5 +363,4 @@ biomass_frozen_outliers_removed_ratios |>
             min_dm_wm = min(dm_wm),
             median_dm_wm = median(dm_wm),
             max_dm_wm = max(dm_wm))
-
 ```

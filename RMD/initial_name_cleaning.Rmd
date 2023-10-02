@@ -1,0 +1,62 @@
+---
+title: "Initial name cleaning"
+output: html_notebook
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(here)
+library(smatr)
+library(janitor)
+library(skimr)
+library(gridExtra)
+library(olsrr)
+```
+
+Reading in raw data
+
+```{r, warning=FALSE}
+biomass_data <- read_csv(here("data/raw/biomass_sep_2023.csv"), na = c('#DIV/0!', 'NA'))
+```
+
+## Clean variable names
+
+```{r}
+biomass_data <- biomass_data |> clean_names() 
+``` 
+
+## Clean taxa
+
+```{r}
+# Table of counts
+biomass_data$taxa |> tabyl()
+
+# Correct typo and checking
+biomass_data |> 
+  mutate(taxa_clean = case_when(taxa == "Euchone" ~ "Euchone variabilis",
+                                taxa == "Soletellina" ~ "Hiatula alba",
+                                taxa == "Hiatula" ~ "Hiatula alba",
+                                taxa == "Spisula - flesh" ~ "Spisula",
+                          TRUE ~ taxa)) |> 
+  select(taxa, taxa_clean) |> 
+  filter(taxa == c("Euchone", "Soletellina", "Spisula - flesh")) |>
+  print(n = Inf)
+
+# Making changes
+biomass_data_taxaclean <- biomass_data |> 
+  mutate(taxa_clean = case_when(taxa == "Euchone" ~ "Euchone variabilis",
+                                taxa == "Soletellina" ~ "Hiatula alba",
+                                taxa == "Hiatula" ~ "Hiatula alba",
+                                taxa == "Spisula - flesh" ~ "Spisula",
+                          TRUE ~ taxa)) |>
+  filter(!taxa == "") # Dropping empty taxa
+
+biomass_data_taxaclean$taxa_clean |> tabyl()
+
+# Save the data
+write_csv(biomass_data_taxaclean, here("data/processed/biomass_data_cleannames.csv"))
+``` 
