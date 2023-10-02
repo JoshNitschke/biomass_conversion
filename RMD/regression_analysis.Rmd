@@ -203,17 +203,20 @@ long_summary_a_sf <- merge(long_summary_a, taxa_sf)
 ## Plotting back-transformed regression equation, with and without smearing factor correction
 
 ```{r}
-
 taxa_nested_sma_log10_plot_coef_BT <- taxa_nested_sma_log10_plot_coef_sf |> 
-  select(taxa_clean, data, summary, sf) |> 
-  unnest(summary) |>
-  mutate(BT_plot = pmap(.l = list(data, Slope, Int, sf, taxa_clean),
+  unnest(c(data, summary, sf)) |>
+  mutate(lower_CI_line = (10^Int_lowCI)*(wm_g^Slope_lowCI)*sf,
+         upper_CI_line = (10^Int_highCI)*(wm_g^Slope_highCI)*sf) |>
+  nest(data = c(wm_g, dm_g, lower_CI_line, upper_CI_line, keep_data)) |>
+  select(taxa_clean, data, Slope, Slope_lowCI, Slope_highCI, Int, Int_lowCI, Int_highCI, sf) |>
+  mutate(BT_plot = pmap(.l = list(data, Slope, Slope_lowCI, Slope_highCI, Int, Int_lowCI, Int_highCI, sf, taxa_clean),
                         .f = ~ggplot(..1, aes(x = wm_g, y = dm_g)) +
                           geom_point() +
-                          geom_function(fun = function(x) (10^..3)*x^..2) +
-                          geom_function(fun = function(x) (10^..3)*(x^..2)*..4, 
-                                        col = "green") +
-                          ggtitle(..5)))
+                          geom_function(fun = function(x) (10^..5)*x^..2) +
+                          geom_function(fun = function(x) (10^..5)*(x^..2)*..8, 
+                                        col = "darkgreen", linewidth  = 1) +
+                          geom_ribbon(aes(ymin = lower_CI_line, ymax = upper_CI_line), fill = "darkgreen", alpha = 0.2) +
+                          ggtitle(..9)))
 taxa_nested_sma_log10_plot_coef_BT$BT_plot
 
 ```
