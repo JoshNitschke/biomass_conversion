@@ -92,9 +92,9 @@ check_mass_diff <- function(data,  # Must not contain NAs for the two weight mea
 #' @return data including only taxa with at least 10 observations
 #'
 #' @examples
-#' taxa_notenough_obs(step_3, taxa_clean)
+#' taxa_enough_obs(step_3, taxa_clean)
 
-taxa_notenough_obs <- function(preserved_method_data,
+taxa_enough_obs <- function(preserved_method_data,
                                taxa_names){
   
   # Identify which ones I don't want
