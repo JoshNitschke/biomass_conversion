@@ -236,7 +236,9 @@ taxa_nested_sma_log10_plot_coef_BT <- taxa_nested_sma_log10_plot_coef_sf |>
   theme_bw() + 
   theme(panel.border = element_blank(), panel.grid.major = element_blank(),
           panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"),
-          axis.text = element_text(size = 12, colour = "black"), axis.title = element_text(size = 14), title = element_text(size = 16))))
+          axis.text = element_text(size = 12, colour = "black"), axis.title = element_text(size = 14), title = element_text(size = 16)) +
+     geom_text(x = 1, y = 1, label = (paste("dry mass = x "^eval(..2)*"")), parse = TRUE)))
+          #    format(round(summary(bridled_goby_loglm)$adj.r.squared, 3), nsmall = 3))))
 taxa_nested_sma_log10_plot_coef_BT$BT_plot
 ```
 
