@@ -224,21 +224,33 @@ taxa_nested_sma_log10_plot_coef_BT <- taxa_nested_sma_log10_plot_coef_sf |>
   mutate(lower_CI_line = (10^Int_lowCI)*(wm_g^Slope_lowCI)*sf,
          upper_CI_line = (10^Int_highCI)*(wm_g^Slope_highCI)*sf) |>
   nest(data = c(wm_g, dm_g, lower_CI_line, upper_CI_line, keep_data)) |>
-  select(taxa_clean, data, Slope, Slope_lowCI, Slope_highCI, Int, Int_lowCI, Int_highCI, sf) |>
-  mutate(BT_plot = pmap(.l = list(data, Slope, Slope_lowCI, Slope_highCI, Int, Int_lowCI, Int_highCI, sf, taxa_clean),
+  select(taxa_clean, data, Slope, Slope_lowCI, Slope_highCI, Int, Int_lowCI, Int_highCI, sf, r2) |>
+  mutate(BT_plot = pmap(.l = list(data, Slope, Slope_lowCI, Slope_highCI, Int, Int_lowCI, Int_highCI, sf,
+                                  taxa_clean, r2),
                         .f = ~ggplot(..1, aes(x = wm_g, y = dm_g)) +
                           geom_point() +
                           geom_function(fun = function(x) (10^..5)*(x^..2)*..8, 
                                         col = "darkgreen", linewidth  = 1) +
-                          geom_ribbon(aes(ymin = lower_CI_line, ymax = upper_CI_line), fill = "darkgreen", alpha = 0.2) +
+                          geom_ribbon(aes(ymin = lower_CI_line, ymax = upper_CI_line), fill = "darkgreen", 
+                                      alpha = 0.2) +
                           ggtitle(..9) + 
-  labs(x = "wet mass (g)", y = "dry mass (g)") + 
-  theme_bw() + 
-  theme(panel.border = element_blank(), panel.grid.major = element_blank(),
-          panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"),
-          axis.text = element_text(size = 12, colour = "black"), axis.title = element_text(size = 14), title = element_text(size = 16)) +
-     geom_text(x = 1, y = 1, label = (paste("dry mass = x "^eval(..2)*"")), parse = TRUE)))
-          #    format(round(summary(bridled_goby_loglm)$adj.r.squared, 3), nsmall = 3))))
+                          labs(x = "wet mass (g)", y = "dry mass (g)") + 
+                          geom_text(x = 0.25*max(..1$wm_g), y = 0.85*max(..1$dm_g), 
+                                    label = deparse(bquote(paste("D = ", .(round((10^..5), digits = 2)), 
+                                                                 "W" ^.(round(..2, digits = 2)),
+                                                                 .(round(..8, digits = 2)), ",  R"^2, 
+                                                                 " = ", .(round(..10, digits = 2)), sep = ""))),
+                                    parse = TRUE) +
+                          theme_bw() + 
+                          theme(panel.border = element_blank(), 
+                                panel.grid.major = element_blank(),
+                                panel.grid.minor = element_blank(), 
+                                axis.line = element_line(colour = "black"),
+                                axis.text = element_text(size = 12, colour = "black"), 
+                                axis.title = element_text(size = 14), 
+                                title = element_text(size = 16)) + 
+                          scale_x_continuous(expand = expansion(mult = c(0, 0.1))) + 
+                          scale_y_continuous(expand = expansion(mult = c(0, 0.1)))))
 taxa_nested_sma_log10_plot_coef_BT$BT_plot
 ```
 
