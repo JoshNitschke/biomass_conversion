@@ -71,26 +71,30 @@ Creating Cleveland plots for each taxa as a visual tool to help identify observa
 ```{r}
 cleveland_plots <- step_4 |>
   group_nest(taxa_clean) |>
-  mutate(plot = map2(.x = data,
+  mutate(wm_plot = map2(.x = data,
                     .y = taxa_clean,
-                    ~cleveland_plot(.x, "wm_g") + ggtitle(.y)))
-cleveland_plots$plot
+                    ~cleveland_plot(.x, "wm_g") + ggtitle(.y)),
+         dm_plot = map2(.x = data,
+                    .y = taxa_clean,
+                    ~cleveland_plot(.x, "dm_g") + ggtitle(.y)))
+cleveland_plots$wm_plot
+cleveland_plots$dm_plot
 ```
 
 ### Percentage analysis 
 
-Identifying top and bottom 2.5% of the data for each mass variable
+Identifying top and bottom 2.5% of the data for the mass or count variables being analysed
 
 ```{r}
 biomass_frozen_percentiles <- step_4 |>
   group_by(taxa_clean) |>
-  mutate(keep_data_mass1_percentiles = biomass_percentiles(wm_g, 0.025, 0.975),
-         keep_data_mass2_percentiles = biomass_percentiles(dm_g, 0.025, 0.975))
+  mutate(keep_data_wm_percentiles = percentiles(wm_g, 0.025, 0.975),
+         keep_data_dm_percentiles = percentiles(dm_g, 0.025, 0.975))
   
 # Checking which observations are identified by the percentile method
 biomass_frozen_percentiles |> 
-  filter(keep_data_mass1_percentiles == FALSE) |> 
-  select(taxa_clean, wm_g, keep_data_mass1_percentiles, obs_num) |>
+  filter(keep_data_wm_percentiles == FALSE) |> 
+  select(taxa_clean, wm_g, keep_data_wm_percentiles, obs_num) |>
   arrange(taxa_clean, wm_g) |>
   print(n = Inf)
 ```

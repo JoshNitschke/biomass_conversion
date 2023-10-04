@@ -146,18 +146,18 @@ cleveland_plot <- function(preservation_method_data, mass_measure){
 
 #' Identifying observations outside given percentiles
 #'
-#' @param mass_measure 
+#' @param mass_measure_or_count 
 #' @param lower_percentile
 #' @param upper_percentile
 #'
-#' @return A logical vector indicating whether each observation of the specified mass measure is between the specified percentiles
+#' @return A logical vector indicating whether each observation of the specified mass or count measure is between the specified percentiles
 #'
 #' @examples
-#' df |> mutate(keep_data_mass1_percentiles = biomass_percentiles(wm_g, 0.025, 0.975))
+#' df |> mutate(keep_data_wm_percentiles = percentiles(wm_g, 0.025, 0.975))
 
-biomass_percentiles <- function(mass_measure, lower_percentile, upper_percentile){
-    ifelse(mass_measure >= quantile(mass_measure, lower_percentile, na.rm = TRUE) 
-         & mass_measure <= quantile(mass_measure, upper_percentile, na.rm = TRUE), TRUE, FALSE)
+percentiles <- function(mass_measure_or_count, lower_percentile, upper_percentile){
+    ifelse(mass_measure_or_count >= quantile(mass_measure_or_count, lower_percentile, na.rm = TRUE) 
+         & mass_measure_or_count <= quantile(mass_measure_or_count, upper_percentile, na.rm = TRUE), TRUE, FALSE)
 }
 
 

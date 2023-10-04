@@ -1,4 +1,4 @@
-source,year,month,region,site,zone,replicate,preservation_method,taxa,raw_individual_count,wm_shell_on_g,wm_g,dm_g,afdm_g,dm_wm,afdm_dm,afdm_wm,mesh_size_um,taxa_clean
+source,year,month,region,site,zone,replicate,preservation_method,taxa,individual_count,wm_shell_on_g,wm_g,dm_g,afdm_g,dm_wm,afdm_dm,afdm_wm,mesh_size_um,taxa_clean
 Flinders-HCHB,2020,Feb,MM,B19,P,rep1,Frozen,Simplisetia,607,NA,0.2702,0.0206,NA,0.076239822,0,0,500,Simplisetia
 Flinders-HCHB,2020,Feb,MM,B19,P,rep1,Frozen,Capitella,3,NA,2e-4,1e-4,NA,0.5,0,0,500,Capitella
 Flinders-HCHB,2020,Feb,MM,B19,P,rep1,Frozen,Chironomidae,221,NA,0.0854,0.0307,NA,0.359484778,0,0,500,Chironomidae
