@@ -33,13 +33,13 @@ source(here("R/func/Xiao_et_al_2011_power_analysis_function.R"))
 ## Reading in cleaned data
 
 ```{r}
-biomass_frozen_outliers_identified <- read_csv(here("data/processed/biomass_frozen_outliers_identified.csv"))
+biomass_frozen_wm_dm_cleaned <- read_csv(here("data/processed/frozen/wm_dm/biomass_frozen_wm_dm_cleaned.csv"))
 ```
 
 ## Running SMA's on untransformed data
 
 ```{r}
-taxa_nested_sma <- biomass_frozen_outliers_identified |> 
+taxa_nested_sma <- biomass_frozen_wm_dm_cleaned |> 
   group_nest(taxa_clean) |>
   mutate(sma_object = map(.x = data,
                           ~ sma(dm_g ~ wm_g, data = .x)))
@@ -81,7 +81,7 @@ taxa_nested_sma_fitted_resid_qq <- taxa_nested_sma_fitted_resid |>
 ### Running SMA's on untransformed data
 
 ```{r}
-taxa_nested_sma_outliers_removed <- biomass_frozen_outliers_identified |> 
+taxa_nested_sma_outliers_removed <- biomass_frozen_wm_dm_cleaned |> 
   filter(keep_data == TRUE) |>
   group_nest(taxa_clean) |>
   mutate(sma_object = map(.x = data,
@@ -124,7 +124,7 @@ taxa_nested_sma_outliers_removed_fitted_resid_qq <- taxa_nested_sma_outliers_rem
 Testing the error structure of the data to see whether non-linear (additive error) or log-normal (multiplicative error) models are more appropriate, using code from Xiao, X., E. P. White, M. B. Hooten and S. L. Durham. On the use of log-transformation vs. nonlinear regression for analyzing biological power laws. Ecology, 92, 1887-1894 (2011).
 
 ```{r}
-taxa_nested_power_analysis_check <- biomass_frozen_outliers_identified |> 
+taxa_nested_power_analysis_check <- biomass_frozen_wm_dm_cleaned |> 
   group_nest(taxa_clean) |>
   mutate(power_analysis_test = map(.x = data,
                           ~ power_analysis(.x$wm_g, .x$dm_g)))
@@ -135,7 +135,7 @@ taxa_nested_power_analysis_check <- biomass_frozen_outliers_identified |>
 ### Running SMA's on log10-transformed data and plotting
 
 ```{r}
-taxa_nested_sma_log10_plot <- biomass_frozen_outliers_identified |> 
+taxa_nested_sma_log10_plot <- biomass_frozen_wm_dm_cleaned |> 
   group_nest(taxa_clean) |>
   mutate(sma_log10_object = map(.x = data,
                           ~ sma(dm_g ~ wm_g, log = "xy", data = .x)),
@@ -212,6 +212,10 @@ taxa_sf <- taxa_nested_sma_log10_plot_coef_sf |>
 
 # Adding smearing factor to SMA summary table
 long_summary_a_sf <- merge(long_summary_a, taxa_sf)
+
+# Saving the regression summary
+write_csv(long_summary_a_sf,
+          here("output/frozen/wm_dm/biomass_regression_summary_frozen_wm_dm.csv"))
 ```
 
 ### Back-transformation 
@@ -257,10 +261,8 @@ taxa_nested_sma_log10_plot_coef_BT$BT_plot
 ### Calculating biomass ratios and associated summary statistics
 
 ```{r}
-biomass_frozen_outliers_identified_ratios <- biomass_frozen_outliers_identified |>
-  mutate(dm_wm = dm_g/wm_g)
-  
-biomass_frozen_outliers_identified_ratios |>
+biomass_frozen_wm_dm_cleaned_ratios <- biomass_frozen_wm_dm_cleaned |>
+  mutate(dm_wm = dm_g/wm_g) |>
   group_by(taxa_clean) |>
   summarise(n = n(),
             mean_dm_wm = mean(dm_wm),
@@ -271,6 +273,10 @@ biomass_frozen_outliers_identified_ratios |>
             min_dm_wm = min(dm_wm),
             median_dm_wm = median(dm_wm),
             max_dm_wm = max(dm_wm))
+
+# Saving the ratio summary
+write_csv(biomass_frozen_wm_dm_cleaned_ratios,
+          here("output/frozen/wm_dm/biomass_ratio_summary_frozen_wm_dm.csv"))
 ```
 
 ## Excluding outlier candidates
@@ -278,7 +284,7 @@ biomass_frozen_outliers_identified_ratios |>
 ### Running SMA's on log10-transformed data and plotting
 
 ```{r}
-taxa_nested_outliers_removed_sma_log10_plot <- biomass_frozen_outliers_identified |> 
+taxa_nested_outliers_removed_sma_log10_plot <- biomass_frozen_wm_dm_cleaned |> 
   filter(keep_data == TRUE) |>
   group_nest(taxa_clean) |>
   mutate(sma_log10_object = map(.x = data,
@@ -356,6 +362,10 @@ taxa_sf_outliers_removed <- taxa_nested_outliers_removed_sma_log10_plot_coef_sf 
 
 # Adding smearing factor to SMA summary table
 long_summary_a_sf_outliers_removed <- merge(long_summary_a_outliers_removed, taxa_sf_outliers_removed)
+
+# Saving the regression summary
+write_csv(long_summary_a_sf_outliers_removed,
+          here("output/frozen/wm_dm/biomass_regression_summary_frozen_wm_dm_outliers_removed.csv"))
 ```
 
 ### Back-transformation 
@@ -401,11 +411,9 @@ taxa_nested_outliers_removed_sma_log10_plot_coef_sf_BT$BT_plot
 ### Calculating biomass ratios and associated summary statistics
 
 ```{r}
-biomass_frozen_outliers_removed_ratios <- biomass_frozen_outliers_identified |>
+biomass_frozen_wm_dm_outliers_removed_ratios <- biomass_frozen_wm_dm_cleaned |>
   filter(keep_data == TRUE) |>
-  mutate(dm_wm = dm_g/wm_g)
-  
-biomass_frozen_outliers_removed_ratios |>
+  mutate(dm_wm = dm_g/wm_g) |>
   group_by(taxa_clean) |>
   summarise(n = n(),
             mean_dm_wm = mean(dm_wm),
@@ -416,4 +424,8 @@ biomass_frozen_outliers_removed_ratios |>
             min_dm_wm = min(dm_wm),
             median_dm_wm = median(dm_wm),
             max_dm_wm = max(dm_wm))
+
+# Saving the ratio summary
+write_csv(biomass_frozen_wm_dm_outliers_removed_ratios,
+          here("output/frozen/wm_dm/biomass_ratio_summary_frozen_wm_dm_outliers_removed.csv"))
 ```

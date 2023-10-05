@@ -33,7 +33,7 @@ biomass_data_taxaclean <-
 
 ## Pre-cleaning the data
 
-Setting a minimum mass cutoff (due to higher proportional measurement error at very small mass values) 
+Setting a minimum mass cutoff (due to higher proportional measurement error at very small mass values). This also acts to drop NA's for individual count when included instead of a mass measure. 
 
 ```{r}
 step_1 <- min_cutoff(data = biomass_data_taxaclean, wm_g, dm_g)  
@@ -106,8 +106,8 @@ Creating logical vectors identifying which observations fall outside the cutoff 
 ```{r}
 #Nesting by taxa
 taxa_nested <- biomass_frozen_percentiles |> 
-  select(taxa_clean, wm_g, dm_g, obs_num, keep_data_mass1_percentiles, keep_data_mass2_percentiles) |> 
-  nest(data = c(wm_g, dm_g, obs_num, keep_data_mass1_percentiles, keep_data_mass2_percentiles))
+  select(taxa_clean, wm_g, dm_g, obs_num, keep_data_wm_percentiles, keep_data_dm_percentiles) |> 
+  nest(data = c(wm_g, dm_g, obs_num, keep_data_wm_percentiles, keep_data_dm_percentiles))
   
 #Calculating measures of outlyingness and associated cutoff values
 taxa_nested_outlier_candidates_identified <- taxa_nested |> 
@@ -145,7 +145,7 @@ taxa_unnested_keep_data_merged <- taxa_unnested_outlier_candidates_identified |>
    mutate(keep_data_dfbetas_int = keep_data_dfbetas[,1], 
          keep_data_dfbetas_slope = keep_data_dfbetas[,2]) |>
  # Consolidating all outlier candidates into one vector
-   mutate(keep_data = ifelse(keep_data_mass1_percentiles == TRUE & keep_data_mass2_percentiles == TRUE & keep_data_cook == TRUE & keep_data_leverage == TRUE & keep_data_stud_resid == TRUE & keep_data_dffits == TRUE & keep_data_dfbetas_int == TRUE & keep_data_dfbetas_slope == TRUE, TRUE, FALSE)) 
+   mutate(keep_data = ifelse(keep_data_wm_percentiles == TRUE & keep_data_dm_percentiles == TRUE & keep_data_cook == TRUE & keep_data_leverage == TRUE & keep_data_stud_resid == TRUE & keep_data_dffits == TRUE & keep_data_dfbetas_int == TRUE & keep_data_dfbetas_slope == TRUE, TRUE, FALSE)) 
 ```
 
 ### Summary table of counts for all outlier methods 
@@ -169,9 +169,9 @@ long_data |>
 
 ## Saving the data
 ```{r}
-biomass_frozen_outliers_identified <- taxa_unnested_keep_data_merged |>
+biomass_frozen_wm_dm_cleaned <- taxa_unnested_keep_data_merged |>
   select(taxa_clean, wm_g, dm_g, keep_data)
 
-write_csv(biomass_frozen_outliers_identified, here("data/processed/biomass_frozen_outliers_identified.csv"))
+write_csv(biomass_frozen_wm_dm_cleaned, here("data/processed/frozen/wm_dm/biomass_frozen_wm_dm_cleaned.csv"))
 ```
 
