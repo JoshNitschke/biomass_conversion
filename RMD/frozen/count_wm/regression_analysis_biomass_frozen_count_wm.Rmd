@@ -29,16 +29,16 @@ source(here("R/func/Xiao_et_al_2011_power_analysis_function.R"))
 ## Reading in cleaned data
 
 ```{r}
-biomass_frozen_wm_dm_cleaned <- read_csv(here("data/processed/frozen/wm_dm/biomass_frozen_wm_dm_cleaned.csv"))
+biomass_frozen_count_wm_cleaned <- read_csv(here("data/processed/frozen/count_wm/biomass_frozen_count_wm_cleaned.csv"))
 ```
 
 ## Running SMA's on untransformed data
 
 ```{r}
-taxa_nested_sma <- biomass_frozen_wm_dm_cleaned |> 
+taxa_nested_sma <- biomass_frozen_count_wm_cleaned |> 
   group_nest(taxa_clean) |>
   mutate(sma_object = map(.x = data,
-                          ~ sma(dm_g ~ wm_g, data = .x)))
+                          ~ sma(wm_g ~ individual_count, data = .x)))
 ```
 
 ### Checking assumptions
@@ -77,11 +77,11 @@ taxa_nested_sma_fitted_resid_qq <- taxa_nested_sma_fitted_resid |>
 ### Running SMA's on untransformed data
 
 ```{r}
-taxa_nested_sma_outliers_removed <- biomass_frozen_wm_dm_cleaned |> 
+taxa_nested_sma_outliers_removed <- biomass_frozen_count_wm_cleaned |> 
   filter(keep_data == TRUE) |>
   group_nest(taxa_clean) |>
   mutate(sma_object = map(.x = data,
-                          ~ sma(dm_g ~ wm_g, data = .x)))
+                          ~ sma(wm_g ~ individual_count, data = .x)))
 ```
 
 ### Checking assumptions
@@ -120,10 +120,10 @@ taxa_nested_sma_outliers_removed_fitted_resid_qq <- taxa_nested_sma_outliers_rem
 Testing the error structure of the data to see whether non-linear (additive error) or log-normal (multiplicative error) models are more appropriate, using code from Xiao, X., E. P. White, M. B. Hooten and S. L. Durham. On the use of log-transformation vs. nonlinear regression for analyzing biological power laws. Ecology, 92, 1887-1894 (2011).
 
 ```{r}
-taxa_nested_power_analysis_check <- biomass_frozen_wm_dm_cleaned |> 
+taxa_nested_power_analysis_check <- biomass_frozen_count_wm_cleaned |> 
   group_nest(taxa_clean) |>
   mutate(power_analysis_test = map(.x = data,
-                          ~ power_analysis(.x$wm_g, .x$dm_g)))
+                          ~ power_analysis(.x$individual_count, .x$wm_g)))
 ```
 
 ## Log-transforming to stabilise variance and improve normality
@@ -131,13 +131,13 @@ taxa_nested_power_analysis_check <- biomass_frozen_wm_dm_cleaned |>
 ### Running SMA's on log10-transformed data and plotting
 
 ```{r}
-taxa_nested_sma_log10_plot <- biomass_frozen_wm_dm_cleaned |> 
+taxa_nested_sma_log10_plot <- biomass_frozen_count_wm_cleaned |> 
   group_nest(taxa_clean) |>
   mutate(sma_log10_object = map(.x = data,
-                          ~ sma(dm_g ~ wm_g, log = "xy", data = .x)),
+                          ~ sma(wm_g ~ individual_count, log = "xy", data = .x)),
          sma_log10_plots = map2(.x = sma_log10_object,
                          .y = taxa_clean,
-                         .f = ~ plot(.x, xlab = "wet mass (g)", ylab = "dry mass (g)", main = .y)))
+                         .f = ~ plot(.x, xlab = "individual count", ylab = "wet mass (g)", main = .y)))
          
 taxa_nested_sma_log10_plot$sma_log10_object
 ```
@@ -211,7 +211,7 @@ long_summary_a_sf <- merge(long_summary_a, taxa_sf)
 
 # Saving the regression summary
 write_csv(long_summary_a_sf,
-          here("output/frozen/wm_dm/biomass_regression_summary_frozen_wm_dm.csv"))
+          here("output/frozen/count_wm/biomass_regression_summary_frozen_count_wm.csv"))
 ```
 
 ### Back-transformation 
@@ -221,23 +221,23 @@ Plotting back-transformed regression line with smearing factor correction and 95
 ```{r}
 taxa_nested_sma_log10_plot_coef_BT <- taxa_nested_sma_log10_plot_coef_sf |> 
   unnest(c(data, summary, sf)) |>
-  mutate(lower_CI_line = (10^Int_lowCI)*(wm_g^Slope_lowCI)*sf,
-         upper_CI_line = (10^Int_highCI)*(wm_g^Slope_highCI)*sf) |>
-  nest(data = c(wm_g, dm_g, lower_CI_line, upper_CI_line, keep_data)) |>
+  mutate(lower_CI_line = (10^Int_lowCI)*(individual_count^Slope_lowCI)*sf,
+         upper_CI_line = (10^Int_highCI)*(individual_count^Slope_highCI)*sf) |>
+  nest(data = c(individual_count, wm_g, lower_CI_line, upper_CI_line, keep_data)) |>
   select(taxa_clean, data, Slope, Slope_lowCI, Slope_highCI, Int, Int_lowCI, Int_highCI, sf, r2) |>
   mutate(BT_plot = pmap(.l = list(data, Slope, Slope_lowCI, Slope_highCI, Int, Int_lowCI, Int_highCI, sf,
                                   taxa_clean, r2),
-                        .f = ~ggplot(..1, aes(x = wm_g, y = dm_g)) +
+                        .f = ~ggplot(..1, aes(x = individual_count, y = wm_g)) +
                           geom_point(fill = "grey", size = 3, alpha = 0.5, stroke = 1) +
                           geom_function(fun = function(x) (10^..5)*(x^..2)*..8, 
                                         col = "darkgreen", linewidth  = 1) +
                           geom_ribbon(aes(ymin = lower_CI_line, ymax = upper_CI_line), fill = "darkgreen", 
                                       alpha = 0.2) +
                           ggtitle(..9) + 
-                          labs(x = "wet mass (g)", y = "dry mass (g)") + 
-                          geom_text(x = 0.25*max(..1$wm_g), y = 0.85*max(..1$dm_g), 
-                                    label = deparse(bquote(paste("D = ", .(round((10^..5), digits = 2)), 
-                                                                 "W" ^.(round(..2, digits = 2)),
+                          labs(x = "individual count", y = "wet mass (g)") + 
+                          geom_text(x = 0.25*max(..1$individual_count), y = 0.85*max(..1$wm_g), 
+                                    label = deparse(bquote(paste("W = ", .(round((10^..5), digits = 2)), 
+                                                                 "C" ^.(round(..2, digits = 2)),
                                                                  .(round(..8, digits = 2)), ",  R"^2, 
                                                                  " = ", .(round(..10, digits = 2)), sep = ""))),
                                     parse = TRUE, size = 4) +
@@ -257,22 +257,22 @@ taxa_nested_sma_log10_plot_coef_BT$BT_plot
 ### Calculating biomass ratios and associated summary statistics
 
 ```{r}
-biomass_frozen_wm_dm_cleaned_ratios <- biomass_frozen_wm_dm_cleaned |>
-  mutate(dm_wm = dm_g/wm_g) |>
+biomass_frozen_count_wm_cleaned_ratios <- biomass_frozen_count_wm_cleaned |>
+  mutate(wm_count = wm_g/individual_count) |>
   group_by(taxa_clean) |>
   summarise(n = n(),
-            mean_dm_wm = mean(dm_wm),
-            sd_dm_wm = sd(dm_wm),
-            lower_ci_mean_dm_wm = mean_dm_wm-0.95*(sd_dm_wm/sqrt(n)),
-            upper_ci_mean_dm_wm = mean_dm_wm+0.95*(sd_dm_wm/sqrt(n)),
-            geom_mean = prod(dm_wm)^(1/n),
-            min_dm_wm = min(dm_wm),
-            median_dm_wm = median(dm_wm),
-            max_dm_wm = max(dm_wm))
+            mean_wm_count = mean(wm_count),
+            sd_wm_count = sd(wm_count),
+            lower_ci_mean_wm_count = mean_wm_count-0.95*(sd_wm_count/sqrt(n)),
+            upper_ci_mean_wm_count = mean_wm_count+0.95*(sd_wm_count/sqrt(n)),
+            geom_mean = prod(wm_count)^(1/n),
+            min_wm_count = min(wm_count),
+            median_wm_count = median(wm_count),
+            max_wm_count = max(wm_count))
 
 # Saving the ratio summary
-write_csv(biomass_frozen_wm_dm_cleaned_ratios,
-          here("output/frozen/wm_dm/biomass_ratio_summary_frozen_wm_dm.csv"))
+write_csv(biomass_frozen_count_wm_cleaned_ratios,
+          here("output/frozen/count_wm/biomass_ratio_summary_frozen_count_wm.csv"))
 ```
 
 ## Excluding outlier candidates
@@ -280,14 +280,14 @@ write_csv(biomass_frozen_wm_dm_cleaned_ratios,
 ### Running SMA's on log10-transformed data and plotting
 
 ```{r}
-taxa_nested_outliers_removed_sma_log10_plot <- biomass_frozen_wm_dm_cleaned |> 
+taxa_nested_outliers_removed_sma_log10_plot <- biomass_frozen_count_wm_cleaned |> 
   filter(keep_data == TRUE) |>
   group_nest(taxa_clean) |>
   mutate(sma_log10_object = map(.x = data,
-                          ~ sma(dm_g ~ wm_g, log = "xy", data = .x)),
+                          ~ sma(wm_g ~ individual_count, log = "xy", data = .x)),
          sma_log10_plots = map2(.x = sma_log10_object,
                          .y = taxa_clean,
-                         .f = ~ plot(.x, xlab = "wet mass (g)", ylab = "dry mass (g)", main = .y)))
+                         .f = ~ plot(.x, xlab = "individual count", ylab = "wet mass (g)", main = .y)))
 taxa_nested_sma_log10_plot$sma_log10_plots
 ```
 
@@ -361,7 +361,7 @@ long_summary_a_sf_outliers_removed <- merge(long_summary_a_outliers_removed, tax
 
 # Saving the regression summary
 write_csv(long_summary_a_sf_outliers_removed,
-          here("output/frozen/wm_dm/biomass_regression_summary_frozen_wm_dm_outliers_removed.csv"))
+          here("output/frozen/count_wm/biomass_regression_summary_frozen_count_wm_outliers_removed.csv"))
 ```
 
 ### Back-transformation 
@@ -371,23 +371,23 @@ Plotting back-transformed regression line with smearing factor correction and 95
 ```{r}
 taxa_nested_outliers_removed_sma_log10_plot_coef_sf_BT <- taxa_nested_outliers_removed_sma_log10_plot_coef_sf |> 
   unnest(c(data, summary, sf)) |>
-  mutate(lower_CI_line = (10^Int_lowCI)*(wm_g^Slope_lowCI)*sf,
-         upper_CI_line = (10^Int_highCI)*(wm_g^Slope_highCI)*sf) |>
-  nest(data = c(wm_g, dm_g, lower_CI_line, upper_CI_line, keep_data)) |>
+  mutate(lower_CI_line = (10^Int_lowCI)*(individual_count^Slope_lowCI)*sf,
+         upper_CI_line = (10^Int_highCI)*(individual_count^Slope_highCI)*sf) |>
+  nest(data = c(individual_count, wm_g, lower_CI_line, upper_CI_line, keep_data)) |>
   select(taxa_clean, data, Slope, Slope_lowCI, Slope_highCI, Int, Int_lowCI, Int_highCI, sf, r2) |>
   mutate(BT_plot = pmap(.l = list(data, Slope, Slope_lowCI, Slope_highCI, Int, Int_lowCI, Int_highCI, sf,
                                   taxa_clean, r2),
-                        .f = ~ggplot(..1, aes(x = wm_g, y = dm_g)) +
+                        .f = ~ggplot(..1, aes(x = individual_count, y = wm_g)) +
                           geom_point(fill = "grey", size = 3, alpha = 0.5, stroke = 1) +
                           geom_function(fun = function(x) (10^..5)*(x^..2)*..8, 
                                         col = "darkgreen", linewidth  = 1) +
                           geom_ribbon(aes(ymin = lower_CI_line, ymax = upper_CI_line), fill = "darkgreen", 
                                       alpha = 0.2) +
                           ggtitle(..9) + 
-                          labs(x = "wet mass (g)", y = "dry mass (g)") + 
-                          geom_text(x = 0.25*max(..1$wm_g), y = 0.85*max(..1$dm_g), 
-                                    label = deparse(bquote(paste("D = ", .(round((10^..5), digits = 2)), 
-                                                                 "W" ^.(round(..2, digits = 2)),
+                          labs(x = "individual count", y = "wet mass (g)") + 
+                          geom_text(x = 0.25*max(..1$individual_count), y = 0.85*max(..1$wm_g), 
+                                    label = deparse(bquote(paste("W = ", .(round((10^..5), digits = 2)), 
+                                                                 "C" ^.(round(..2, digits = 2)),
                                                                  .(round(..8, digits = 2)), ",  R"^2, 
                                                                  " = ", .(round(..10, digits = 2)), sep = ""))),
                                     parse = TRUE, size = 4) +
@@ -407,21 +407,21 @@ taxa_nested_outliers_removed_sma_log10_plot_coef_sf_BT$BT_plot
 ### Calculating biomass ratios and associated summary statistics
 
 ```{r}
-biomass_frozen_wm_dm_outliers_removed_ratios <- biomass_frozen_wm_dm_cleaned |>
+biomass_frozen_count_wm_outliers_removed_ratios <- biomass_frozen_count_wm_cleaned |>
   filter(keep_data == TRUE) |>
-  mutate(dm_wm = dm_g/wm_g) |>
+  mutate(wm_count = wm_g/individual_count) |>
   group_by(taxa_clean) |>
   summarise(n = n(),
-            mean_dm_wm = mean(dm_wm),
-            sd_dm_wm = sd(dm_wm),
-            lower_ci_mean_dm_wm = mean_dm_wm-0.95*(sd_dm_wm/sqrt(n)),
-            upper_ci_mean_dm_wm = mean_dm_wm+0.95*(sd_dm_wm/sqrt(n)),
-            geom_mean = prod(dm_wm)^(1/n),
-            min_dm_wm = min(dm_wm),
-            median_dm_wm = median(dm_wm),
-            max_dm_wm = max(dm_wm))
+            mean_wm_count = mean(wm_count),
+            sd_wm_count = sd(wm_count),
+            lower_ci_mean_wm_count = mean_wm_count-0.95*(sd_wm_count/sqrt(n)),
+            upper_ci_mean_wm_count = mean_wm_count+0.95*(sd_wm_count/sqrt(n)),
+            geom_mean = prod(wm_count)^(1/n),
+            min_wm_count = min(wm_count),
+            median_wm_count = median(wm_count),
+            max_wm_count = max(wm_count))
 
 # Saving the ratio summary
-write_csv(biomass_frozen_wm_dm_outliers_removed_ratios,
-          here("output/frozen/wm_dm/biomass_ratio_summary_frozen_wm_dm_outliers_removed.csv"))
+write_csv(biomass_frozen_count_wm_outliers_removed_ratios,
+          here("output/frozen/count_wm/biomass_ratio_summary_frozen_count_wm_outliers_removed.csv"))
 ```
