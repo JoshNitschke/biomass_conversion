@@ -44,70 +44,70 @@ power_analysis = function(x, y, CI_boot = TRUE, diagno = TRUE, output_plot = FAL
   
   ## Step 2a: Analysis with NLR
   if (delta_AICc < - 2){
-    writeLines("The assumption of additive normal error is better supported. \nProceed with NLR.")
-    method = "NLR"
-    a = a_nlr
-    b = b_nlr
-    a_confint = confint2(model_nlr)[1, ]
-    b_confint = confint2(model_nlr)[2, ]
+    writeLines("The assumption of additive normal error is better supported.")
+    # method = "NLR"
+    # a = a_nlr
+    # b = b_nlr
+    # a_confint = confint2(model_nlr)[1, ]
+    # b_confint = confint2(model_nlr)[2, ]
   }
   ## Step 2b: Analysis with LR
   else if (delta_AICc > 2){
-    writeLines("The assumption of multiplicative log-normal error is better supported. \nProceed with LR.")
-    method = "LR"
-    a = a_lr
-    b = b_lr
-    a_confint = confint(model_lr)[1, ]
-    b_confint = confint(model_lr)[2, ]
+    writeLines("The assumption of multiplicative log-normal error is better supported.")
+    # method = "LR"
+    # a = a_lr
+    # b = b_lr
+    # a_confint = confint(model_lr)[1, ]
+    # b_confint = confint(model_lr)[2, ]
   }
   ## Step 2c: Analysis with model averaging
   else {
-    writeLines("The two error distributions have similar support. \nProceed with model averaging.")
-    method = "Model Averaging"
-    a = a_lr * weight_logn + a_nlr * weight_norm
-    b = b_lr * weight_logn + b_nlr * weight_norm
-    if (!CI_boot){
-      a_confint = NA
-      b_confint = NA
-    }
-    else {
-      boot.est=function(dat, indices) {
-        dat.sub=dat[indices, ]
-        names(dat.sub) = c("x", "y")
-        model.lr = lm(log(y) ~ log(x), dat = dat.sub)
-        a.lr = exp(coef(summary(model.lr))[1, 1])
-        b.lr = coef(summary(model.lr))[2, 1]
-        sd.lr = sd(log(dat.sub$y) - (log(a.lr) + b.lr * log(dat.sub$x)))
-        a.lr.CI = confint(model.lr)[1, ]
-        b.lr.CI = confint(model.lr)[2, ]
-        model.nlr = nls(y ~ a1 * x ^ a2, start = list(a1 = a.lr, a2 = b.lr), dat = dat.sub,
-                        control = nls.control(maxiter = 2000, warnOnly = TRUE))
-        a.nlr = coef(summary(model.nlr))[1, 1]
-        b.nlr = coef(summary(model.nlr))[2, 1]
-        sd.nlr = sd(dat.sub$y - a.nlr * dat.sub$x ^ b.nlr)
-        a.nlr.CI = confint2(model.nlr)[1, ]
-        b.nlr.CI = confint2(model.nlr)[2, ]
-        
-        l.logn = sum(log(dlnorm(dat.sub$y, log(a.lr * dat.sub$x ^ b.lr), sd.lr)))
-        l.norm = sum(log(dnorm(dat.sub$y, a.nlr * dat.sub$x ^ b.nlr, sd.nlr)))
-        AICc.logn = 2 * k - 2 * l.logn + 2 * k * (k + 1) / (n - k - 1)
-        AICc.norm = 2 * k - 2 * l.norm + 2 * k * (k + 1) / (n - k - 1)
-        AICc.min = min(AICc.logn, AICc.norm)
-        weight.logn = exp(-(AICc.logn - AICc.min)/2)
-        weight.norm = exp(-(AICc.norm - AICc.min)/2)
-        logn.w = weight.logn / (weight.logn + weight.norm)
-        norm.w = weight.norm / (weight.logn + weight.norm)
-        
-        a.boot = a.lr * logn.w + a.nlr * norm.w
-        b.boot = b.lr * logn.w + b.nlr * norm.w
-        return(c(a.boot, b.boot))
-      }
-      dat.boot=boot(data = as.data.frame(cbind(x, y)), statistic = boot.est, R = 1000)
-      a_confint = boot.ci(dat.boot, index = 1, type = "perc")$perc[4:5]
-      b_confint = boot.ci(dat.boot, index = 2, type = "perc")$perc[4:5]
-    }
+    writeLines("The two error distributions have similar support.")
+    # method = "Model Averaging"
+    # a = a_lr * weight_logn + a_nlr * weight_norm
+    # b = b_lr * weight_logn + b_nlr * weight_norm
+    # if (!CI_boot){
+    #   a_confint = NA
+    #   b_confint = NA
+    # }
+    # else {
+    #   boot.est=function(dat, indices) {
+    #     dat.sub=dat[indices, ]
+    #     names(dat.sub) = c("x", "y")
+    #     model.lr = lm(log(y) ~ log(x), dat = dat.sub)
+    #     a.lr = exp(coef(summary(model.lr))[1, 1])
+    #     b.lr = coef(summary(model.lr))[2, 1]
+    #     sd.lr = sd(log(dat.sub$y) - (log(a.lr) + b.lr * log(dat.sub$x)))
+    #     a.lr.CI = confint(model.lr)[1, ]
+    #     b.lr.CI = confint(model.lr)[2, ]
+    #     model.nlr = nls(y ~ a1 * x ^ a2, start = list(a1 = a.lr, a2 = b.lr), dat = dat.sub,
+    #                     control = nls.control(maxiter = 2000, warnOnly = TRUE))
+    #     a.nlr = coef(summary(model.nlr))[1, 1]
+    #     b.nlr = coef(summary(model.nlr))[2, 1]
+    #     sd.nlr = sd(dat.sub$y - a.nlr * dat.sub$x ^ b.nlr)
+    #     a.nlr.CI = confint2(model.nlr)[1, ]
+    #     b.nlr.CI = confint2(model.nlr)[2, ]
+    #     
+    #     l.logn = sum(log(dlnorm(dat.sub$y, log(a.lr * dat.sub$x ^ b.lr), sd.lr)))
+    #     l.norm = sum(log(dnorm(dat.sub$y, a.nlr * dat.sub$x ^ b.nlr, sd.nlr)))
+    #     AICc.logn = 2 * k - 2 * l.logn + 2 * k * (k + 1) / (n - k - 1)
+    #     AICc.norm = 2 * k - 2 * l.norm + 2 * k * (k + 1) / (n - k - 1)
+    #     AICc.min = min(AICc.logn, AICc.norm)
+    #     weight.logn = exp(-(AICc.logn - AICc.min)/2)
+    #     weight.norm = exp(-(AICc.norm - AICc.min)/2)
+    #     logn.w = weight.logn / (weight.logn + weight.norm)
+    #     norm.w = weight.norm / (weight.logn + weight.norm)
+    #     
+    #     a.boot = a.lr * logn.w + a.nlr * norm.w
+    #     b.boot = b.lr * logn.w + b.nlr * norm.w
+    #     return(c(a.boot, b.boot))
+    #   }
+    #   dat.boot=boot(data = as.data.frame(cbind(x, y)), statistic = boot.est, R = 1000)
+    #   a_confint = boot.ci(dat.boot, index = 1, type = "perc")$perc[4:5]
+    #   b_confint = boot.ci(dat.boot, index = 2, type = "perc")$perc[4:5]
+    # }
   }
-  writeLines(paste("a: ", a, "\nb: ", b))
+  # writeLines(paste("a: ", a, "\nb: ", b))
   
   ## Step 3: residual plots as visual diagnostics
   if (diagno){
@@ -137,5 +137,5 @@ power_analysis = function(x, y, CI_boot = TRUE, diagno = TRUE, output_plot = FAL
     title(main = paste("Fitting Power-Law Data with ", method), outer = TRUE)
   }
   
-  return (list(method = method, a = a, b = b, a_confint = a_confint, b_confint = b_confint))
+  # return (list(method = method, a = a, b = b, a_confint = a_confint, b_confint = b_confint))
 }
