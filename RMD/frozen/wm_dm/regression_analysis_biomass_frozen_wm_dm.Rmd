@@ -216,7 +216,7 @@ long_summary <- taxa_nested_lm_ln_plot_coef |>
   mutate(coef_type = c(rep(c("intercept", "slope"), times = length(taxa_clean)/2))) |>
   pivot_wider(names_from = coef_type, values_from = coefs)
 
-intercept <- c(long_summary$intercept[,1])
+intercept <- long_summary$intercept[,1]
 intercept_se <- long_summary$intercept[,2]
 slope <- long_summary$slope[,1]
 slope_se <- long_summary$slope[,2]
@@ -236,14 +236,14 @@ Calculating SF (smearing factor - mean of back-transformed residuals) as per Mä
 ```{r}
 taxa_nested_lm_ln_plot_coef_sf <- taxa_nested_lm_ln_plot_coef |>
   mutate(sf = map(.x = lm_ln_object,
-                  .f = ~ (1/length(residuals(.x)))*sum(10^residuals(.x))))
+                  .f = ~ (1/length(residuals(.x)))*sum(exp(residuals(.x)))))
 
 taxa_sf <- taxa_nested_lm_ln_plot_coef_sf |>
   select(taxa_clean, sf) |>
   unnest(sf)
 
 # Adding smearing factor to lm summary table
-long_summary_a_sf <- merge(long_summary_a, taxa_sf)
+reg_summary_a_sf <- merge(reg_summary_a, taxa_sf)
 
 # Saving the regression summary
 write_csv(long_summary_a_sf,
@@ -255,27 +255,37 @@ write_csv(long_summary_a_sf,
 Plotting back-transformed regression line with smearing factor correction and 95% confidence band
 
 ```{r}
-taxa_nested_lm_ln_plot_coef_BT <- taxa_nested_lm_ln_plot_coef_sf |> 
-  unnest(c(data, summary, sf)) |>
-  mutate(lower_CI_line = (10^Int_lowCI)*(wm_g^Slope_lowCI)*sf,
-         upper_CI_line = (10^Int_highCI)*(wm_g^Slope_highCI)*sf) |>
-  nest(data = c(wm_g, dm_g, lower_CI_line, upper_CI_line, keep_data)) |>
-  select(taxa_clean, data, Slope, Slope_lowCI, Slope_highCI, Int, Int_lowCI, Int_highCI, sf, r2) |>
-  mutate(BT_plot = pmap(.l = list(data, Slope, Slope_lowCI, Slope_highCI, Int, Int_lowCI, Int_highCI, sf,
-                                  taxa_clean, r2),
+# Extracting lower and upper 95% confidence bounds on the transformed scale
+taxa_nested_lm_ln_plot_coef_CI <- taxa_nested_lm_ln_plot_coef_sf |> 
+  mutate(conf_int = map(.x = lm_ln_object,
+                        .f = ~ predict(.x, interval = "confidence"))) |>
+  unnest(cols = c(data, sf, conf_int))
+
+lower_CI <- taxa_nested_lm_ln_plot_coef_CI$conf_int[,2]
+upper_CI <- taxa_nested_lm_ln_plot_coef_CI$conf_int[,3]
+
+# Back-transforming confidence bounds and plotting with back-transformed regression line
+taxa_nested_lm_ln_plot_coef_CI_BT <- taxa_nested_lm_ln_plot_coef_CI |>
+  add_column(lower_CI, upper_CI) |>
+  mutate(lower_CI_line = exp(lower_CI)*sf,
+         upper_CI_line = exp(upper_CI)*sf) |>
+  select(taxa_clean, wm_g, dm_g, lower_CI_line, upper_CI_line, sf) |>
+  nest(data = c(wm_g, dm_g, lower_CI_line, upper_CI_line)) |>
+  right_join(reg_summary_a) |>
+  mutate(BT_plot = pmap(.l = list(data, slope, intercept, sf, taxa_clean, r2),
                         .f = ~ggplot(..1, aes(x = wm_g, y = dm_g)) +
                           geom_point(fill = "grey", size = 3, alpha = 0.5, stroke = 1) +
-                          geom_function(fun = function(x) (10^..5)*(x^..2)*..8, 
+                          geom_function(fun = function(x) (exp(..3))*(x^..2)*..4, 
                                         col = "darkgreen", linewidth  = 1) +
                           geom_ribbon(aes(ymin = lower_CI_line, ymax = upper_CI_line), fill = "darkgreen", 
                                       alpha = 0.2) +
-                          ggtitle(..9) + 
+                          ggtitle(..5) + 
                           labs(x = "wet mass (g)", y = "dry mass (g)") + 
                           geom_text(x = 0.25*max(..1$wm_g), y = 0.85*max(..1$dm_g), 
-                                    label = deparse(bquote(paste("D = ", .(round((10^..5), digits = 2)), 
+                                    label = deparse(bquote(paste("D = ", .(round(exp(..3), digits = 2)), 
                                                                  "W" ^.(round(..2, digits = 2)),
-                                                                 .(round(..8, digits = 2)), ",  R"^2, 
-                                                                 " = ", .(round(..10, digits = 2)), sep = ""))),
+                                                                 .(round(..4, digits = 2)), ",  R"^2, 
+                                                                 " = ", .(round(..6, digits = 2)), sep = ""))),
                                     parse = TRUE, size = 4) +
                           theme_bw() + 
                           theme(panel.border = element_blank(), 
@@ -287,7 +297,7 @@ taxa_nested_lm_ln_plot_coef_BT <- taxa_nested_lm_ln_plot_coef_sf |>
                                 title = element_text(size = 16)) + 
                           scale_x_continuous(expand = expansion(mult = c(0, 0.1))) + 
                           scale_y_continuous(expand = expansion(mult = c(0, 0.1)))))
-taxa_nested_lm_ln_plot_coef_BT$BT_plot
+taxa_nested_lm_ln_plot_coef_CI_BT$BT_plot
 ```
 
 ### Calculating biomass ratios and associated summary statistics
