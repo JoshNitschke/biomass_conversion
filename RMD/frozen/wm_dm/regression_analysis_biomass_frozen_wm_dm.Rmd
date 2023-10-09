@@ -246,7 +246,7 @@ taxa_sf <- taxa_nested_lm_ln_plot_coef_sf |>
 reg_summary_a_sf <- merge(reg_summary_a, taxa_sf)
 
 # Saving the regression summary
-write_csv(long_summary_a_sf,
+write_csv(reg_summary_a_sf,
           here("output/frozen/wm_dm/biomass_regression_summary_frozen_wm_dm.csv"))
 ```
 
@@ -330,11 +330,16 @@ taxa_nested_outliers_removed_lm_ln_plot <- biomass_frozen_wm_dm_cleaned |>
   filter(keep_data == TRUE) |>
   group_nest(taxa_clean) |>
   mutate(lm_ln_object = map(.x = data,
-                          ~ lm(dm_g ~ wm_g, log = "xy", data = .x)),
-         lm_ln_plots = map2(.x = lm_ln_object,
+                          ~ lm(log(dm_g) ~ log(wm_g), data = .x)),
+         lm_ln_plots = map2(.x = data,
                          .y = taxa_clean,
-                         .f = ~ plot(.x, xlab = "wet mass (g)", ylab = "dry mass (g)", main = .y)))
-taxa_nested_lm_ln_plot$lm_ln_plots
+                         .f = ~ ggplot(.x, aes(x = log(wm_g), y = log(dm_g))) + 
+                           geom_point() +
+                           geom_smooth(method = "lm") +
+                           labs(x = "log(e) wet mass (g)", y = "log(e) dry mass (g)") +
+                           ggtitle(.y)))
+           
+taxa_nested_outliers_removed_lm_ln_plot$lm_ln_plots
 ```
 
 ### Checking assumptions again
@@ -365,7 +370,16 @@ taxa_nested_outliers_removed_lm_ln_plot_fitted_resid$fitted_resid_plot
 taxa_nested_outliers_removed_lm_ln_plot_fitted_resid_qq <- taxa_nested_outliers_removed_lm_ln_plot_fitted_resid |>
   mutate(qq = map2(.x = lm_ln_object,
                   .y = taxa_clean,
-                  .f = ~ plot(.x, which = "qq", main = paste("qq-plot:",.y))))
+                  .f = ~ ggplot(.x, aes(sample = residuals(.x))) + 
+                    geom_qq(aes(sample = residuals(.x))) + 
+                    stat_qq_line(aes(sample = residuals(.x))) +
+                    ggtitle(.y) +
+                    labs(x = "theoretical quantiles", y = "sample quantiles") +
+                    theme_bw() + 
+                    theme(panel.border = element_blank(), panel.grid.major = element_blank(), 
+                    panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"), 
+                    axis.text = element_text(size = 12, colour = "black"), axis.title = element_text(size = 14),
+                    title = element_text(size = 18))))
 taxa_nested_outliers_removed_lm_ln_plot_fitted_resid_qq$qq
 ```
 
@@ -377,36 +391,50 @@ Pulling out regression summary statistics
 # Getting coefficients from lm
 taxa_nested_outliers_removed_lm_ln_plot_coef <- taxa_nested_outliers_removed_lm_ln_plot |>
   mutate(summary = map(.x = lm_ln_object,
-                       .f = ~ (lmtr:::summary.lm(.x))))
+                       .f = ~ summary(.x)))
+long_summary_outliers_removed <- taxa_nested_outliers_removed_lm_ln_plot_coef |>
+  mutate(coefs = map(.x = summary,
+                            ~.x[[4]]),
+         r2 = map(.x = summary,
+                            ~.x[[9]]),
+         n = map(.x = lm_ln_object,
+                 ~length(.x$residuals))) |>
+  unnest(c(coefs, r2, n)) |>
+  mutate(coef_type = c(rep(c("intercept", "slope"), times = length(taxa_clean)/2))) |>
+  pivot_wider(names_from = coef_type, values_from = coefs)
 
-long_summary_outliers_removed <- taxa_nested_outliers_removed_lm_ln_plot_coef |> 
-  select(taxa_clean, summary) |> 
-  unnest(summary) |> 
-  select(taxa_clean, n, r2, pval, Slope, Slope_lowCI, Slope_highCI, Int, Int_lowCI, Int_highCI)
+intercept <- long_summary_outliers_removed$intercept[,1]
+intercept_se <- long_summary_outliers_removed$intercept[,2]
+slope <- long_summary_outliers_removed$slope[,1]
+slope_se <- long_summary_outliers_removed$slope[,2]
+p <- long_summary_outliers_removed$slope[,4] # p-value of the slope is the same as the p-vale of the overall regression model in the case of simple regression with one predictor
+long_summary_outliers_removed_short <- long_summary_outliers_removed |>
+  select(taxa_clean, n, r2)
+  
+reg_summary_outliers_removed <- add_column(long_summary_outliers_removed_short, 
+                                           tibble(intercept, intercept_se, slope, slope_se, p))
 
-# Back-transforming intercept and confidence intervals to get parameter 'a' in power equation: y = ax^b
-long_summary_a_outliers_removed <- long_summary_outliers_removed |> 
-  mutate(a = 10^Int,
-         a_low_ci = 10^Int_lowCI,
-         a_high_ci = 10^Int_highCI)
+# Back-transforming intercept to get parameter 'a' in power equation: y = ax^b
+reg_summary_outliers_removed_a <- reg_summary_outliers_removed |> 
+  mutate(a = exp(intercept))
 ```
 
-Calculating SF (smearing factor - mean of back-transformed residuals) as per Mährlein, M., M. Pätzig, M. Brauns and A. M. Dolman. Length–mass relationships for lake macroinvertebrates corrected for back-transformation and preservation effects. Hydrobiologia, 768, 37-50 (2016).3
+Calculating SF (smearing factor - mean of back-transformed residuals) as per Mährlein, M., M. Pätzig, M. Brauns and A. M. Dolman. Length–mass relationships for lake macroinvertebrates corrected for back-transformation and preservation effects. Hydrobiologia, 768, 37-50 (2016).
 
 ```{r}
 taxa_nested_outliers_removed_lm_ln_plot_coef_sf <- taxa_nested_outliers_removed_lm_ln_plot_coef |>
   mutate(sf = map(.x = lm_ln_object,
-                  .f = ~ (1/length(residuals(.x)))*sum(10^residuals(.x))))
+                  .f = ~ (1/length(residuals(.x)))*sum(exp(residuals(.x)))))
 
-taxa_sf_outliers_removed <- taxa_nested_outliers_removed_lm_ln_plot_coef_sf |>
+taxa_outliers_removed_sf <- taxa_nested_outliers_removed_lm_ln_plot_coef_sf |>
   select(taxa_clean, sf) |>
   unnest(sf)
 
 # Adding smearing factor to lm summary table
-long_summary_a_sf_outliers_removed <- merge(long_summary_a_outliers_removed, taxa_sf_outliers_removed)
+reg_summary_outliers_removed_a_sf <- merge(reg_summary_outliers_removed_a, taxa_outliers_removed_sf)
 
 # Saving the regression summary
-write_csv(long_summary_a_sf_outliers_removed,
+write_csv(reg_summary_outliers_removed_a_sf,
           here("output/frozen/wm_dm/biomass_regression_summary_frozen_wm_dm_outliers_removed.csv"))
 ```
 
@@ -415,27 +443,37 @@ write_csv(long_summary_a_sf_outliers_removed,
 Plotting back-transformed regression line with smearing factor correction and 95% confidence band
 
 ```{r}
-taxa_nested_outliers_removed_lm_ln_plot_coef_sf_BT <- taxa_nested_outliers_removed_lm_ln_plot_coef_sf |> 
-  unnest(c(data, summary, sf)) |>
-  mutate(lower_CI_line = (10^Int_lowCI)*(wm_g^Slope_lowCI)*sf,
-         upper_CI_line = (10^Int_highCI)*(wm_g^Slope_highCI)*sf) |>
-  nest(data = c(wm_g, dm_g, lower_CI_line, upper_CI_line, keep_data)) |>
-  select(taxa_clean, data, Slope, Slope_lowCI, Slope_highCI, Int, Int_lowCI, Int_highCI, sf, r2) |>
-  mutate(BT_plot = pmap(.l = list(data, Slope, Slope_lowCI, Slope_highCI, Int, Int_lowCI, Int_highCI, sf,
-                                  taxa_clean, r2),
+# Extracting lower and upper 95% confidence bounds on the transformed scale
+taxa_nested_outliers_removed_lm_ln_plot_coef_CI <- taxa_nested_outliers_removed_lm_ln_plot_coef_sf |> 
+  mutate(conf_int = map(.x = lm_ln_object,
+                        .f = ~ predict(.x, interval = "confidence"))) |>
+  unnest(cols = c(data, sf, conf_int))
+
+lower_CI <- taxa_nested_outliers_removed_lm_ln_plot_coef_CI$conf_int[,2]
+upper_CI <- taxa_nested_outliers_removed_lm_ln_plot_coef_CI$conf_int[,3]
+
+# Back-transforming confidence bounds and plotting with back-transformed regression line
+taxa_nested_outliers_removed_lm_ln_plot_coef_CI_BT <- taxa_nested_outliers_removed_lm_ln_plot_coef_CI |>
+  add_column(lower_CI, upper_CI) |>
+  mutate(lower_CI_line = exp(lower_CI)*sf,
+         upper_CI_line = exp(upper_CI)*sf) |>
+  select(taxa_clean, wm_g, dm_g, lower_CI_line, upper_CI_line, sf) |>
+  nest(data = c(wm_g, dm_g, lower_CI_line, upper_CI_line)) |>
+  right_join(reg_summary_outliers_removed_a) |>
+  mutate(BT_plot = pmap(.l = list(data, slope, intercept, sf, taxa_clean, r2),
                         .f = ~ggplot(..1, aes(x = wm_g, y = dm_g)) +
                           geom_point(fill = "grey", size = 3, alpha = 0.5, stroke = 1) +
-                          geom_function(fun = function(x) (10^..5)*(x^..2)*..8, 
+                          geom_function(fun = function(x) (exp(..3))*(x^..2)*..4, 
                                         col = "darkgreen", linewidth  = 1) +
                           geom_ribbon(aes(ymin = lower_CI_line, ymax = upper_CI_line), fill = "darkgreen", 
                                       alpha = 0.2) +
-                          ggtitle(..9) + 
+                          ggtitle(..5) + 
                           labs(x = "wet mass (g)", y = "dry mass (g)") + 
                           geom_text(x = 0.25*max(..1$wm_g), y = 0.85*max(..1$dm_g), 
-                                    label = deparse(bquote(paste("D = ", .(round((10^..5), digits = 2)), 
+                                    label = deparse(bquote(paste("D = ", .(round(exp(..3), digits = 2)), 
                                                                  "W" ^.(round(..2, digits = 2)),
-                                                                 .(round(..8, digits = 2)), ",  R"^2, 
-                                                                 " = ", .(round(..10, digits = 2)), sep = ""))),
+                                                                 .(round(..4, digits = 2)), ",  R"^2, 
+                                                                 " = ", .(round(..6, digits = 2)), sep = ""))),
                                     parse = TRUE, size = 4) +
                           theme_bw() + 
                           theme(panel.border = element_blank(), 
@@ -447,7 +485,7 @@ taxa_nested_outliers_removed_lm_ln_plot_coef_sf_BT <- taxa_nested_outliers_remov
                                 title = element_text(size = 16)) + 
                           scale_x_continuous(expand = expansion(mult = c(0, 0.1))) + 
                           scale_y_continuous(expand = expansion(mult = c(0, 0.1)))))
-taxa_nested_outliers_removed_lm_ln_plot_coef_sf_BT$BT_plot
+taxa_nested_outliers_removed_lm_ln_plot_coef_CI_BT$BT_plot
 ```
 
 ### Calculating biomass ratios and associated summary statistics
