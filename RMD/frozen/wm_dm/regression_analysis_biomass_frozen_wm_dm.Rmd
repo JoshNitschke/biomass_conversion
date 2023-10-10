@@ -143,7 +143,7 @@ taxa_nested_lm_outliers_removed_fitted_resid_qq$qq
 taxa_nested_lm_ln_plot <- biomass_frozen_wm_dm_cleaned |> 
   group_nest(taxa_clean) |>
   mutate(lm_ln_object = map(.x = data,
-                          ~ lm(log(dm_g) ~ log(wm_g), data = .x)),
+                            .f = ~ lm(log(dm_g) ~ log(wm_g), data = .x)),
          lm_ln_plots = map2(.x = data,
                          .y = taxa_clean,
                          .f = ~ ggplot(.x, aes(x = log(wm_g), y = log(dm_g))) + 
