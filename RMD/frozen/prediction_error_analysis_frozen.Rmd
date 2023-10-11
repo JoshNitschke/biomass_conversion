@@ -156,44 +156,44 @@ biomass_frozen_wm_dm_cleaned_ratios <- biomass_frozen_wm_dm_cleaned |>
 ## Comparing error in predicted mass for regression and ratio methods
 
 ```{r cars}
-pred_mass_frozen_wm_dm <- taxa_nested_lm_ln_coef_sf_frozen_wm_dm |>
+total_pred_mass_frozen_wm_dm <- taxa_nested_lm_ln_coef_sf_frozen_wm_dm |>
   right_join(reg_summary_frozen_wm_dm_a) |>
   right_join(sma_summary_frozen_wm_dm_a_sf) |>
   mutate(total_dm = map(.x = data,
                         .f = ~sum(.x$dm_g)),
-         reg_pred_dm = pmap(.l = list(data, a, slope, sf),
+         total_reg_pred_dm = pmap(.l = list(data, a, slope, sf),
                             .f = ~ sum(..2*(..1$wm_g)^..3)*..4),
-         reg_pred_dm_percent_error = map2(.x = total_dm,
-                                          .y = reg_pred_dm,
+         total_reg_pred_dm_percent_error = map2(.x = total_dm,
+                                          .y = total_reg_pred_dm,
                                           .f = ~-((.x-.y)/.x)*100),
-         sma_pred_dm = pmap(.l = list(data, a_sma, slope_sma, sf_sma),
+         total_sma_pred_dm = pmap(.l = list(data, a_sma, slope_sma, sf_sma),
                             .f = ~ sum(..2*(..1$wm_g)^..3)*..4),
-         sma_pred_dm_percent_error = map2(.x = total_dm,
-                                          .y = sma_pred_dm,
+         total_sma_pred_dm_percent_error = map2(.x = total_dm,
+                                          .y = total_sma_pred_dm,
                                           .f = ~-((.x-.y)/.x)*100),
-         ratio_pred_dm = map2(.x = data,
+         total_ratio_pred_dm = map2(.x = data,
                               .y = biomass_frozen_wm_dm_cleaned_ratios$mean_dm_wm,
                               .f = ~ sum(.y*.x$wm_g)),
-         ratio_pred_dm_percent_error = map2(.x = total_dm,
-                                          .y = ratio_pred_dm,
+         total_ratio_pred_dm_percent_error = map2(.x = total_dm,
+                                          .y = total_ratio_pred_dm,
                                           .f = ~-((.x-.y)/.x)*100))
          
-pred_mass_frozen_wm_dm_error <- pred_mass_frozen_wm_dm |>
-  select(taxa_clean, total_dm, reg_pred_dm, reg_pred_dm_percent_error, 
-         sma_pred_dm, sma_pred_dm_percent_error,
-         ratio_pred_dm, ratio_pred_dm_percent_error) |>
-  unnest(cols = c(total_dm, reg_pred_dm, reg_pred_dm_percent_error, 
-                  sma_pred_dm, sma_pred_dm_percent_error,
-                  ratio_pred_dm, ratio_pred_dm_percent_error))
+total_pred_mass_frozen_wm_dm_error <- total_pred_mass_frozen_wm_dm |>
+  select(taxa_clean, total_dm, total_reg_pred_dm, total_reg_pred_dm_percent_error, 
+         total_sma_pred_dm, total_sma_pred_dm_percent_error,
+         total_ratio_pred_dm, total_ratio_pred_dm_percent_error) |>
+  unnest(cols = c(total_dm, total_reg_pred_dm, total_reg_pred_dm_percent_error, 
+                  total_sma_pred_dm, total_sma_pred_dm_percent_error,
+                  total_ratio_pred_dm, total_ratio_pred_dm_percent_error))
 
-pred_mass_frozen_wm_dm_error_long <- pred_mass_frozen_wm_dm_error |>
-  select(taxa_clean, reg_pred_dm_percent_error, sma_pred_dm_percent_error,
-         ratio_pred_dm_percent_error) |>
-  pivot_longer(cols = c(reg_pred_dm_percent_error, sma_pred_dm_percent_error,
-                        ratio_pred_dm_percent_error), 
+total_pred_mass_frozen_wm_dm_error_long <- total_pred_mass_frozen_wm_dm_error |>
+  select(taxa_clean, total_reg_pred_dm_percent_error, total_sma_pred_dm_percent_error,
+         total_ratio_pred_dm_percent_error) |>
+  pivot_longer(cols = c(total_reg_pred_dm_percent_error, total_sma_pred_dm_percent_error,
+                        total_ratio_pred_dm_percent_error), 
                names_to = "pred_method", values_to = "percent_error")
   
-ggplot(data = pred_mass_frozen_wm_dm_error_long, aes(x = pred_method, y = percent_error)) +
+ggplot(data = total_pred_mass_frozen_wm_dm_error_long, aes(x = pred_method, y = percent_error)) +
   geom_jitter(width = 0.1, size = 3, fill = "grey", alpha = 0.5, stroke = 1) + 
   geom_hline(yintercept = 0, linetype = 2) +
   ggtitle("wet mass -> dry mass") +
@@ -208,6 +208,42 @@ ggplot(data = pred_mass_frozen_wm_dm_error_long, aes(x = pred_method, y = percen
           axis.line = element_line(colour = "black"),
           axis.text = element_text(size = 12, colour = "black"), 
           axis.title = element_text(size = 14))
+```
+
+## Prediction error as a function of mass
+
+```{r}
+total_pred_mass_frozen_wm_dm <- pred_mass_frozen_wm_dm |>
+  mutate(ols_pred_dm = pmap(.l = list(data, a, slope, sf),
+                            .f = ~ ..2*(..1$wm_g)^..3*..4),
+         ols_pred_dm_percent_error = map2(.x = data,
+                                          .y = ols_pred_dm,
+                                          .f = ~-((.x$dm_g-.y)/.x$dm_g)*100),
+         ratio_pred_dm = map2(.x = data,
+                              .y = biomass_frozen_wm_dm_cleaned_ratios$mean_dm_wm,
+                              .f = ~ .y*.x$wm_g),
+         ratio_pred_dm_percent_error = map2(.x = data,
+                                          .y = ratio_pred_dm,
+                                          .f = ~-((.x$dm_g-.y)/.x$dm_g)*100))
+
+total_pred_mass_frozen_wm_dm_plot <- total_pred_mass_frozen_wm_dm |>
+  unnest(cols = c(data, ols_pred_dm_percent_error, ratio_pred_dm_percent_error)) |>
+  group_nest(taxa_clean) |>
+  mutate(ols_pred_dm_percent_error_plot = map2(.x = data, 
+                                               .y = taxa_clean,
+                                               .f = ~ ggplot(.x, aes(x = wm_g, y = ols_pred_dm_percent_error)) +
+                                                 geom_point() + 
+                                                 geom_hline(yintercept = 0, linetype = 2) +
+                                                 ggtitle(.y)),
+         ratio_pred_dm_percent_error_plot = map2(.x = data, 
+                                               .y = taxa_clean,
+                                               .f = ~ ggplot(.x, aes(x = wm_g, y = ratio_pred_dm_percent_error)) +
+                                                 geom_point() + 
+                                                 geom_hline(yintercept = 0, linetype = 2) +
+                                                 ggtitle(.y)))
+total_pred_mass_frozen_wm_dm_plot$ols_pred_dm_percent_error_plot
+total_pred_mass_frozen_wm_dm_plot$ratio_pred_dm_percent_error_plot
+
 ```
 
 # individual count as a predictor of wet mass
