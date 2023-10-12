@@ -1,0 +1,17 @@
+taxa excluding based on assumptions not being reasonably met
+
+Frozen
+wm_dm: all ok
+wm_dm (outliers removed): all ok
+count_dm: Hiatula (cone-shaped residuals), Chironomidae (banana residuals), Amphipoda (trend in residuals?)
+count_dm (outliers removed): Hiatula (cone-shaped residuals), Chironomidae (banana residuals)
+count_wm: Spisula (cone res), Phyllodoce (cone res), Nephtys (cone res), Ostracoda (non-normal, with small sample size)
+count_wm (outliers removed): Phyllodoce (cone res), Hiatula (cone res)
+
+Ethanol
+wm_dm: all ok
+wm_dm (outliers removed): all ok
+wm_afdm: all ok
+wm_afdm (outliers removed): all ok
+dm_afdm: Salinator (non-normal, with small sample size)
+dm_afdm (outliers_removed): all ok

@@ -10,20 +10,12 @@ editor_options:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-# install.packages("remotes")
-remotes::install_github("traitecoevo/smatr")
-
 library(tidyverse)
 library(here)
-library(smatr)
 library(janitor)
 library(skimr)
-library(gridExtra)
-library(olsrr)
 library(purrr)
 library(tidyr)
-
-source(here("R/func/Xiao_et_al_2011_power_analysis_function.R"))
 ```
 
 ## Reading in cleaned data
@@ -143,7 +135,7 @@ taxa_nested_lm_outliers_removed_fitted_resid_qq$qq
 taxa_nested_lm_ln_plot <- biomass_ethanol_wm_afdm_cleaned |> 
   group_nest(taxa_clean) |>
   mutate(lm_ln_object = map(.x = data,
-                          ~ lm(log(afdm_g) ~ log(wm_g), data = .x)),
+                            .f = ~ lm(log(afdm_g) ~ log(wm_g), data = .x)),
          lm_ln_plots = map2(.x = data,
                          .y = taxa_clean,
                          .f = ~ ggplot(.x, aes(x = log(wm_g), y = log(afdm_g))) + 
@@ -281,8 +273,8 @@ taxa_nested_lm_ln_plot_coef_CI_BT <- taxa_nested_lm_ln_plot_coef_CI |>
                                       alpha = 0.2) +
                           ggtitle(..5) + 
                           labs(x = "wet mass (g)", y = "ash-free dry mass (g)") + 
-                          geom_text(x = 0.25*max(..1$wm_g), y = 0.85*max(..1$afdm_g), 
-                                    label = deparse(bquote(paste("A = ", .(round(exp(..3), digits = 2)), 
+                           geom_text(x = 0.25*max(..1$wm_g), y = 0.85*max(..1$afdm_g), 
+                                    label = deparse(bquote(paste("D = ", .(round(exp(..3), digits = 2)), 
                                                                  "W" ^.(round(..2, digits = 2))* " \u00D7 ",
                                                                  .(round(..4, digits = 2)), sep = ""))),
                                     parse = TRUE, size = 4) +
@@ -301,7 +293,6 @@ taxa_nested_lm_ln_plot_coef_CI_BT <- taxa_nested_lm_ln_plot_coef_CI |>
                           scale_x_continuous(expand = expansion(mult = c(0, 0.1)), limits = c(0, NA)) + 
                           scale_y_continuous(expand = expansion(mult = c(0, 0.1)), limits = c(0, NA))))
 taxa_nested_lm_ln_plot_coef_CI_BT$BT_plot
-
 ```
 
 ### Calculating biomass ratios and associated summary statistics
@@ -473,8 +464,8 @@ taxa_nested_outliers_removed_lm_ln_plot_coef_CI_BT <- taxa_nested_outliers_remov
                                       alpha = 0.2) +
                           ggtitle(..5) + 
                           labs(x = "wet mass (g)", y = "ash-free dry mass (g)") + 
-                           geom_text(x = 0.25*max(..1$wm_g), y = 0.85*max(..1$afdm_g), 
-                                    label = deparse(bquote(paste("A = ", .(round(exp(..3), digits = 2)), 
+                          geom_text(x = 0.25*max(..1$wm_g), y = 0.85*max(..1$afdm_g), 
+                                    label = deparse(bquote(paste("D = ", .(round(exp(..3), digits = 2)), 
                                                                  "W" ^.(round(..2, digits = 2))* " \u00D7 ",
                                                                  .(round(..4, digits = 2)), sep = ""))),
                                     parse = TRUE, size = 4) +
@@ -515,4 +506,31 @@ biomass_ethanol_wm_afdm_outliers_removed_ratios <- biomass_ethanol_wm_afdm_clean
 # Saving the ratio summary
 write_csv(biomass_ethanol_wm_afdm_outliers_removed_ratios,
           here("output/ethanol/wm_afdm/biomass_ratio_summary_ethanol_wm_afdm_outliers_removed.csv"))
+```
+
+### Calculating mean absolute percentage error (MAPE) for regression and ratio methods (outliers removed)
+
+```{r}
+pred_mass_ethanol_wm_afdm_outliers_removed_MAPE <- taxa_nested_outliers_removed_lm_ln_plot_coef_CI_BT |>
+  mutate(ols_pred_afdm = pmap(.l = list(data, a, slope, sf),
+                            .f = ~ ..2*(..1$wm_g)^..3*..4),
+         ols_pred_afdm_percent_error = map2(.x = data,
+                                          .y = ols_pred_afdm,
+                                          .f = ~-((.x$afdm_g-.y)/.x$afdm_g)*100),
+         ratio_pred_afdm = map2(.x = data,
+                              .y = biomass_ethanol_wm_afdm_outliers_removed_ratios$mean_afdm_wm,
+                              .f = ~ .y*.x$wm_g),
+         ratio_pred_afdm_percent_error = map2(.x = data,
+                                          .y = ratio_pred_afdm,
+                                          .f = ~-((.x$afdm_g-.y)/.x$afdm_g)*100),
+         ols_MAPE = map2(.x = ols_pred_afdm_percent_error,
+                       .y = n,
+                       .f = ~ sum(abs(.x))/.y),
+         ratio_MAPE = map2(.x = ratio_pred_afdm_percent_error,
+                       .y = n,
+                       .f = ~ sum(abs(.x))/.y))
+
+pred_mass_ethanol_wm_afdm_outliers_removed_MAPE |> 
+  select(taxa_clean, ols_MAPE, ratio_MAPE) |> 
+  unnest(c(ols_MAPE, ratio_MAPE))
 ```
