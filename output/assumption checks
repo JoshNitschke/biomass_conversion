@@ -15,3 +15,13 @@ wm_afdm: all ok
 wm_afdm (outliers removed): all ok
 dm_afdm: Salinator (non-normal, with small sample size)
 dm_afdm (outliers_removed): all ok
+count_wm: all ok
+count_wm (outliers removed): Ceratopogonidae (non-normal with samll sample size)
+count_dm: Simplisetia (banana res)
+count_dm (outliers removed): Simplisetia (banana res)
+count_afdm: Simplisetia (banana res)
+count_afdm (outliers removed): Simplisetia (banana res)
+
+Formalin
+wm_dm: all ok
+wm_dm (outliers removed): Hydrobiidae (non-normal with small sample size)

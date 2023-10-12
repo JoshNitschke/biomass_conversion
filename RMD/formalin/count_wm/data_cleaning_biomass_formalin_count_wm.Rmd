@@ -1,5 +1,5 @@
 ---
-title: "Cleaning biomass data - individual count and dry mass"
+title: "Cleaning biomass data - individual count and wet mass"
 output: html_document
 editor_options: 
   chunk_output_type: console
@@ -10,11 +10,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 library(tidyverse)
 library(here)
-library(smatr)
 library(janitor)
 library(skimr)
-library(gridExtra)
-library(olsrr)
 library(purrr)
 library(tidyr)
 
@@ -36,14 +33,14 @@ biomass_data_taxaclean <-
 Setting a minimum mass cutoff (due to higher proportional measurement error at very small mass values). This also acts to drop NA's for individual count when included instead of a mass measure. 
 
 ```{r}
-step_1 <- min_cutoff(data = biomass_data_taxaclean, individual_count, dm_g) 
+step_1 <- min_cutoff(data = biomass_data_taxaclean, individual_count, wm_g) 
 ```
 
-Filtering ethanol samples only
+Filtering formalin samples only
 
 ```{r}
 step_2 <- step_1 |>
-  filter(preservation_method == "Ethanol")
+  filter(preservation_method == "Formalin")
 ```
 
 Filtering taxa that have enough observations for analysis (at least 10)
@@ -68,11 +65,11 @@ cleveland_plots <- step_3 |>
   mutate(ind_count_plot = map2(.x = data,
                     .y = taxa_clean,
                     ~cleveland_plot(.x, "individual_count") + ggtitle(.y)),
-         dm_plot = map2(.x = data,
+         wm_plot = map2(.x = data,
                     .y = taxa_clean,
-                    ~cleveland_plot(.x, "dm_g") + ggtitle(.y)))
+                    ~cleveland_plot(.x, "wm_g") + ggtitle(.y)))
 cleveland_plots$ind_count_plot
-cleveland_plots$dm_plot
+cleveland_plots$wm_plot
 ```
 
 ### Percentage analysis 
@@ -80,13 +77,13 @@ cleveland_plots$dm_plot
 Identifying top and bottom 2.5% of the data for the mass or count variables being analysed
 
 ```{r}
-biomass_ethanol_percentiles <- step_3 |>
+biomass_formalin_percentiles <- step_3 |>
   group_by(taxa_clean) |>
   mutate(keep_data_ind_count_percentiles = percentiles(individual_count, 0.025, 0.975),
-         keep_data_dm_percentiles = percentiles(dm_g, 0.025, 0.975))
+         keep_data_wm_percentiles = percentiles(wm_g, 0.025, 0.975))
   
 # Checking which observations are identified by the percentile method
-biomass_ethanol_percentiles |> 
+biomass_formalin_percentiles |> 
   filter(keep_data_ind_count_percentiles == FALSE) |> 
   select(taxa_clean, individual_count, keep_data_ind_count_percentiles, obs_num) |>
   arrange(taxa_clean, individual_count) |>
@@ -99,22 +96,22 @@ Creating logical vectors identifying which observations fall outside the cutoff 
 
 ```{r}
 #Nesting by taxa
-taxa_nested <- biomass_ethanol_percentiles |> 
-  select(taxa_clean, individual_count, dm_g, obs_num, keep_data_ind_count_percentiles, keep_data_dm_percentiles) |> 
-  nest(data = c(individual_count, dm_g, obs_num, keep_data_ind_count_percentiles, keep_data_dm_percentiles))
+taxa_nested <- biomass_formalin_percentiles |> 
+  select(taxa_clean, individual_count, wm_g, obs_num, keep_data_ind_count_percentiles, keep_data_wm_percentiles) |> 
+  nest(data = c(individual_count, wm_g, obs_num, keep_data_ind_count_percentiles, keep_data_wm_percentiles))
   
 #Calculating measures of outlyingness and associated cutoff values
 taxa_nested_outlier_candidates_identified <- taxa_nested |> 
   mutate(keep_data_leverage = map(.x = data,
-                                  ~ keep_data_leverage(.x, "individual_count", "dm_g")),
+                                  ~ keep_data_leverage(.x, "individual_count", "wm_g")),
          keep_data_stud_resid = map(.x = data,
-                                    ~ keep_data_stud_resid(.x, "individual_count", "dm_g")),
+                                    ~ keep_data_stud_resid(.x, "individual_count", "wm_g")),
          keep_data_cook = map(.x = data,
-                              ~ keep_data_cook(.x, "individual_count", "dm_g")),
+                              ~ keep_data_cook(.x, "individual_count", "wm_g")),
          keep_data_dffits = map(.x = data,
-                                ~ keep_data_dffits(.x, "individual_count", "dm_g")),
+                                ~ keep_data_dffits(.x, "individual_count", "wm_g")),
          keep_data_dfbetas = map(.x = data,
-                                ~ keep_data_dfbetas(.x, "individual_count", "dm_g")))
+                                ~ keep_data_dfbetas(.x, "individual_count", "wm_g")))
 ```
 
 Checking which observations of a particular taxa are identified by different measures of outlyingess
@@ -139,7 +136,7 @@ taxa_unnested_keep_data_merged <- taxa_unnested_outlier_candidates_identified |>
    mutate(keep_data_dfbetas_int = keep_data_dfbetas[,1], 
          keep_data_dfbetas_slope = keep_data_dfbetas[,2]) |>
  # Consolidating all outlier candidates into one vector
-   mutate(keep_data = ifelse(keep_data_ind_count_percentiles == TRUE & keep_data_dm_percentiles == TRUE & keep_data_cook == TRUE & keep_data_leverage == TRUE & keep_data_stud_resid == TRUE & keep_data_dffits == TRUE & keep_data_dfbetas_int == TRUE & keep_data_dfbetas_slope == TRUE, TRUE, FALSE)) 
+   mutate(keep_data = ifelse(keep_data_ind_count_percentiles == TRUE & keep_data_wm_percentiles == TRUE & keep_data_cook == TRUE & keep_data_leverage == TRUE & keep_data_stud_resid == TRUE & keep_data_dffits == TRUE & keep_data_dfbetas_int == TRUE & keep_data_dfbetas_slope == TRUE, TRUE, FALSE)) 
 ```
 
 ### Summary table of counts for all outlier methods 
@@ -163,10 +160,10 @@ long_data |>
 
 ## Saving the data
 ```{r}
-biomass_ethanol_count_dm_cleaned <- taxa_unnested_keep_data_merged |>
-  select(taxa_clean, individual_count, dm_g, keep_data)
+biomass_formalin_count_wm_cleaned <- taxa_unnested_keep_data_merged |>
+  select(taxa_clean, individual_count, wm_g, keep_data)
 
-write_csv(biomass_ethanol_count_dm_cleaned,
-          here("data/processed/ethanol/count_dm/biomass_ethanol_count_dm_cleaned.csv"))
+write_csv(biomass_formalin_count_wm_cleaned,
+          here("data/processed/formalin/count_wm/biomass_formalin_count_wm_cleaned.csv"))
 ```
 

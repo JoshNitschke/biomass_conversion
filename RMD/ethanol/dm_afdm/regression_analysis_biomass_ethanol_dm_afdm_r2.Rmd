@@ -21,16 +21,16 @@ library(tidyr)
 ## Reading in cleaned data
 
 ```{r}
-biomass_ethanol_count_wm_cleaned <- read_csv(here("data/processed/ethanol/count_wm/biomass_ethanol_count_wm_cleaned.csv"))
+biomass_ethanol_dm_afdm_cleaned <- read_csv(here("data/processed/ethanol/dm_afdm/biomass_ethanol_dm_afdm_cleaned.csv"))
 ```
 
 ## Running lm's on untransformed data
 
 ```{r}
-taxa_nested_lm <- biomass_ethanol_count_wm_cleaned |> 
+taxa_nested_lm <- biomass_ethanol_dm_afdm_cleaned |> 
   group_nest(taxa_clean) |>
   mutate(lm_object = map(.x = data,
-                          ~ lm(wm_g ~ individual_count, data = .x)))
+                          ~ lm(afdm_g ~ dm_g, data = .x)))
 ```
 
 ### Checking assumptions
@@ -79,11 +79,11 @@ taxa_nested_lm_fitted_resid_qq$qq
 ### Running lm's on untransformed data
 
 ```{r}
-taxa_nested_lm_outliers_removed <- biomass_ethanol_count_wm_cleaned |> 
+taxa_nested_lm_outliers_removed <- biomass_ethanol_dm_afdm_cleaned |> 
   filter(keep_data == TRUE) |>
   group_nest(taxa_clean) |>
   mutate(lm_object = map(.x = data,
-                          ~ lm(wm_g ~ individual_count, data = .x)))
+                          ~ lm(afdm_g ~ dm_g, data = .x)))
 ```
 
 ### Checking assumptions
@@ -132,16 +132,16 @@ taxa_nested_lm_outliers_removed_fitted_resid_qq$qq
 ### Running lm's on ln-transformed data and plotting
 
 ```{r}
-taxa_nested_lm_ln_plot <- biomass_ethanol_count_wm_cleaned |> 
+taxa_nested_lm_ln_plot <- biomass_ethanol_dm_afdm_cleaned |> 
   group_nest(taxa_clean) |>
   mutate(lm_ln_object = map(.x = data,
-                            .f = ~ lm(log(wm_g) ~ log(individual_count), data = .x)),
+                            .f = ~ lm(log(afdm_g) ~ log(dm_g), data = .x)),
          lm_ln_plots = map2(.x = data,
                          .y = taxa_clean,
-                         .f = ~ ggplot(.x, aes(x = log(individual_count), y = log(wm_g))) + 
+                         .f = ~ ggplot(.x, aes(x = log(dm_g), y = log(afdm_g))) + 
                            geom_point() +
                            geom_smooth(method = "lm") +
-                           labs(x = "log(e) individual count", y = "log(e) wet mass (g)") +
+                           labs(x = "log(e) dry mass (g)", y = "log(e) ash-free dry mass (g)") +
                            ggtitle(.y)))
            
 taxa_nested_lm_ln_plot$lm_ln_plots
@@ -239,7 +239,7 @@ reg_summary_a_sf <- merge(reg_summary_a, taxa_sf)
 
 # Saving the regression summary
 write_csv(reg_summary_a_sf,
-          here("output/ethanol/count_wm/biomass_regression_summary_ethanol_count_wm.csv"))
+          here("output/ethanol/dm_afdm/biomass_regression_summary_ethanol_dm_afdm.csv"))
 ```
 
 ### Back-transformation 
@@ -261,24 +261,24 @@ taxa_nested_lm_ln_plot_coef_CI_BT <- taxa_nested_lm_ln_plot_coef_CI |>
   add_column(lower_CI, upper_CI) |>
   mutate(lower_CI_line = exp(lower_CI)*sf,
          upper_CI_line = exp(upper_CI)*sf) |>
-  select(taxa_clean, individual_count, wm_g, lower_CI_line, upper_CI_line, sf) |>
-  nest(data = c(individual_count, wm_g, lower_CI_line, upper_CI_line)) |>
+  select(taxa_clean, dm_g, afdm_g, lower_CI_line, upper_CI_line, sf) |>
+  nest(data = c(dm_g, afdm_g, lower_CI_line, upper_CI_line)) |>
   right_join(reg_summary_a) |>
   mutate(BT_plot = pmap(.l = list(data, slope, intercept, sf, taxa_clean, r2),
-                        .f = ~ggplot(..1, aes(x = individual_count, y = wm_g)) +
+                        .f = ~ggplot(..1, aes(x = dm_g, y = afdm_g)) +
                           geom_point(fill = "grey", size = 3, alpha = 0.5, stroke = 1) +
                           geom_function(fun = function(x) (exp(..3))*(x^..2)*..4, 
                                         col = "darkgreen", linewidth  = 1) +
                           geom_ribbon(aes(ymin = lower_CI_line, ymax = upper_CI_line), fill = "darkgreen", 
                                       alpha = 0.2) +
                           ggtitle(..5) + 
-                          labs(x = "individual count", y = "wet mass (g)") + 
-                           geom_text(x = 0.25*max(..1$individual_count), y = 0.85*max(..1$wm_g), 
+                          labs(x = "dry mass (g)", y = "ash-free dry mass (g)") + 
+                           geom_text(x = 0.25*max(..1$dm_g), y = 0.85*max(..1$afdm_g), 
                                     label = deparse(bquote(paste("D = ", .(round(exp(..3), digits = 2)), 
                                                                  "W" ^.(round(..2, digits = 2))* " \u00D7 ",
                                                                  .(round(..4, digits = 2)), sep = ""))),
                                     parse = TRUE, size = 4) +
-                          geom_text(x = 0.25*max(..1$individual_count), y = 0.75*max(..1$wm_g), 
+                          geom_text(x = 0.25*max(..1$dm_g), y = 0.75*max(..1$afdm_g), 
                                     label = deparse(bquote(paste("R"^2, " = ", .(round(..6, digits = 2)), 
                                                                  sep = ""))),
                                     parse = TRUE, size = 4) +
@@ -298,22 +298,22 @@ taxa_nested_lm_ln_plot_coef_CI_BT$BT_plot
 ### Calculating biomass ratios and associated summary statistics
 
 ```{r}
-biomass_ethanol_count_wm_cleaned_ratios <- biomass_ethanol_count_wm_cleaned |>
-  mutate(wm_count = wm_g/individual_count) |>
+biomass_ethanol_dm_afdm_cleaned_ratios <- biomass_ethanol_dm_afdm_cleaned |>
+  mutate(afdm_dm = afdm_g/dm_g) |>
   group_by(taxa_clean) |>
   summarise(n = n(),
-            mean_wm_count = mean(wm_count),
-            sd_wm_count = sd(wm_count),
-            lower_ci_mean_wm_count = mean_wm_count-0.95*(sd_wm_count/sqrt(n)),
-            upper_ci_mean_wm_count = mean_wm_count+0.95*(sd_wm_count/sqrt(n)),
-            geom_mean = prod(wm_count)^(1/n),
-            min_wm_count = min(wm_count),
-            median_wm_count = median(wm_count),
-            max_wm_count = max(wm_count))
+            mean_afdm_dm = mean(afdm_dm),
+            sd_afdm_dm = sd(afdm_dm),
+            lower_ci_mean_afdm_dm = mean_afdm_dm-0.95*(sd_afdm_dm/sqrt(n)),
+            upper_ci_mean_afdm_dm = mean_afdm_dm+0.95*(sd_afdm_dm/sqrt(n)),
+            geom_mean = prod(afdm_dm)^(1/n),
+            min_afdm_dm = min(afdm_dm),
+            median_afdm_dm = median(afdm_dm),
+            max_afdm_dm = max(afdm_dm))
 
 # Saving the ratio summary
-write_csv(biomass_ethanol_count_wm_cleaned_ratios,
-          here("output/ethanol/count_wm/biomass_ratio_summary_ethanol_count_wm.csv"))
+write_csv(biomass_ethanol_dm_afdm_cleaned_ratios,
+          here("output/ethanol/dm_afdm/biomass_ratio_summary_ethanol_dm_afdm.csv"))
 ```
 
 ## Excluding outlier candidates
@@ -321,17 +321,17 @@ write_csv(biomass_ethanol_count_wm_cleaned_ratios,
 ### Running lm's on ln-transformed data and plotting
 
 ```{r}
-taxa_nested_outliers_removed_lm_ln_plot <- biomass_ethanol_count_wm_cleaned |> 
+taxa_nested_outliers_removed_lm_ln_plot <- biomass_ethanol_dm_afdm_cleaned |> 
   filter(keep_data == TRUE) |>
   group_nest(taxa_clean) |>
   mutate(lm_ln_object = map(.x = data,
-                          ~ lm(log(wm_g) ~ log(individual_count), data = .x)),
+                          ~ lm(log(afdm_g) ~ log(dm_g), data = .x)),
          lm_ln_plots = map2(.x = data,
                          .y = taxa_clean,
-                         .f = ~ ggplot(.x, aes(x = log(individual_count), y = log(wm_g))) + 
+                         .f = ~ ggplot(.x, aes(x = log(dm_g), y = log(afdm_g))) + 
                            geom_point() +
                            geom_smooth(method = "lm") +
-                           labs(x = "log(e) individual count", y = "log(e) wet mass (g)") +
+                           labs(x = "log(e) dry mass (g)", y = "log(e) ash-free dry mass (g)") +
                            ggtitle(.y)))
            
 taxa_nested_outliers_removed_lm_ln_plot$lm_ln_plots
@@ -430,7 +430,7 @@ reg_summary_outliers_removed_a_sf <- merge(reg_summary_outliers_removed_a, taxa_
 
 # Saving the regression summary
 write_csv(reg_summary_outliers_removed_a_sf,
-          here("output/ethanol/count_wm/biomass_regression_summary_ethanol_count_wm_outliers_removed.csv"))
+          here("output/ethanol/dm_afdm/biomass_regression_summary_ethanol_dm_afdm_outliers_removed.csv"))
 ```
 
 ### Back-transformation 
@@ -452,24 +452,24 @@ taxa_nested_outliers_removed_lm_ln_plot_coef_CI_BT <- taxa_nested_outliers_remov
   add_column(lower_CI, upper_CI) |>
   mutate(lower_CI_line = exp(lower_CI)*sf,
          upper_CI_line = exp(upper_CI)*sf) |>
-  select(taxa_clean, individual_count, wm_g, lower_CI_line, upper_CI_line, sf) |>
-  nest(data = c(individual_count, wm_g, lower_CI_line, upper_CI_line)) |>
+  select(taxa_clean, dm_g, afdm_g, lower_CI_line, upper_CI_line, sf) |>
+  nest(data = c(dm_g, afdm_g, lower_CI_line, upper_CI_line)) |>
   right_join(reg_summary_outliers_removed_a) |>
   mutate(BT_plot = pmap(.l = list(data, slope, intercept, sf, taxa_clean, r2),
-                        .f = ~ggplot(..1, aes(x = individual_count, y = wm_g)) +
+                        .f = ~ggplot(..1, aes(x = dm_g, y = afdm_g)) +
                           geom_point(fill = "grey", size = 3, alpha = 0.5, stroke = 1) +
                           geom_function(fun = function(x) (exp(..3))*(x^..2)*..4, 
                                         col = "darkgreen", linewidth  = 1) +
                           geom_ribbon(aes(ymin = lower_CI_line, ymax = upper_CI_line), fill = "darkgreen", 
                                       alpha = 0.2) +
                           ggtitle(..5) + 
-                          labs(x = "individual count", y = "wet mass (g)") + 
-                          geom_text(x = 0.25*max(..1$individual_count), y = 0.85*max(..1$wm_g), 
+                          labs(x = "dry mass (g)", y = "ash-free dry mass (g)") + 
+                          geom_text(x = 0.25*max(..1$dm_g), y = 0.85*max(..1$afdm_g), 
                                     label = deparse(bquote(paste("D = ", .(round(exp(..3), digits = 2)), 
                                                                  "W" ^.(round(..2, digits = 2))* " \u00D7 ",
                                                                  .(round(..4, digits = 2)), sep = ""))),
                                     parse = TRUE, size = 4) +
-                          geom_text(x = 0.25*max(..1$individual_count), y = 0.75*max(..1$wm_g), 
+                          geom_text(x = 0.25*max(..1$dm_g), y = 0.75*max(..1$afdm_g), 
                                     label = deparse(bquote(paste("R"^2, " = ", .(round(..6, digits = 2)), 
                                                                  sep = ""))),
                                     parse = TRUE, size = 4) +
@@ -489,48 +489,74 @@ taxa_nested_outliers_removed_lm_ln_plot_coef_CI_BT$BT_plot
 ### Calculating biomass ratios and associated summary statistics
 
 ```{r}
-biomass_ethanol_count_wm_outliers_removed_ratios <- biomass_ethanol_count_wm_cleaned |>
+biomass_ethanol_dm_afdm_outliers_removed_ratios <- biomass_ethanol_dm_afdm_cleaned |>
   filter(keep_data == TRUE) |>
-  mutate(wm_count = wm_g/individual_count) |>
+  mutate(afdm_dm = afdm_g/dm_g) |>
   group_by(taxa_clean) |>
   summarise(n = n(),
-            mean_wm_count = mean(wm_count),
-            sd_wm_count = sd(wm_count),
-            lower_ci_mean_wm_count = mean_wm_count-0.95*(sd_wm_count/sqrt(n)),
-            upper_ci_mean_wm_count = mean_wm_count+0.95*(sd_wm_count/sqrt(n)),
-            geom_mean = prod(wm_count)^(1/n),
-            min_wm_count = min(wm_count),
-            median_wm_count = median(wm_count),
-            max_wm_count = max(wm_count))
+            mean_afdm_dm = mean(afdm_dm),
+            sd_afdm_dm = sd(afdm_dm),
+            lower_ci_mean_afdm_dm = mean_afdm_dm-0.95*(sd_afdm_dm/sqrt(n)),
+            upper_ci_mean_afdm_dm = mean_afdm_dm+0.95*(sd_afdm_dm/sqrt(n)),
+            geom_mean = prod(afdm_dm)^(1/n),
+            min_afdm_dm = min(afdm_dm),
+            median_afdm_dm = median(afdm_dm),
+            max_afdm_dm = max(afdm_dm))
 
 # Saving the ratio summary
-write_csv(biomass_ethanol_count_wm_outliers_removed_ratios,
-          here("output/ethanol/count_wm/biomass_ratio_summary_ethanol_count_wm_outliers_removed.csv"))
+write_csv(biomass_ethanol_dm_afdm_outliers_removed_ratios,
+          here("output/ethanol/dm_afdm/biomass_ratio_summary_ethanol_dm_afdm_outliers_removed.csv"))
 ```
 
 ### Calculating mean absolute percentage error (MAPE) for regression and ratio methods (outliers removed)
 
 ```{r}
-pred_mass_ethanol_count_wm_outliers_removed_MAPE <- taxa_nested_outliers_removed_lm_ln_plot_coef_CI_BT |>
-  mutate(ols_pred_wm = pmap(.l = list(data, a, slope, sf),
-                            .f = ~ ..2*(..1$individual_count)^..3*..4),
-         ols_pred_wm_percent_error = map2(.x = data,
-                                          .y = ols_pred_wm,
-                                          .f = ~-((.x$wm_g-.y)/.x$wm_g)*100),
-         ratio_pred_wm = map2(.x = data,
-                              .y = biomass_ethanol_count_wm_outliers_removed_ratios$mean_wm_count,
-                              .f = ~ .y*.x$individual_count),
-         ratio_pred_wm_percent_error = map2(.x = data,
-                                          .y = ratio_pred_wm,
-                                          .f = ~-((.x$wm_g-.y)/.x$wm_g)*100),
-         ols_MAPE = map2(.x = ols_pred_wm_percent_error,
+pred_mass_ethanol_dm_afdm_outliers_removed_MAPE <- taxa_nested_outliers_removed_lm_ln_plot_coef_CI_BT |>
+  mutate(ols_pred_afdm = pmap(.l = list(data, a, slope, sf),
+                            .f = ~ ..2*(..1$dm_g)^..3*..4),
+         ols_pred_afdm_percent_error = map2(.x = data,
+                                          .y = ols_pred_afdm,
+                                          .f = ~-((.x$afdm_g-.y)/.x$afdm_g)*100),
+         ratio_pred_afdm = map2(.x = data,
+                              .y = biomass_ethanol_dm_afdm_outliers_removed_ratios$mean_afdm_dm,
+                              .f = ~ .y*.x$dm_g),
+         ratio_pred_afdm_percent_error = map2(.x = data,
+                                          .y = ratio_pred_afdm,
+                                          .f = ~-((.x$afdm_g-.y)/.x$afdm_g)*100),
+         ols_MAPE = map2(.x = ols_pred_afdm_percent_error,
                        .y = n,
                        .f = ~ sum(abs(.x))/.y),
-         ratio_MAPE = map2(.x = ratio_pred_wm_percent_error,
+         ratio_MAPE = map2(.x = ratio_pred_afdm_percent_error,
                        .y = n,
                        .f = ~ sum(abs(.x))/.y))
 
-pred_mass_ethanol_count_wm_outliers_removed_MAPE |> 
+pred_mass_ethanol_dm_afdm_outliers_removed_MAPE |> 
   select(taxa_clean, ols_MAPE, ratio_MAPE) |> 
   unnest(c(ols_MAPE, ratio_MAPE))
+```
+
+## Calculating R-squared on the original scale
+
+```{r}
+
+pred_mass_ethanol_dm_afdm_outliers_removed_MAPE_SS <- pred_mass_ethanol_dm_afdm_outliers_removed_MAPE |>
+  mutate(RSS = map2(.x = data,
+                    .y = ols_pred_afdm,
+                    .f = ~sum((.x$afdm_g-.y)^2)),
+         TSS = map(.x = data,
+                    .f = ~sum((.x$afdm_g-mean(.x$afdm_g))^2)))
+pred_mass_ethanol_dm_afdm_outliers_removed_MAPE_SS_original_scale_r2 <- pred_mass_ethanol_dm_afdm_outliers_removed_MAPE_SS |>
+  select(taxa_clean, RSS, TSS, r2) |> 
+  unnest(c(RSS, TSS, r2)) |>
+  mutate(original_r2 = 1-(RSS/TSS))
+
+pred_mass_ethanol_dm_afdm_outliers_removed_MAPE_original_r2 <- pred_mass_ethanol_dm_afdm_outliers_removed_MAPE_SS |>
+  unnest(c(RSS, TSS))
+pred_mass_ethanol_dm_afdm_outliers_removed_MAPE_SS_unnest <- pred_mass_ethanol_dm_afdm_outliers_removed_MAPE_SS |>
+  select(taxa_clean, RSS, TSS) |> unnest(c(RSS, TSS))
+pred_mass_ethanol_dm_afdm_outliers_removed_MAPE_SS_unnest |>
+  mutate(original_r2 = map2(.x = RSS,
+                            .y = TSS,
+                            .f = ~1-(RSS/TSS)))
+pred_mass_ethanol_dm_afdm_outliers_removed_MAPE_original_r2$original_r2
 ```

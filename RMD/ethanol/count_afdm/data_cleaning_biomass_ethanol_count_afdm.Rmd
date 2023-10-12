@@ -1,5 +1,5 @@
 ---
-title: "Cleaning biomass data - wet mass and dry mass"
+title: "Cleaning biomass data - individual count and ash-free dry mass"
 output: html_document
 editor_options: 
   chunk_output_type: console
@@ -10,11 +10,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 library(tidyverse)
 library(here)
-library(smatr)
 library(janitor)
 library(skimr)
-library(gridExtra)
-library(olsrr)
 library(purrr)
 library(tidyr)
 
