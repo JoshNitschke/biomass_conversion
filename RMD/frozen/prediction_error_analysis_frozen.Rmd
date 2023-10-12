@@ -213,7 +213,7 @@ ggplot(data = total_pred_mass_frozen_wm_dm_error_long, aes(x = pred_method, y = 
 ## Prediction error as a function of mass
 
 ```{r}
-total_pred_mass_frozen_wm_dm <- pred_mass_frozen_wm_dm |>
+pred_mass_frozen_wm_dm <- total_pred_mass_frozen_wm_dm |>
   mutate(ols_pred_dm = pmap(.l = list(data, a, slope, sf),
                             .f = ~ ..2*(..1$wm_g)^..3*..4),
          ols_pred_dm_percent_error = map2(.x = data,
@@ -226,7 +226,7 @@ total_pred_mass_frozen_wm_dm <- pred_mass_frozen_wm_dm |>
                                           .y = ratio_pred_dm,
                                           .f = ~-((.x$dm_g-.y)/.x$dm_g)*100))
 
-total_pred_mass_frozen_wm_dm_plot <- total_pred_mass_frozen_wm_dm |>
+pred_mass_frozen_wm_dm_plot <- pred_mass_frozen_wm_dm |>
   unnest(cols = c(data, ols_pred_dm_percent_error, ratio_pred_dm_percent_error)) |>
   group_nest(taxa_clean) |>
   mutate(ols_pred_dm_percent_error_plot = map2(.x = data, 
@@ -241,10 +241,24 @@ total_pred_mass_frozen_wm_dm_plot <- total_pred_mass_frozen_wm_dm |>
                                                  geom_point() + 
                                                  geom_hline(yintercept = 0, linetype = 2) +
                                                  ggtitle(.y)))
-total_pred_mass_frozen_wm_dm_plot$ols_pred_dm_percent_error_plot
-total_pred_mass_frozen_wm_dm_plot$ratio_pred_dm_percent_error_plot
+pred_mass_frozen_wm_dm_plot$ols_pred_dm_percent_error_plot
+pred_mass_frozen_wm_dm_plot$ratio_pred_dm_percent_error_plot
 
 ```
+
+## Mean Absolute Prediction Error
+
+```{r}
+pred_mass_frozen_wm_dm_MAPE <- pred_mass_frozen_wm_dm |>
+mutate(ols_MAPE = map2(.x = ols_pred_dm_percent_error,
+                       .y = n,
+                       .f = ~ sum(abs(.x))/.y),
+       ratio_MAPE = map2(.x = ratio_pred_dm_percent_error,
+                       .y = n,
+                       .f = ~ sum(abs(.x))/.y))
+pred_mass_frozen_wm_dm_MAPE |> select(taxa_clean, ols_MAPE, ratio_MAPE) |> unnest(ols_MAPE, ratio_MAPE)
+```
+
 
 # individual count as a predictor of wet mass
 
