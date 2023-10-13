@@ -216,7 +216,7 @@ p <- long_summary$slope[,4] # p-value of the slope is the same as the p-vale of 
 long_summary_short <- long_summary |>
   select(taxa_clean, n, r2)
   
-reg_summary <- add_column(long_summary_short, tibble(intercept, intercept_se, slope, slope_se, p))
+reg_summary <- add_column(long_summary_short, tibble(p, slope, slope_se, intercept, intercept_se))
 
 # Back-transforming intercept to get parameter 'a' in power equation: y = ax^b
 reg_summary_a <- reg_summary |> 
@@ -273,13 +273,17 @@ taxa_nested_lm_ln_plot_coef_CI_BT <- taxa_nested_lm_ln_plot_coef_CI |>
                                       alpha = 0.2) +
                           ggtitle(..5) + 
                           labs(x = "wet mass (g)", y = "ash-free dry mass (g)") + 
-                           geom_text(x = 0.25*max(..1$wm_g), y = 0.85*max(..1$afdm_g), 
-                                    label = deparse(bquote(paste("A = ", .(round(exp(..3), digits = 2)), 
-                                                                 "W" ^.(round(..2, digits = 2))* " \u00D7 ",
-                                                                 .(round(..4, digits = 2)), sep = ""))),
+                          geom_text(x = 0.25*max(..1$wm_g), y = 0.85*max(..1$afdm_g), 
+                                    label = deparse(bquote(paste("A = ", 
+                                                                 .(format(round(exp(..3), digits = 2), nsmall = 2)),
+                                                                 "W" ^.(format(round(..2, digits = 2), nsmall = 2))*
+                                                                   " \u00D7 ",
+                                                                 .(format(round(..4, digits = 2), nsmall = 2)), 
+                                                                 sep = ""))),
                                     parse = TRUE, size = 4) +
                           geom_text(x = 0.25*max(..1$wm_g), y = 0.75*max(..1$afdm_g), 
-                                    label = deparse(bquote(paste("R"^2, " = ", .(round(..6, digits = 2)), 
+                                    label = deparse(bquote(paste("R"^2, " = ", 
+                                                                 .(format(round(..6, digits = 2), nsmall = 2)), 
                                                                  sep = ""))),
                                     parse = TRUE, size = 4) +
                           theme_bw() + 
@@ -309,7 +313,10 @@ biomass_formalin_wm_afdm_cleaned_ratios <- biomass_formalin_wm_afdm_cleaned |>
             geom_mean = prod(afdm_wm)^(1/n),
             min_afdm_wm = min(afdm_wm),
             median_afdm_wm = median(afdm_wm),
-            max_afdm_wm = max(afdm_wm))
+            max_afdm_wm = max(afdm_wm),
+            range_wm = paste0(format(round(min(wm_g), digits = 3), nsmall = 3), 
+                              "-", format(round(max(wm_g), digits = 3), 
+                                          nsmall = 3)))
 
 # Saving the ratio summary
 write_csv(biomass_formalin_wm_afdm_cleaned_ratios,
@@ -407,7 +414,7 @@ long_summary_outliers_removed_short <- long_summary_outliers_removed |>
   select(taxa_clean, n, r2)
   
 reg_summary_outliers_removed <- add_column(long_summary_outliers_removed_short, 
-                                           tibble(intercept, intercept_se, slope, slope_se, p))
+                                           tibble(p, slope, slope_se, intercept, intercept_se))
 
 # Back-transforming intercept to get parameter 'a' in power equation: y = ax^b
 reg_summary_outliers_removed_a <- reg_summary_outliers_removed |> 
@@ -465,12 +472,16 @@ taxa_nested_outliers_removed_lm_ln_plot_coef_CI_BT <- taxa_nested_outliers_remov
                           ggtitle(..5) + 
                           labs(x = "wet mass (g)", y = "ash-free dry mass (g)") + 
                           geom_text(x = 0.25*max(..1$wm_g), y = 0.85*max(..1$afdm_g), 
-                                    label = deparse(bquote(paste("A = ", .(round(exp(..3), digits = 2)), 
-                                                                 "W" ^.(round(..2, digits = 2))* " \u00D7 ",
-                                                                 .(round(..4, digits = 2)), sep = ""))),
+                                    label = deparse(bquote(paste("A = ", 
+                                                                 .(format(round(exp(..3), digits = 2), nsmall = 2)),
+                                                                 "W" ^.(format(round(..2, digits = 2), nsmall = 2))*
+                                                                   " \u00D7 ",
+                                                                 .(format(round(..4, digits = 2), nsmall = 2)), 
+                                                                 sep = ""))),
                                     parse = TRUE, size = 4) +
                           geom_text(x = 0.25*max(..1$wm_g), y = 0.75*max(..1$afdm_g), 
-                                    label = deparse(bquote(paste("R"^2, " = ", .(round(..6, digits = 2)), 
+                                    label = deparse(bquote(paste("R"^2, " = ", 
+                                                                 .(format(round(..6, digits = 2), nsmall = 2)), 
                                                                  sep = ""))),
                                     parse = TRUE, size = 4) +
                           theme_bw() + 
@@ -501,12 +512,32 @@ biomass_formalin_wm_afdm_outliers_removed_ratios <- biomass_formalin_wm_afdm_cle
             geom_mean = prod(afdm_wm)^(1/n),
             min_afdm_wm = min(afdm_wm),
             median_afdm_wm = median(afdm_wm),
-            max_afdm_wm = max(afdm_wm))
+            max_afdm_wm = max(afdm_wm),
+            range_wm = paste0(format(round(min(wm_g), digits = 3), nsmall = 3), 
+                              "-", format(round(max(wm_g), digits = 3), 
+                                          nsmall = 3)))
 
 # Saving the ratio summary
 write_csv(biomass_formalin_wm_afdm_outliers_removed_ratios,
           here("output/formalin/wm_afdm/biomass_ratio_summary_formalin_wm_afdm_outliers_removed.csv"))
 ```
+
+### combining summary tables
+
+```{r}
+summary_formalin_wm_afdm_ratios <- left_join(reg_summary_a_sf, biomass_formalin_wm_afdm_cleaned_ratios)
+
+summary_formalin_wm_afdm_ratios_outliers_removed <- left_join(reg_summary_outliers_removed_a_sf,
+                                                          biomass_formalin_wm_afdm_outliers_removed_ratios) |>
+  mutate(taxa_clean = paste0(taxa_clean, "_outliers_removed"))
+
+full_summary_formalin_wm_afdm <- bind_rows(summary_formalin_wm_afdm_ratios, summary_formalin_wm_afdm_ratios_outliers_removed) |>
+  arrange(taxa_clean)
+
+write_csv(full_summary_formalin_wm_afdm,
+          here("output/formalin/wm_afdm/full_summary_formalin_wm_afdm.csv"))
+```
+
 
 ### Calculating mean absolute percentage error (MAPE) for regression and ratio methods (outliers removed)
 
