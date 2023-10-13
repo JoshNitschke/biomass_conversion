@@ -25,3 +25,13 @@ count_afdm (outliers removed): Simplisetia (banana res)
 Formalin
 wm_dm: all ok
 wm_dm (outliers removed): Hydrobiidae (non-normal with small sample size)
+wm_afdm: all ok
+wm_afdm (outliers removed): all ok
+dm_afdm: all ok
+dm_afdm (outliers removed): all ok
+count_wm: all ok
+count_wm (outliers removed): all ok
+count_dm: all ok
+count_dm (outliers removed): all ok
+count_afdm: all ok
+count_afdm (outliers removed): all ok

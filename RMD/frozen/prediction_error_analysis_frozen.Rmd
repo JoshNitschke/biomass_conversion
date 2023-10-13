@@ -176,21 +176,29 @@ total_pred_mass_frozen_wm_dm <- taxa_nested_lm_ln_coef_sf_frozen_wm_dm |>
                               .f = ~ sum(.y*.x$wm_g)),
          total_ratio_pred_dm_percent_error = map2(.x = total_dm,
                                           .y = total_ratio_pred_dm,
+                                          .f = ~-((.x-.y)/.x)*100),
+         total_median_ratio_pred_dm = map2(.x = data,
+                              .y = biomass_frozen_wm_dm_cleaned_ratios$median_dm_wm,
+                              .f = ~ sum(.y*.x$wm_g)),
+         total_median_ratio_pred_dm_percent_error = map2(.x = total_dm,
+                                          .y = total_median_ratio_pred_dm,
                                           .f = ~-((.x-.y)/.x)*100))
          
 total_pred_mass_frozen_wm_dm_error <- total_pred_mass_frozen_wm_dm |>
   select(taxa_clean, total_dm, total_reg_pred_dm, total_reg_pred_dm_percent_error, 
          total_sma_pred_dm, total_sma_pred_dm_percent_error,
-         total_ratio_pred_dm, total_ratio_pred_dm_percent_error) |>
+         total_ratio_pred_dm, total_ratio_pred_dm_percent_error,
+         total_median_ratio_pred_dm, total_median_ratio_pred_dm_percent_error) |>
   unnest(cols = c(total_dm, total_reg_pred_dm, total_reg_pred_dm_percent_error, 
                   total_sma_pred_dm, total_sma_pred_dm_percent_error,
-                  total_ratio_pred_dm, total_ratio_pred_dm_percent_error))
+                  total_ratio_pred_dm, total_ratio_pred_dm_percent_error,
+                  total_median_ratio_pred_dm, total_median_ratio_pred_dm_percent_error))
 
 total_pred_mass_frozen_wm_dm_error_long <- total_pred_mass_frozen_wm_dm_error |>
   select(taxa_clean, total_reg_pred_dm_percent_error, total_sma_pred_dm_percent_error,
-         total_ratio_pred_dm_percent_error) |>
+         total_ratio_pred_dm_percent_error, total_median_ratio_pred_dm_percent_error) |>
   pivot_longer(cols = c(total_reg_pred_dm_percent_error, total_sma_pred_dm_percent_error,
-                        total_ratio_pred_dm_percent_error), 
+                        total_ratio_pred_dm_percent_error, total_median_ratio_pred_dm_percent_error), 
                names_to = "pred_method", values_to = "percent_error")
   
 ggplot(data = total_pred_mass_frozen_wm_dm_error_long, aes(x = pred_method, y = percent_error)) +
@@ -198,7 +206,8 @@ ggplot(data = total_pred_mass_frozen_wm_dm_error_long, aes(x = pred_method, y = 
   geom_hline(yintercept = 0, linetype = 2) +
   ggtitle("wet mass -> dry mass") +
   labs(x = "prediction method", y = "percentage error in total mass") +
-  scale_x_discrete(labels = c("mean ratio", 
+  scale_x_discrete(labels = c("median ratio",
+                              "mean ratio", 
                               "OLS regression (log-linear)", 
                               "SMA regression (log-linear)")) +
     theme_bw() +
