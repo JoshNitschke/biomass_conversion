@@ -11,7 +11,8 @@ editor_options:
 knitr::opts_chunk$set(echo = TRUE)
 
 # install.packages("remotes")
-remotes::install_github("traitecoevo/smatr")
+#remotes::install_github("traitecoevo/smatr")
+#install.packages("cowplot")
 
 library(tidyverse)
 library(here)
@@ -22,6 +23,7 @@ library(gridExtra)
 library(olsrr)
 library(purrr)
 library(tidyr)
+library(cowplot)
 
 source(here("R/func/Xiao_et_al_2011_power_analysis_function.R"))
 ```
@@ -170,10 +172,10 @@ taxa_nested_outliers_removed_lm_ln_plot_coef_CI_BT <- taxa_nested_outliers_remov
                           geom_point(fill = "grey", size = 3, alpha = 0.5, stroke = 1) +
                           geom_function(fun = function(x) (exp(..3))*(x^..2)*..4, 
                                         col = "darkgreen", linewidth  = 1) +
-                          geom_function(fun = function(x) ..8*x^..7*..9,
-                                        col = "purple", linewidth  = 1) +
+                          #geom_function(fun = function(x) ..8*x^..7*..9,
+                          #              col = "orange", linewidth  = 1) +
                           geom_function(fun = function(x) mean(..1$dm_g/..1$wm_g)*x,
-                                        col = "orange", linewidth  = 1) +
+                                        col = "purple", linewidth  = 1) +
                          # geom_ribbon(aes(ymin = lower_CI_line, ymax = upper_CI_line),
                          # fill = "darkgreen", alpha = 0.2) +
                           ggtitle(..5) + 
@@ -200,4 +202,13 @@ taxa_nested_outliers_removed_lm_ln_plot_coef_CI_BT <- taxa_nested_outliers_remov
 taxa_nested_outliers_removed_lm_ln_plot_coef_CI_BT$BT_plot
 ```
 
+Saving the Capitella plot as an example
 
+```{r}
+
+png(here("output/png/frozen_wm_dm_ols_ratio_comparison.png"), width = 1000, height = 700, res = 150)
+par(omi = c(1,1,1,1))  
+taxa_nested_outliers_removed_lm_ln_plot_coef_CI_BT$BT_plot[3]
+dev.off()
+
+```
