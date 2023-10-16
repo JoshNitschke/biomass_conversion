@@ -642,7 +642,7 @@ Creating a multi-panel figure of back-transformed regression lines on raw data (
 
 ```{r}
 margin = theme(plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"))
-png(here("output/png/frozen_wm_dm_ols_plots_outliers_removed.png"), width = 2200, height = 2800, res = 150)
+png(here("output/png/frozen_wm_dm_ols_plots_outliers_removed.png"), width = 4400, height = 5600, res = 300)
 par(omi = c(1,1,1,1))                    
 grid.arrange(grobs = lapply(taxa_nested_outliers_removed_lm_ln_plot_coef_CI_BT$BT_plot, "+", margin), ncol = 3)
 dev.off()

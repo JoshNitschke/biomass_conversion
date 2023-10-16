@@ -206,7 +206,7 @@ Saving the Capitella plot as an example
 
 ```{r}
 
-png(here("output/png/frozen_wm_dm_ols_ratio_comparison.png"), width = 1000, height = 700, res = 150)
+png(here("output/png/frozen_wm_dm_ols_ratio_comparison.png"), width = 2000, height = 1400, res = 300)
 par(omi = c(1,1,1,1))  
 taxa_nested_outliers_removed_lm_ln_plot_coef_CI_BT$BT_plot[3]
 dev.off()
