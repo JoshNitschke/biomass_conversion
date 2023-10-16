@@ -310,7 +310,7 @@ taxa_nested_lm_ln_plot_coef_CI_BT$BT_plot
 ### Calculating biomass ratios and associated summary statistics
 
 ```{r}
-biomass_frozen_wm_dm_cleaned_ratios <- biomass_frozen_wm_dm_cleaned |>
+biomass_frozen_wm_dm_ratios <- biomass_frozen_wm_dm_cleaned |>
   mutate(dm_wm = dm_g/wm_g) |>
   group_by(taxa_clean) |>
   summarise(n = n(),
@@ -327,8 +327,47 @@ biomass_frozen_wm_dm_cleaned_ratios <- biomass_frozen_wm_dm_cleaned |>
                                           nsmall = 3)))
 
 # Saving the ratio summary
-write_csv(biomass_frozen_wm_dm_cleaned_ratios,
+write_csv(biomass_frozen_wm_dm_ratios,
           here("output/frozen/wm_dm/biomass_ratio_summary_frozen_wm_dm.csv"))
+```
+
+### Assessing model performance
+
+Calculating mean percentage error (MPE) and mean absolute percentage error (MAPE) for regression and ratio methods
+
+```{r}
+pred_mass_frozen_wm_dm_error_eval <- taxa_nested_lm_ln_plot_coef_CI_BT |>
+  mutate(ols_pred_dm = pmap(.l = list(data, a, slope, sf),
+                            .f = ~ ..2*(..1$wm_g)^..3*..4),
+         ols_pred_dm_percent_error = map2(.x = data,
+                                          .y = ols_pred_dm,
+                                          .f = ~-((.x$dm_g-.y)/.x$dm_g)*100),
+         ratio_pred_dm = map2(.x = data,
+                              .y = biomass_frozen_wm_dm_ratios$mean_dm_wm,
+                              .f = ~ .y*.x$wm_g),
+         ratio_pred_dm_percent_error = map2(.x = data,
+                                          .y = ratio_pred_dm,
+                                          .f = ~-((.x$dm_g-.y)/.x$dm_g)*100),
+         ols_total_PE = map2(.x = data,
+                             .y = ols_pred_dm,
+                             .f = ~ (sum(.y-.x$dm_g)/sum(.x$dm_g))*100),
+         ols_MPE = map2(.x = ols_pred_dm_percent_error,
+                        .y = n,
+                        .f = ~ sum(.x)/.y),
+         ols_MAPE = map2(.x = ols_pred_dm_percent_error,
+                       .y = n,
+                       .f = ~ sum(abs(.x))/.y),
+         ratio_total_PE = map2(.x = data,
+                             .y = ratio_pred_dm,
+                             .f = ~ (sum(.y-.x$dm_g)/sum(.x$dm_g))*100),
+         ratio_MPE = map2(.x = ratio_pred_dm_percent_error,
+                        .y = n,
+                        .f = ~ sum(.x)/.y),
+         ratio_MAPE = map2(.x = ratio_pred_dm_percent_error,
+                       .y = n,
+                       .f = ~ sum(abs(.x))/.y)) |> 
+  select(taxa_clean, ols_total_PE, ols_MPE, ols_MAPE, ratio_total_PE, ratio_MPE, ratio_MAPE) |> 
+  unnest(c(ols_total_PE, ols_MPE, ols_MAPE, ratio_total_PE, ratio_MPE, ratio_MAPE))
 ```
 
 ## Excluding outlier candidates
@@ -538,27 +577,12 @@ write_csv(biomass_frozen_wm_dm_outliers_removed_ratios,
           here("output/frozen/wm_dm/biomass_ratio_summary_frozen_wm_dm_outliers_removed.csv"))
 ```
 
-### combining summary tables
+### Assessing model performance
+
+Calculating mean percentage error (MPE) and mean absolute percentage error (MAPE) for regression and ratio methods
 
 ```{r}
-summary_frozen_wm_dm_ratios <- left_join(reg_summary_a_sf, biomass_frozen_wm_dm_cleaned_ratios)
-
-summary_frozen_wm_dm_ratios_outliers_removed <- left_join(reg_summary_outliers_removed_a_sf,
-                                                          biomass_frozen_wm_dm_outliers_removed_ratios) |>
-  mutate(taxa_clean = paste0(taxa_clean, "_outliers_removed"))
-
-full_summary_frozen_wm_dm <- bind_rows(summary_frozen_wm_dm_ratios, summary_frozen_wm_dm_ratios_outliers_removed) |>
-  arrange(taxa_clean)
-
-write_csv(full_summary_frozen_wm_dm,
-          here("output/frozen/wm_dm/full_summary_frozen_wm_dm.csv"))
-```
-
-
-### Calculating mean absolute percentage error (MAPE) for regression and ratio methods (outliers removed)
-
-```{r}
-pred_mass_frozen_wm_dm_outliers_removed_MAPE <- taxa_nested_outliers_removed_lm_ln_plot_coef_CI_BT |>
+pred_mass_frozen_wm_dm_outliers_removed_error_eval <- taxa_nested_outliers_removed_lm_ln_plot_coef_CI_BT |>
   mutate(ols_pred_dm = pmap(.l = list(data, a, slope, sf),
                             .f = ~ ..2*(..1$wm_g)^..3*..4),
          ols_pred_dm_percent_error = map2(.x = data,
@@ -570,14 +594,43 @@ pred_mass_frozen_wm_dm_outliers_removed_MAPE <- taxa_nested_outliers_removed_lm_
          ratio_pred_dm_percent_error = map2(.x = data,
                                           .y = ratio_pred_dm,
                                           .f = ~-((.x$dm_g-.y)/.x$dm_g)*100),
+         ols_total_PE = map2(.x = data,
+                             .y = ols_pred_dm,
+                             .f = ~ (sum(.y-.x$dm_g)/sum(.x$dm_g))*100),
+         ols_MPE = map2(.x = ols_pred_dm_percent_error,
+                        .y = n,
+                        .f = ~ sum(.x)/.y),
          ols_MAPE = map2(.x = ols_pred_dm_percent_error,
                        .y = n,
                        .f = ~ sum(abs(.x))/.y),
+         ratio_total_PE = map2(.x = data,
+                             .y = ratio_pred_dm,
+                             .f = ~ (sum(.y-.x$dm_g)/sum(.x$dm_g))*100),
+         ratio_MPE = map2(.x = ratio_pred_dm_percent_error,
+                        .y = n,
+                        .f = ~ sum(.x)/.y),
          ratio_MAPE = map2(.x = ratio_pred_dm_percent_error,
                        .y = n,
-                       .f = ~ sum(abs(.x))/.y))
+                       .f = ~ sum(abs(.x))/.y)) |> 
+  select(taxa_clean, ols_total_PE, ols_MPE, ols_MAPE, ratio_total_PE, ratio_MPE, ratio_MAPE) |> 
+  unnest(c(ols_total_PE, ols_MPE, ols_MAPE, ratio_total_PE, ratio_MPE, ratio_MAPE))
+```
 
-pred_mass_frozen_wm_dm_outliers_removed_MAPE |> 
-  select(taxa_clean, ols_MAPE, ratio_MAPE) |> 
-  unnest(c(ols_MAPE, ratio_MAPE))
+### combining summary tables
+
+```{r}
+summary_frozen_wm_dm_ratios <- left_join(reg_summary_a_sf, 
+                                         biomass_frozen_wm_dm_ratios) |>
+  left_join(pred_mass_frozen_wm_dm_error_eval)
+
+summary_frozen_wm_dm_ratios_outliers_removed <- left_join(reg_summary_outliers_removed_a_sf,
+                                                          biomass_frozen_wm_dm_outliers_removed_ratios) |>
+  left_join(pred_mass_frozen_wm_dm_outliers_removed_error_eval) |>
+  mutate(taxa_clean = paste0(taxa_clean, "_outliers_removed"))
+
+full_summary_frozen_wm_dm <- bind_rows(summary_frozen_wm_dm_ratios, summary_frozen_wm_dm_ratios_outliers_removed) |>
+  arrange(taxa_clean)
+
+write_csv(full_summary_frozen_wm_dm,
+          here("output/frozen/wm_dm/full_summary_frozen_wm_dm.csv"))
 ```
