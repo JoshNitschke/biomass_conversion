@@ -203,24 +203,32 @@ long_summary <- taxa_nested_lm_ln_plot_coef |>
          r2 = map(.x = summary,
                             ~.x[[9]]),
          n = map(.x = lm_ln_object,
-                 ~length(.x$residuals))) |>
-  unnest(c(coefs, r2, n)) |>
+                 ~length(.x$residuals)),
+         conf_interval = map(.x = lm_ln_object,
+                             .f = ~confint(.x))) |>
+  unnest(c(coefs, r2, n, conf_interval)) |>
   mutate(coef_type = c(rep(c("intercept", "slope"), times = length(taxa_clean)/2))) |>
-  pivot_wider(names_from = coef_type, values_from = coefs)
+  pivot_wider(names_from = coef_type, values_from = c(coefs, conf_interval))
 
-intercept <- long_summary$intercept[,1]
-intercept_se <- long_summary$intercept[,2]
-slope <- long_summary$slope[,1]
-slope_se <- long_summary$slope[,2]
-p <- long_summary$slope[,4] # p-value of the slope is the same as the p-vale of the overall regression model in the case of simple regression with one predictor
+intercept <- long_summary$coefs_intercept[,1]
+intercept_se <- long_summary$coefs_intercept[,2]
+intercept_ci_lower <- long_summary$conf_interval_intercept[,1]
+intercept_ci_upper <- long_summary$conf_interval_intercept[,2]
+slope <- long_summary$coefs_slope[,1]
+slope_se <- long_summary$coefs_slope[,2]
+slope_ci_lower <- long_summary$conf_interval_slope[,1]
+slope_ci_upper <- long_summary$conf_interval_slope[,2]
+p <- long_summary$coefs_slope[,4] # p-value of the slope is the same as the p-vale of the overall regression model in the case of simple regression with one predictor
 long_summary_short <- long_summary |>
   select(taxa_clean, n, r2)
   
-reg_summary <- add_column(long_summary_short, tibble(p, slope, slope_se, intercept, intercept_se))
+reg_summary <- add_column(long_summary_short, tibble(p, slope, slope_se, slope_ci_lower, slope_ci_upper, intercept, intercept_se, intercept_ci_lower, intercept_ci_upper))
 
 # Back-transforming intercept to get parameter 'a' in power equation: y = ax^b
 reg_summary_a <- reg_summary |> 
-  mutate(a = exp(intercept))
+  mutate(a = exp(intercept),
+         a_ci_lower = exp(intercept_ci_lower),
+         a_ci_upper = exp(intercept_ci_upper))
 ```
 
 Calculating SF (smearing factor - mean of back-transformed residuals) as per Mährlein, M., M. Pätzig, M. Brauns and A. M. Dolman. Length–mass relationships for lake macroinvertebrates corrected for back-transformation and preservation effects. Hydrobiologia, 768, 37-50 (2016).
@@ -302,7 +310,7 @@ taxa_nested_lm_ln_plot_coef_CI_BT$BT_plot
 ### Calculating biomass ratios and associated summary statistics
 
 ```{r}
-biomass_ethanol_wm_afdm_cleaned_ratios <- biomass_ethanol_wm_afdm_cleaned |>
+biomass_ethanol_wm_afdm_ratios <- biomass_ethanol_wm_afdm_cleaned |>
   mutate(afdm_wm = afdm_g/wm_g) |>
   group_by(taxa_clean) |>
   summarise(n = n(),
@@ -319,8 +327,47 @@ biomass_ethanol_wm_afdm_cleaned_ratios <- biomass_ethanol_wm_afdm_cleaned |>
                                           nsmall = 3)))
 
 # Saving the ratio summary
-write_csv(biomass_ethanol_wm_afdm_cleaned_ratios,
+write_csv(biomass_ethanol_wm_afdm_ratios,
           here("output/ethanol/wm_afdm/biomass_ratio_summary_ethanol_wm_afdm.csv"))
+```
+
+### Assessing model performance
+
+Calculating mean percentage error (MPE) and mean absolute percentage error (MAPE) for regression and ratio methods
+
+```{r}
+pred_mass_ethanol_wm_afdm_error_eval <- taxa_nested_lm_ln_plot_coef_CI_BT |>
+  mutate(ols_pred_afdm = pmap(.l = list(data, a, slope, sf),
+                            .f = ~ ..2*(..1$wm_g)^..3*..4),
+         ols_pred_afdm_percent_error = map2(.x = data,
+                                          .y = ols_pred_afdm,
+                                          .f = ~-((.x$afdm_g-.y)/.x$afdm_g)*100),
+         ratio_pred_afdm = map2(.x = data,
+                              .y = biomass_ethanol_wm_afdm_ratios$mean_afdm_wm,
+                              .f = ~ .y*.x$wm_g),
+         ratio_pred_afdm_percent_error = map2(.x = data,
+                                          .y = ratio_pred_afdm,
+                                          .f = ~-((.x$afdm_g-.y)/.x$afdm_g)*100),
+         ols_total_PE = map2(.x = data,
+                             .y = ols_pred_afdm,
+                             .f = ~ (sum(.y-.x$afdm_g)/sum(.x$afdm_g))*100),
+         ols_MPE = map2(.x = ols_pred_afdm_percent_error,
+                        .y = n,
+                        .f = ~ sum(.x)/.y),
+         ols_MAPE = map2(.x = ols_pred_afdm_percent_error,
+                       .y = n,
+                       .f = ~ sum(abs(.x))/.y),
+         ratio_total_PE = map2(.x = data,
+                             .y = ratio_pred_afdm,
+                             .f = ~ (sum(.y-.x$afdm_g)/sum(.x$afdm_g))*100),
+         ratio_MPE = map2(.x = ratio_pred_afdm_percent_error,
+                        .y = n,
+                        .f = ~ sum(.x)/.y),
+         ratio_MAPE = map2(.x = ratio_pred_afdm_percent_error,
+                       .y = n,
+                       .f = ~ sum(abs(.x))/.y)) |> 
+  select(taxa_clean, ols_total_PE, ols_MPE, ols_MAPE, ratio_total_PE, ratio_MPE, ratio_MAPE) |> 
+  unnest(c(ols_total_PE, ols_MPE, ols_MAPE, ratio_total_PE, ratio_MPE, ratio_MAPE))
 ```
 
 ## Excluding outlier candidates
@@ -400,25 +447,33 @@ long_summary_outliers_removed <- taxa_nested_outliers_removed_lm_ln_plot_coef |>
          r2 = map(.x = summary,
                             ~.x[[9]]),
          n = map(.x = lm_ln_object,
-                 ~length(.x$residuals))) |>
-  unnest(c(coefs, r2, n)) |>
+                 ~length(.x$residuals)),
+         conf_interval = map(.x = lm_ln_object,
+                             .f = ~confint(.x))) |>
+  unnest(c(coefs, r2, n, conf_interval)) |>
   mutate(coef_type = c(rep(c("intercept", "slope"), times = length(taxa_clean)/2))) |>
-  pivot_wider(names_from = coef_type, values_from = coefs)
+  pivot_wider(names_from = coef_type, values_from = c(coefs, conf_interval))
 
-intercept <- long_summary_outliers_removed$intercept[,1]
-intercept_se <- long_summary_outliers_removed$intercept[,2]
-slope <- long_summary_outliers_removed$slope[,1]
-slope_se <- long_summary_outliers_removed$slope[,2]
-p <- long_summary_outliers_removed$slope[,4] # p-value of the slope is the same as the p-vale of the overall regression model in the case of simple regression with one predictor
+intercept <- long_summary_outliers_removed$coefs_intercept[,1]
+intercept_se <- long_summary_outliers_removed$coefs_intercept[,2]
+intercept_ci_lower <- long_summary_outliers_removed$conf_interval_intercept[,1]
+intercept_ci_upper <- long_summary_outliers_removed$conf_interval_intercept[,2]
+slope <- long_summary_outliers_removed$coefs_slope[,1]
+slope_se <- long_summary_outliers_removed$coefs_slope[,2]
+slope_ci_lower <- long_summary_outliers_removed$conf_interval_slope[,1]
+slope_ci_upper <- long_summary_outliers_removed$conf_interval_slope[,2]
+p <- long_summary_outliers_removed$coefs_slope[,4] # p-value of the slope is the same as the p-vale of the overall regression model in the case of simple regression with one predictor
 long_summary_outliers_removed_short <- long_summary_outliers_removed |>
   select(taxa_clean, n, r2)
   
 reg_summary_outliers_removed <- add_column(long_summary_outliers_removed_short, 
-                                           tibble(p, slope, slope_se, intercept, intercept_se))
+                                           tibble(p, slope, slope_se, slope_ci_lower, slope_ci_upper, intercept, intercept_se, intercept_ci_lower, intercept_ci_upper))
 
 # Back-transforming intercept to get parameter 'a' in power equation: y = ax^b
 reg_summary_outliers_removed_a <- reg_summary_outliers_removed |> 
-  mutate(a = exp(intercept))
+  mutate(a = exp(intercept),
+         a_ci_lower = exp(intercept_ci_lower),
+         a_ci_upper = exp(intercept_ci_upper))
 ```
 
 Calculating SF (smearing factor - mean of back-transformed residuals) as per Mährlein, M., M. Pätzig, M. Brauns and A. M. Dolman. Length–mass relationships for lake macroinvertebrates corrected for back-transformation and preservation effects. Hydrobiologia, 768, 37-50 (2016).
@@ -522,27 +577,12 @@ write_csv(biomass_ethanol_wm_afdm_outliers_removed_ratios,
           here("output/ethanol/wm_afdm/biomass_ratio_summary_ethanol_wm_afdm_outliers_removed.csv"))
 ```
 
-### combining summary tables
+### Assessing model performance
+
+Calculating mean percentage error (MPE) and mean absolute percentage error (MAPE) for regression and ratio methods
 
 ```{r}
-summary_ethanol_wm_afdm_ratios <- left_join(reg_summary_a_sf, biomass_ethanol_wm_afdm_cleaned_ratios)
-
-summary_ethanol_wm_afdm_ratios_outliers_removed <- left_join(reg_summary_outliers_removed_a_sf,
-                                                          biomass_ethanol_wm_afdm_outliers_removed_ratios) |>
-  mutate(taxa_clean = paste0(taxa_clean, "_outliers_removed"))
-
-full_summary_ethanol_wm_afdm <- bind_rows(summary_ethanol_wm_afdm_ratios, summary_ethanol_wm_afdm_ratios_outliers_removed) |>
-  arrange(taxa_clean)
-
-write_csv(full_summary_ethanol_wm_afdm,
-          here("output/ethanol/wm_afdm/full_summary_ethanol_wm_afdm.csv"))
-```
-
-
-### Calculating mean absolute percentage error (MAPE) for regression and ratio methods (outliers removed)
-
-```{r}
-pred_mass_ethanol_wm_afdm_outliers_removed_MAPE <- taxa_nested_outliers_removed_lm_ln_plot_coef_CI_BT |>
+pred_mass_ethanol_wm_afdm_outliers_removed_error_eval <- taxa_nested_outliers_removed_lm_ln_plot_coef_CI_BT |>
   mutate(ols_pred_afdm = pmap(.l = list(data, a, slope, sf),
                             .f = ~ ..2*(..1$wm_g)^..3*..4),
          ols_pred_afdm_percent_error = map2(.x = data,
@@ -554,14 +594,43 @@ pred_mass_ethanol_wm_afdm_outliers_removed_MAPE <- taxa_nested_outliers_removed_
          ratio_pred_afdm_percent_error = map2(.x = data,
                                           .y = ratio_pred_afdm,
                                           .f = ~-((.x$afdm_g-.y)/.x$afdm_g)*100),
+         ols_total_PE = map2(.x = data,
+                             .y = ols_pred_afdm,
+                             .f = ~ (sum(.y-.x$afdm_g)/sum(.x$afdm_g))*100),
+         ols_MPE = map2(.x = ols_pred_afdm_percent_error,
+                        .y = n,
+                        .f = ~ sum(.x)/.y),
          ols_MAPE = map2(.x = ols_pred_afdm_percent_error,
                        .y = n,
                        .f = ~ sum(abs(.x))/.y),
+         ratio_total_PE = map2(.x = data,
+                             .y = ratio_pred_afdm,
+                             .f = ~ (sum(.y-.x$afdm_g)/sum(.x$afdm_g))*100),
+         ratio_MPE = map2(.x = ratio_pred_afdm_percent_error,
+                        .y = n,
+                        .f = ~ sum(.x)/.y),
          ratio_MAPE = map2(.x = ratio_pred_afdm_percent_error,
                        .y = n,
-                       .f = ~ sum(abs(.x))/.y))
+                       .f = ~ sum(abs(.x))/.y)) |> 
+  select(taxa_clean, ols_total_PE, ols_MPE, ols_MAPE, ratio_total_PE, ratio_MPE, ratio_MAPE) |> 
+  unnest(c(ols_total_PE, ols_MPE, ols_MAPE, ratio_total_PE, ratio_MPE, ratio_MAPE))
+```
 
-pred_mass_ethanol_wm_afdm_outliers_removed_MAPE |> 
-  select(taxa_clean, ols_MAPE, ratio_MAPE) |> 
-  unnest(c(ols_MAPE, ratio_MAPE))
+### combining summary tables
+
+```{r}
+summary_ethanol_wm_afdm_ratios <- left_join(reg_summary_a_sf, 
+                                         biomass_ethanol_wm_afdm_ratios) |>
+  left_join(pred_mass_ethanol_wm_afdm_error_eval)
+
+summary_ethanol_wm_afdm_ratios_outliers_removed <- left_join(reg_summary_outliers_removed_a_sf,
+                                                          biomass_ethanol_wm_afdm_outliers_removed_ratios) |>
+  left_join(pred_mass_ethanol_wm_afdm_outliers_removed_error_eval) |>
+  mutate(taxa_clean = paste0(taxa_clean, "_outliers_removed"))
+
+full_summary_ethanol_wm_afdm <- bind_rows(summary_ethanol_wm_afdm_ratios, summary_ethanol_wm_afdm_ratios_outliers_removed) |>
+  arrange(taxa_clean)
+
+write_csv(full_summary_ethanol_wm_afdm,
+          here("output/ethanol/wm_afdm/full_summary_ethanol_wm_afdm.csv"))
 ```
