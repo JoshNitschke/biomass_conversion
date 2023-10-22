@@ -312,12 +312,21 @@ taxa_nested_lm_ln_plot_coef_CI_BT$BT_plot
 ```{r}
 biomass_frozen_wm_dm_ratios <- biomass_frozen_wm_dm_cleaned |>
   mutate(dm_wm = dm_g/wm_g) |>
+  group_nest(taxa_clean) |>
+  mutate(dm_wm_t_test = map(.x = data,
+                            .f = ~ t.test(.x$dm_wm)),
+         ci_mean_dm_wm = map(.x = dm_wm_t_test,
+                             .f = ~ .x$conf.int)) |>
+  unnest(ci_mean_dm_wm) |>
+  mutate(ci_bound = c(rep(c("lower", "upper"), times = length(taxa_clean)/2))) |>
+  pivot_wider(names_from = ci_bound, values_from = ci_mean_dm_wm) |>
+  unnest(data) |>
   group_by(taxa_clean) |>
   summarise(n = n(),
             mean_dm_wm = mean(dm_wm),
+            lower_ci_mean_dm_wm = mean(lower),
+            upper_ci_mean_dm_wm = mean(upper),
             sd_dm_wm = sd(dm_wm),
-            lower_ci_mean_dm_wm = mean_dm_wm-0.95*(sd_dm_wm/sqrt(n)),
-            upper_ci_mean_dm_wm = mean_dm_wm+0.95*(sd_dm_wm/sqrt(n)),
             geom_mean = prod(dm_wm)^(1/n),
             min_dm_wm = min(dm_wm),
             median_dm_wm = median(dm_wm),
@@ -558,12 +567,21 @@ taxa_nested_outliers_removed_lm_ln_plot_coef_CI_BT$BT_plot
 biomass_frozen_wm_dm_outliers_removed_ratios <- biomass_frozen_wm_dm_cleaned |>
   filter(keep_data == TRUE) |>
   mutate(dm_wm = dm_g/wm_g) |>
+  group_nest(taxa_clean) |>
+  mutate(dm_wm_t_test = map(.x = data,
+                            .f = ~ t.test(.x$dm_wm)),
+         ci_mean_dm_wm = map(.x = dm_wm_t_test,
+                             .f = ~ .x$conf.int)) |>
+  unnest(ci_mean_dm_wm) |>
+  mutate(ci_bound = c(rep(c("lower", "upper"), times = length(taxa_clean)/2))) |>
+  pivot_wider(names_from = ci_bound, values_from = ci_mean_dm_wm) |>
+  unnest(data) |>
   group_by(taxa_clean) |>
   summarise(n = n(),
             mean_dm_wm = mean(dm_wm),
+            lower_ci_mean_dm_wm = mean(lower),
+            upper_ci_mean_dm_wm = mean(upper),
             sd_dm_wm = sd(dm_wm),
-            lower_ci_mean_dm_wm = mean_dm_wm-0.95*(sd_dm_wm/sqrt(n)),
-            upper_ci_mean_dm_wm = mean_dm_wm+0.95*(sd_dm_wm/sqrt(n)),
             geom_mean = prod(dm_wm)^(1/n),
             min_dm_wm = min(dm_wm),
             median_dm_wm = median(dm_wm),
