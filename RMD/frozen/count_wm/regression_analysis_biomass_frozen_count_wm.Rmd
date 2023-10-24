@@ -312,12 +312,21 @@ taxa_nested_lm_ln_plot_coef_CI_BT$BT_plot
 ```{r}
 biomass_frozen_count_wm_ratios <- biomass_frozen_count_wm_cleaned |>
   mutate(wm_count = wm_g/individual_count) |>
+  group_nest(taxa_clean) |>
+  mutate(wm_count_t_test = map(.x = data,
+                            .f = ~ t.test(.x$wm_count)),
+         ci_mean_wm_count = map(.x = wm_count_t_test,
+                             .f = ~ .x$conf.int)) |>
+  unnest(ci_mean_wm_count) |>
+  mutate(ci_bound = c(rep(c("lower", "upper"), times = length(taxa_clean)/2))) |>
+  pivot_wider(names_from = ci_bound, values_from = ci_mean_wm_count) |>
+  unnest(data) |>
   group_by(taxa_clean) |>
   summarise(n = n(),
             mean_wm_count = mean(wm_count),
+            lower_ci_mean_wm_count = mean(lower),
+            upper_ci_mean_wm_count = mean(upper),
             sd_wm_count = sd(wm_count),
-            lower_ci_mean_wm_count = mean_wm_count-0.95*(sd_wm_count/sqrt(n)),
-            upper_ci_mean_wm_count = mean_wm_count+0.95*(sd_wm_count/sqrt(n)),
             geom_mean = prod(wm_count)^(1/n),
             min_wm_count = min(wm_count),
             median_wm_count = median(wm_count),
@@ -557,12 +566,21 @@ taxa_nested_outliers_removed_lm_ln_plot_coef_CI_BT$BT_plot
 biomass_frozen_count_wm_outliers_removed_ratios <- biomass_frozen_count_wm_cleaned |>
   filter(keep_data == TRUE) |>
   mutate(wm_count = wm_g/individual_count) |>
+  group_nest(taxa_clean) |>
+  mutate(wm_count_t_test = map(.x = data,
+                            .f = ~ t.test(.x$wm_count)),
+         ci_mean_wm_count = map(.x = wm_count_t_test,
+                             .f = ~ .x$conf.int)) |>
+  unnest(ci_mean_wm_count) |>
+  mutate(ci_bound = c(rep(c("lower", "upper"), times = length(taxa_clean)/2))) |>
+  pivot_wider(names_from = ci_bound, values_from = ci_mean_wm_count) |>
+  unnest(data) |>
   group_by(taxa_clean) |>
   summarise(n = n(),
             mean_wm_count = mean(wm_count),
+            lower_ci_mean_wm_count = mean(lower),
+            upper_ci_mean_wm_count = mean(upper),
             sd_wm_count = sd(wm_count),
-            lower_ci_mean_wm_count = mean_wm_count-0.95*(sd_wm_count/sqrt(n)),
-            upper_ci_mean_wm_count = mean_wm_count+0.95*(sd_wm_count/sqrt(n)),
             geom_mean = prod(wm_count)^(1/n),
             min_wm_count = min(wm_count),
             median_wm_count = median(wm_count),

@@ -1,0 +1,177 @@
+---
+title: "Cleaning biomass data - wet mass and dry mass"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(here)
+library(smatr)
+library(janitor)
+library(skimr)
+library(gridExtra)
+library(olsrr)
+library(purrr)
+library(tidyr)
+
+source(here("R/func/clean_functions.R"))
+```
+
+# Cleaning biomass data
+
+Reading in data and creating observation number
+
+```{r, warning=FALSE}
+biomass_data_taxaclean <-
+  read_csv(here("data/processed/biomass_data_cleannames.csv")) |> 
+  mutate(obs_num = row_number())
+```
+
+## Pre-cleaning the data
+
+Setting a minimum mass cutoff (due to higher proportional measurement error at very small mass values). This also acts to drop NA's for individual count when included instead of a mass measure. 
+
+```{r}
+step_1 <- min_cutoff(data = biomass_data_taxaclean, wm_shell_on_g, wm_g)  
+```
+
+Removing observations when wet mass is less than dry mass (considering these errors in measurement or recording)
+
+```{r}
+step_2 <- check_mass_diff(step_1, wm_shell_on_g, wm_g)
+```
+
+Filtering frozen samples only
+
+```{r}
+step_3 <- step_2 |>
+  filter(preservation_method == "Frozen")
+```
+
+Filtering taxa that have enough observations for analysis (at least 10)
+
+```{r}
+step_4 <- taxa_enough_obs(step_3, taxa_clean)
+
+# checking number of observations of included taxa
+step_4 |>
+   pull(taxa_clean) |> tabyl()
+```
+
+## Identifying outlier candidates
+
+### Cleveland Plots
+
+Creating Cleveland plots for each taxa as a visual tool to help identify observations that are far-removed from the rest
+
+```{r}
+cleveland_plots <- step_4 |>
+  group_nest(taxa_clean) |>
+  mutate(wm_shell_on_plot = map2(.x = data,
+                    .y = taxa_clean,
+                    ~cleveland_plot(.x, "wm_shell_on_g") + ggtitle(.y)),
+         wm_plot = map2(.x = data,
+                    .y = taxa_clean,
+                    ~cleveland_plot(.x, "wm_g") + ggtitle(.y)))
+cleveland_plots$wm_shell_on_plot
+cleveland_plots$wm_plot
+```
+
+### Percentage analysis 
+
+Identifying top and bottom 2.5% of the data for the mass or count variables being analysed
+
+```{r}
+biomass_frozen_percentiles <- step_4 |>
+  group_by(taxa_clean) |>
+  mutate(keep_data_wm_shell_on_percentiles = percentiles(wm_shell_on_g, 0.025, 0.975),
+         keep_data_wm_percentiles = percentiles(wm_g, 0.025, 0.975))
+  
+# Checking which observations are identified by the percentile method
+biomass_frozen_percentiles |> 
+  filter(keep_data_wm_shell_on_percentiles == FALSE) |> 
+  select(taxa_clean, wm_shell_on_g, keep_data_wm_shell_on_percentiles, obs_num) |>
+  arrange(taxa_clean, wm_shell_on_g) |>
+  print(n = Inf)
+```
+
+### Measures of outlyingness
+
+Creating logical vectors identifying which observations fall outside the cutoff value or range for each measure of outlyingness (cutoffs calculated according to Aguinis, H., R. K. Gottfredson and H. Joo. Best-Practice Recommendations for Defining, Identifying, and Handling Outliers. Organizational Research Methods, 16, 270-301 (2013))
+
+```{r}
+#Nesting by taxa
+taxa_nested <- biomass_frozen_percentiles |> 
+  select(taxa_clean, wm_shell_on_g, wm_g, obs_num, keep_data_wm_shell_on_percentiles, keep_data_wm_percentiles) |> 
+  nest(data = c(wm_shell_on_g, wm_g, obs_num, keep_data_wm_shell_on_percentiles, keep_data_wm_percentiles))
+  
+#Calculating measures of outlyingness and associated cutoff values
+taxa_nested_outlier_candidates_identified <- taxa_nested |> 
+  mutate(keep_data_leverage = map(.x = data,
+                                  ~ keep_data_leverage(.x, "wm_shell_on_g", "wm_g")),
+         keep_data_stud_resid = map(.x = data,
+                                    ~ keep_data_stud_resid(.x, "wm_shell_on_g", "wm_g")),
+         keep_data_cook = map(.x = data,
+                              ~ keep_data_cook(.x, "wm_shell_on_g", "wm_g")),
+         keep_data_dffits = map(.x = data,
+                                ~ keep_data_dffits(.x, "wm_shell_on_g", "wm_g")),
+         keep_data_dfbetas = map(.x = data,
+                                ~ keep_data_dfbetas(.x, "wm_shell_on_g", "wm_g")))
+```
+
+Checking which observations of a particular taxa are identified by different measures of outlyingess
+
+```{r}
+taxa_unnested_outlier_candidates_identified <- taxa_nested_outlier_candidates_identified |>
+  unnest(cols = c(data, keep_data_leverage, keep_data_stud_resid, keep_data_cook, 
+                  keep_data_dffits, keep_data_dfbetas)) 
+
+taxa_unnested_outlier_candidates_identified |>
+  filter(taxa_clean == "Amphipoda") |>
+  select(keep_data_leverage, obs_num) |>
+  filter(keep_data_leverage == FALSE) |>
+  print(n = Inf)
+```
+
+Consolidating all outlier candidates into one column
+
+```{r}
+taxa_unnested_keep_data_merged <- taxa_unnested_outlier_candidates_identified |>
+ # assigning dfbetas values for intercept and slope to separate vectors
+   mutate(keep_data_dfbetas_int = keep_data_dfbetas[,1], 
+         keep_data_dfbetas_slope = keep_data_dfbetas[,2]) |>
+ # Consolidating all outlier candidates into one vector
+   mutate(keep_data = ifelse(keep_data_wm_shell_on_percentiles == TRUE & keep_data_wm_percentiles == TRUE & keep_data_cook == TRUE & keep_data_leverage == TRUE & keep_data_stud_resid == TRUE & keep_data_dffits == TRUE & keep_data_dfbetas_int == TRUE & keep_data_dfbetas_slope == TRUE, TRUE, FALSE)) 
+```
+
+### Summary table of counts for all outlier methods 
+
+```{r}
+long_data <- taxa_unnested_keep_data_merged |> 
+  ungroup() |> 
+  select(-c(keep_data_dfbetas)) |> 
+  pivot_longer(starts_with("keep"), names_to = "outlier_method") 
+
+long_data |> 
+  group_by(outlier_method) |> 
+  summarise(n = n(),
+            n_FALSE = length(which(value == FALSE)),
+            n_TRUE = length(which(value == TRUE)),
+            n_NA = length(which(is.na(value))),
+            n_add_check = n_FALSE + n_TRUE + n_NA,
+            percent_false_or_NA = (n_FALSE+n_NA)/(n_FALSE+n_TRUE+n_NA)*100
+  )
+```
+
+## Saving the data
+```{r}
+biomass_frozen_wm_shell_on_wm_cleaned <- taxa_unnested_keep_data_merged |>
+  select(taxa_clean, wm_shell_on_g, wm_g, keep_data)
+
+write_csv(biomass_frozen_wm_shell_on_wm_cleaned, here("data/processed/frozen/wm_shell_on_wm/biomass_frozen_wm_shell_on_wm_cleaned.csv"))
+```
+

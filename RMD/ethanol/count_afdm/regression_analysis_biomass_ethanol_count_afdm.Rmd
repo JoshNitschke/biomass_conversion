@@ -312,12 +312,21 @@ taxa_nested_lm_ln_plot_coef_CI_BT$BT_plot
 ```{r}
 biomass_ethanol_count_afdm_ratios <- biomass_ethanol_count_afdm_cleaned |>
   mutate(afdm_count = afdm_g/individual_count) |>
+  group_nest(taxa_clean) |>
+  mutate(afdm_count_t_test = map(.x = data,
+                            .f = ~ t.test(.x$afdm_count)),
+         ci_mean_afdm_count = map(.x = afdm_count_t_test,
+                             .f = ~ .x$conf.int)) |>
+  unnest(ci_mean_afdm_count) |>
+  mutate(ci_bound = c(rep(c("lower", "upper"), times = length(taxa_clean)/2))) |>
+  pivot_wider(names_from = ci_bound, values_from = ci_mean_afdm_count) |>
+  unnest(data) |>
   group_by(taxa_clean) |>
   summarise(n = n(),
             mean_afdm_count = mean(afdm_count),
+            lower_ci_mean_afdm_count = mean(lower),
+            upper_ci_mean_afdm_count = mean(upper),
             sd_afdm_count = sd(afdm_count),
-            lower_ci_mean_afdm_count = mean_afdm_count-0.95*(sd_afdm_count/sqrt(n)),
-            upper_ci_mean_afdm_count = mean_afdm_count+0.95*(sd_afdm_count/sqrt(n)),
             geom_mean = prod(afdm_count)^(1/n),
             min_afdm_count = min(afdm_count),
             median_afdm_count = median(afdm_count),
@@ -557,12 +566,21 @@ taxa_nested_outliers_removed_lm_ln_plot_coef_CI_BT$BT_plot
 biomass_ethanol_count_afdm_outliers_removed_ratios <- biomass_ethanol_count_afdm_cleaned |>
   filter(keep_data == TRUE) |>
   mutate(afdm_count = afdm_g/individual_count) |>
+  group_nest(taxa_clean) |>
+  mutate(afdm_count_t_test = map(.x = data,
+                            .f = ~ t.test(.x$afdm_count)),
+         ci_mean_afdm_count = map(.x = afdm_count_t_test,
+                             .f = ~ .x$conf.int)) |>
+  unnest(ci_mean_afdm_count) |>
+  mutate(ci_bound = c(rep(c("lower", "upper"), times = length(taxa_clean)/2))) |>
+  pivot_wider(names_from = ci_bound, values_from = ci_mean_afdm_count) |>
+  unnest(data) |>
   group_by(taxa_clean) |>
   summarise(n = n(),
             mean_afdm_count = mean(afdm_count),
+            lower_ci_mean_afdm_count = mean(lower),
+            upper_ci_mean_afdm_count = mean(upper),
             sd_afdm_count = sd(afdm_count),
-            lower_ci_mean_afdm_count = mean_afdm_count-0.95*(sd_afdm_count/sqrt(n)),
-            upper_ci_mean_afdm_count = mean_afdm_count+0.95*(sd_afdm_count/sqrt(n)),
             geom_mean = prod(afdm_count)^(1/n),
             min_afdm_count = min(afdm_count),
             median_afdm_count = median(afdm_count),
