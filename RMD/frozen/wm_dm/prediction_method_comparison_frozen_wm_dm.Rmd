@@ -175,7 +175,7 @@ taxa_nested_outliers_removed_lm_ln_plot_coef_CI_BT <- taxa_nested_outliers_remov
                           #geom_function(fun = function(x) ..8*x^..7*..9,
                           #              col = "orange", linewidth  = 1) +
                           geom_function(fun = function(x) mean(..1$dm_g/..1$wm_g)*x,
-                                        col = "purple", linewidth  = 1) +
+                                        col = "purple", linewidth  = 1, linetype = 2) +
                          # geom_ribbon(aes(ymin = lower_CI_line, ymax = upper_CI_line),
                          # fill = "darkgreen", alpha = 0.2) +
                           ggtitle(..5) + 
