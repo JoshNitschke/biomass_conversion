@@ -31,7 +31,7 @@ source(here("R/func/Xiao_et_al_2011_power_analysis_function.R"))
 ## Reading in cleaned data
 
 ```{r}
-biomass_ethanol_wm_dm_cleaned <- read_csv(here("data/processed/ethanol/wm_dm/biomass_ethanol_wm_dm_cleaned.csv"))
+biomass_ethanol_dm_afdm_cleaned <- read_csv(here("data/processed/ethanol/dm_afdm/biomass_ethanol_dm_afdm_cleaned.csv"))
 ```
 
 ## OLS
@@ -41,11 +41,11 @@ biomass_ethanol_wm_dm_cleaned <- read_csv(here("data/processed/ethanol/wm_dm/bio
 Excluding outliers, running linear regressions on log-transformed data, and pulling out regression summary statistics
 
 ```{r}
-taxa_nested_outliers_removed_lm_ln_plot <- biomass_ethanol_wm_dm_cleaned |> 
+taxa_nested_outliers_removed_lm_ln_plot <- biomass_ethanol_dm_afdm_cleaned |> 
   filter(keep_data == TRUE) |>
   group_nest(taxa_clean) |>
   mutate(lm_ln_object = map(.x = data,
-                          ~ lm(log(dm_g) ~ log(wm_g), data = .x)))
+                          ~ lm(log(afdm_g) ~ log(dm_g), data = .x)))
 
 # Getting coefficients from lm
 taxa_nested_outliers_removed_lm_ln_plot_coef <- taxa_nested_outliers_removed_lm_ln_plot |>
@@ -94,7 +94,7 @@ reg_summary_outliers_removed_a_sf <- merge(reg_summary_outliers_removed_a, taxa_
 
 # Saving the regression summary
 write_csv(reg_summary_outliers_removed_a_sf,
-          here("output/ethanol/wm_dm/biomass_regression_summary_ethanol_wm_dm_outliers_removed.csv"))
+          here("output/ethanol/dm_afdm/biomass_regression_summary_ethanol_dm_afdm_outliers_removed.csv"))
 ```
 
 ## SMA
@@ -105,42 +105,42 @@ Pulling out regression summary statistics
 
 ```{r}
 # Getting coefficients from SMA
-taxa_nested_sma_ln_coef_ethanol_wm_dm <- biomass_ethanol_wm_dm_cleaned |>
+taxa_nested_sma_ln_coef_ethanol_dm_afdm <- biomass_ethanol_dm_afdm_cleaned |>
   filter(keep_data == TRUE) |>
   group_nest(taxa_clean) |>
   mutate(sma_ln_object = map(.x = data,
-                         .f = ~ sma(log(dm_g) ~ log(wm_g), data = .x)),
+                         .f = ~ sma(log(afdm_g) ~ log(dm_g), data = .x)),
          summary = map(.x = sma_ln_object,
                        .f = ~ (smatr:::summary.sma(.x))))
 
-sma_summary_ethanol_wm_dm <- taxa_nested_sma_ln_coef_ethanol_wm_dm |> 
+sma_summary_ethanol_dm_afdm <- taxa_nested_sma_ln_coef_ethanol_dm_afdm |> 
   select(taxa_clean, summary) |> 
   unnest(summary) |> 
   select(taxa_clean, n, r2, pval, Slope, Slope_lowCI, Slope_highCI, Int, Int_lowCI, Int_highCI)
 
 # Back-transforming intercept and confidence intervals to get parameter 'a' in power equation: y = ax^b
-sma_summary_ethanol_wm_dm_a <- sma_summary_ethanol_wm_dm |> 
+sma_summary_ethanol_dm_afdm_a <- sma_summary_ethanol_dm_afdm |> 
   mutate(a = exp(Int))
 ```
 
 Calculating SF (smearing factor - mean of back-transformed residuals) as per Mährlein, M., M. Pätzig, M. Brauns and A. M. Dolman. Length–mass relationships for lake macroinvertebrates corrected for back-transformation and preservation effects. Hydrobiologia, 768, 37-50 (2016).
 
 ```{r}
-taxa_nested_sma_ln_coef_sf_ethanol_wm_dm <- taxa_nested_sma_ln_coef_ethanol_wm_dm |>
+taxa_nested_sma_ln_coef_sf_ethanol_dm_afdm <- taxa_nested_sma_ln_coef_ethanol_dm_afdm |>
   mutate(sf = map(.x = sma_ln_object,
                   .f = ~ (1/length(residuals(.x)))*sum(exp(residuals(.x)))))
 
-taxa_sf_sma_ethanol_wm_dm <- taxa_nested_sma_ln_coef_sf_ethanol_wm_dm |>
+taxa_sf_sma_ethanol_dm_afdm <- taxa_nested_sma_ln_coef_sf_ethanol_dm_afdm |>
   select(taxa_clean, sf) |>
   unnest(sf)
 
 # Adding smearing factor to SMA summary table
-sma_summary_ethanol_wm_dm_a_sf <- merge(sma_summary_ethanol_wm_dm_a,
-                                            taxa_sf_sma_ethanol_wm_dm)
+sma_summary_ethanol_dm_afdm_a_sf <- merge(sma_summary_ethanol_dm_afdm_a,
+                                            taxa_sf_sma_ethanol_dm_afdm)
 
 # Adding suffix to variable names for later identification
-names(sma_summary_ethanol_wm_dm_a_sf) <- paste0(names(sma_summary_ethanol_wm_dm_a_sf), "_sma")
-sma_summary_ethanol_wm_dm_a_sf <- rename(sma_summary_ethanol_wm_dm_a_sf, "taxa_clean" = "taxa_clean_sma") |>
+names(sma_summary_ethanol_dm_afdm_a_sf) <- paste0(names(sma_summary_ethanol_dm_afdm_a_sf), "_sma")
+sma_summary_ethanol_dm_afdm_a_sf <- rename(sma_summary_ethanol_dm_afdm_a_sf, "taxa_clean" = "taxa_clean_sma") |>
   clean_names()
 ```
 
@@ -163,29 +163,29 @@ taxa_nested_outliers_removed_lm_ln_plot_coef_CI_BT <- taxa_nested_outliers_remov
   add_column(lower_CI, upper_CI) |>
   mutate(lower_CI_line = exp(lower_CI)*sf,
          upper_CI_line = exp(upper_CI)*sf) |>
-  select(taxa_clean, wm_g, dm_g, lower_CI_line, upper_CI_line, sf) |>
-  nest(data = c(wm_g, dm_g, lower_CI_line, upper_CI_line)) |>
+  select(taxa_clean, dm_g, afdm_g, lower_CI_line, upper_CI_line, sf) |>
+  nest(data = c(dm_g, afdm_g, lower_CI_line, upper_CI_line)) |>
   right_join(reg_summary_outliers_removed_a) |>
-  right_join(sma_summary_ethanol_wm_dm_a_sf) |>
+  right_join(sma_summary_ethanol_dm_afdm_a_sf) |>
   mutate(BT_plot = pmap(.l = list(data, slope, intercept, sf, taxa_clean, r2, slope_sma, a_sma, sf_sma),
-                        .f = ~ggplot(..1, aes(x = wm_g, y = dm_g)) +
+                        .f = ~ggplot(..1, aes(x = dm_g, y = afdm_g)) +
                           geom_point(fill = "grey", size = 3, alpha = 0.5, stroke = 1) +
                           geom_function(fun = function(x) (exp(..3))*(x^..2)*..4, 
                                         col = "darkgreen", linewidth  = 1) +
                           #geom_function(fun = function(x) ..8*x^..7*..9,
                           #              col = "orange", linewidth  = 1) +
-                          geom_function(fun = function(x) mean(..1$dm_g/..1$wm_g)*x,
+                          geom_function(fun = function(x) mean(..1$afdm_g/..1$dm_g)*x,
                                         col = "purple", linewidth  = 1, linetype = 2) +
                          # geom_ribbon(aes(ymin = lower_CI_line, ymax = upper_CI_line),
                          # fill = "darkgreen", alpha = 0.2) +
                           ggtitle(..5) + 
-                          labs(x = "wet mass (g)", y = "dry mass (g)") + 
-                          #geom_text(x = 0.25*max(..1$wm_g), y = 0.85*max(..1$dm_g), 
+                          labs(x = "dry mass (g)", y = "ash-free dry mass (g)") + 
+                          #geom_text(x = 0.25*max(..1$dm_g), y = 0.85*max(..1$afdm_g), 
                           #          label = deparse(bquote(paste("D = ", .(round(exp(..3), digits = 2)), 
                           #                                       "W" ^.(round(..2, digits = 2))* " \u00D7 ",
                           #                                       .(round(..4, digits = 2)), sep = ""))),
                           #          parse = TRUE, size = 4) +
-                          #geom_text(x = 0.25*max(..1$wm_g), y = 0.75*max(..1$dm_g), 
+                          #geom_text(x = 0.25*max(..1$dm_g), y = 0.75*max(..1$afdm_g), 
                           #          label = deparse(bquote(paste("R"^2, " = ", .(round(..6, digits = 2)), 
                           #                                       sep = ""))),
                           #          parse = TRUE, size = 4) +
@@ -206,10 +206,10 @@ Saving the Capitella plot as an example
 
 ```{r}
 
-png(here("output/png/ethanol_wm_dm_ols_ratio_comparison.png"), width = 2000, height = 1400, res = 300)
-par(omi = c(1,1,1,1))  
-taxa_nested_outliers_removed_lm_ln_plot_coef_CI_BT$BT_plot[3]
-dev.off()
+#png(here("output/png/ethanol_dm_afdm_ols_ratio_comparison.png"), width = 2000, height = 1400, res = 300)
+#par(omi = c(1,1,1,1))  
+#taxa_nested_outliers_removed_lm_ln_plot_coef_CI_BT$BT_plot[3]
+#dev.off()
 
 ```
 
@@ -218,28 +218,28 @@ dev.off()
 Ricciardi, A., and E. Bourget. 1998. Weight-to-weight conversion factors for marine benthic macroinvertebrates. Marine Ecology Progress Series 163:245-251.
 Brey, T., C. Müller-Wiegmann, Z. M. C. Zittier, and W. Hagen. 2010. Body composition in aquatic organisms — A global data bank of relationships between mass, elemental composition and energy content. Journal of Sea Research 64:334-340.
 ```{r}
-ricciardi_bourget <- tibble(taxa_clean = reg_summary_outliers_removed_a_sf$taxa_clean, ricc_bourg_mean_ratio = c(0.207, mean(0.61, 0.46, 0.519, 0.74), 0.199, NA, 0.515, 0.515, NA, 0.197, NA))
+ricciardi_bourget <- tibble(taxa_clean = reg_summary_outliers_removed_a_sf$taxa_clean, ricc_bourg_mean_ratio = c(0.729, 0.148, 0.712, NA, NA, NA, NA, 0.792, 0.827))
 
-brey_et_al <- tibble(taxa_clean = reg_summary_outliers_removed_a_sf$taxa_clean, brey_mean_ratio = c(0.229, NA, 0.173, 0.152, NA, NA, 0.190, 0.151, 0.198)) 
+brey_et_al <- tibble(taxa_clean = reg_summary_outliers_removed_a_sf$taxa_clean, brey_mean_ratio = c(0.773, 0.116, 0.687, NA, 0.059, 0.222, 0.780, 0.842, 0.935)) 
 
 taxa_nested_outliers_removed_lm_ln_plot_coef_CI_BT_riccbourg_brey <- taxa_nested_outliers_removed_lm_ln_plot_coef_CI |>
   add_column(lower_CI, upper_CI) |>
   mutate(lower_CI_line = exp(lower_CI)*sf,
          upper_CI_line = exp(upper_CI)*sf) |>
-  select(taxa_clean, wm_g, dm_g, lower_CI_line, upper_CI_line, sf) |>
-  nest(data = c(wm_g, dm_g, lower_CI_line, upper_CI_line)) |>
+  select(taxa_clean, dm_g, afdm_g, lower_CI_line, upper_CI_line, sf) |>
+  nest(data = c(dm_g, afdm_g, lower_CI_line, upper_CI_line)) |>
   right_join(reg_summary_outliers_removed_a) |>
-  right_join(sma_summary_ethanol_wm_dm_a_sf) |>
+  right_join(sma_summary_ethanol_dm_afdm_a_sf) |>
   left_join(ricciardi_bourget) |>
-  left_join(brey) |>
+  left_join(brey_et_al) |>
   mutate(BT_plot = pmap(.l = list(data, slope, intercept, sf, taxa_clean, r2, slope_sma, a_sma, sf_sma, ricc_bourg_mean_ratio, brey_mean_ratio),
-                        .f = ~ggplot(..1, aes(x = wm_g, y = dm_g)) +
+                        .f = ~ggplot(..1, aes(x = dm_g, y = afdm_g)) +
                           geom_point(fill = "grey", size = 3, alpha = 0.5, stroke = 1) +
                           geom_function(fun = function(x) (exp(..3))*(x^..2)*..4, 
                                         col = "#009E73", linewidth  = 1) +
                           #geom_function(fun = function(x) ..8*x^..7*..9,
                           #              col = "orange", linewidth  = 1) +
-                          geom_function(fun = function(x) mean(..1$dm_g/..1$wm_g)*x,
+                          geom_function(fun = function(x) mean(..1$afdm_g/..1$dm_g)*x,
                                         col = "#009E73", linewidth  = 1, linetype = 2) +
                           geom_function(fun = function(x) ..10*x,
                                         col = "#CC79A7", linewidth  = 1, linetype = 2) +
@@ -248,13 +248,13 @@ taxa_nested_outliers_removed_lm_ln_plot_coef_CI_BT_riccbourg_brey <- taxa_nested
                          # geom_ribbon(aes(ymin = lower_CI_line, ymax = upper_CI_line),
                          # fill = "#009E73", alpha = 0.2) +
                           ggtitle(..5) + 
-                          labs(x = "wet mass (g)", y = "dry mass (g)") + 
-                          #geom_text(x = 0.25*max(..1$wm_g), y = 0.85*max(..1$dm_g), 
+                          labs(x = "dry mass (g)", y = "ash-free dry mass (g)") + 
+                          #geom_text(x = 0.25*max(..1$dm_g), y = 0.85*max(..1$afdm_g), 
                           #          label = deparse(bquote(paste("D = ", .(round(exp(..3), digits = 2)), 
                           #                                       "W" ^.(round(..2, digits = 2))* " \u00D7 ",
                           #                                       .(round(..4, digits = 2)), sep = ""))),
                           #          parse = TRUE, size = 4) +
-                          #geom_text(x = 0.25*max(..1$wm_g), y = 0.75*max(..1$dm_g), 
+                          #geom_text(x = 0.25*max(..1$dm_g), y = 0.75*max(..1$afdm_g), 
                           #          label = deparse(bquote(paste("R"^2, " = ", .(round(..6, digits = 2)), 
                           #                                       sep = ""))),
                           #          parse = TRUE, size = 4) +
@@ -275,9 +275,9 @@ Saving the Capitella plot as an example
 
 ```{r}
 
-png(here("output/png/ethanol_wm_dm_ols_ratio_comparison.png"), width = 2000, height = 1400, res = 300)
-par(omi = c(1,1,1,1))  
-taxa_nested_outliers_removed_lm_ln_plot_coef_CI_BT_riccbourg_brey$BT_plot[3]
-dev.off()
+#png(here("output/png/ethanol_dm_afdm_ols_ratio_comparison.png"), width = 2000, height = 1400, res = 300)
+#par(omi = c(1,1,1,1))  
+#taxa_nested_outliers_removed_lm_ln_plot_coef_CI_BT_riccbourg_brey$BT_plot[3]
+#dev.off()
 
 ```
