@@ -219,6 +219,8 @@ Ricciardi, A., and E. Bourget. 1998. Weight-to-weight conversion factors for mar
 ```{r}
 ricciardi_bourget <- tibble(taxa_clean = reg_summary_outliers_removed_a_sf$taxa_clean, ricc_bourg_mean_ratio = c(0.207, mean(0.61, 0.46, 0.519, 0.74), 0.199, NA, 0.515, 0.515, NA, 0.197, NA))
 
+brey_et_al <- tibble(taxa_clean = reg_summary_outliers_removed_a_sf$taxa_clean, brey_mean_ratio = c(0.229, NA, 0.173, 0.152, NA, NA, 0.190, 0.151, 0.198)) 
+
 taxa_nested_outliers_removed_lm_ln_plot_coef_CI_BT_riccbourg <- taxa_nested_outliers_removed_lm_ln_plot_coef_CI |>
   add_column(lower_CI, upper_CI) |>
   mutate(lower_CI_line = exp(lower_CI)*sf,
@@ -228,7 +230,8 @@ taxa_nested_outliers_removed_lm_ln_plot_coef_CI_BT_riccbourg <- taxa_nested_outl
   right_join(reg_summary_outliers_removed_a) |>
   right_join(sma_summary_ethanol_wm_dm_a_sf) |>
   left_join(ricciardi_bourget) |>
-  mutate(BT_plot = pmap(.l = list(data, slope, intercept, sf, taxa_clean, r2, slope_sma, a_sma, sf_sma, ricc_bourg_mean_ratio),
+  left_join(brey) |>
+  mutate(BT_plot = pmap(.l = list(data, slope, intercept, sf, taxa_clean, r2, slope_sma, a_sma, sf_sma, ricc_bourg_mean_ratio, brey_mean_ratio),
                         .f = ~ggplot(..1, aes(x = wm_g, y = dm_g)) +
                           geom_point(fill = "grey", size = 3, alpha = 0.5, stroke = 1) +
                           geom_function(fun = function(x) (exp(..3))*(x^..2)*..4, 
@@ -239,6 +242,8 @@ taxa_nested_outliers_removed_lm_ln_plot_coef_CI_BT_riccbourg <- taxa_nested_outl
                                         col = "purple", linewidth  = 1, linetype = 2) +
                           geom_function(fun = function(x) ..10*x,
                                         col = "red", linewidth  = 1, linetype = 2) +
+                          geom_function(fun = function(x) ..11*x,
+                                        col = "blue", linewidth  = 1, linetype = 2) +
                          # geom_ribbon(aes(ymin = lower_CI_line, ymax = upper_CI_line),
                          # fill = "darkgreen", alpha = 0.2) +
                           ggtitle(..5) + 

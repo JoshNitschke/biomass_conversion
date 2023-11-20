@@ -16,6 +16,9 @@ library(janitor)
 library(skimr)
 library(purrr)
 library(tidyr)
+library(RColorBrewer)
+
+library(colorspace)
 
 ```
 
@@ -89,6 +92,7 @@ biomass_ethanol_wm_dm_cleaned_ratios <- biomass_ethanol_wm_dm_cleaned |>
   filter(keep_data == TRUE) |>
   mutate(dm_wm = dm_g/wm_g) |>
   group_by(taxa_clean) |>
+  filter(!taxa_clean == "Salinator (shell removed)") |>
   summarise(n = n(),
             mean_dm_wm = mean(dm_wm),
             sd_dm_wm = sd(dm_wm),
@@ -106,10 +110,15 @@ biomass_ethanol_wm_dm_cleaned_ratios <- biomass_ethanol_wm_dm_cleaned |>
 # published mean ratios from Ricciardi and Bourget (1998)
 ricciardi_bourget <- tibble(taxa_clean = reg_summary_ethanol_wm_dm_a_sf$taxa_clean, ricc_bourg_mean_ratio = c(0.207, mean(0.61, 0.46, 0.519, 0.74), 0.199, NA, 0.515, 0.515, NA, 0.197, NA))
 
+# published mean ratios from Brey et al (2010)
+brey_et_al <- tibble(taxa_clean = reg_summary_outliers_removed_a_sf$taxa_clean, brey_mean_ratio = c(0.229, NA, 0.173, 0.152, NA, NA, 0.190, 0.151, 0.198)) 
+
 # calculating error in total predicted mass as a percentage of total measured mass
 pred_mass_ethanol_wm_dm <- taxa_nested_lm_ln_coef_sf_ethanol_wm_dm |>
   left_join(reg_summary_ethanol_wm_dm_a) |>
   left_join(ricciardi_bourget) |>
+  left_join(brey_et_al) |>
+  filter(!taxa_clean == "Salinator (shell removed)") |>
   mutate(total_dm = map(.x = data,
                         .f = ~sum(.x$dm_g)),
          reg_pred_dm = pmap(.l = list(data, a, slope, sf),
@@ -128,35 +137,61 @@ pred_mass_ethanol_wm_dm <- taxa_nested_lm_ln_coef_sf_ethanol_wm_dm |>
                               .f = ~ sum(.y*.x$wm_g)),
          riccbourg_ratio_pred_dm_percent_error = map2(.x = total_dm,
                                           .y = riccbourg_ratio_pred_dm,
+                                          .f = ~-((.x-.y)/.x)*100),
+         breyetal_ratio_pred_dm = map2(.x = data,
+                              .y = brey_mean_ratio,
+                              .f = ~ sum(.y*.x$wm_g)),
+         breyetal_ratio_pred_dm_percent_error = map2(.x = total_dm,
+                                          .y = brey_mean_ratio,
                                           .f = ~-((.x-.y)/.x)*100))
          
 pred_mass_ethanol_wm_dm_error <- pred_mass_ethanol_wm_dm |>
-  select(taxa_clean, total_dm, reg_pred_dm, reg_pred_dm_percent_error, 
-         ratio_pred_dm, ratio_pred_dm_percent_error, riccbourg_ratio_pred_dm, 
-         riccbourg_ratio_pred_dm_percent_error) |>
-  unnest(cols = c(total_dm, reg_pred_dm, reg_pred_dm_percent_error, 
-                  ratio_pred_dm, ratio_pred_dm_percent_error, riccbourg_ratio_pred_dm, 
-                  riccbourg_ratio_pred_dm_percent_error))
+  select(taxa_clean, total_dm:breyetal_ratio_pred_dm_percent_error) |>
+  unnest(cols = c(total_dm, reg_pred_dm, reg_pred_dm_percent_error, ratio_pred_dm, ratio_pred_dm_percent_error,
+  riccbourg_ratio_pred_dm, riccbourg_ratio_pred_dm_percent_error, breyetal_ratio_pred_dm,
+  breyetal_ratio_pred_dm_percent_error))
 
 pred_mass_ethanol_wm_dm_error_long <- pred_mass_ethanol_wm_dm_error |>
-  select(taxa_clean, reg_pred_dm_percent_error, ratio_pred_dm_percent_error, riccbourg_ratio_pred_dm_percent_error) |>
-  pivot_longer(cols = c(reg_pred_dm_percent_error, ratio_pred_dm_percent_error, riccbourg_ratio_pred_dm_percent_error), names_to = "pred_method", values_to = "percent_error")
+  select(taxa_clean, reg_pred_dm_percent_error, ratio_pred_dm_percent_error, 
+         riccbourg_ratio_pred_dm_percent_error, breyetal_ratio_pred_dm_percent_error) |>
+  pivot_longer(cols = c(reg_pred_dm_percent_error, ratio_pred_dm_percent_error,
+                        riccbourg_ratio_pred_dm_percent_error, breyetal_ratio_pred_dm_percent_error), 
+               names_to = "pred_method", values_to = "percent_error")
   
-ggplot(data = pred_mass_ethanol_wm_dm_error_long, aes(x = pred_method, y = percent_error)) +
+total_percentage_error_plot_ethanol_wm_dm <- 
+  ggplot(data = pred_mass_ethanol_wm_dm_error_long, aes(x = pred_method, y = percent_error)) +
   geom_jitter(width = 0.1, size = 3, aes(colour = taxa_clean), alpha = 0.5, stroke = 1) + 
   geom_hline(yintercept = 0, linetype = 2) +
   ggtitle("wet mass -> dry mass") +
   labs(x = "prediction method", y = "percentage error in total mass") +
-  scale_x_discrete(labels = c("mean ratio", "log-linear regression", "Ricciardi and Bourget mean ratio")) +
+  scale_x_discrete(limits = c("reg_pred_dm_percent_error",  "ratio_pred_dm_percent_error",
+                              "riccbourg_ratio_pred_dm_percent_error", "breyetal_ratio_pred_dm_percent_error"), 
+                   labels = c("log-linear regression \n(this study)", "mean ratio \n(this study)", 
+                              "Ricciardi and Bourget \nmean ratio", "Brey et al \nmean ratio")) +
+  scale_colour_manual(values = brewer.pal(8, "Dark2"))+
+  scale_y_continuous(breaks = c(25,0,-25,-50,-75)) +
+  guides(colour = guide_legend(title = "Taxon")) +
     theme_bw() +
     theme(panel.border = element_blank(), 
           panel.grid.major = element_blank(),
           panel.grid.minor = element_blank(), 
           axis.line = element_line(colour = "black"),
-          axis.text = element_text(size = 12, colour = "black"), 
-          axis.title = element_text(size = 14))
+          axis.text = element_text(size = 10, colour = "black"), 
+          axis.title = element_text(size = 12),
+          plot.title = element_text(size = 12))
 
 ```
+
+saving the plot
+
+```{r}
+png(here("output/png/total_percentage_error_plot_ethanol_dm_wm.png"), width = 2000, height = 1400, res = 300)
+par(omi = c(1,1,1,1))  
+total_percentage_error_plot_ethanol_wm_dm
+dev.off()
+
+```
+
 
 # individual count as a predictor of wet mass
 
