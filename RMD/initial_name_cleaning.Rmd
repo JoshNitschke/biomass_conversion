@@ -43,9 +43,10 @@ biomass_data |>
                                 taxa == "Soletellina" ~ "Hiatula alba",
                                 taxa == "Hiatula" ~ "Hiatula alba",
                                 taxa == "Spisula - flesh" ~ "Spisula",
+                                taxa == "Hydrobiidae" ~ "Truncatelloidea",
                           TRUE ~ taxa)) |> 
   select(taxa, taxa_clean) |> 
-  filter(taxa == c("Euchone", "Soletellina", "Spisula - flesh")) |>
+  filter(taxa == c("Euchone", "Soletellina", "Spisula - flesh", "Hydrobiidae")) |>
   print(n = Inf)
 
 # Making changes
@@ -54,6 +55,7 @@ biomass_data_taxaclean <- biomass_data |>
                                 taxa == "Soletellina" ~ "Hiatula alba",
                                 taxa == "Hiatula" ~ "Hiatula alba",
                                 taxa == "Spisula - flesh" ~ "Spisula",
+                                taxa == "Hydrobiidae" ~ "Truncatelloidea",
                           TRUE ~ taxa)) |>
   filter(!taxa == "") # Dropping empty taxa
 

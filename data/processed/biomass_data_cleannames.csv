@@ -4,7 +4,7 @@ Flinders-HCHB,2020,Feb,MM,B19,P,rep1,Frozen,Capitella,3,NA,2e-4,1e-4,NA,0.5,0,0,
 Flinders-HCHB,2020,Feb,MM,B19,P,rep1,Frozen,Chironomidae,221,NA,0.0854,0.0307,NA,0.359484778,0,0,500,Chironomidae
 Flinders-HCHB,2020,Feb,MM,B19,P,rep1,Frozen,Amphipoda,91,NA,0.0302,0.0053,NA,0.175496689,0,0,500,Amphipoda
 Flinders-HCHB,2020,Feb,MM,B19,P,rep1,Frozen,Arthritica,1214,NA,1.1183,0.5609,NA,0.501564875,0,0,500,Arthritica
-Flinders-HCHB,2020,Feb,MM,B19,P,rep1,Frozen,Hydrobiidae,160,NA,0.8027,0.4704,NA,0.586022175,0,0,500,Hydrobiidae
+Flinders-HCHB,2020,Feb,MM,B19,P,rep1,Frozen,Hydrobiidae,160,NA,0.8027,0.4704,NA,0.586022175,0,0,500,Truncatelloidea
 Flinders-HCHB,2020,Feb,MM,B19,P,rep1,Frozen,Salinator,23,NA,0.0222,0.0084,NA,0.378378378,0,0,500,Salinator
 Flinders-HCHB,2020,Feb,MM,B19,P,rep1,Frozen,Phyllodoce,3,NA,0.23,0.0122,NA,0.053043478,0,0,500,Phyllodoce
 Flinders-HCHB,2020,Feb,MM,B19,P,rep1,Frozen,Nephtys,1,NA,0.1104,0.0061,NA,0.055253623,0,0,500,Nephtys
@@ -252,45 +252,45 @@ Flinders-HCHB,2020,Feb,NL,NM,S,rep2,Frozen,Arthritica,28,NA,0.0855,0.0488,NA,0.5
 Flinders-HCHB,2020,Feb,NL,NM,S,rep3,Frozen,Arthritica,72,NA,0.1839,0.099,NA,0.538336052,0,0,500,Arthritica
 Flinders-HCHB,2020,Feb,NL,NM,S,rep4,Frozen,Arthritica,72,NA,0.1654,0.1036,NA,0.626360339,0,0,500,Arthritica
 Flinders-HCHB,2020,Feb,NL,NM,S,rep5,Frozen,Arthritica,63,NA,0.1515,0.0917,NA,0.605280528,0,0,500,Arthritica
-Flinders-HCHB,2020,Feb,MM,B19,P,rep2,Frozen,Hydrobiidae,218,NA,0.5597,0.3114,NA,0.556369484,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,MM,B19,P,rep3,Frozen,Hydrobiidae,158,NA,0.6787,0.3948,NA,0.581700309,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,MM,B19,P,rep4,Frozen,Hydrobiidae,49,NA,0.2944,0.1738,NA,0.590353261,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,MM,B19,P,rep5,Frozen,Hydrobiidae,123,NA,0.4679,0.2754,NA,0.588587305,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,MM,B19,S,rep1,Frozen,Hydrobiidae,51,NA,0.2494,0.1541,NA,0.617882919,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,MM,B19,S,rep2,Frozen,Hydrobiidae,97,NA,0.5605,0.3522,NA,0.628367529,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,MM,B19,S,rep3,Frozen,Hydrobiidae,121,NA,0.4483,0.2702,NA,0.602721392,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,MM,B19,S,rep4,Frozen,Hydrobiidae,124,NA,0.6215,0.381,NA,0.613032985,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,MM,B19,S,rep5,Frozen,Hydrobiidae,173,NA,0.6955,0.4177,NA,0.600575126,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,MM,B19,S,J1,Frozen,Hydrobiidae,85,NA,0.5722,0.3674,NA,0.642083188,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,MM,B19,I,rep1,Frozen,Hydrobiidae,6,NA,0.0537,0.0347,NA,0.646182495,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,MM,B19,I,rep2,Frozen,Hydrobiidae,6,NA,0.0429,0.0268,NA,0.624708625,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,MM,B19,I,rep3,Frozen,Hydrobiidae,37,NA,0.316,0.1891,NA,0.598417722,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,MM,B19,I,rep4,Frozen,Hydrobiidae,19,NA,0.1583,0.095,NA,0.600126342,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,MM,B19,I,rep5,Frozen,Hydrobiidae,11,NA,0.0866,0.0514,NA,0.593533487,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,MM,B19,I,J1,Frozen,Hydrobiidae,8,NA,0.0754,0.047,NA,0.623342175,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,MM,B19,I,J4,Frozen,Hydrobiidae,12,NA,0.109,0.0667,NA,0.611926606,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,MM,B19,I,J5,Frozen,Hydrobiidae,93,NA,0.7296,0.4515,NA,0.618832237,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,MM,PP,I,rep1,Frozen,Hydrobiidae,190,NA,0.1416,0.0698,NA,0.492937853,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,MM,PP,I,rep2,Frozen,Hydrobiidae,54,NA,0.0549,0.0297,NA,0.540983607,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,MM,PP,I,rep3,Frozen,Hydrobiidae,144,NA,0.0756,0.0378,NA,0.5,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,MM,PP,I,rep4,Frozen,Hydrobiidae,77,NA,0.0657,0.0293,NA,0.445966514,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,MM,PP,I,rep5,Frozen,Hydrobiidae,75,NA,0.0532,0.0288,NA,0.541353383,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,MM,PP,I,J1,Frozen,Hydrobiidae,316,NA,0.1476,0.0691,NA,0.468157182,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,MM,PP,I,J5,Frozen,Hydrobiidae,120,NA,0.0823,0.0369,NA,0.44835966,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,MM,PP,S,rep1,Frozen,Hydrobiidae,220,NA,0.1436,0.0768,NA,0.534818942,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,MM,PP,S,rep2,Frozen,Hydrobiidae,102,NA,0.0839,0.0433,NA,0.516090584,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,MM,PP,S,rep3,Frozen,Hydrobiidae,140,NA,0.0968,0.0503,NA,0.519628099,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,MM,PP,S,rep4,Frozen,Hydrobiidae,32,NA,0.0391,0.0223,NA,0.570332481,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,MM,PP,S,rep5,Frozen,Hydrobiidae,45,NA,0.0371,0.0198,NA,0.533692722,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,MM,PP,S,J2,Frozen,Hydrobiidae,305,NA,0.1873,0.0927,NA,0.494927923,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,MM,PP,S,J4,Frozen,Hydrobiidae,190,NA,0.1037,0.0528,NA,0.509161041,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,NL,LP,I,rep1,Frozen,Hydrobiidae,6,NA,0.0046,0.0023,NA,0.5,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,NL,LP,I,rep2,Frozen,Hydrobiidae,4,NA,0.0114,4e-4,NA,0.035087719,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,NL,LP,I,rep3,Frozen,Hydrobiidae,45,NA,0.0705,0.032,NA,0.453900709,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,NL,LP,I,rep4,Frozen,Hydrobiidae,2,NA,0.0032,4e-4,NA,0.125,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,NL,LP,I,rep5,Frozen,Hydrobiidae,17,NA,0.0217,0.0071,NA,0.32718894,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,NL,LP,I,J5,Frozen,Hydrobiidae,3,NA,NA,NA,NA,NA,NA,NA,500,Hydrobiidae
-Flinders-HCHB,2020,Feb,NL,LP,S,rep4,Frozen,Hydrobiidae,2,NA,0.0041,0.0021,NA,0.512195122,0,0,500,Hydrobiidae
+Flinders-HCHB,2020,Feb,MM,B19,P,rep2,Frozen,Hydrobiidae,218,NA,0.5597,0.3114,NA,0.556369484,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,MM,B19,P,rep3,Frozen,Hydrobiidae,158,NA,0.6787,0.3948,NA,0.581700309,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,MM,B19,P,rep4,Frozen,Hydrobiidae,49,NA,0.2944,0.1738,NA,0.590353261,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,MM,B19,P,rep5,Frozen,Hydrobiidae,123,NA,0.4679,0.2754,NA,0.588587305,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,MM,B19,S,rep1,Frozen,Hydrobiidae,51,NA,0.2494,0.1541,NA,0.617882919,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,MM,B19,S,rep2,Frozen,Hydrobiidae,97,NA,0.5605,0.3522,NA,0.628367529,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,MM,B19,S,rep3,Frozen,Hydrobiidae,121,NA,0.4483,0.2702,NA,0.602721392,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,MM,B19,S,rep4,Frozen,Hydrobiidae,124,NA,0.6215,0.381,NA,0.613032985,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,MM,B19,S,rep5,Frozen,Hydrobiidae,173,NA,0.6955,0.4177,NA,0.600575126,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,MM,B19,S,J1,Frozen,Hydrobiidae,85,NA,0.5722,0.3674,NA,0.642083188,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,MM,B19,I,rep1,Frozen,Hydrobiidae,6,NA,0.0537,0.0347,NA,0.646182495,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,MM,B19,I,rep2,Frozen,Hydrobiidae,6,NA,0.0429,0.0268,NA,0.624708625,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,MM,B19,I,rep3,Frozen,Hydrobiidae,37,NA,0.316,0.1891,NA,0.598417722,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,MM,B19,I,rep4,Frozen,Hydrobiidae,19,NA,0.1583,0.095,NA,0.600126342,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,MM,B19,I,rep5,Frozen,Hydrobiidae,11,NA,0.0866,0.0514,NA,0.593533487,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,MM,B19,I,J1,Frozen,Hydrobiidae,8,NA,0.0754,0.047,NA,0.623342175,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,MM,B19,I,J4,Frozen,Hydrobiidae,12,NA,0.109,0.0667,NA,0.611926606,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,MM,B19,I,J5,Frozen,Hydrobiidae,93,NA,0.7296,0.4515,NA,0.618832237,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,MM,PP,I,rep1,Frozen,Hydrobiidae,190,NA,0.1416,0.0698,NA,0.492937853,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,MM,PP,I,rep2,Frozen,Hydrobiidae,54,NA,0.0549,0.0297,NA,0.540983607,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,MM,PP,I,rep3,Frozen,Hydrobiidae,144,NA,0.0756,0.0378,NA,0.5,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,MM,PP,I,rep4,Frozen,Hydrobiidae,77,NA,0.0657,0.0293,NA,0.445966514,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,MM,PP,I,rep5,Frozen,Hydrobiidae,75,NA,0.0532,0.0288,NA,0.541353383,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,MM,PP,I,J1,Frozen,Hydrobiidae,316,NA,0.1476,0.0691,NA,0.468157182,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,MM,PP,I,J5,Frozen,Hydrobiidae,120,NA,0.0823,0.0369,NA,0.44835966,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,MM,PP,S,rep1,Frozen,Hydrobiidae,220,NA,0.1436,0.0768,NA,0.534818942,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,MM,PP,S,rep2,Frozen,Hydrobiidae,102,NA,0.0839,0.0433,NA,0.516090584,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,MM,PP,S,rep3,Frozen,Hydrobiidae,140,NA,0.0968,0.0503,NA,0.519628099,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,MM,PP,S,rep4,Frozen,Hydrobiidae,32,NA,0.0391,0.0223,NA,0.570332481,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,MM,PP,S,rep5,Frozen,Hydrobiidae,45,NA,0.0371,0.0198,NA,0.533692722,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,MM,PP,S,J2,Frozen,Hydrobiidae,305,NA,0.1873,0.0927,NA,0.494927923,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,MM,PP,S,J4,Frozen,Hydrobiidae,190,NA,0.1037,0.0528,NA,0.509161041,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,NL,LP,I,rep1,Frozen,Hydrobiidae,6,NA,0.0046,0.0023,NA,0.5,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,NL,LP,I,rep2,Frozen,Hydrobiidae,4,NA,0.0114,4e-4,NA,0.035087719,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,NL,LP,I,rep3,Frozen,Hydrobiidae,45,NA,0.0705,0.032,NA,0.453900709,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,NL,LP,I,rep4,Frozen,Hydrobiidae,2,NA,0.0032,4e-4,NA,0.125,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,NL,LP,I,rep5,Frozen,Hydrobiidae,17,NA,0.0217,0.0071,NA,0.32718894,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,NL,LP,I,J5,Frozen,Hydrobiidae,3,NA,NA,NA,NA,NA,NA,NA,500,Truncatelloidea
+Flinders-HCHB,2020,Feb,NL,LP,S,rep4,Frozen,Hydrobiidae,2,NA,0.0041,0.0021,NA,0.512195122,0,0,500,Truncatelloidea
 Flinders-HCHB,2020,Feb,MM,B19,P,rep2,Frozen,Salinator,43,NA,0.366,0.1445,NA,0.394808743,0,0,500,Salinator
 Flinders-HCHB,2020,Feb,MM,B19,P,rep3,Frozen,Salinator,9,NA,0.0079,0.0036,NA,0.455696203,0,0,500,Salinator
 Flinders-HCHB,2020,Feb,MM,B19,P,rep4,Frozen,Salinator,17,NA,0.8767,0.3623,NA,0.413254249,0,0,500,Salinator
@@ -643,37 +643,37 @@ Flinders-HCHB,2020,Mar,NL,LP,P,rep4,Frozen,Arthritica,306,NA,0.4675,0.333,NA,0.7
 Flinders-HCHB,2020,Mar,NL,LP,P,rep5,Frozen,Arthritica,707,NA,1.1602,0.6323,NA,0.544992243,0,0,500,Arthritica
 Flinders-HCHB,2020,Mar,NL,NM,I,rep4,Frozen,Arthritica,4,NA,0.014,0.0073,NA,0.521428571,0,0,500,Arthritica
 Flinders-HCHB,2020,Mar,NL,NM,I,rep5,Frozen,Arthritica,2,NA,0.0027,0.0018,NA,0.666666667,0,0,500,Arthritica
-Flinders-HCHB,2020,Mar,MM,B19,P,rep1,Frozen,Hydrobiidae,36,NA,0.0983,0.0557,NA,0.566632757,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Mar,MM,B19,P,rep2,Frozen,Hydrobiidae,54,NA,0.3561,0.2098,NA,0.589160348,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Mar,MM,B19,P,rep3,Frozen,Hydrobiidae,126,NA,0.6041,0.35,NA,0.579374276,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Mar,MM,B19,P,rep4,Frozen,Hydrobiidae,128,NA,0.5981,0.3481,NA,0.582009697,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Mar,MM,B19,P,rep5,Frozen,Hydrobiidae,130,NA,0.5434,0.3104,NA,0.571218255,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Mar,MM,B19,S,rep1,Frozen,Hydrobiidae,5,NA,0.0188,0.0105,NA,0.558510638,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Mar,MM,B19,S,rep2,Frozen,Hydrobiidae,4,NA,0.023,0.0142,NA,0.617391304,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Mar,MM,B19,S,rep3,Frozen,Hydrobiidae,34,NA,0.1181,0.0692,NA,0.585944115,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Mar,MM,B19,S,rep4,Frozen,Hydrobiidae,81,NA,0.3054,0.1774,NA,0.580877538,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Mar,MM,B19,S,rep5,Frozen,Hydrobiidae,84,NA,0.3789,0.2128,NA,0.561625759,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Mar,MM,B19,I,rep1,Frozen,Hydrobiidae,8,NA,0.0215,0.0127,NA,0.590697674,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Mar,MM,B19,I,rep2,Frozen,Hydrobiidae,5,NA,0.0141,0.0071,NA,0.503546099,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Mar,MM,B19,I,rep3,Frozen,Hydrobiidae,3,NA,0.0055,0.0032,NA,0.581818182,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Mar,MM,B19,I,rep4,Frozen,Hydrobiidae,10,NA,0.0273,0.0174,NA,0.637362637,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Mar,MM,B19,I,rep5,Frozen,Hydrobiidae,2,NA,7e-4,0,NA,0,NA,0,500,Hydrobiidae
-Flinders-HCHB,2020,Mar,MM,PP,I,rep1,Frozen,Hydrobiidae,87,NA,0.0632,0.0312,NA,0.493670886,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Mar,MM,PP,I,rep2,Frozen,Hydrobiidae,18,NA,0.0154,0.0074,NA,0.480519481,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Mar,MM,PP,I,rep3,Frozen,Hydrobiidae,54,NA,0.0327,0.0156,NA,0.47706422,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Mar,MM,PP,I,rep4,Frozen,Hydrobiidae,49,NA,0.0422,0.018,NA,0.426540284,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Mar,MM,PP,I,rep5,Frozen,Hydrobiidae,121,NA,0.0824,0.0386,NA,0.468446602,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Mar,MM,PP,S,rep1,Frozen,Hydrobiidae,9,NA,0.0297,0.0174,NA,0.585858586,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Mar,MM,PP,S,rep2,Frozen,Hydrobiidae,54,NA,0.4207,0.2781,NA,0.661041122,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Mar,MM,PP,S,rep3,Frozen,Hydrobiidae,52,NA,0.1383,0.0778,NA,0.562545192,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Mar,MM,PP,S,rep4,Frozen,Hydrobiidae,75,NA,0.1477,0.0782,NA,0.529451591,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Mar,MM,PP,S,rep5,Frozen,Hydrobiidae,1,NA,0.0018,0,NA,0,NA,0,500,Hydrobiidae
-Flinders-HCHB,2020,Mar,MM,PP,P,rep1,Frozen,Hydrobiidae,28,NA,0.0205,0.0092,NA,0.448780488,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Mar,MM,PP,P,rep2,Frozen,Hydrobiidae,5,NA,0.0026,0.001,NA,0.384615385,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Mar,MM,PP,P,rep4,Frozen,Hydrobiidae,17,NA,0.0218,NA,NA,0,NA,0,500,Hydrobiidae
-Flinders-HCHB,2020,Mar,MM,PP,P,rep5,Frozen,Hydrobiidae,57,NA,0.0433,0.0197,NA,0.454965358,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Mar,NL,LP,P,rep3,Frozen,Hydrobiidae,1,NA,2e-4,0,NA,0,NA,0,500,Hydrobiidae
-Flinders-HCHB,2020,Mar,NL,LP,P,rep4,Frozen,Hydrobiidae,1,NA,0.0044,0.0014,NA,0.318181818,0,0,500,Hydrobiidae
+Flinders-HCHB,2020,Mar,MM,B19,P,rep1,Frozen,Hydrobiidae,36,NA,0.0983,0.0557,NA,0.566632757,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Mar,MM,B19,P,rep2,Frozen,Hydrobiidae,54,NA,0.3561,0.2098,NA,0.589160348,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Mar,MM,B19,P,rep3,Frozen,Hydrobiidae,126,NA,0.6041,0.35,NA,0.579374276,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Mar,MM,B19,P,rep4,Frozen,Hydrobiidae,128,NA,0.5981,0.3481,NA,0.582009697,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Mar,MM,B19,P,rep5,Frozen,Hydrobiidae,130,NA,0.5434,0.3104,NA,0.571218255,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Mar,MM,B19,S,rep1,Frozen,Hydrobiidae,5,NA,0.0188,0.0105,NA,0.558510638,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Mar,MM,B19,S,rep2,Frozen,Hydrobiidae,4,NA,0.023,0.0142,NA,0.617391304,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Mar,MM,B19,S,rep3,Frozen,Hydrobiidae,34,NA,0.1181,0.0692,NA,0.585944115,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Mar,MM,B19,S,rep4,Frozen,Hydrobiidae,81,NA,0.3054,0.1774,NA,0.580877538,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Mar,MM,B19,S,rep5,Frozen,Hydrobiidae,84,NA,0.3789,0.2128,NA,0.561625759,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Mar,MM,B19,I,rep1,Frozen,Hydrobiidae,8,NA,0.0215,0.0127,NA,0.590697674,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Mar,MM,B19,I,rep2,Frozen,Hydrobiidae,5,NA,0.0141,0.0071,NA,0.503546099,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Mar,MM,B19,I,rep3,Frozen,Hydrobiidae,3,NA,0.0055,0.0032,NA,0.581818182,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Mar,MM,B19,I,rep4,Frozen,Hydrobiidae,10,NA,0.0273,0.0174,NA,0.637362637,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Mar,MM,B19,I,rep5,Frozen,Hydrobiidae,2,NA,7e-4,0,NA,0,NA,0,500,Truncatelloidea
+Flinders-HCHB,2020,Mar,MM,PP,I,rep1,Frozen,Hydrobiidae,87,NA,0.0632,0.0312,NA,0.493670886,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Mar,MM,PP,I,rep2,Frozen,Hydrobiidae,18,NA,0.0154,0.0074,NA,0.480519481,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Mar,MM,PP,I,rep3,Frozen,Hydrobiidae,54,NA,0.0327,0.0156,NA,0.47706422,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Mar,MM,PP,I,rep4,Frozen,Hydrobiidae,49,NA,0.0422,0.018,NA,0.426540284,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Mar,MM,PP,I,rep5,Frozen,Hydrobiidae,121,NA,0.0824,0.0386,NA,0.468446602,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Mar,MM,PP,S,rep1,Frozen,Hydrobiidae,9,NA,0.0297,0.0174,NA,0.585858586,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Mar,MM,PP,S,rep2,Frozen,Hydrobiidae,54,NA,0.4207,0.2781,NA,0.661041122,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Mar,MM,PP,S,rep3,Frozen,Hydrobiidae,52,NA,0.1383,0.0778,NA,0.562545192,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Mar,MM,PP,S,rep4,Frozen,Hydrobiidae,75,NA,0.1477,0.0782,NA,0.529451591,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Mar,MM,PP,S,rep5,Frozen,Hydrobiidae,1,NA,0.0018,0,NA,0,NA,0,500,Truncatelloidea
+Flinders-HCHB,2020,Mar,MM,PP,P,rep1,Frozen,Hydrobiidae,28,NA,0.0205,0.0092,NA,0.448780488,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Mar,MM,PP,P,rep2,Frozen,Hydrobiidae,5,NA,0.0026,0.001,NA,0.384615385,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Mar,MM,PP,P,rep4,Frozen,Hydrobiidae,17,NA,0.0218,NA,NA,0,NA,0,500,Truncatelloidea
+Flinders-HCHB,2020,Mar,MM,PP,P,rep5,Frozen,Hydrobiidae,57,NA,0.0433,0.0197,NA,0.454965358,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Mar,NL,LP,P,rep3,Frozen,Hydrobiidae,1,NA,2e-4,0,NA,0,NA,0,500,Truncatelloidea
+Flinders-HCHB,2020,Mar,NL,LP,P,rep4,Frozen,Hydrobiidae,1,NA,0.0044,0.0014,NA,0.318181818,0,0,500,Truncatelloidea
 Flinders-HCHB,2020,Mar,MM,B19,P,rep1,Frozen,Salinator,1,NA,0,0,NA,NA,NA,NA,500,Salinator
 Flinders-HCHB,2020,Mar,MM,B19,P,rep3,Frozen,Salinator,4,NA,0.0257,0.0068,NA,0.26459144,0,0,500,Salinator
 Flinders-HCHB,2020,Mar,MM,B19,P,rep4,Frozen,Salinator,4,NA,0.1159,0.033,NA,0.284728214,0,0,500,Salinator
@@ -1001,37 +1001,37 @@ Flinders-HCHB,2020,Jun,NL,LP,P,rep2,Frozen,Arthritica,780,NA,1.0733,0.619,NA,0.5
 Flinders-HCHB,2020,Jun,NL,LP,P,rep3,Frozen,Arthritica,485,NA,0.8912,0.4997,NA,0.560704668,0,0,500,Arthritica
 Flinders-HCHB,2020,Jun,NL,LP,P,rep4,Frozen,Arthritica,681,NA,1.0288,0.5783,NA,0.562111198,0,0,500,Arthritica
 Flinders-HCHB,2020,Jun,NL,LP,P,rep5,Frozen,Arthritica,417,NA,0.6867,0.4435,NA,0.645842435,0,0,500,Arthritica
-Flinders-HCHB,2020,Jun,MM,B19,P,rep1,Frozen,Hydrobiidae,5,NA,0.0409,0.0247,NA,0.60391198,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Jun,MM,B19,P,rep2,Frozen,Hydrobiidae,15,NA,0.0937,0.0558,NA,0.595517609,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Jun,MM,B19,P,rep3,Frozen,Hydrobiidae,7,NA,0.0318,0.0187,NA,0.588050314,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Jun,MM,B19,P,rep4,Frozen,Hydrobiidae,29,NA,0.1903,0.1158,NA,0.608512874,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Jun,MM,B19,P,rep5,Frozen,Hydrobiidae,11,NA,0.0506,0.0312,NA,0.616600791,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Jun,MM,B19,S,rep1,Frozen,Hydrobiidae,14,NA,0.0265,0.0152,NA,0.573584906,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Jun,MM,B19,S,rep2,Frozen,Hydrobiidae,22,NA,0.103,0.0661,NA,0.641747573,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Jun,MM,B19,S,rep3,Frozen,Hydrobiidae,22,NA,0.134,0.0863,NA,0.644029851,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Jun,MM,B19,S,rep4,Frozen,Hydrobiidae,31,NA,0.2469,0.157,NA,0.635884974,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Jun,MM,B19,S,rep5,Frozen,Hydrobiidae,29,NA,0.0595,0.0305,NA,0.512605042,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Jun,MM,B19,I,rep1,Frozen,Hydrobiidae,8,NA,0.0782,0.0489,NA,0.625319693,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Jun,MM,B19,I,rep2,Frozen,Hydrobiidae,14,NA,0.1296,0.0817,NA,0.630401235,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Jun,MM,B19,I,rep3,Frozen,Hydrobiidae,22,NA,0.214,0.1327,NA,0.620093458,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Jun,MM,B19,I,rep4,Frozen,Hydrobiidae,90,NA,0.6413,0.3916,NA,0.610634648,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Jun,MM,B19,I,rep5,Frozen,Hydrobiidae,29,NA,0.2247,0.1398,NA,0.622162884,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Jun,MM,PP,I,rep1,Frozen,Hydrobiidae,5,NA,0.0227,0.0138,NA,0.607929515,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Jun,MM,PP,I,rep2,Frozen,Hydrobiidae,4,NA,0.0052,0.0027,NA,0.519230769,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Jun,MM,PP,I,rep3,Frozen,Hydrobiidae,3,NA,0.0165,0.0095,NA,0.575757576,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Jun,MM,PP,I,rep4,Frozen,Hydrobiidae,3,NA,0.0181,0.0111,NA,0.613259669,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Jun,MM,PP,I,rep5,Frozen,Hydrobiidae,5,NA,0.0045,0.002,NA,0.444444444,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Jun,MM,PP,S,rep1,Frozen,Hydrobiidae,45,NA,0.4388,0.2854,NA,0.65041021,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Jun,MM,PP,S,rep2,Frozen,Hydrobiidae,13,NA,0.129,0.0846,NA,0.655813953,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Jun,MM,PP,S,rep3,Frozen,Hydrobiidae,7,NA,0.0592,0.0407,NA,0.6875,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Jun,MM,PP,S,rep4,Frozen,Hydrobiidae,3,NA,0.0234,0.0148,NA,0.632478632,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Jun,MM,PP,S,rep5,Frozen,Hydrobiidae,6,NA,0.0307,0.0198,NA,0.64495114,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Jun,MM,PP,P,rep2,Frozen,Hydrobiidae,3,NA,0.0027,0.0016,NA,0.592592593,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Jun,MM,PP,P,rep4,Frozen,Hydrobiidae,1,NA,0.002,0.0016,NA,0.8,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Jun,MM,PP,P,rep5,Frozen,Hydrobiidae,1,NA,9e-4,6e-4,NA,0.666666667,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Jun,NL,LP,I,rep1,Frozen,Hydrobiidae,6,NA,0.008,0.0044,NA,0.55,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Jun,NL,LP,S,rep1,Frozen,Hydrobiidae,2,NA,0.0014,7e-4,NA,0.5,0,0,500,Hydrobiidae
-Flinders-HCHB,2020,Jun,NL,LP,P,rep3,Frozen,Hydrobiidae,2,NA,9e-4,7e-4,NA,0.777777778,0,0,500,Hydrobiidae
+Flinders-HCHB,2020,Jun,MM,B19,P,rep1,Frozen,Hydrobiidae,5,NA,0.0409,0.0247,NA,0.60391198,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Jun,MM,B19,P,rep2,Frozen,Hydrobiidae,15,NA,0.0937,0.0558,NA,0.595517609,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Jun,MM,B19,P,rep3,Frozen,Hydrobiidae,7,NA,0.0318,0.0187,NA,0.588050314,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Jun,MM,B19,P,rep4,Frozen,Hydrobiidae,29,NA,0.1903,0.1158,NA,0.608512874,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Jun,MM,B19,P,rep5,Frozen,Hydrobiidae,11,NA,0.0506,0.0312,NA,0.616600791,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Jun,MM,B19,S,rep1,Frozen,Hydrobiidae,14,NA,0.0265,0.0152,NA,0.573584906,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Jun,MM,B19,S,rep2,Frozen,Hydrobiidae,22,NA,0.103,0.0661,NA,0.641747573,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Jun,MM,B19,S,rep3,Frozen,Hydrobiidae,22,NA,0.134,0.0863,NA,0.644029851,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Jun,MM,B19,S,rep4,Frozen,Hydrobiidae,31,NA,0.2469,0.157,NA,0.635884974,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Jun,MM,B19,S,rep5,Frozen,Hydrobiidae,29,NA,0.0595,0.0305,NA,0.512605042,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Jun,MM,B19,I,rep1,Frozen,Hydrobiidae,8,NA,0.0782,0.0489,NA,0.625319693,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Jun,MM,B19,I,rep2,Frozen,Hydrobiidae,14,NA,0.1296,0.0817,NA,0.630401235,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Jun,MM,B19,I,rep3,Frozen,Hydrobiidae,22,NA,0.214,0.1327,NA,0.620093458,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Jun,MM,B19,I,rep4,Frozen,Hydrobiidae,90,NA,0.6413,0.3916,NA,0.610634648,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Jun,MM,B19,I,rep5,Frozen,Hydrobiidae,29,NA,0.2247,0.1398,NA,0.622162884,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Jun,MM,PP,I,rep1,Frozen,Hydrobiidae,5,NA,0.0227,0.0138,NA,0.607929515,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Jun,MM,PP,I,rep2,Frozen,Hydrobiidae,4,NA,0.0052,0.0027,NA,0.519230769,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Jun,MM,PP,I,rep3,Frozen,Hydrobiidae,3,NA,0.0165,0.0095,NA,0.575757576,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Jun,MM,PP,I,rep4,Frozen,Hydrobiidae,3,NA,0.0181,0.0111,NA,0.613259669,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Jun,MM,PP,I,rep5,Frozen,Hydrobiidae,5,NA,0.0045,0.002,NA,0.444444444,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Jun,MM,PP,S,rep1,Frozen,Hydrobiidae,45,NA,0.4388,0.2854,NA,0.65041021,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Jun,MM,PP,S,rep2,Frozen,Hydrobiidae,13,NA,0.129,0.0846,NA,0.655813953,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Jun,MM,PP,S,rep3,Frozen,Hydrobiidae,7,NA,0.0592,0.0407,NA,0.6875,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Jun,MM,PP,S,rep4,Frozen,Hydrobiidae,3,NA,0.0234,0.0148,NA,0.632478632,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Jun,MM,PP,S,rep5,Frozen,Hydrobiidae,6,NA,0.0307,0.0198,NA,0.64495114,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Jun,MM,PP,P,rep2,Frozen,Hydrobiidae,3,NA,0.0027,0.0016,NA,0.592592593,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Jun,MM,PP,P,rep4,Frozen,Hydrobiidae,1,NA,0.002,0.0016,NA,0.8,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Jun,MM,PP,P,rep5,Frozen,Hydrobiidae,1,NA,9e-4,6e-4,NA,0.666666667,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Jun,NL,LP,I,rep1,Frozen,Hydrobiidae,6,NA,0.008,0.0044,NA,0.55,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Jun,NL,LP,S,rep1,Frozen,Hydrobiidae,2,NA,0.0014,7e-4,NA,0.5,0,0,500,Truncatelloidea
+Flinders-HCHB,2020,Jun,NL,LP,P,rep3,Frozen,Hydrobiidae,2,NA,9e-4,7e-4,NA,0.777777778,0,0,500,Truncatelloidea
 Flinders-HCHB,2020,Jun,MM,B19,P,rep2,Frozen,Salinator,3,NA,0.0125,0.0047,NA,0.376,0,0,500,Salinator
 Flinders-HCHB,2020,Jun,MM,B19,P,rep3,Frozen,Salinator,5,NA,0.3727,0.1409,NA,0.378052053,0,0,500,Salinator
 Flinders-HCHB,2020,Jun,MM,B19,P,rep4,Frozen,Salinator,4,NA,0.0136,0.0065,NA,0.477941176,0,0,500,Salinator
@@ -1129,25 +1129,25 @@ Flinders-HCHB,2020,Sep,MM,B19,I,rep3,Frozen,Amphipoda,84,NA,0.0215,0.0039,NA,0.1
 Flinders-HCHB,2020,Sep,MM,B19,I,rep3,Frozen,Arthritica,122,NA,0.1086,0.0544,NA,0.50092081,0,0,500,Arthritica
 Flinders-HCHB,2020,Sep,MM,B19,I,rep3,Frozen,Boccardiella,63,NA,0.0084,0.0016,NA,0.19047619,0,0,500,Boccardiella
 Flinders-HCHB,2020,Sep,MM,B19,I,rep3,Frozen,Chironomidae,3,NA,0.0025,7e-4,NA,0.28,0,0,500,Chironomidae
-Flinders-HCHB,2020,Sep,MM,B19,I,rep3,Frozen,Hydrobiidae,21,NA,0.1202,0.0724,NA,0.602329451,0,0,500,Hydrobiidae
+Flinders-HCHB,2020,Sep,MM,B19,I,rep3,Frozen,Hydrobiidae,21,NA,0.1202,0.0724,NA,0.602329451,0,0,500,Truncatelloidea
 Flinders-HCHB,2020,Sep,MM,B19,I,rep3,Frozen,Simplisetia,363,NA,1.7684,0.1959,NA,0.110778105,0,0,500,Simplisetia
 Flinders-HCHB,2020,Sep,MM,B19,I,rep4,Frozen,Amphipoda,98,NA,0.0325,0.0055,NA,0.169230769,0,0,500,Amphipoda
 Flinders-HCHB,2020,Sep,MM,B19,I,rep4,Frozen,Arthritica,67,NA,0.0861,0.0435,NA,0.505226481,0,0,500,Arthritica
 Flinders-HCHB,2020,Sep,MM,B19,I,rep4,Frozen,Boccardiella,5,NA,NA,NA,NA,NA,NA,NA,500,Boccardiella
-Flinders-HCHB,2020,Sep,MM,B19,I,rep4,Frozen,Hydrobiidae,22,NA,0.0789,0.0453,NA,0.574144487,0,0,500,Hydrobiidae
+Flinders-HCHB,2020,Sep,MM,B19,I,rep4,Frozen,Hydrobiidae,22,NA,0.0789,0.0453,NA,0.574144487,0,0,500,Truncatelloidea
 Flinders-HCHB,2020,Sep,MM,B19,I,rep4,Frozen,Mysidacea,2,NA,0.0112,0.0017,NA,0.151785714,0,0,500,Mysidacea
 Flinders-HCHB,2020,Sep,MM,B19,I,rep4,Frozen,Simplisetia,360,NA,2.3145,0.1795,NA,0.077554547,0,0,500,Simplisetia
 Flinders-HCHB,2020,Sep,MM,B19,S,rep4,Frozen,Amphipoda,7,NA,0.001,1e-4,NA,0.1,0,0,500,Amphipoda
 Flinders-HCHB,2020,Sep,MM,B19,S,rep4,Frozen,Arthritica,24,NA,0.0488,0.0257,NA,0.526639344,0,0,500,Arthritica
 Flinders-HCHB,2020,Sep,MM,B19,S,rep4,Frozen,Chironomidae,118,NA,0.0392,0.0069,NA,0.176020408,0,0,500,Chironomidae
-Flinders-HCHB,2020,Sep,MM,B19,S,rep4,Frozen,Hydrobiidae,18,NA,0.1631,0.1033,NA,0.633353771,0,0,500,Hydrobiidae
+Flinders-HCHB,2020,Sep,MM,B19,S,rep4,Frozen,Hydrobiidae,18,NA,0.1631,0.1033,NA,0.633353771,0,0,500,Truncatelloidea
 Flinders-HCHB,2020,Sep,MM,B19,S,rep4,Frozen,Mysidacea,15,NA,0.0894,0.0147,NA,0.16442953,0,0,500,Mysidacea
 Flinders-HCHB,2020,Sep,MM,B19,S,rep4,Frozen,Nephtys,22,NA,1.2687,0.0975,NA,0.076850319,0,0,500,Nephtys
 Flinders-HCHB,2020,Sep,MM,B19,S,rep4,Frozen,Simplisetia,1,NA,0.0167,0.0012,NA,0.071856287,0,0,500,Simplisetia
 Flinders-HCHB,2020,Sep,MM,B19,S,rep5,Frozen,Amphipoda,11,NA,0.0011,7e-4,NA,0.636363636,0,0,500,Amphipoda
 Flinders-HCHB,2020,Sep,MM,B19,S,rep5,Frozen,Arthritica,19,NA,0.0726,0.0369,NA,0.508264463,0,0,500,Arthritica
 Flinders-HCHB,2020,Sep,MM,B19,S,rep5,Frozen,Chironomidae,23,NA,0.0083,0.0024,NA,0.289156627,0,0,500,Chironomidae
-Flinders-HCHB,2020,Sep,MM,B19,S,rep5,Frozen,Hydrobiidae,10,NA,0.1115,0.0734,NA,0.658295964,0,0,500,Hydrobiidae
+Flinders-HCHB,2020,Sep,MM,B19,S,rep5,Frozen,Hydrobiidae,10,NA,0.1115,0.0734,NA,0.658295964,0,0,500,Truncatelloidea
 Flinders-HCHB,2020,Sep,MM,B19,S,rep5,Frozen,Mysidacea,4,NA,0.0327,0.0063,NA,0.19266055,0,0,500,Mysidacea
 Flinders-HCHB,2020,Sep,MM,B19,S,rep5,Frozen,Nephtys,12,NA,NA,NA,NA,NA,NA,NA,500,Nephtys
 Flinders-HCHB,2020,Sep,MM,B19,S,rep5,Frozen,Simplisetia,2,NA,NA,NA,NA,NA,NA,NA,500,Simplisetia
@@ -1155,7 +1155,7 @@ Flinders-HCHB,2020,Sep,MM,B19,P,rep4,Frozen,Amphipoda,4,NA,NA,NA,NA,NA,NA,NA,500
 Flinders-HCHB,2020,Sep,MM,B19,P,rep4,Frozen,Arthritica,3,NA,NA,NA,NA,NA,NA,NA,500,Arthritica
 Flinders-HCHB,2020,Sep,MM,B19,P,rep4,Frozen,Capitella,5,NA,NA,NA,NA,NA,NA,NA,500,Capitella
 Flinders-HCHB,2020,Sep,MM,B19,P,rep4,Frozen,Chironomidae,2,NA,NA,NA,NA,NA,NA,NA,500,Chironomidae
-Flinders-HCHB,2020,Sep,MM,B19,P,rep4,Frozen,Hydrobiidae,5,NA,NA,NA,NA,NA,NA,NA,500,Hydrobiidae
+Flinders-HCHB,2020,Sep,MM,B19,P,rep4,Frozen,Hydrobiidae,5,NA,NA,NA,NA,NA,NA,NA,500,Truncatelloidea
 Flinders-HCHB,2020,Sep,MM,B19,P,rep4,Frozen,Nephtys,3,NA,NA,NA,NA,NA,NA,NA,500,Nephtys
 Flinders-HCHB,2020,Sep,MM,B19,P,rep4,Frozen,Simplisetia,29,NA,NA,NA,NA,NA,NA,NA,500,Simplisetia
 Flinders-HCHB,2020,Sep,MM,B19,S,rep3,Frozen,Amphipoda,1,NA,NA,NA,NA,NA,NA,NA,500,Amphipoda
@@ -1163,7 +1163,7 @@ Flinders-HCHB,2020,Sep,MM,B19,S,rep3,Frozen,Simplisetia,3,NA,NA,NA,NA,NA,NA,NA,5
 Flinders-HCHB,2020,Sep,MM,B19,I,rep5,Frozen,Amphipoda,140,NA,NA,NA,NA,NA,NA,NA,500,Amphipoda
 Flinders-HCHB,2020,Sep,MM,B19,I,rep5,Frozen,Arthritica,87,NA,NA,NA,NA,NA,NA,NA,500,Arthritica
 Flinders-HCHB,2020,Sep,MM,B19,I,rep5,Frozen,Chironomidae,3,NA,NA,NA,NA,NA,NA,NA,500,Chironomidae
-Flinders-HCHB,2020,Sep,MM,B19,I,rep5,Frozen,Hydrobiidae,12,NA,NA,NA,NA,NA,NA,NA,500,Hydrobiidae
+Flinders-HCHB,2020,Sep,MM,B19,I,rep5,Frozen,Hydrobiidae,12,NA,NA,NA,NA,NA,NA,NA,500,Truncatelloidea
 Flinders-HCHB,2020,Sep,MM,B19,I,rep5,Frozen,Simplisetia,551,NA,NA,NA,NA,NA,NA,NA,500,Simplisetia
 Flinders-HCHB,2020,Sep,MM,B19,I,rep5,Frozen,Boccardiella,79,NA,NA,NA,NA,NA,NA,NA,500,Boccardiella
 Flinders-HCHB,2020,Sep,MM,B19,I,rep5,Frozen,Spisula,2,NA,NA,NA,NA,NA,NA,NA,500,Spisula
@@ -1172,7 +1172,7 @@ Flinders-HCHB,2020,Sep,MM,B19,P,rep3,Frozen,Arthritica,56,NA,0.1265,0.0602,NA,0.
 Flinders-HCHB,2020,Sep,MM,B19,P,rep3,Frozen,Capitella,2,NA,0.0011,3e-4,NA,0.272727273,0,0,500,Capitella
 Flinders-HCHB,2020,Sep,MM,B19,P,rep3,Frozen,Simplisetia,47,NA,0.0591,0.0036,NA,0.060913706,0,0,500,Simplisetia
 Flinders-HCHB,2020,Sep,MM,B19,P,rep3,Frozen,Chironomidae,46,NA,0.0131,0.0024,NA,0.183206107,0,0,500,Chironomidae
-Flinders-HCHB,2020,Sep,MM,B19,P,rep3,Frozen,Hydrobiidae,68,NA,0.2975,0.1742,NA,0.585546218,0,0,500,Hydrobiidae
+Flinders-HCHB,2020,Sep,MM,B19,P,rep3,Frozen,Hydrobiidae,68,NA,0.2975,0.1742,NA,0.585546218,0,0,500,Truncatelloidea
 Flinders-HCHB,2020,Sep,MM,B19,P,rep3,Frozen,Salinator,6,NA,0.1292,0.0402,NA,0.311145511,0,0,500,Salinator
 Flinders-HCHB,2020,Sep,MM,B19,P,rep3,Frozen,Nephtys,3,NA,0.2251,0.0174,NA,0.077298978,0,0,500,Nephtys
 Flinders-HCHB,2020,Sep,MM,B19,P,rep5,Frozen,Amphipoda,3,NA,6e-4,6e-4,NA,1,0,0,500,Amphipoda
@@ -1180,14 +1180,14 @@ Flinders-HCHB,2020,Sep,MM,B19,P,rep5,Frozen,Arthritica,6,NA,0.0037,0.0031,NA,0.8
 Flinders-HCHB,2020,Sep,MM,B19,P,rep5,Frozen,Capitella,2,NA,1e-4,0,NA,0,NA,0,500,Capitella
 Flinders-HCHB,2020,Sep,MM,B19,P,rep5,Frozen,Simplisetia,15,NA,0.0239,0.0012,NA,0.050209205,0,0,500,Simplisetia
 Flinders-HCHB,2020,Sep,MM,B19,P,rep5,Frozen,Chironomidae,3,NA,3e-4,2e-4,NA,0.666666667,0,0,500,Chironomidae
-Flinders-HCHB,2020,Sep,MM,B19,P,rep5,Frozen,Hydrobiidae,3,NA,0.0227,0.0146,NA,0.643171806,0,0,500,Hydrobiidae
+Flinders-HCHB,2020,Sep,MM,B19,P,rep5,Frozen,Hydrobiidae,3,NA,0.0227,0.0146,NA,0.643171806,0,0,500,Truncatelloidea
 Flinders-HCHB,2020,Sep,MM,B19,P,rep5,Frozen,Nephtys,2,NA,0.0879,0.0057,NA,0.064846416,0,0,500,Nephtys
 Flinders-HCHB,2020,Sep,MM,PP,I,rep3,Frozen,Amphipoda,38,NA,0.0181,0.0029,NA,0.160220994,0,0,500,Amphipoda
 Flinders-HCHB,2020,Sep,MM,PP,I,rep3,Frozen,Arthritica,39,NA,0.0589,0.0343,NA,0.582342954,0,0,500,Arthritica
 Flinders-HCHB,2020,Sep,MM,PP,I,rep3,Frozen,Capitella,24,NA,0.0076,9e-4,NA,0.118421053,0,0,500,Capitella
 Flinders-HCHB,2020,Sep,MM,PP,I,rep3,Frozen,Boccardiella,4,NA,NA,NA,NA,NA,NA,NA,500,Boccardiella
 Flinders-HCHB,2020,Sep,MM,PP,I,rep3,Frozen,Chironomidae,10,NA,0.0052,0.0012,NA,0.230769231,0,0,500,Chironomidae
-Flinders-HCHB,2020,Sep,MM,PP,I,rep3,Frozen,Hydrobiidae,3,NA,0.0181,0.0108,NA,0.596685083,0,0,500,Hydrobiidae
+Flinders-HCHB,2020,Sep,MM,PP,I,rep3,Frozen,Hydrobiidae,3,NA,0.0181,0.0108,NA,0.596685083,0,0,500,Truncatelloidea
 Flinders-HCHB,2020,Sep,MM,PP,I,rep3,Frozen,Mysidacea,3,NA,NA,NA,NA,NA,NA,NA,500,Mysidacea
 Flinders-HCHB,2020,Sep,MM,PP,I,rep3,Frozen,Salinator,3,NA,NA,NA,NA,NA,NA,NA,500,Salinator
 Flinders-HCHB,2020,Sep,MM,PP,I,rep3,Frozen,Simplisetia,94,NA,NA,NA,NA,NA,NA,NA,500,Simplisetia
@@ -1196,7 +1196,7 @@ Flinders-HCHB,2020,Sep,MM,PP,I,rep5,Frozen,Arthritica,36,NA,0.0541,0.0271,NA,0.5
 Flinders-HCHB,2020,Sep,MM,PP,I,rep5,Frozen,Capitella,24,NA,0.0237,0.0026,NA,0.109704641,0,0,500,Capitella
 Flinders-HCHB,2020,Sep,MM,PP,I,rep5,Frozen,Boccardiella,2,NA,NA,NA,NA,NA,NA,NA,500,Boccardiella
 Flinders-HCHB,2020,Sep,MM,PP,I,rep5,Frozen,Chironomidae,34,NA,0.0206,0.0056,NA,0.27184466,0,0,500,Chironomidae
-Flinders-HCHB,2020,Sep,MM,PP,I,rep5,Frozen,Hydrobiidae,35,NA,0.0333,0.0147,NA,0.441441441,0,0,500,Hydrobiidae
+Flinders-HCHB,2020,Sep,MM,PP,I,rep5,Frozen,Hydrobiidae,35,NA,0.0333,0.0147,NA,0.441441441,0,0,500,Truncatelloidea
 Flinders-HCHB,2020,Sep,MM,PP,I,rep5,Frozen,Mysidacea,1,NA,0.0184,0.003,NA,0.163043478,0,0,500,Mysidacea
 Flinders-HCHB,2020,Sep,MM,PP,I,rep5,Frozen,Salinator,3,NA,0.0481,0.0199,NA,0.413721414,0,0,500,Salinator
 Flinders-HCHB,2020,Sep,MM,PP,I,rep5,Frozen,Simplisetia,140,NA,0.492,0.0399,NA,0.081097561,0,0,500,Simplisetia
@@ -1204,7 +1204,7 @@ Flinders-HCHB,2020,Sep,MM,PP,P,rep3,Frozen,Amphipoda,191,NA,0.0563,0.0091,NA,0.1
 Flinders-HCHB,2020,Sep,MM,PP,P,rep3,Frozen,Arthritica,7,NA,0.0116,0.0064,NA,0.551724138,0,0,500,Arthritica
 Flinders-HCHB,2020,Sep,MM,PP,P,rep3,Frozen,Capitella,21,NA,0.0071,5e-4,NA,0.070422535,0,0,500,Capitella
 Flinders-HCHB,2020,Sep,MM,PP,P,rep3,Frozen,Chironomidae,4,NA,0.0029,9e-4,NA,0.310344828,0,0,500,Chironomidae
-Flinders-HCHB,2020,Sep,MM,PP,P,rep3,Frozen,Hydrobiidae,3,NA,0.0017,9e-4,NA,0.529411765,0,0,500,Hydrobiidae
+Flinders-HCHB,2020,Sep,MM,PP,P,rep3,Frozen,Hydrobiidae,3,NA,0.0017,9e-4,NA,0.529411765,0,0,500,Truncatelloidea
 Flinders-HCHB,2020,Sep,MM,PP,P,rep3,Frozen,Mysidacea,1,NA,0.0068,0.0014,NA,0.205882353,0,0,500,Mysidacea
 Flinders-HCHB,2020,Sep,MM,PP,P,rep3,Frozen,Nephtys,2,NA,NA,NA,NA,NA,NA,NA,500,Nephtys
 Flinders-HCHB,2020,Sep,MM,PP,P,rep3,Frozen,Simplisetia,19,NA,NA,NA,NA,NA,NA,NA,500,Simplisetia
@@ -1215,7 +1215,7 @@ Flinders-HCHB,2020,Sep,MM,PP,P,rep4,Frozen,Amphipoda,131,NA,0.0503,0.0082,NA,0.1
 Flinders-HCHB,2020,Sep,MM,PP,P,rep4,Frozen,Arthritica,8,NA,0.0065,0.0038,NA,0.584615385,0,0,500,Arthritica
 Flinders-HCHB,2020,Sep,MM,PP,P,rep4,Frozen,Capitella,15,NA,0.0015,4e-4,NA,0.266666667,0,0,500,Capitella
 Flinders-HCHB,2020,Sep,MM,PP,P,rep4,Frozen,Chironomidae,7,NA,0.0045,0.0013,NA,0.288888889,0,0,500,Chironomidae
-Flinders-HCHB,2020,Sep,MM,PP,P,rep4,Frozen,Hydrobiidae,7,NA,0.0073,0.0032,NA,0.438356164,0,0,500,Hydrobiidae
+Flinders-HCHB,2020,Sep,MM,PP,P,rep4,Frozen,Hydrobiidae,7,NA,0.0073,0.0032,NA,0.438356164,0,0,500,Truncatelloidea
 Flinders-HCHB,2020,Sep,MM,PP,P,rep4,Frozen,Mysidacea,3,NA,0.0585,0.0085,NA,0.145299145,0,0,500,Mysidacea
 Flinders-HCHB,2020,Sep,MM,PP,P,rep4,Frozen,Nephtys,1,NA,0.1893,0.0148,NA,0.078182779,0,0,500,Nephtys
 Flinders-HCHB,2020,Sep,MM,PP,P,rep4,Frozen,Oligochaeta,3,NA,1e-4,0,NA,0,NA,0,500,Oligochaeta
@@ -1224,7 +1224,7 @@ Flinders-HCHB,2020,Sep,MM,PP,P,rep4,Frozen,Simplisetia,7,NA,0.0269,0.0024,NA,0.0
 Flinders-HCHB,2020,Sep,MM,PP,S,rep3,Frozen,Amphipoda,59,NA,0.0387,0.0033,NA,0.085271318,0,0,500,Amphipoda
 Flinders-HCHB,2020,Sep,MM,PP,S,rep3,Frozen,Arthritica,18,NA,0.0555,0.019,NA,0.342342342,0,0,500,Arthritica
 Flinders-HCHB,2020,Sep,MM,PP,S,rep3,Frozen,Capitella,3,NA,0.0016,0,NA,0,NA,0,500,Capitella
-Flinders-HCHB,2020,Sep,MM,PP,S,rep3,Frozen,Hydrobiidae,45,NA,0.2994,0.1486,NA,0.496325985,0,0,500,Hydrobiidae
+Flinders-HCHB,2020,Sep,MM,PP,S,rep3,Frozen,Hydrobiidae,45,NA,0.2994,0.1486,NA,0.496325985,0,0,500,Truncatelloidea
 Flinders-HCHB,2020,Sep,MM,PP,S,rep3,Frozen,Nephtys,2,NA,0.1453,0.0106,NA,0.072952512,0,0,500,Nephtys
 Flinders-HCHB,2020,Sep,MM,PP,S,rep3,Frozen,Salinator,2,NA,NA,NA,NA,NA,NA,NA,500,Salinator
 Flinders-HCHB,2020,Sep,MM,PP,S,rep3,Frozen,Simplisetia,1,NA,0.0075,0,NA,0,NA,0,500,Simplisetia
@@ -1232,7 +1232,7 @@ Flinders-HCHB,2020,Sep,MM,PP,S,rep4,Frozen,Amphipoda,74,NA,0.0113,0.0026,NA,0.23
 Flinders-HCHB,2020,Sep,MM,PP,S,rep4,Frozen,Arthritica,33,NA,0.0457,0.0218,NA,0.47702407,0,0,500,Arthritica
 Flinders-HCHB,2020,Sep,MM,PP,S,rep4,Frozen,Capitella,4,NA,0.0011,6e-4,NA,0.545454545,0,0,500,Capitella
 Flinders-HCHB,2020,Sep,MM,PP,S,rep4,Frozen,Chironomidae,1,NA,5e-4,4e-4,NA,0.8,0,0,500,Chironomidae
-Flinders-HCHB,2020,Sep,MM,PP,S,rep4,Frozen,Hydrobiidae,122,NA,0.6081,0.3821,NA,0.6283506,0,0,500,Hydrobiidae
+Flinders-HCHB,2020,Sep,MM,PP,S,rep4,Frozen,Hydrobiidae,122,NA,0.6081,0.3821,NA,0.6283506,0,0,500,Truncatelloidea
 Flinders-HCHB,2020,Sep,MM,PP,S,rep4,Frozen,Mysidacea,1,NA,0.0035,5e-4,NA,0.142857143,0,0,500,Mysidacea
 Flinders-HCHB,2020,Sep,MM,PP,S,rep4,Frozen,Nephtys,1,NA,0.0892,0.0075,NA,0.084080717,0,0,500,Nephtys
 Flinders-HCHB,2020,Sep,MM,PP,S,rep4,Frozen,Simplisetia,8,NA,0.0467,0.0035,NA,0.074946467,0,0,500,Simplisetia
@@ -1240,7 +1240,7 @@ Flinders-HCHB,2020,Sep,MM,PP,I,rep4,Frozen,Amphipoda,124,NA,NA,NA,NA,NA,NA,NA,50
 Flinders-HCHB,2020,Sep,MM,PP,I,rep4,Frozen,Arthritica,31,NA,NA,NA,NA,NA,NA,NA,500,Arthritica
 Flinders-HCHB,2020,Sep,MM,PP,I,rep4,Frozen,Capitella,25,NA,NA,NA,NA,NA,NA,NA,500,Capitella
 Flinders-HCHB,2020,Sep,MM,PP,I,rep4,Frozen,Chironomidae,74,NA,NA,NA,NA,NA,NA,NA,500,Chironomidae
-Flinders-HCHB,2020,Sep,MM,PP,I,rep4,Frozen,Hydrobiidae,12,NA,NA,NA,NA,NA,NA,NA,500,Hydrobiidae
+Flinders-HCHB,2020,Sep,MM,PP,I,rep4,Frozen,Hydrobiidae,12,NA,NA,NA,NA,NA,NA,NA,500,Truncatelloidea
 Flinders-HCHB,2020,Sep,MM,PP,I,rep4,Frozen,Simplisetia,70,NA,NA,NA,NA,NA,NA,NA,500,Simplisetia
 Flinders-HCHB,2020,Sep,MM,PP,I,rep4,Frozen,Oligochaeta,1,NA,NA,NA,NA,NA,NA,NA,500,Oligochaeta
 Flinders-HCHB,2020,Sep,MM,PP,I,rep4,Frozen,Salinator,3,NA,NA,NA,NA,NA,NA,NA,500,Salinator
@@ -1248,7 +1248,7 @@ Flinders-HCHB,2020,Sep,MM,PP,S,rep5,Frozen,Amphipoda,138,NA,0.0113,0.0026,NA,0.2
 Flinders-HCHB,2020,Sep,MM,PP,S,rep5,Frozen,Arthritica,63,NA,0.0457,0.0218,NA,0.47702407,0,0,500,Arthritica
 Flinders-HCHB,2020,Sep,MM,PP,S,rep5,Frozen,Capitella,10,NA,0.0011,6e-4,NA,0.545454545,0,0,500,Capitella
 Flinders-HCHB,2020,Sep,MM,PP,S,rep5,Frozen,Chironomidae,2,NA,5e-4,4e-4,NA,0.8,0,0,500,Chironomidae
-Flinders-HCHB,2020,Sep,MM,PP,S,rep5,Frozen,Hydrobiidae,90,NA,0.6081,0.3821,NA,0.6283506,0,0,500,Hydrobiidae
+Flinders-HCHB,2020,Sep,MM,PP,S,rep5,Frozen,Hydrobiidae,90,NA,0.6081,0.3821,NA,0.6283506,0,0,500,Truncatelloidea
 Flinders-HCHB,2020,Sep,MM,PP,S,rep5,Frozen,Simplisetia,6,NA,0.0467,0.0035,NA,0.074946467,0,0,500,Simplisetia
 Flinders-HCHB,2020,Sep,MM,PP,S,rep5,Frozen,Salinator,2,NA,NA,NA,NA,NA,NA,NA,500,Salinator
 Flinders-HCHB,2020,Sep,MM,PP,S,rep5,Frozen,Nephtys,3,NA,0.0892,0.0075,NA,0.084080717,0,0,500,Nephtys
@@ -1257,7 +1257,7 @@ Flinders-HCHB,2020,Sep,MM,PP,P,rep5,Frozen,Amphipoda,203,NA,NA,NA,NA,NA,NA,NA,50
 Flinders-HCHB,2020,Sep,MM,PP,P,rep5,Frozen,Arthritica,7,NA,NA,NA,NA,NA,NA,NA,500,Arthritica
 Flinders-HCHB,2020,Sep,MM,PP,P,rep5,Frozen,Capitella,13,NA,NA,NA,NA,NA,NA,NA,500,Capitella
 Flinders-HCHB,2020,Sep,MM,PP,P,rep5,Frozen,Chironomidae,7,NA,NA,NA,NA,NA,NA,NA,500,Chironomidae
-Flinders-HCHB,2020,Sep,MM,PP,P,rep5,Frozen,Hydrobiidae,4,NA,NA,NA,NA,NA,NA,NA,500,Hydrobiidae
+Flinders-HCHB,2020,Sep,MM,PP,P,rep5,Frozen,Hydrobiidae,4,NA,NA,NA,NA,NA,NA,NA,500,Truncatelloidea
 Flinders-HCHB,2020,Sep,MM,PP,P,rep5,Frozen,Simplisetia,7,NA,NA,NA,NA,NA,NA,NA,500,Simplisetia
 Flinders-HCHB,2020,Sep,MM,PP,P,rep5,Frozen,Boccardiella,14,NA,NA,NA,NA,NA,NA,NA,500,Boccardiella
 Flinders-HCHB,2020,Sep,MM,PP,P,rep5,Frozen,Mysidacea,3,NA,NA,NA,NA,NA,NA,NA,500,Mysidacea
@@ -1268,18 +1268,18 @@ Flinders-HCHB,2020,Sep,NL,LP,I,rep3,Frozen,Simplisetia,44,NA,0.0757,0.0069,NA,0.
 Flinders-HCHB,2020,Sep,NL,LP,I,rep4,Frozen,Arthritica,1,NA,5e-4,1e-4,NA,0.2,0,0,500,Arthritica
 Flinders-HCHB,2020,Sep,NL,LP,I,rep4,Frozen,Capitella,23,NA,0.0193,0.003,NA,0.155440415,0,0,500,Capitella
 Flinders-HCHB,2020,Sep,NL,LP,I,rep4,Frozen,Chironomidae,11,NA,0.0053,0.0014,NA,0.264150943,0,0,500,Chironomidae
-Flinders-HCHB,2020,Sep,NL,LP,I,rep4,Frozen,Hydrobiidae,2,NA,0.0034,0.0017,NA,0.5,0,0,500,Hydrobiidae
+Flinders-HCHB,2020,Sep,NL,LP,I,rep4,Frozen,Hydrobiidae,2,NA,0.0034,0.0017,NA,0.5,0,0,500,Truncatelloidea
 Flinders-HCHB,2020,Sep,NL,LP,I,rep4,Frozen,Simplisetia,56,NA,0.191,0.0159,NA,0.083246073,0,0,500,Simplisetia
 Flinders-HCHB,2020,Sep,NL,LP,P,rep4,Frozen,Amphipoda,129,NA,0.0476,0.0078,NA,0.163865546,0,0,500,Amphipoda
 Flinders-HCHB,2020,Sep,NL,LP,P,rep4,Frozen,Arthritica,145,NA,0.2041,0.1117,NA,0.547280745,0,0,500,Arthritica
 Flinders-HCHB,2020,Sep,NL,LP,P,rep4,Frozen,Capitella,14,NA,0.0012,2e-4,NA,0.166666667,0,0,500,Capitella
-Flinders-HCHB,2020,Sep,NL,LP,P,rep4,Frozen,Hydrobiidae,5,NA,0.0025,0.0016,NA,0.64,0,0,500,Hydrobiidae
+Flinders-HCHB,2020,Sep,NL,LP,P,rep4,Frozen,Hydrobiidae,5,NA,0.0025,0.0016,NA,0.64,0,0,500,Truncatelloidea
 Flinders-HCHB,2020,Sep,NL,LP,P,rep4,Frozen,Mysidacea,15,NA,0.0739,0.0129,NA,0.174560217,0,0,500,Mysidacea
 Flinders-HCHB,2020,Sep,NL,LP,P,rep4,Frozen,Simplisetia,61,NA,0.2392,0.0194,NA,0.081103679,0,0,500,Simplisetia
 Flinders-HCHB,2020,Sep,NL,LP,P,rep5,Frozen,Amphipoda,84,NA,0.0228,0.0052,NA,0.22807017500000001,0,0,500,Amphipoda
 Flinders-HCHB,2020,Sep,NL,LP,P,rep5,Frozen,Arthritica,49,NA,0.0939,0.0493,NA,0.525026624,0,0,500,Arthritica
 Flinders-HCHB,2020,Sep,NL,LP,P,rep5,Frozen,Capitella,26,NA,0.0049,6e-4,NA,0.12244898,0,0,500,Capitella
-Flinders-HCHB,2020,Sep,NL,LP,P,rep5,Frozen,Hydrobiidae,2,NA,0.0027,0.0015,NA,0.555555556,0,0,500,Hydrobiidae
+Flinders-HCHB,2020,Sep,NL,LP,P,rep5,Frozen,Hydrobiidae,2,NA,0.0027,0.0015,NA,0.555555556,0,0,500,Truncatelloidea
 Flinders-HCHB,2020,Sep,NL,LP,P,rep5,Frozen,Mysidacea,25,NA,0.1661,0.029,NA,0.174593618,0,0,500,Mysidacea
 Flinders-HCHB,2020,Sep,NL,LP,P,rep5,Frozen,Simplisetia,65,NA,0.5014,0.06,NA,0.119664938,0,0,500,Simplisetia
 Flinders-HCHB,2020,Sep,NL,LP,S,rep4,Frozen,Amphipoda,70,NA,0.0333,0.0045,NA,0.135135135,0,0,500,Amphipoda
@@ -1301,13 +1301,13 @@ Flinders-HCHB,2020,Sep,NL,LP,S,rep3,Frozen,Arthritica,119,NA,NA,NA,NA,NA,NA,NA,5
 Flinders-HCHB,2020,Sep,NL,LP,S,rep3,Frozen,Capitella,6,NA,NA,NA,NA,NA,NA,NA,500,Capitella
 Flinders-HCHB,2020,Sep,NL,LP,S,rep3,Frozen,Mysidacea,7,NA,NA,NA,NA,NA,NA,NA,500,Mysidacea
 Flinders-HCHB,2020,Sep,NL,LP,S,rep3,Frozen,Simplisetia,85,NA,NA,NA,NA,NA,NA,NA,500,Simplisetia
-Flinders-HCHB,2020,Sep,NL,LP,S,rep3,Frozen,Hydrobiidae,3,NA,NA,NA,NA,NA,NA,NA,500,Hydrobiidae
+Flinders-HCHB,2020,Sep,NL,LP,S,rep3,Frozen,Hydrobiidae,3,NA,NA,NA,NA,NA,NA,NA,500,Truncatelloidea
 Flinders-HCHB,2020,Sep,NL,LP,P,rep3,Frozen,Amphipoda,150,NA,NA,NA,NA,NA,NA,NA,500,Amphipoda
 Flinders-HCHB,2020,Sep,NL,LP,P,rep3,Frozen,Arthritica,205,NA,NA,NA,NA,NA,NA,NA,500,Arthritica
 Flinders-HCHB,2020,Sep,NL,LP,P,rep3,Frozen,Capitella,16,NA,NA,NA,NA,NA,NA,NA,500,Capitella
 Flinders-HCHB,2020,Sep,NL,LP,P,rep3,Frozen,Simplisetia,51,NA,NA,NA,NA,NA,NA,NA,500,Simplisetia
 Flinders-HCHB,2020,Sep,NL,LP,P,rep3,Frozen,Mysidacea,13,NA,NA,NA,NA,NA,NA,NA,500,Mysidacea
-Flinders-HCHB,2020,Sep,NL,LP,P,rep3,Frozen,Hydrobiidae,4,NA,NA,NA,NA,NA,NA,NA,500,Hydrobiidae
+Flinders-HCHB,2020,Sep,NL,LP,P,rep3,Frozen,Hydrobiidae,4,NA,NA,NA,NA,NA,NA,NA,500,Truncatelloidea
 Flinders-HCHB,2020,Sep,NL,NM,I,rep4,Frozen,Arthritica,1,NA,8e-4,7e-4,NA,0.875,0,0,500,Arthritica
 Flinders-HCHB,2020,Sep,NL,NM,I,rep4,Frozen,Capitella,5,NA,0.0012,0,NA,0,NA,0,500,Capitella
 Flinders-HCHB,2020,Sep,NL,NM,I,rep4,Frozen,Chironomidae,3,NA,0.0031,6e-4,NA,0.193548387,0,0,500,Chironomidae
@@ -1360,64 +1360,64 @@ Flinders-HCHB,2020,Dec,MM,B19,I,rep3,Frozen,Amphipoda,29,NA,0.0053,5e-4,NA,0.094
 Flinders-HCHB,2020,Dec,MM,B19,I,rep3,Frozen,Arthritica,8,NA,0.0067,0.0017,NA,0.253731343,0,0,500,Arthritica
 Flinders-HCHB,2020,Dec,MM,B19,I,rep3,Frozen,Simplisetia,77,NA,0.386,0.0217,NA,0.056217617,0,0,500,Simplisetia
 Flinders-HCHB,2020,Dec,MM,B19,I,rep3,Frozen,Chironomidae,68,NA,0.0316,0.009,NA,0.284810127,0,0,500,Chironomidae
-Flinders-HCHB,2020,Dec,MM,B19,I,rep3,Frozen,Hydrobiidae,4,NA,0.0325,0.0195,NA,0.6,0,0,500,Hydrobiidae
+Flinders-HCHB,2020,Dec,MM,B19,I,rep3,Frozen,Hydrobiidae,4,NA,0.0325,0.0195,NA,0.6,0,0,500,Truncatelloidea
 Flinders-HCHB,2020,Dec,MM,B19,I,rep3,Frozen,Boccardiella,13,NA,0.0131,0.0013,NA,0.099236641,0,0,500,Boccardiella
 Flinders-HCHB,2020,Dec,MM,B19,I,rep4,Frozen,Amphipoda,94,NA,0.0224,6e-4,NA,0.026785714,0,0,500,Amphipoda
 Flinders-HCHB,2020,Dec,MM,B19,I,rep4,Frozen,Arthritica,34,NA,0.0483,0.0214,NA,0.443064182,0,0,500,Arthritica
 Flinders-HCHB,2020,Dec,MM,B19,I,rep4,Frozen,Capitella,1,NA,0.0012,0,NA,0,NA,0,500,Capitella
 Flinders-HCHB,2020,Dec,MM,B19,I,rep4,Frozen,Simplisetia,72,NA,0.6458,0.0394,NA,0.0610096,0,0,500,Simplisetia
 Flinders-HCHB,2020,Dec,MM,B19,I,rep4,Frozen,Chironomidae,48,NA,0.0247,0.0058,NA,0.234817814,0,0,500,Chironomidae
-Flinders-HCHB,2020,Dec,MM,B19,I,rep4,Frozen,Hydrobiidae,8,NA,0.079,0.0463,NA,0.586075949,0,0,500,Hydrobiidae
+Flinders-HCHB,2020,Dec,MM,B19,I,rep4,Frozen,Hydrobiidae,8,NA,0.079,0.0463,NA,0.586075949,0,0,500,Truncatelloidea
 Flinders-HCHB,2020,Dec,MM,B19,I,rep4,Frozen,Boccardiella,14,NA,0.0165,0.0022,NA,0.133333333,0,0,500,Boccardiella
 Flinders-HCHB,2020,Dec,MM,B19,S,rep3,Frozen,Amphipoda,1,NA,5e-4,4e-4,NA,0.8,0,0,500,Amphipoda
 Flinders-HCHB,2020,Dec,MM,B19,S,rep3,Frozen,Chironomidae,6,NA,0.0028,0,NA,0,NA,0,500,Chironomidae
-Flinders-HCHB,2020,Dec,MM,B19,S,rep3,Frozen,Hydrobiidae,90,NA,0.907,0.4296,NA,0.473649394,0,0,500,Hydrobiidae
+Flinders-HCHB,2020,Dec,MM,B19,S,rep3,Frozen,Hydrobiidae,90,NA,0.907,0.4296,NA,0.473649394,0,0,500,Truncatelloidea
 Flinders-HCHB,2020,Dec,MM,B19,S,rep3,Frozen,Salinator,22,NA,0.0023,0.0024,NA,1.043478261,0,0,500,Salinator
 Flinders-HCHB,2020,Dec,MM,B19,S,rep3,Frozen,Amarinus laevis,3,NA,1.9388,0.6026,NA,0.310810811,0,0,500,Amarinus laevis
 Flinders-HCHB,2020,Dec,MM,B19,P,rep3,Frozen,Amphipoda,12,NA,0.0015,1e-4,NA,0.066666667,0,0,500,Amphipoda
 Flinders-HCHB,2020,Dec,MM,B19,P,rep3,Frozen,Arthritica,1,NA,0.0043,6e-4,NA,0.139534884,0,0,500,Arthritica
 Flinders-HCHB,2020,Dec,MM,B19,P,rep3,Frozen,Simplisetia,80,NA,0.9192,0.0933,NA,0.101501305,0,0,500,Simplisetia
 Flinders-HCHB,2020,Dec,MM,B19,P,rep3,Frozen,Chironomidae,262,NA,0.0987,0.0187,NA,0.189463019,0,0,500,Chironomidae
-Flinders-HCHB,2020,Dec,MM,B19,P,rep3,Frozen,Hydrobiidae,144,NA,0.2888,0.1536,NA,0.531855956,0,0,500,Hydrobiidae
+Flinders-HCHB,2020,Dec,MM,B19,P,rep3,Frozen,Hydrobiidae,144,NA,0.2888,0.1536,NA,0.531855956,0,0,500,Truncatelloidea
 Flinders-HCHB,2020,Dec,MM,B19,P,rep3,Frozen,Nephtys,1,NA,0.1297,0.0112,NA,0.086353123,0,0,500,Nephtys
 Flinders-HCHB,2020,Dec,MM,B19,P,rep4,Frozen,Amphipoda,45,NA,0.0098,8e-4,NA,0.081632653,0,0,500,Amphipoda
 Flinders-HCHB,2020,Dec,MM,B19,P,rep4,Frozen,Arthritica,30,NA,0.0501,0.0252,NA,0.502994012,0,0,500,Arthritica
 Flinders-HCHB,2020,Dec,MM,B19,P,rep4,Frozen,Capitella,1,NA,8e-4,0,NA,0,NA,0,500,Capitella
 Flinders-HCHB,2020,Dec,MM,B19,P,rep4,Frozen,Simplisetia,83,NA,0.9995,0.0672,NA,0.067233617,0,0,500,Simplisetia
 Flinders-HCHB,2020,Dec,MM,B19,P,rep4,Frozen,Chironomidae,320,NA,0.0773,0.0167,NA,0.216041397,0,0,500,Chironomidae
-Flinders-HCHB,2020,Dec,MM,B19,P,rep4,Frozen,Hydrobiidae,86,NA,0.3571,0.2034,NA,0.569588351,0,0,500,Hydrobiidae
+Flinders-HCHB,2020,Dec,MM,B19,P,rep4,Frozen,Hydrobiidae,86,NA,0.3571,0.2034,NA,0.569588351,0,0,500,Truncatelloidea
 Flinders-HCHB,2020,Dec,MM,B19,P,rep4,Frozen,Salinator,3,NA,0.3965,0.1446,NA,0.364691047,0,0,500,Salinator
 Flinders-HCHB,2020,Dec,MM,PP,I,rep3,Frozen,Amphipoda,35,NA,0.0082,0,NA,0,NA,0,500,Amphipoda
 Flinders-HCHB,2020,Dec,MM,PP,I,rep3,Frozen,Arthritica,12,NA,0.0118,0.0075,NA,0.63559322,0,0,500,Arthritica
 Flinders-HCHB,2020,Dec,MM,PP,I,rep3,Frozen,Simplisetia,68,NA,1.2462,0.0792,NA,0.063553202,0,0,500,Simplisetia
 Flinders-HCHB,2020,Dec,MM,PP,I,rep3,Frozen,Chironomidae,53,NA,0.0093,0.0025,NA,0.268817204,0,0,500,Chironomidae
-Flinders-HCHB,2020,Dec,MM,PP,I,rep3,Frozen,Hydrobiidae,34,NA,0.044,0.0209,NA,0.475,0,0,500,Hydrobiidae
+Flinders-HCHB,2020,Dec,MM,PP,I,rep3,Frozen,Hydrobiidae,34,NA,0.044,0.0209,NA,0.475,0,0,500,Truncatelloidea
 Flinders-HCHB,2020,Dec,MM,PP,I,rep3,Frozen,Salinator,7,NA,0.0072,0,NA,0,NA,0,500,Salinator
 Flinders-HCHB,2020,Dec,MM,PP,I,rep4,Frozen,Amphipoda,27,NA,0.009,0.0018,NA,0.2,0,0,500,Amphipoda
 Flinders-HCHB,2020,Dec,MM,PP,I,rep4,Frozen,Arthritica,11,NA,0.0107,0.0056,NA,0.523364486,0,0,500,Arthritica
 Flinders-HCHB,2020,Dec,MM,PP,I,rep4,Frozen,Simplisetia,56,NA,0.9706,0.0584,NA,0.060168968,0,0,500,Simplisetia
 Flinders-HCHB,2020,Dec,MM,PP,I,rep4,Frozen,Chironomidae,38,NA,0.0117,0.0035,NA,0.299145299,0,0,500,Chironomidae
-Flinders-HCHB,2020,Dec,MM,PP,I,rep4,Frozen,Hydrobiidae,50,NA,0.066,0.0299,NA,0.453030303,0,0,500,Hydrobiidae
+Flinders-HCHB,2020,Dec,MM,PP,I,rep4,Frozen,Hydrobiidae,50,NA,0.066,0.0299,NA,0.453030303,0,0,500,Truncatelloidea
 Flinders-HCHB,2020,Dec,MM,PP,I,rep4,Frozen,Salinator,8,NA,0.0012,5e-4,NA,0.416666667,0,0,500,Salinator
 Flinders-HCHB,2020,Dec,MM,PP,S,rep3,Frozen,Amphipoda,34,NA,0.0111,0.0017,NA,0.153153153,0,0,500,Amphipoda
 Flinders-HCHB,2020,Dec,MM,PP,S,rep3,Frozen,Arthritica,19,NA,0.0226,0.0103,NA,0.455752212,0,0,500,Arthritica
 Flinders-HCHB,2020,Dec,MM,PP,S,rep3,Frozen,Capitella,15,NA,0.0205,8e-4,NA,0.03902439,0,0,500,Capitella
 Flinders-HCHB,2020,Dec,MM,PP,S,rep3,Frozen,Simplisetia,6,NA,0.1282,0.0095,NA,0.074102964,0,0,500,Simplisetia
-Flinders-HCHB,2020,Dec,MM,PP,S,rep3,Frozen,Hydrobiidae,23,NA,0.2075,0.1248,NA,0.601445783,0,0,500,Hydrobiidae
+Flinders-HCHB,2020,Dec,MM,PP,S,rep3,Frozen,Hydrobiidae,23,NA,0.2075,0.1248,NA,0.601445783,0,0,500,Truncatelloidea
 Flinders-HCHB,2020,Dec,MM,PP,S,rep3,Frozen,Nephtys,2,NA,0.1618,0.0097,NA,0.059950556,0,0,500,Nephtys
 Flinders-HCHB,2020,Dec,MM,PP,S,rep3,Frozen,Mysidacea,2,NA,0.0145,0,NA,0,NA,0,500,Mysidacea
 Flinders-HCHB,2020,Dec,MM,PP,S,rep4,Frozen,Amphipoda,29,NA,0.0066,0,NA,0,NA,0,500,Amphipoda
 Flinders-HCHB,2020,Dec,MM,PP,S,rep4,Frozen,Arthritica,34,NA,0.051,0.0227,NA,0.445098039,0,0,500,Arthritica
 Flinders-HCHB,2020,Dec,MM,PP,S,rep4,Frozen,Capitella,25,NA,0.0155,2e-4,NA,0.012903226,0,0,500,Capitella
 Flinders-HCHB,2020,Dec,MM,PP,S,rep4,Frozen,Simplisetia,2,NA,0.1053,0.0063,NA,0.05982906,0,0,500,Simplisetia
-Flinders-HCHB,2020,Dec,MM,PP,S,rep4,Frozen,Hydrobiidae,16,NA,0.1654,0.1086,NA,0.656590085,0,0,500,Hydrobiidae
+Flinders-HCHB,2020,Dec,MM,PP,S,rep4,Frozen,Hydrobiidae,16,NA,0.1654,0.1086,NA,0.656590085,0,0,500,Truncatelloidea
 Flinders-HCHB,2020,Dec,MM,PP,S,rep4,Frozen,Nephtys,3,NA,0.2677,0.0221,NA,0.082555099,0,0,500,Nephtys
 Flinders-HCHB,2020,Dec,MM,PP,S,rep4,Frozen,Arenicolidae,1,NA,0.3709,0.0427,NA,0.115125371,0,0,500,Arenicolidae
 Flinders-HCHB,2020,Dec,MM,PP,P,rep3,Frozen,Amphipoda,123,NA,0.0472,0.0056,NA,0.118644068,0,0,500,Amphipoda
 Flinders-HCHB,2020,Dec,MM,PP,P,rep3,Frozen,Arthritica,65,NA,0.1053,0.0478,NA,0.453941121,0,0,500,Arthritica
 Flinders-HCHB,2020,Dec,MM,PP,P,rep3,Frozen,Capitella,11,NA,0.0074,8e-4,NA,0.108108108,0,0,500,Capitella
 Flinders-HCHB,2020,Dec,MM,PP,P,rep3,Frozen,Chironomidae,37,NA,0.0148,0.0033,NA,0.222972973,0,0,500,Chironomidae
-Flinders-HCHB,2020,Dec,MM,PP,P,rep3,Frozen,Hydrobiidae,231,NA,1.1439,0.7069,NA,0.617973599,0,0,500,Hydrobiidae
+Flinders-HCHB,2020,Dec,MM,PP,P,rep3,Frozen,Hydrobiidae,231,NA,1.1439,0.7069,NA,0.617973599,0,0,500,Truncatelloidea
 Flinders-HCHB,2020,Dec,MM,PP,P,rep3,Frozen,Salinator,9,NA,0.7639,0.2498,NA,0.327006153,0,0,500,Salinator
 Flinders-HCHB,2020,Dec,MM,PP,P,rep3,Frozen,Nephtys,1,NA,0.0296,0,NA,0,NA,0,500,Nephtys
 Flinders-HCHB,2020,Dec,MM,PP,P,rep3,Frozen,Mysidacea,3,NA,0.0533,0.0088,NA,0.165103189,0,0,500,Mysidacea
@@ -1425,7 +1425,7 @@ Flinders-HCHB,2020,Dec,MM,PP,P,rep4,Frozen,Amphipoda,200,NA,0.0656,0.0078,NA,0.1
 Flinders-HCHB,2020,Dec,MM,PP,P,rep4,Frozen,Arthritica,102,NA,0.1213,0.0581,NA,0.478977741,0,0,500,Arthritica
 Flinders-HCHB,2020,Dec,MM,PP,P,rep4,Frozen,Simplisetia,2,NA,0.0344,0.0015,NA,0.043604651,0,0,500,Simplisetia
 Flinders-HCHB,2020,Dec,MM,PP,P,rep4,Frozen,Chironomidae,11,NA,0.0025,3e-4,NA,0.12,0,0,500,Chironomidae
-Flinders-HCHB,2020,Dec,MM,PP,P,rep4,Frozen,Hydrobiidae,94,NA,0.8326,0.5277,NA,0.633797742,0,0,500,Hydrobiidae
+Flinders-HCHB,2020,Dec,MM,PP,P,rep4,Frozen,Hydrobiidae,94,NA,0.8326,0.5277,NA,0.633797742,0,0,500,Truncatelloidea
 Flinders-HCHB,2020,Dec,MM,PP,P,rep4,Frozen,Salinator,1,NA,0.0013,3e-4,NA,0.230769231,0,0,500,Salinator
 Flinders-HCHB,2020,Dec,MM,PP,P,rep4,Frozen,Nephtys,12,NA,0.5897,0.0399,NA,0.067661523,0,0,500,Nephtys
 Flinders-HCHB,2020,Dec,MM,PP,P,rep4,Frozen,Spisula,1,0.2866,0.0351,0.0068,NA,0.193732194,0,0,500,Spisula
@@ -1456,7 +1456,7 @@ Flinders-HCHB,2020,Dec,NL,LP,P,rep3,Frozen,Amphipoda,58,NA,0.0219,0.0033,NA,0.15
 Flinders-HCHB,2020,Dec,NL,LP,P,rep3,Frozen,Arthritica,52,NA,0.1176,0.0536,NA,0.455782313,0,0,500,Arthritica
 Flinders-HCHB,2020,Dec,NL,LP,P,rep3,Frozen,Capitella,7,NA,0.0025,5e-4,NA,0.2,0,0,500,Capitella
 Flinders-HCHB,2020,Dec,NL,LP,P,rep3,Frozen,Simplisetia,28,NA,0.145,0.0095,NA,0.065517241,0,0,500,Simplisetia
-Flinders-HCHB,2020,Dec,NL,LP,P,rep3,Frozen,Hydrobiidae,2,NA,0.0018,0.0012,NA,0.666666667,0,0,500,Hydrobiidae
+Flinders-HCHB,2020,Dec,NL,LP,P,rep3,Frozen,Hydrobiidae,2,NA,0.0018,0.0012,NA,0.666666667,0,0,500,Truncatelloidea
 Flinders-HCHB,2020,Dec,NL,LP,P,rep3,Frozen,Mysidacea,4,NA,0.0374,0.0045,NA,0.120320856,0,0,500,Mysidacea
 Flinders-HCHB,2020,Dec,NL,LP,P,rep4,Frozen,Amphipoda,69,NA,0.0205,0.0032,NA,0.156097561,0,0,500,Amphipoda
 Flinders-HCHB,2020,Dec,NL,LP,P,rep4,Frozen,Arthritica,130,NA,0.2643,0.1368,NA,0.517593644,0,0,500,Arthritica
@@ -1496,29 +1496,29 @@ Flinders-HCHB,2020,Dec,MM,B19,I,rep5,Frozen,Amphipoda,103,NA,NA,NA,NA,NA,NA,NA,5
 Flinders-HCHB,2020,Dec,MM,B19,I,rep5,Frozen,Arthritica,43,NA,NA,NA,NA,NA,NA,NA,500,Arthritica
 Flinders-HCHB,2020,Dec,MM,B19,I,rep5,Frozen,Simplisetia,112,NA,NA,NA,NA,NA,NA,NA,500,Simplisetia
 Flinders-HCHB,2020,Dec,MM,B19,I,rep5,Frozen,Chironomidae,72,NA,NA,NA,NA,NA,NA,NA,500,Chironomidae
-Flinders-HCHB,2020,Dec,MM,B19,I,rep5,Frozen,Hydrobiidae,5,NA,NA,NA,NA,NA,NA,NA,500,Hydrobiidae
+Flinders-HCHB,2020,Dec,MM,B19,I,rep5,Frozen,Hydrobiidae,5,NA,NA,NA,NA,NA,NA,NA,500,Truncatelloidea
 Flinders-HCHB,2020,Dec,MM,B19,I,rep5,Frozen,Boccardiella,6,NA,NA,NA,NA,NA,NA,NA,500,Boccardiella
 Flinders-HCHB,2020,Dec,MM,B19,S,rep5,Frozen,Amphipoda,2,NA,NA,NA,NA,NA,NA,NA,500,Amphipoda
 Flinders-HCHB,2020,Dec,MM,B19,S,rep5,Frozen,Arthritica,1,NA,NA,NA,NA,NA,NA,NA,500,Arthritica
 Flinders-HCHB,2020,Dec,MM,B19,S,rep5,Frozen,Simplisetia,2,NA,NA,NA,NA,NA,NA,NA,500,Simplisetia
-Flinders-HCHB,2020,Dec,MM,B19,S,rep5,Frozen,Hydrobiidae,5,NA,NA,NA,NA,NA,NA,NA,500,Hydrobiidae
+Flinders-HCHB,2020,Dec,MM,B19,S,rep5,Frozen,Hydrobiidae,5,NA,NA,NA,NA,NA,NA,NA,500,Truncatelloidea
 Flinders-HCHB,2020,Dec,MM,B19,S,rep5,Frozen,Nephtys,2,NA,NA,NA,NA,NA,NA,NA,500,Nephtys
 Flinders-HCHB,2020,Dec,MM,B19,P,rep5,Frozen,Amphipoda,91,NA,NA,NA,NA,NA,NA,NA,500,Amphipoda
 Flinders-HCHB,2020,Dec,MM,B19,P,rep5,Frozen,Arthritica,42,NA,NA,NA,NA,NA,NA,NA,500,Arthritica
 Flinders-HCHB,2020,Dec,MM,B19,P,rep5,Frozen,Simplisetia,60,NA,NA,NA,NA,NA,NA,NA,500,Simplisetia
 Flinders-HCHB,2020,Dec,MM,B19,P,rep5,Frozen,Chironomidae,126,NA,NA,NA,NA,NA,NA,NA,500,Chironomidae
-Flinders-HCHB,2020,Dec,MM,B19,P,rep5,Frozen,Hydrobiidae,44,NA,NA,NA,NA,NA,NA,NA,500,Hydrobiidae
+Flinders-HCHB,2020,Dec,MM,B19,P,rep5,Frozen,Hydrobiidae,44,NA,NA,NA,NA,NA,NA,NA,500,Truncatelloidea
 Flinders-HCHB,2020,Dec,MM,PP,I,rep5,Frozen,Amphipoda,14,NA,NA,NA,NA,NA,NA,NA,500,Amphipoda
 Flinders-HCHB,2020,Dec,MM,PP,I,rep5,Frozen,Arthritica,7,NA,NA,NA,NA,NA,NA,NA,500,Arthritica
 Flinders-HCHB,2020,Dec,MM,PP,I,rep5,Frozen,Capitella,5,NA,NA,NA,NA,NA,NA,NA,500,Capitella
 Flinders-HCHB,2020,Dec,MM,PP,I,rep5,Frozen,Simplisetia,77,NA,NA,NA,NA,NA,NA,NA,500,Simplisetia
 Flinders-HCHB,2020,Dec,MM,PP,I,rep5,Frozen,Chironomidae,51,NA,NA,NA,NA,NA,NA,NA,500,Chironomidae
-Flinders-HCHB,2020,Dec,MM,PP,I,rep5,Frozen,Hydrobiidae,9,NA,NA,NA,NA,NA,NA,NA,500,Hydrobiidae
+Flinders-HCHB,2020,Dec,MM,PP,I,rep5,Frozen,Hydrobiidae,9,NA,NA,NA,NA,NA,NA,NA,500,Truncatelloidea
 Flinders-HCHB,2020,Dec,MM,PP,S,rep5,Frozen,Amphipoda,3,NA,NA,NA,NA,NA,NA,NA,500,Amphipoda
 Flinders-HCHB,2020,Dec,MM,PP,S,rep5,Frozen,Arthritica,23,NA,NA,NA,NA,NA,NA,NA,500,Arthritica
 Flinders-HCHB,2020,Dec,MM,PP,S,rep5,Frozen,Capitella,6,NA,NA,NA,NA,NA,NA,NA,500,Capitella
 Flinders-HCHB,2020,Dec,MM,PP,S,rep5,Frozen,Simplisetia,1,NA,NA,NA,NA,NA,NA,NA,500,Simplisetia
-Flinders-HCHB,2020,Dec,MM,PP,S,rep5,Frozen,Hydrobiidae,13,NA,NA,NA,NA,NA,NA,NA,500,Hydrobiidae
+Flinders-HCHB,2020,Dec,MM,PP,S,rep5,Frozen,Hydrobiidae,13,NA,NA,NA,NA,NA,NA,NA,500,Truncatelloidea
 Flinders-HCHB,2020,Dec,MM,PP,S,rep5,Frozen,Nephtys,4,NA,NA,NA,NA,NA,NA,NA,500,Nephtys
 Flinders-HCHB,2020,Dec,MM,PP,S,rep5,Frozen,Mysidacea,1,NA,NA,NA,NA,NA,NA,NA,500,Mysidacea
 Flinders-HCHB,2020,Dec,MM,PP,P,rep5,Frozen,Amphipoda,91,NA,NA,NA,NA,NA,NA,NA,500,Amphipoda
@@ -1526,7 +1526,7 @@ Flinders-HCHB,2020,Dec,MM,PP,P,rep5,Frozen,Arthritica,51,NA,NA,NA,NA,NA,NA,NA,50
 Flinders-HCHB,2020,Dec,MM,PP,P,rep5,Frozen,Capitella,154,NA,NA,NA,NA,NA,NA,NA,500,Capitella
 Flinders-HCHB,2020,Dec,MM,PP,P,rep5,Frozen,Simplisetia,3,NA,NA,NA,NA,NA,NA,NA,500,Simplisetia
 Flinders-HCHB,2020,Dec,MM,PP,P,rep5,Frozen,Chironomidae,7,NA,NA,NA,NA,NA,NA,NA,500,Chironomidae
-Flinders-HCHB,2020,Dec,MM,PP,P,rep5,Frozen,Hydrobiidae,12,NA,NA,NA,NA,NA,NA,NA,500,Hydrobiidae
+Flinders-HCHB,2020,Dec,MM,PP,P,rep5,Frozen,Hydrobiidae,12,NA,NA,NA,NA,NA,NA,NA,500,Truncatelloidea
 Flinders-HCHB,2020,Dec,MM,PP,P,rep5,Frozen,Nephtys,2,NA,NA,NA,NA,NA,NA,NA,500,Nephtys
 Flinders-HCHB,2020,Dec,MM,PP,P,rep5,Frozen,Spisula,1,NA,NA,NA,NA,NA,NA,NA,500,Spisula
 Flinders-HCHB,2020,Dec,MM,PP,P,rep5,Frozen,Mysidacea,11,NA,NA,NA,NA,NA,NA,NA,500,Mysidacea
@@ -1544,7 +1544,7 @@ Flinders-HCHB,2020,Dec,NL,LP,P,rep5,Frozen,Amphipoda,12,NA,NA,NA,NA,NA,NA,NA,500
 Flinders-HCHB,2020,Dec,NL,LP,P,rep5,Frozen,Arthritica,28,NA,NA,NA,NA,NA,NA,NA,500,Arthritica
 Flinders-HCHB,2020,Dec,NL,LP,P,rep5,Frozen,Capitella,12,NA,NA,NA,NA,NA,NA,NA,500,Capitella
 Flinders-HCHB,2020,Dec,NL,LP,P,rep5,Frozen,Simplisetia,59,NA,NA,NA,NA,NA,NA,NA,500,Simplisetia
-Flinders-HCHB,2020,Dec,NL,LP,P,rep5,Frozen,Hydrobiidae,4,NA,NA,NA,NA,NA,NA,NA,500,Hydrobiidae
+Flinders-HCHB,2020,Dec,NL,LP,P,rep5,Frozen,Hydrobiidae,4,NA,NA,NA,NA,NA,NA,NA,500,Truncatelloidea
 Flinders-HCHB,2020,Dec,NL,LP,P,rep5,Frozen,Mysidacea,4,NA,NA,NA,NA,NA,NA,NA,500,Mysidacea
 Flinders-HCHB,2020,Dec,NL,NM,I,rep5,Frozen,Capitella,8,NA,NA,NA,NA,NA,NA,NA,500,Capitella
 Flinders-HCHB,2020,Dec,NL,NM,I,rep5,Frozen,Dolichopodidae,4,NA,NA,NA,NA,NA,NA,NA,500,Dolichopodidae
@@ -1569,12 +1569,12 @@ Flinders-HCHB,2021,Mar (week 1),MM,B19,I,rep3,Frozen,Amphipoda,43,NA,0.0127,0.00
 Flinders-HCHB,2021,Mar (week 1),MM,B19,I,rep3,Frozen,Arthritica,13,NA,0.0134,0.0064,NA,0.47761194,0,0,500,Arthritica
 Flinders-HCHB,2021,Mar (week 1),MM,B19,I,rep3,Frozen,Simplisetia,35,NA,0.4342,0.0397,NA,0.09143252,0,0,500,Simplisetia
 Flinders-HCHB,2021,Mar (week 1),MM,B19,I,rep3,Frozen,Chironomidae,218,NA,0.0742,0.0099,NA,0.133423181,0,0,500,Chironomidae
-Flinders-HCHB,2021,Mar (week 1),MM,B19,I,rep3,Frozen,Hydrobiidae,29,NA,0.1467,0.0821,NA,0.559645535,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Mar (week 1),MM,B19,I,rep3,Frozen,Hydrobiidae,29,NA,0.1467,0.0821,NA,0.559645535,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Mar (week 1),MM,B19,I,rep4,Frozen,Amphipoda,53,NA,0.0146,0,NA,0,NA,0,500,Amphipoda
 Flinders-HCHB,2021,Mar (week 1),MM,B19,I,rep4,Frozen,Arthritica,24,NA,0.0273,0.0056,NA,0.205128205,0,0,500,Arthritica
 Flinders-HCHB,2021,Mar (week 1),MM,B19,I,rep4,Frozen,Simplisetia,55,NA,0.5298,0.0428,NA,0.080785202,0,0,500,Simplisetia
 Flinders-HCHB,2021,Mar (week 1),MM,B19,I,rep4,Frozen,Chironomidae,401,NA,0.1826,0.0184,NA,0.100766703,0,0,500,Chironomidae
-Flinders-HCHB,2021,Mar (week 1),MM,B19,I,rep4,Frozen,Hydrobiidae,41,NA,0.1534,0.0859,NA,0.559973924,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Mar (week 1),MM,B19,I,rep4,Frozen,Hydrobiidae,41,NA,0.1534,0.0859,NA,0.559973924,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Mar (week 1),MM,B19,I,rep5,Frozen,Amphipoda,35,NA,0.0106,0.0029,NA,0.273584906,0,0,500,Amphipoda
 Flinders-HCHB,2021,Mar (week 1),MM,B19,I,rep5,Frozen,Arthritica,2,NA,0.0069,0.0032,NA,0.463768116,0,0,500,Arthritica
 Flinders-HCHB,2021,Mar (week 1),MM,B19,I,rep5,Frozen,Simplisetia,51,NA,0.6291,0.0258,NA,0.041010968,0,0,500,Simplisetia
@@ -1583,46 +1583,46 @@ Flinders-HCHB,2021,Mar (week 1),MM,B19,I,rep6,Frozen,Amphipoda,19,NA,0.0237,0.01
 Flinders-HCHB,2021,Mar (week 1),MM,B19,I,rep6,Frozen,Arthritica,20,NA,0.0272,0.015,NA,0.551470588,0,0,500,Arthritica
 Flinders-HCHB,2021,Mar (week 1),MM,B19,I,rep6,Frozen,Simplisetia,51,NA,0.48,0.049,NA,0.102083333,0,0,500,Simplisetia
 Flinders-HCHB,2021,Mar (week 1),MM,B19,I,rep6,Frozen,Chironomidae,277,NA,0.0854,0.0248,NA,0.290398126,0,0,500,Chironomidae
-Flinders-HCHB,2021,Mar (week 1),MM,B19,I,rep6,Frozen,Hydrobiidae,8,NA,0.0495,0.0269,NA,0.543434343,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Mar (week 1),MM,B19,I,rep6,Frozen,Hydrobiidae,8,NA,0.0495,0.0269,NA,0.543434343,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Mar (week 1),MM,B19,I,rep6,Frozen,Boccardiella,10,NA,0.0036,6e-4,NA,0.166666667,0,0,500,Boccardiella
 Flinders-HCHB,2021,Mar (week 1),MM,B19,S,rep3,Frozen,Arthritica,1,NA,0.0017,0,NA,0,NA,0,500,Arthritica
 Flinders-HCHB,2021,Mar (week 1),MM,B19,S,rep3,Frozen,Simplisetia,10,NA,0.0678,0.0041,NA,0.060471976,0,0,500,Simplisetia
-Flinders-HCHB,2021,Mar (week 1),MM,B19,S,rep3,Frozen,Hydrobiidae,1038,NA,1.6096,0.749,NA,0.465333002,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Mar (week 1),MM,B19,S,rep3,Frozen,Hydrobiidae,1038,NA,1.6096,0.749,NA,0.465333002,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Mar (week 1),MM,B19,S,rep3,Frozen,Salinator,67,NA,0.1142,0.0384,NA,0.336252189,0,0,500,Salinator
 Flinders-HCHB,2021,Mar (week 1),MM,B19,S,rep3,Frozen,Nephtys,7,NA,0.1051,0.0044,NA,0.041864891,0,0,500,Nephtys
 Flinders-HCHB,2021,Mar (week 1),MM,B19,S,rep3,Frozen,Ostracoda,17,NA,0.0017,0.0012,NA,0.705882353,0,0,500,Ostracoda
 Flinders-HCHB,2021,Mar (week 1),MM,B19,S,rep3,Frozen,Phyllodoce,1,NA,0.0102,0.0019,NA,0.18627451,0,0,500,Phyllodoce
 Flinders-HCHB,2021,Mar (week 1),MM,B19,S,rep4,Frozen,Simplisetia,6,NA,0.0103,2e-4,NA,0.019417476,0,0,500,Simplisetia
-Flinders-HCHB,2021,Mar (week 1),MM,B19,S,rep4,Frozen,Hydrobiidae,682,NA,1.2144,0.5227,NA,0.430418314,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Mar (week 1),MM,B19,S,rep4,Frozen,Hydrobiidae,682,NA,1.2144,0.5227,NA,0.430418314,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Mar (week 1),MM,B19,S,rep5,Frozen,Simplisetia,7,NA,0.0686,0.0025,NA,0.036443149,0,0,500,Simplisetia
-Flinders-HCHB,2021,Mar (week 1),MM,B19,S,rep5,Frozen,Hydrobiidae,200,NA,0.5295,0.2443,NA,0.461378659,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Mar (week 1),MM,B19,S,rep5,Frozen,Hydrobiidae,200,NA,0.5295,0.2443,NA,0.461378659,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Mar (week 1),MM,B19,P,rep3,Frozen,Amphipoda,36,NA,0.0118,0.001,NA,0.084745763,0,0,500,Amphipoda
 Flinders-HCHB,2021,Mar (week 1),MM,B19,P,rep3,Frozen,Arthritica,23,NA,0.0593,0.0282,NA,0.475548061,0,0,500,Arthritica
 Flinders-HCHB,2021,Mar (week 1),MM,B19,P,rep3,Frozen,Simplisetia,28,NA,0.1286,0.0154,NA,0.119751166,0,0,500,Simplisetia
 Flinders-HCHB,2021,Mar (week 1),MM,B19,P,rep3,Frozen,Chironomidae,7,NA,9e-4,0,NA,0,NA,0,500,Chironomidae
-Flinders-HCHB,2021,Mar (week 1),MM,B19,P,rep3,Frozen,Hydrobiidae,51,NA,0.2468,0.1383,NA,0.560372771,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Mar (week 1),MM,B19,P,rep3,Frozen,Hydrobiidae,51,NA,0.2468,0.1383,NA,0.560372771,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Mar (week 1),MM,B19,P,rep3,Frozen,Salinator,3,NA,0.0026,0.0013,NA,0.5,0,0,500,Salinator
 Flinders-HCHB,2021,Mar (week 1),MM,B19,P,rep4,Frozen,Amphipoda,29,NA,0.0085,0.002,NA,0.235294118,0,0,500,Amphipoda
 Flinders-HCHB,2021,Mar (week 1),MM,B19,P,rep4,Frozen,Arthritica,8,NA,0.017,0.0084,NA,0.494117647,0,0,500,Arthritica
 Flinders-HCHB,2021,Mar (week 1),MM,B19,P,rep4,Frozen,Simplisetia,14,NA,0.0049,0.0026,NA,0.530612245,0,0,500,Simplisetia
 Flinders-HCHB,2021,Mar (week 1),MM,B19,P,rep4,Frozen,Chironomidae,6,NA,0.0011,2e-4,NA,0.181818182,0,0,500,Chironomidae
-Flinders-HCHB,2021,Mar (week 1),MM,B19,P,rep4,Frozen,Hydrobiidae,17,NA,0.0551,0.0278,NA,0.504537205,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Mar (week 1),MM,B19,P,rep4,Frozen,Hydrobiidae,17,NA,0.0551,0.0278,NA,0.504537205,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Mar (week 1),MM,B19,P,rep5,Frozen,Amphipoda,23,NA,0.0063,0.0021,NA,0.333333333,0,0,500,Amphipoda
 Flinders-HCHB,2021,Mar (week 1),MM,B19,P,rep5,Frozen,Arthritica,12,NA,0.0253,0.0127,NA,0.501976285,0,0,500,Arthritica
 Flinders-HCHB,2021,Mar (week 1),MM,B19,P,rep5,Frozen,Simplisetia,40,NA,0.0379,0,NA,0,NA,0,500,Simplisetia
 Flinders-HCHB,2021,Mar (week 1),MM,B19,P,rep5,Frozen,Chironomidae,29,NA,0.0055,0.0015,NA,0.272727273,0,0,500,Chironomidae
-Flinders-HCHB,2021,Mar (week 1),MM,B19,P,rep5,Frozen,Hydrobiidae,42,NA,0.1353,0.0748,NA,0.552845528,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Mar (week 1),MM,B19,P,rep5,Frozen,Hydrobiidae,42,NA,0.1353,0.0748,NA,0.552845528,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Mar (week 1),MM,B19,P,rep5,Frozen,Salinator,1,NA,0.264,0.0999,NA,0.378409091,0,0,500,Salinator
 Flinders-HCHB,2021,Mar (week 1),MM,PP,I,rep3,Frozen,Amphipoda,1,NA,3e-4,0.0013,NA,4.333333333,0,0,500,Amphipoda
 Flinders-HCHB,2021,Mar (week 1),MM,PP,I,rep3,Frozen,Arthritica,2,NA,8e-4,6e-4,NA,0.75,0,0,500,Arthritica
 Flinders-HCHB,2021,Mar (week 1),MM,PP,I,rep3,Frozen,Simplisetia,26,NA,0.399,0.0211,NA,0.052882206,0,0,500,Simplisetia
 Flinders-HCHB,2021,Mar (week 1),MM,PP,I,rep3,Frozen,Chironomidae,14,NA,0.0067,4e-4,NA,0.059701493,0,0,500,Chironomidae
-Flinders-HCHB,2021,Mar (week 1),MM,PP,I,rep3,Frozen,Hydrobiidae,4,NA,0.0053,0,NA,0,NA,0,500,Hydrobiidae
+Flinders-HCHB,2021,Mar (week 1),MM,PP,I,rep3,Frozen,Hydrobiidae,4,NA,0.0053,0,NA,0,NA,0,500,Truncatelloidea
 Flinders-HCHB,2021,Mar (week 1),MM,PP,I,rep3,Frozen,Dolichopodidae,1,NA,0.0118,0.0028,NA,0.237288136,0,0,500,Dolichopodidae
 Flinders-HCHB,2021,Mar (week 1),MM,PP,I,rep4,Frozen,Arthritica,16,NA,0.0198,0.0108,NA,0.545454545,0,0,500,Arthritica
 Flinders-HCHB,2021,Mar (week 1),MM,PP,I,rep4,Frozen,Simplisetia,38,NA,0.6101,0.0479,NA,0.078511719,0,0,500,Simplisetia
 Flinders-HCHB,2021,Mar (week 1),MM,PP,I,rep4,Frozen,Chironomidae,4,NA,0.0033,6e-4,NA,0.181818182,0,0,500,Chironomidae
-Flinders-HCHB,2021,Mar (week 1),MM,PP,I,rep4,Frozen,Hydrobiidae,18,NA,0.0422,0.024,NA,0.568720379,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Mar (week 1),MM,PP,I,rep4,Frozen,Hydrobiidae,18,NA,0.0422,0.024,NA,0.568720379,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Mar (week 1),MM,PP,I,rep4,Frozen,Salinator,1,NA,NA,NA,NA,NA,NA,NA,500,Salinator
 Flinders-HCHB,2021,Mar (week 1),MM,PP,I,rep5,Frozen,Arthritica,7,NA,0.0111,0.0047,NA,0.423423423,0,0,500,Arthritica
 Flinders-HCHB,2021,Mar (week 1),MM,PP,I,rep5,Frozen,Capitella,9,NA,NA,NA,NA,NA,NA,NA,500,Capitella
@@ -1631,33 +1631,33 @@ Flinders-HCHB,2021,Mar (week 1),MM,PP,I,rep5,Frozen,Chironomidae,4,NA,0.0012,0,N
 Flinders-HCHB,2021,Mar (week 1),MM,PP,I,rep6,Frozen,Arthritica,10,NA,0.033,0.0156,NA,0.472727273,0,0,500,Arthritica
 Flinders-HCHB,2021,Mar (week 1),MM,PP,I,rep6,Frozen,Simplisetia,52,NA,1.1673,0.0802,NA,0.06870556,0,0,500,Simplisetia
 Flinders-HCHB,2021,Mar (week 1),MM,PP,I,rep6,Frozen,Chironomidae,6,NA,0.0037,0.0018,NA,0.486486486,0,0,500,Chironomidae
-Flinders-HCHB,2021,Mar (week 1),MM,PP,I,rep6,Frozen,Hydrobiidae,11,NA,0.0296,0.0161,NA,0.543918919,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Mar (week 1),MM,PP,I,rep6,Frozen,Hydrobiidae,11,NA,0.0296,0.0161,NA,0.543918919,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Mar (week 1),MM,PP,S,rep3,Frozen,Simplisetia,4,NA,0.0185,0,NA,0,NA,0,500,Simplisetia
-Flinders-HCHB,2021,Mar (week 1),MM,PP,S,rep3,Frozen,Hydrobiidae,26,NA,0.0432,0.0222,NA,0.513888889,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Mar (week 1),MM,PP,S,rep3,Frozen,Hydrobiidae,26,NA,0.0432,0.0222,NA,0.513888889,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Mar (week 1),MM,PP,S,rep4,Frozen,Amphipoda,9,NA,7e-4,0,NA,0,NA,0,500,Amphipoda
 Flinders-HCHB,2021,Mar (week 1),MM,PP,S,rep4,Frozen,Arthritica,7,NA,0.0134,0.0083,NA,0.619402985,0,0,500,Arthritica
 Flinders-HCHB,2021,Mar (week 1),MM,PP,S,rep4,Frozen,Simplisetia,3,NA,0.005,0.0045,NA,0.9,0,0,500,Simplisetia
-Flinders-HCHB,2021,Mar (week 1),MM,PP,S,rep4,Frozen,Hydrobiidae,839,NA,1.7717,0.939,NA,0.529999436,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Mar (week 1),MM,PP,S,rep4,Frozen,Hydrobiidae,839,NA,1.7717,0.939,NA,0.529999436,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Mar (week 1),MM,PP,S,rep4,Frozen,Salinator,13,NA,0.0022,0.0027,NA,1.227272727,0,0,500,Salinator
 Flinders-HCHB,2021,Mar (week 1),MM,PP,S,rep4,Frozen,Nephtys,14,NA,1.5692,0.1098,NA,0.06997196,0,0,500,Nephtys
 Flinders-HCHB,2021,Mar (week 1),MM,PP,S,rep4,Frozen,Mysidacea,2,NA,0.0077,0.0018,NA,0.233766234,0,0,500,Mysidacea
 Flinders-HCHB,2021,Mar (week 1),MM,PP,S,rep4,Frozen,Ostracoda,1,NA,0.0017,3e-4,NA,0.176470588,0,0,500,Ostracoda
 Flinders-HCHB,2021,Mar (week 1),MM,PP,S,rep5,Frozen,Amphipoda,52,NA,0.0191,3e-4,NA,0.015706806,0,0,500,Amphipoda
 Flinders-HCHB,2021,Mar (week 1),MM,PP,S,rep5,Frozen,Arthritica,25,NA,0.0583,0.0077,NA,0.132075472,0,0,500,Arthritica
-Flinders-HCHB,2021,Mar (week 1),MM,PP,S,rep5,Frozen,Hydrobiidae,46,NA,0.5163,0.3067,NA,0.594034476,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Mar (week 1),MM,PP,S,rep5,Frozen,Hydrobiidae,46,NA,0.5163,0.3067,NA,0.594034476,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Mar (week 1),MM,PP,S,rep5,Frozen,Nephtys,7,NA,0.6142,0.0296,NA,0.048192771,0,0,500,Nephtys
 Flinders-HCHB,2021,Mar (week 1),MM,PP,S,rep5,Frozen,Tellina deltoidalis,2,4.4595,0,0,NA,NA,NA,NA,500,Tellina deltoidalis
 Flinders-HCHB,2021,Mar (week 1),MM,PP,S,rep5,Frozen,Mysidacea,1,NA,0.0109,0.0028,NA,0.256880734,0,0,500,Mysidacea
 Flinders-HCHB,2021,Mar (week 1),MM,PP,P,rep3,Frozen,Arthritica,4,NA,0.0034,0.001,NA,0.294117647,0,0,500,Arthritica
 Flinders-HCHB,2021,Mar (week 1),MM,PP,P,rep3,Frozen,Capitella,6,NA,0.0099,0,NA,0,NA,0,500,Capitella
 Flinders-HCHB,2021,Mar (week 1),MM,PP,P,rep3,Frozen,Simplisetia,18,NA,0.0861,0.0097,NA,0.112659698,0,0,500,Simplisetia
-Flinders-HCHB,2021,Mar (week 1),MM,PP,P,rep3,Frozen,Hydrobiidae,2,NA,0.002,0.0017,NA,0.85,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Mar (week 1),MM,PP,P,rep3,Frozen,Hydrobiidae,2,NA,0.002,0.0017,NA,0.85,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Mar (week 1),MM,PP,P,rep4,Frozen,Amphipoda,2,NA,0.0044,9e-4,NA,0.204545455,0,0,500,Amphipoda
 Flinders-HCHB,2021,Mar (week 1),MM,PP,P,rep4,Frozen,Arthritica,6,NA,0.0049,0.0016,NA,0.326530612,0,0,500,Arthritica
 Flinders-HCHB,2021,Mar (week 1),MM,PP,P,rep4,Frozen,Capitella,45,NA,0.0379,0.0015,NA,0.039577836,0,0,500,Capitella
 Flinders-HCHB,2021,Mar (week 1),MM,PP,P,rep4,Frozen,Simplisetia,67,NA,0.4013,0.0233,NA,0.058061301,0,0,500,Simplisetia
 Flinders-HCHB,2021,Mar (week 1),MM,PP,P,rep4,Frozen,Chironomidae,3,NA,0.0013,6e-4,NA,0.461538462,0,0,500,Chironomidae
-Flinders-HCHB,2021,Mar (week 1),MM,PP,P,rep4,Frozen,Hydrobiidae,1,NA,6e-4,0,NA,0,NA,0,500,Hydrobiidae
+Flinders-HCHB,2021,Mar (week 1),MM,PP,P,rep4,Frozen,Hydrobiidae,1,NA,6e-4,0,NA,0,NA,0,500,Truncatelloidea
 Flinders-HCHB,2021,Mar (week 1),MM,PP,P,rep4,Frozen,Nephtys,2,NA,0.0767,0.0076,NA,0.099087353,0,0,500,Nephtys
 Flinders-HCHB,2021,Mar (week 1),MM,PP,P,rep4,Frozen,Anemone,1,NA,0.017,0.0019,NA,0.111764706,0,0,500,Anemone
 Flinders-HCHB,2021,Mar (week 1),MM,PP,P,rep4,Frozen,Dolichopodidae,3,NA,0.0379,0.0102,NA,0.269129288,0,0,500,Dolichopodidae
@@ -1673,7 +1673,7 @@ Flinders-HCHB,2021,Mar (week 1),NL,LP,I,rep4,Frozen,Arthritica,32,NA,0.0351,0.01
 Flinders-HCHB,2021,Mar (week 1),NL,LP,I,rep4,Frozen,Capitella,8,NA,0.0082,0,NA,0,NA,0,500,Capitella
 Flinders-HCHB,2021,Mar (week 1),NL,LP,I,rep4,Frozen,Simplisetia,125,NA,0.6435,0.0928,NA,0.144211344,0,0,500,Simplisetia
 Flinders-HCHB,2021,Mar (week 1),NL,LP,I,rep4,Frozen,Chironomidae,36,NA,0.0081,0.0015,NA,0.185185185,0,0,500,Chironomidae
-Flinders-HCHB,2021,Mar (week 1),NL,LP,I,rep4,Frozen,Hydrobiidae,2,NA,0.003,0,NA,0,NA,0,500,Hydrobiidae
+Flinders-HCHB,2021,Mar (week 1),NL,LP,I,rep4,Frozen,Hydrobiidae,2,NA,0.003,0,NA,0,NA,0,500,Truncatelloidea
 Flinders-HCHB,2021,Mar (week 1),NL,LP,I,rep5,Frozen,Amphipoda,7,NA,0.0283,0.016,NA,0.565371025,0,0,500,Amphipoda
 Flinders-HCHB,2021,Mar (week 1),NL,LP,I,rep5,Frozen,Arthritica,21,NA,0.0583,0.0202,NA,0.346483705,0,0,500,Arthritica
 Flinders-HCHB,2021,Mar (week 1),NL,LP,I,rep5,Frozen,Capitella,15,NA,0.0074,2e-4,NA,0.027027027,0,0,500,Capitella
@@ -1712,7 +1712,7 @@ Flinders-HCHB,2021,Mar (week 1),NL,NM,I,rep3,Frozen,Simplisetia,1,NA,0.0422,0.00
 Flinders-HCHB,2021,Mar (week 1),NL,NM,I,rep3,Frozen,Chironomidae,9,NA,0.0053,0.0014,NA,0.264150943,0,0,500,Chironomidae
 Flinders-HCHB,2021,Mar (week 1),NL,NM,I,rep4,Frozen,Capitella,15,NA,0.0096,0,NA,0,NA,0,500,Capitella
 Flinders-HCHB,2021,Mar (week 1),NL,NM,I,rep4,Frozen,Chironomidae,6,NA,0.0039,6e-4,NA,0.153846154,0,0,500,Chironomidae
-Flinders-HCHB,2021,Mar (week 1),NL,NM,I,rep4,Frozen,Hydrobiidae,1,NA,NA,NA,NA,NA,NA,NA,500,Hydrobiidae
+Flinders-HCHB,2021,Mar (week 1),NL,NM,I,rep4,Frozen,Hydrobiidae,1,NA,NA,NA,NA,NA,NA,NA,500,Truncatelloidea
 Flinders-HCHB,2021,Mar (week 1),NL,NM,I,rep5,Frozen,Capitella,14,NA,0,0,NA,NA,NA,NA,500,Capitella
 Flinders-HCHB,2021,Mar (week 1),NL,NM,I,rep5,Frozen,Chironomidae,18,NA,0.0145,0.0048,NA,0.331034483,0,0,500,Chironomidae
 Flinders-HCHB,2021,Mar (week 1),NL,NM,I,rep6,Frozen,Amphipoda,1,NA,0,0,NA,NA,NA,NA,500,Amphipoda
@@ -1748,38 +1748,38 @@ Flinders-HCHB,2021,Jun (week 3),MM,B19,I,rep3,Frozen,Amphipoda,9,NA,0.0014,0,NA,
 Flinders-HCHB,2021,Jun (week 3),MM,B19,I,rep3,Frozen,Arthritica,7,NA,0.0151,0.0072,NA,0.476821192,0,0,500,Arthritica
 Flinders-HCHB,2021,Jun (week 3),MM,B19,I,rep3,Frozen,Simplisetia,7,NA,0.1789,0.0242,NA,0.135271101,0,0,500,Simplisetia
 Flinders-HCHB,2021,Jun (week 3),MM,B19,I,rep3,Frozen,Chironomidae,2,NA,2e-4,0,NA,0,NA,0,500,Chironomidae
-Flinders-HCHB,2021,Jun (week 3),MM,B19,I,rep3,Frozen,Hydrobiidae,7,NA,0.0243,0.0125,NA,0.514403292,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Jun (week 3),MM,B19,I,rep3,Frozen,Hydrobiidae,7,NA,0.0243,0.0125,NA,0.514403292,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Jun (week 3),MM,B19,I,rep3,Frozen,Salinator,9,NA,0.094,0.0304,NA,0.323404255,0,0,500,Salinator
 Flinders-HCHB,2021,Jun (week 3),MM,B19,I,rep3,Frozen,Dolichopodidae,3,NA,0.009,7e-4,NA,0.077777778,0,0,500,Dolichopodidae
 Flinders-HCHB,2021,Jun (week 3),MM,B19,I,rep4,Frozen,Amphipoda,11,NA,0.0041,0.0017,NA,0.414634146,0,0,500,Amphipoda
 Flinders-HCHB,2021,Jun (week 3),MM,B19,I,rep4,Frozen,Arthritica,40,NA,0.0919,0.0446,NA,0.48531012,0,0,500,Arthritica
 Flinders-HCHB,2021,Jun (week 3),MM,B19,I,rep4,Frozen,Simplisetia,40,NA,0.3564,0.0514,NA,0.144219978,0,0,500,Simplisetia
 Flinders-HCHB,2021,Jun (week 3),MM,B19,I,rep4,Frozen,Chironomidae,28,NA,0.012,0.0025,NA,0.208333333,0,0,500,Chironomidae
-Flinders-HCHB,2021,Jun (week 3),MM,B19,I,rep4,Frozen,Hydrobiidae,16,NA,0.0424,0.0214,NA,0.504716981,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Jun (week 3),MM,B19,I,rep4,Frozen,Hydrobiidae,16,NA,0.0424,0.0214,NA,0.504716981,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Jun (week 3),MM,B19,I,rep4,Frozen,Salinator,6,NA,0.3059,0.1362,NA,0.445243544,0,0,500,Salinator
 Flinders-HCHB,2021,Jun (week 3),MM,B19,I,rep5,Frozen,Amphipoda,3,NA,0.0027,6e-4,NA,0.222222222,0,0,500,Amphipoda
 Flinders-HCHB,2021,Jun (week 3),MM,B19,I,rep5,Frozen,Arthritica,17,NA,0.4066,0.1869,NA,0.459665519,0,0,500,Arthritica
 Flinders-HCHB,2021,Jun (week 3),MM,B19,I,rep5,Frozen,Capitella,1,NA,7e-4,1e-4,NA,0.142857143,0,0,500,Capitella
 Flinders-HCHB,2021,Jun (week 3),MM,B19,I,rep5,Frozen,Simplisetia,203,NA,0.9387,0.1326,NA,0.141259188,0,0,500,Simplisetia
 Flinders-HCHB,2021,Jun (week 3),MM,B19,I,rep5,Frozen,Chironomidae,90,NA,0.0391,0.0168,NA,0.429667519,0,0,500,Chironomidae
-Flinders-HCHB,2021,Jun (week 3),MM,B19,I,rep5,Frozen,Hydrobiidae,66,NA,0.3447,0.1904,NA,0.552364375,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Jun (week 3),MM,B19,I,rep5,Frozen,Hydrobiidae,66,NA,0.3447,0.1904,NA,0.552364375,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Jun (week 3),MM,B19,I,rep5,Frozen,Boccardiella,6,NA,0.0028,6e-4,NA,0.214285714,0,0,500,Boccardiella
 Flinders-HCHB,2021,Jun (week 3),MM,B19,I,rep5,Frozen,Salinator,7,NA,0.2004,0.0821,NA,0.409680639,0,0,500,Salinator
 Flinders-HCHB,2021,Jun (week 3),MM,B19,I,rep6,Frozen,Amphipoda,3,NA,0.0019,2e-4,NA,0.105263158,0,0,500,Amphipoda
 Flinders-HCHB,2021,Jun (week 3),MM,B19,I,rep6,Frozen,Arthritica,3,NA,0.01,0.0037,NA,0.37,0,0,500,Arthritica
 Flinders-HCHB,2021,Jun (week 3),MM,B19,I,rep6,Frozen,Simplisetia,72,NA,0.8502,0.1182,NA,0.139026112,0,0,500,Simplisetia
 Flinders-HCHB,2021,Jun (week 3),MM,B19,I,rep6,Frozen,Chironomidae,6,NA,0.002,3e-4,NA,0.15,0,0,500,Chironomidae
-Flinders-HCHB,2021,Jun (week 3),MM,B19,I,rep6,Frozen,Hydrobiidae,3,NA,0.0124,0.0078,NA,0.629032258,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Jun (week 3),MM,B19,I,rep6,Frozen,Hydrobiidae,3,NA,0.0124,0.0078,NA,0.629032258,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Jun (week 3),MM,B19,I,rep6,Frozen,Salinator,2,NA,0.3224,0.1068,NA,0.331265509,0,0,500,Salinator
 Flinders-HCHB,2021,Jun (week 3),MM,B19,S,rep3,Frozen,Amphipoda,1,NA,0,2e-4,NA,NA,0,NA,500,Amphipoda
 Flinders-HCHB,2021,Jun (week 3),MM,B19,S,rep3,Frozen,Simplisetia,1,NA,0,0,NA,NA,NA,NA,500,Simplisetia
-Flinders-HCHB,2021,Jun (week 3),MM,B19,S,rep3,Frozen,Hydrobiidae,1,NA,7e-4,0,NA,0,NA,0,500,Hydrobiidae
+Flinders-HCHB,2021,Jun (week 3),MM,B19,S,rep3,Frozen,Hydrobiidae,1,NA,7e-4,0,NA,0,NA,0,500,Truncatelloidea
 Flinders-HCHB,2021,Jun (week 3),MM,B19,S,rep3,Frozen,Phyllodoce,3,NA,0.2867,0.0185,NA,0.064527381,0,0,500,Phyllodoce
 Flinders-HCHB,2021,Jun (week 3),MM,B19,S,rep4,Frozen,Amphipoda,1,NA,7e-4,4e-4,NA,0.571428571,0,0,500,Amphipoda
-Flinders-HCHB,2021,Jun (week 3),MM,B19,S,rep4,Frozen,Hydrobiidae,11,NA,0.0269,0.011,NA,0.408921933,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Jun (week 3),MM,B19,S,rep4,Frozen,Hydrobiidae,11,NA,0.0269,0.011,NA,0.408921933,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Jun (week 3),MM,B19,S,rep5,Frozen,Amphipoda,2,NA,0.0014,9e-4,NA,0.642857143,0,0,500,Amphipoda
 Flinders-HCHB,2021,Jun (week 3),MM,B19,S,rep5,Frozen,Simplisetia,10,NA,0.2977,0.0195,NA,0.065502183,0,0,500,Simplisetia
-Flinders-HCHB,2021,Jun (week 3),MM,B19,S,rep5,Frozen,Hydrobiidae,13,NA,0.056,0.0249,NA,0.444642857,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Jun (week 3),MM,B19,S,rep5,Frozen,Hydrobiidae,13,NA,0.056,0.0249,NA,0.444642857,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Jun (week 3),MM,B19,S,rep5,Frozen,Mysidacea,1,NA,0.0014,2e-4,NA,0.142857143,0,0,500,Mysidacea
 Flinders-HCHB,2021,Jun (week 3),MM,B19,S,rep5,Frozen,Liloa brevis,1,NA,0.0061,5e-4,NA,0.081967213,0,0,500,Liloa brevis
 Flinders-HCHB,2021,Jun (week 3),MM,B19,P,rep3,Frozen,Amphipoda,67,NA,0.0307,0.0046,NA,0.149837134,0,0,500,Amphipoda
@@ -1787,19 +1787,19 @@ Flinders-HCHB,2021,Jun (week 3),MM,B19,P,rep3,Frozen,Arthritica,19,NA,0.0628,0.0
 Flinders-HCHB,2021,Jun (week 3),MM,B19,P,rep3,Frozen,Capitella,4,NA,0.001,7e-4,NA,0.7,0,0,500,Capitella
 Flinders-HCHB,2021,Jun (week 3),MM,B19,P,rep3,Frozen,Simplisetia,20,NA,0.0756,0.0048,NA,0.063492063,0,0,500,Simplisetia
 Flinders-HCHB,2021,Jun (week 3),MM,B19,P,rep3,Frozen,Chironomidae,19,NA,0.0058,8e-4,NA,0.137931034,0,0,500,Chironomidae
-Flinders-HCHB,2021,Jun (week 3),MM,B19,P,rep3,Frozen,Hydrobiidae,35,NA,0.118,0.0648,NA,0.549152542,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Jun (week 3),MM,B19,P,rep3,Frozen,Hydrobiidae,35,NA,0.118,0.0648,NA,0.549152542,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Jun (week 3),MM,B19,P,rep3,Frozen,Salinator,8,NA,0.7958,0.2859,NA,0.359261121,0,0,500,Salinator
 Flinders-HCHB,2021,Jun (week 3),MM,B19,P,rep4,Frozen,Amphipoda,38,NA,0.024,0.0027,NA,0.1125,0,0,500,Amphipoda
 Flinders-HCHB,2021,Jun (week 3),MM,B19,P,rep4,Frozen,Arthritica,28,NA,0.1254,0.0597,NA,0.476076555,0,0,500,Arthritica
 Flinders-HCHB,2021,Jun (week 3),MM,B19,P,rep4,Frozen,Capitella,1,NA,6e-4,3e-4,NA,0.5,0,0,500,Capitella
 Flinders-HCHB,2021,Jun (week 3),MM,B19,P,rep4,Frozen,Simplisetia,15,NA,0.3072,0.0218,NA,0.070963542,0,0,500,Simplisetia
 Flinders-HCHB,2021,Jun (week 3),MM,B19,P,rep4,Frozen,Chironomidae,9,NA,0.0039,6e-4,NA,0.153846154,0,0,500,Chironomidae
-Flinders-HCHB,2021,Jun (week 3),MM,B19,P,rep4,Frozen,Hydrobiidae,17,NA,0.1097,0.0591,NA,0.538742024,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Jun (week 3),MM,B19,P,rep4,Frozen,Hydrobiidae,17,NA,0.1097,0.0591,NA,0.538742024,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Jun (week 3),MM,B19,P,rep5,Frozen,Amphipoda,3,NA,0.0021,4e-4,NA,0.19047619,0,0,500,Amphipoda
 Flinders-HCHB,2021,Jun (week 3),MM,B19,P,rep5,Frozen,Arthritica,7,NA,0.0102,0.0051,NA,0.5,0,0,500,Arthritica
 Flinders-HCHB,2021,Jun (week 3),MM,B19,P,rep5,Frozen,Simplisetia,34,NA,0.0656,0.0044,NA,0.067073171,0,0,500,Simplisetia
 Flinders-HCHB,2021,Jun (week 3),MM,B19,P,rep5,Frozen,Chironomidae,18,NA,0.005,6e-4,NA,0.12,0,0,500,Chironomidae
-Flinders-HCHB,2021,Jun (week 3),MM,B19,P,rep5,Frozen,Hydrobiidae,27,NA,0.1665,0.0941,NA,0.565165165,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Jun (week 3),MM,B19,P,rep5,Frozen,Hydrobiidae,27,NA,0.1665,0.0941,NA,0.565165165,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Jun (week 3),MM,B19,P,rep5,Frozen,Salinator,8,NA,0.2815,0.1019,NA,0.361989343,0,0,500,Salinator
 Flinders-HCHB,2021,Jun (week 3),MM,B19,P,rep5,Frozen,Oligochaeta,10,NA,0.0027,1e-4,NA,0.037037037,0,0,500,Oligochaeta
 Flinders-HCHB,2021,Jun (week 3),MM,PP,I,rep3,Frozen,Amphipoda,8,NA,0,0,NA,NA,NA,NA,500,Amphipoda
@@ -1810,17 +1810,17 @@ Flinders-HCHB,2021,Jun (week 3),MM,PP,I,rep4,Frozen,Amphipoda,4,NA,0.0035,9e-4,N
 Flinders-HCHB,2021,Jun (week 3),MM,PP,I,rep4,Frozen,Arthritica,5,NA,0.0187,0.0099,NA,0.529411765,0,0,500,Arthritica
 Flinders-HCHB,2021,Jun (week 3),MM,PP,I,rep4,Frozen,Simplisetia,3,NA,0.0108,0.0032,NA,0.296296296,0,0,500,Simplisetia
 Flinders-HCHB,2021,Jun (week 3),MM,PP,I,rep4,Frozen,Chironomidae,8,NA,0.0024,9e-4,NA,0.375,0,0,500,Chironomidae
-Flinders-HCHB,2021,Jun (week 3),MM,PP,I,rep4,Frozen,Hydrobiidae,4,NA,0.01,0.0044,NA,0.44,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Jun (week 3),MM,PP,I,rep4,Frozen,Hydrobiidae,4,NA,0.01,0.0044,NA,0.44,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Jun (week 3),MM,PP,I,rep4,Frozen,Mysidacea,1,NA,0.0065,0.0015,NA,0.230769231,0,0,500,Mysidacea
 Flinders-HCHB,2021,Jun (week 3),MM,PP,I,rep4,Frozen,Oligochaeta,1,NA,0.0013,5e-4,NA,0.384615385,0,0,500,Oligochaeta
 Flinders-HCHB,2021,Jun (week 3),MM,PP,I,rep6,Frozen,Simplisetia,5,NA,0.0382,0.0028,NA,0.073298429,0,0,500,Simplisetia
 Flinders-HCHB,2021,Jun (week 3),MM,PP,I,rep6,Frozen,Chironomidae,1,NA,1e-4,0,NA,0,NA,0,500,Chironomidae
-Flinders-HCHB,2021,Jun (week 3),MM,PP,I,rep6,Frozen,Hydrobiidae,3,NA,0.007,0.0029,NA,0.414285714,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Jun (week 3),MM,PP,I,rep6,Frozen,Hydrobiidae,3,NA,0.007,0.0029,NA,0.414285714,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Jun (week 3),MM,PP,I,rep6,Frozen,Boccardiella,1,NA,4e-4,2e-4,NA,0.5,0,0,500,Boccardiella
 Flinders-HCHB,2021,Jun (week 3),MM,PP,S,rep3,Frozen,Amphipoda,29,NA,0.0123,0.0019,NA,0.154471545,0,0,500,Amphipoda
 Flinders-HCHB,2021,Jun (week 3),MM,PP,S,rep3,Frozen,Arthritica,7,NA,0.0073,0.0029,NA,0.397260274,0,0,500,Arthritica
 Flinders-HCHB,2021,Jun (week 3),MM,PP,S,rep3,Frozen,Simplisetia,10,NA,1.2297,0.1001,NA,0.081401968,0,0,500,Simplisetia
-Flinders-HCHB,2021,Jun (week 3),MM,PP,S,rep3,Frozen,Hydrobiidae,24,NA,0.1364,0.0802,NA,0.58797654,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Jun (week 3),MM,PP,S,rep3,Frozen,Hydrobiidae,24,NA,0.1364,0.0802,NA,0.58797654,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Jun (week 3),MM,PP,S,rep3,Frozen,Nephtys,1,NA,0.167,0.014,NA,0.083832335,0,0,500,Nephtys
 Flinders-HCHB,2021,Jun (week 3),MM,PP,S,rep3,Frozen,Janiridae,2,NA,4e-4,0,NA,0,NA,0,500,Janiridae
 Flinders-HCHB,2021,Jun (week 3),MM,PP,S,rep3,Frozen,Soletellina,NA,3.2091,1.9817,0.2396,NA,0.120906293,0,0,500,Hiatula alba
@@ -1832,14 +1832,14 @@ Flinders-HCHB,2021,Jun (week 3),MM,PP,S,rep5,Frozen,Amphipoda,20,NA,0.0403,0.004
 Flinders-HCHB,2021,Jun (week 3),MM,PP,S,rep5,Frozen,Arthritica,4,NA,0.0068,0.0027,NA,0.397058824,0,0,500,Arthritica
 Flinders-HCHB,2021,Jun (week 3),MM,PP,S,rep5,Frozen,Simplisetia,9,NA,0.6384,0.0274,NA,0.042919799,0,0,500,Simplisetia
 Flinders-HCHB,2021,Jun (week 3),MM,PP,S,rep5,Frozen,Chironomidae,5,NA,9e-4,0.0018,NA,2,0,0,500,Chironomidae
-Flinders-HCHB,2021,Jun (week 3),MM,PP,S,rep5,Frozen,Hydrobiidae,147,NA,0.2727,0.122,NA,0.447378071,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Jun (week 3),MM,PP,S,rep5,Frozen,Hydrobiidae,147,NA,0.2727,0.122,NA,0.447378071,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Jun (week 3),MM,PP,S,rep5,Frozen,Soletellina,1,0.0365,0.0213,0.0015,NA,0.070422535,0,0,500,Hiatula alba
 Flinders-HCHB,2021,Jun (week 3),MM,PP,S,rep5,Frozen,Janiridae,2,NA,4e-4,2e-4,NA,0.5,0,0,500,Janiridae
 Flinders-HCHB,2021,Jun (week 3),MM,PP,P,rep3,Frozen,Amphipoda,15,NA,0.0259,0.0166,NA,0.640926641,0,0,500,Amphipoda
 Flinders-HCHB,2021,Jun (week 3),MM,PP,P,rep3,Frozen,Arthritica,1,NA,0.0047,0.002,NA,0.425531915,0,0,500,Arthritica
 Flinders-HCHB,2021,Jun (week 3),MM,PP,P,rep3,Frozen,Simplisetia,14,NA,0.1622,0.0089,NA,0.05487053,0,0,500,Simplisetia
 Flinders-HCHB,2021,Jun (week 3),MM,PP,P,rep3,Frozen,Chironomidae,7,NA,0.0797,0.0778,NA,0.976160602,0,0,500,Chironomidae
-Flinders-HCHB,2021,Jun (week 3),MM,PP,P,rep3,Frozen,Hydrobiidae,2,NA,0.0153,0.0096,NA,0.62745098,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Jun (week 3),MM,PP,P,rep3,Frozen,Hydrobiidae,2,NA,0.0153,0.0096,NA,0.62745098,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Jun (week 3),MM,PP,P,rep3,Frozen,Salinator,1,NA,0.1115,1e-4,NA,8.96861e-4,0,0,500,Salinator
 Flinders-HCHB,2021,Jun (week 3),MM,PP,P,rep3,Frozen,Nephtys,14,NA,0.9865,0.0709,NA,0.071870248,0,0,500,Nephtys
 Flinders-HCHB,2021,Jun (week 3),MM,PP,P,rep3,Frozen,Soletellina,2,2.6939,1.9317,0.2631,NA,0.136201273,0,0,500,Hiatula alba
@@ -1851,7 +1851,7 @@ Flinders-HCHB,2021,Jun (week 3),MM,PP,P,rep5,Frozen,Amphipoda,65,NA,0.0271,0.004
 Flinders-HCHB,2021,Jun (week 3),MM,PP,P,rep5,Frozen,Arthritica,10,NA,0.031,0.0121,NA,0.390322581,0,0,500,Arthritica
 Flinders-HCHB,2021,Jun (week 3),MM,PP,P,rep5,Frozen,Simplisetia,5,NA,0.0054,0.0175,NA,3.240740741,0,0,500,Simplisetia
 Flinders-HCHB,2021,Jun (week 3),MM,PP,P,rep5,Frozen,Chironomidae,18,NA,9e-4,0,NA,0,NA,0,500,Chironomidae
-Flinders-HCHB,2021,Jun (week 3),MM,PP,P,rep5,Frozen,Hydrobiidae,2,NA,0.0365,0.0209,NA,0.57260274,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Jun (week 3),MM,PP,P,rep5,Frozen,Hydrobiidae,2,NA,0.0365,0.0209,NA,0.57260274,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Jun (week 3),MM,PP,P,rep5,Frozen,Salinator,3,NA,0.7513,0.2428,NA,0.323173167,0,0,500,Salinator
 Flinders-HCHB,2021,Jun (week 3),NL,LP,I,rep3,Frozen,Amphipoda,3,NA,9e-4,0,NA,0,NA,0,500,Amphipoda
 Flinders-HCHB,2021,Jun (week 3),NL,LP,I,rep3,Frozen,Simplisetia,19,NA,0.1268,0.0087,NA,0.068611987,0,0,500,Simplisetia
@@ -2000,7 +2000,7 @@ Flinders-HCHB,2021,Mar (week 1),NL,MtA,S,rep9,Frozen,Chironomidae,7,NA,0.0027,0,
 Flinders-HCHB,2021,Mar (week 1),NL,MtA,S,rep10,Frozen,Chironomidae,13,NA,0.0266,0.0045,NA,0.169172932,0,0,500,Chironomidae
 Flinders-HCHB,2021,Mar (week 1),NL,MP,S,rep8,Frozen,Simplisetia,1,NA,0.0896,0.0074,NA,0.082589286,0,0,500,Simplisetia
 Flinders-HCHB,2021,Mar (week 1),NL,MP,S,rep8,Frozen,Chironomidae,1,NA,2e-4,0,NA,0,NA,0,500,Chironomidae
-Flinders-HCHB,2021,Mar (week 1),NL,MP,S,rep8,Frozen,Hydrobiidae,10,NA,0.0183,0.0102,NA,0.557377049,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Mar (week 1),NL,MP,S,rep8,Frozen,Hydrobiidae,10,NA,0.0183,0.0102,NA,0.557377049,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Mar (week 1),NL,MP,P,rep7,Frozen,Amphipoda,13,NA,0.0061,0,NA,0,NA,0,500,Amphipoda
 Flinders-HCHB,2021,Mar (week 1),NL,MP,P,rep7,Frozen,Arthritica,112,NA,0.4821,0.3165,NA,0.6565028,0,0,500,Arthritica
 Flinders-HCHB,2021,Mar (week 1),NL,MP,P,rep7,Frozen,Capitella,12,NA,0.012,0.001,NA,0.083333333,0,0,500,Capitella
@@ -2010,7 +2010,7 @@ Flinders-HCHB,2021,Mar (week 1),NL,MP,P,rep8,Frozen,Arthritica,141,NA,0.3492,0.2
 Flinders-HCHB,2021,Mar (week 1),NL,MP,P,rep8,Frozen,Capitella,1,NA,0.0018,0,NA,0,NA,0,500,Capitella
 Flinders-HCHB,2021,Mar (week 1),NL,MP,P,rep8,Frozen,Simplisetia,50,NA,0.2481,0.0273,NA,0.110036276,0,0,500,Simplisetia
 Flinders-HCHB,2021,Mar (week 1),NL,MP,P,rep8,Frozen,Chironomidae,1,NA,0.0017,8e-4,NA,0.470588235,0,0,500,Chironomidae
-Flinders-HCHB,2021,Mar (week 1),NL,MP,P,rep8,Frozen,Hydrobiidae,10,NA,0.017,0.0114,NA,0.670588235,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Mar (week 1),NL,MP,P,rep8,Frozen,Hydrobiidae,10,NA,0.017,0.0114,NA,0.670588235,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Mar (week 1),NL,MP,P,rep8,Frozen,Nephtys,1,NA,0.3386,0.0151,NA,0.044595393,0,0,500,Nephtys
 Flinders-HCHB,2021,Mar (week 1),NL,MP,P,rep8,Frozen,Arenicolidae,1,NA,1.1517,0.1198,NA,0.104020144,0,0,500,Arenicolidae
 Flinders-HCHB,2021,Jun (week 3),NL,MtA,S,rep7,Frozen,Capitella,5,NA,0.004,0,NA,0,NA,0,500,Capitella
@@ -2049,17 +2049,17 @@ Flinders-HCHB,2021,Jun (week 3),NL,MP,S,rep6,Frozen,Amphipoda,2,NA,9e-4,3e-4,NA,
 Flinders-HCHB,2021,Jun (week 3),NL,MP,S,rep6,Frozen,Arthritica,5,NA,0.0068,0.0028,NA,0.411764706,0,0,500,Arthritica
 Flinders-HCHB,2021,Jun (week 3),NL,MP,S,rep6,Frozen,Simplisetia,1,NA,0.0173,0,NA,0,NA,0,500,Simplisetia
 Flinders-HCHB,2021,Jun (week 3),NL,MP,S,rep6,Frozen,Chironomidae,2,NA,0.012,0.0046,NA,0.383333333,0,0,500,Chironomidae
-Flinders-HCHB,2021,Jun (week 3),NL,MP,S,rep6,Frozen,Hydrobiidae,8,NA,0.0089,0,NA,0,NA,0,500,Hydrobiidae
+Flinders-HCHB,2021,Jun (week 3),NL,MP,S,rep6,Frozen,Hydrobiidae,8,NA,0.0089,0,NA,0,NA,0,500,Truncatelloidea
 Flinders-HCHB,2021,Jun (week 3),NL,MP,S,rep6,Frozen,Mysidacea,23,NA,0.1181,0.0124,NA,0.104995766,0,0,500,Mysidacea
 Flinders-HCHB,2021,Jun (week 3),NL,MP,S,rep7,Frozen,Arthritica,1,NA,0.0047,0.0019,NA,0.404255319,0,0,500,Arthritica
 Flinders-HCHB,2021,Jun (week 3),NL,MP,S,rep7,Frozen,Chironomidae,2,NA,1e-4,0,NA,0,NA,0,500,Chironomidae
-Flinders-HCHB,2021,Jun (week 3),NL,MP,S,rep7,Frozen,Hydrobiidae,65,NA,0.0957,0.042,NA,0.438871473,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Jun (week 3),NL,MP,S,rep7,Frozen,Hydrobiidae,65,NA,0.0957,0.042,NA,0.438871473,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Jun (week 3),NL,MP,S,rep7,Frozen,Mysidacea,5,NA,0.0225,0.0016,NA,0.071111111,0,0,500,Mysidacea
 Flinders-HCHB,2021,Jun (week 3),NL,MP,S,rep8,Frozen,Amphipoda,80,NA,0.0253,0.0025,NA,0.098814229,0,0,500,Amphipoda
 Flinders-HCHB,2021,Jun (week 3),NL,MP,S,rep8,Frozen,Arthritica,18,NA,0.0365,0.0164,NA,0.449315068,0,0,500,Arthritica
 Flinders-HCHB,2021,Jun (week 3),NL,MP,S,rep8,Frozen,Simplisetia,1,NA,0.0025,0,NA,0,NA,0,500,Simplisetia
 Flinders-HCHB,2021,Jun (week 3),NL,MP,S,rep8,Frozen,Chironomidae,5,NA,0.0146,0.0018,NA,0.123287671,0,0,500,Chironomidae
-Flinders-HCHB,2021,Jun (week 3),NL,MP,S,rep8,Frozen,Hydrobiidae,29,NA,0.039,0.0154,NA,0.394871795,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Jun (week 3),NL,MP,S,rep8,Frozen,Hydrobiidae,29,NA,0.039,0.0154,NA,0.394871795,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Jun (week 3),NL,MP,S,rep8,Frozen,Salinator,2,NA,5e-4,1e-4,NA,0.2,0,0,500,Salinator
 Flinders-HCHB,2021,Jun (week 3),NL,MP,P,rep4,Frozen,Amphipoda,12,NA,0.0118,0,NA,0,NA,0,500,Amphipoda
 Flinders-HCHB,2021,Jun (week 3),NL,MP,P,rep4,Frozen,Arthritica,3,NA,0.0139,0.0045,NA,0.323741007,0,0,500,Arthritica
@@ -2070,20 +2070,20 @@ Flinders-HCHB,2021,Jun (week 3),NL,MP,P,rep5,Frozen,Arthritica,5,NA,0.0171,0.008
 Flinders-HCHB,2021,Jun (week 3),NL,MP,P,rep5,Frozen,Capitella,14,NA,0.0052,5e-4,NA,0.096153846,0,0,500,Capitella
 Flinders-HCHB,2021,Jun (week 3),NL,MP,P,rep5,Frozen,Simplisetia,103,NA,0.473,0.0753,NA,0.159196617,0,0,500,Simplisetia
 Flinders-HCHB,2021,Jun (week 3),NL,MP,P,rep5,Frozen,Chironomidae,1,NA,1e-4,4e-4,NA,4,0,0,500,Chironomidae
-Flinders-HCHB,2021,Jun (week 3),NL,MP,P,rep5,Frozen,Hydrobiidae,11,NA,0.0132,0.007,NA,0.53030303,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Jun (week 3),NL,MP,P,rep5,Frozen,Hydrobiidae,11,NA,0.0132,0.007,NA,0.53030303,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Jun (week 3),NL,MP,P,rep5,Frozen,Mysidacea,2,NA,0.0136,0.0016,NA,0.117647059,0,0,500,Mysidacea
 Flinders-HCHB,2021,Jun (week 3),NL,MP,P,rep6,Frozen,Amphipoda,45,NA,0.0269,0.0034,NA,0.126394052,0,0,500,Amphipoda
 Flinders-HCHB,2021,Jun (week 3),NL,MP,P,rep6,Frozen,Arthritica,109,NA,0.111,0.0589,NA,0.530630631,0,0,500,Arthritica
 Flinders-HCHB,2021,Jun (week 3),NL,MP,P,rep6,Frozen,Capitella,31,NA,0.0288,0.0038,NA,0.131944444,0,0,500,Capitella
 Flinders-HCHB,2021,Jun (week 3),NL,MP,P,rep6,Frozen,Simplisetia,75,NA,1.05,0.113,NA,0.107619048,0,0,500,Simplisetia
 Flinders-HCHB,2021,Jun (week 3),NL,MP,P,rep6,Frozen,Chironomidae,2,NA,0.0021,0.0013,NA,0.619047619,0,0,500,Chironomidae
-Flinders-HCHB,2021,Jun (week 3),NL,MP,P,rep6,Frozen,Hydrobiidae,22,NA,0.029,0.0141,NA,0.486206897,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Jun (week 3),NL,MP,P,rep6,Frozen,Hydrobiidae,22,NA,0.029,0.0141,NA,0.486206897,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Jun (week 3),NL,MP,P,rep6,Frozen,Mysidacea,1,NA,0.0079,0.002,NA,0.253164557,0,0,500,Mysidacea
 Flinders-HCHB,2021,Jun (week 3),NL,MP,P,rep7,Frozen,Amphipoda,47,NA,0.0125,0.0015,NA,0.12,0,0,500,Amphipoda
 Flinders-HCHB,2021,Jun (week 3),NL,MP,P,rep7,Frozen,Arthritica,70,NA,0.1317,0.0824,NA,0.625664389,0,0,500,Arthritica
 Flinders-HCHB,2021,Jun (week 3),NL,MP,P,rep7,Frozen,Capitella,17,NA,0.0094,5e-4,NA,0.053191489,0,0,500,Capitella
 Flinders-HCHB,2021,Jun (week 3),NL,MP,P,rep7,Frozen,Simplisetia,93,NA,0.4396,0.0463,NA,0.105323021,0,0,500,Simplisetia
-Flinders-HCHB,2021,Jun (week 3),NL,MP,P,rep7,Frozen,Hydrobiidae,127,NA,0.1294,0.0635,NA,0.49072643,0,0,500,Hydrobiidae
+Flinders-HCHB,2021,Jun (week 3),NL,MP,P,rep7,Frozen,Hydrobiidae,127,NA,0.1294,0.0635,NA,0.49072643,0,0,500,Truncatelloidea
 Flinders-HCHB,2021,Jun (week 3),NL,MP,P,rep7,Frozen,Salinator,4,NA,0.279,0.1061,NA,0.380286738,0,0,500,Salinator
 Flinders-HCHB,2021,Jun (week 3),NL,MP,P,rep7,Frozen,Nephtys,1,NA,0.2395,0.0165,NA,0.068893528,0,0,500,Nephtys
 Flinders-HCHB,2021,Jun (week 3),NL,MP,P,rep7,Frozen,Mysidacea,4,NA,0.0188,0.0013,NA,0.069148936,0,0,500,Mysidacea
@@ -2290,7 +2290,7 @@ Flinders-HCHB,2021,Sep,MM,B19,P,1,Frozen,Amphipoda,65,NA,0.0184,0.0029,0.0013,0.
 Flinders-HCHB,2021,Sep,MM,B19,P,1,Frozen,Arthritica,28,NA,0.0357,0.02,9e-4,0.56022409,0.045,0.025210084,500,Arthritica
 Flinders-HCHB,2021,Sep,MM,B19,P,1,Frozen,Simplisetia,65,NA,0.2205,0.0147,0.0077,0.066666667,0.523809524,0.034920635,500,Simplisetia
 Flinders-HCHB,2021,Sep,MM,B19,P,1,Frozen,Chironomidae,76,NA,0.0258,0.004,0.0022,0.15503876,0.55,0.085271318,500,Chironomidae
-Flinders-HCHB,2021,Sep,MM,B19,P,1,Frozen,Hydrobiidae,170,NA,0.3067,0.155,0.0159,0.50537985,0.102580645,0.051842191,500,Hydrobiidae
+Flinders-HCHB,2021,Sep,MM,B19,P,1,Frozen,Hydrobiidae,170,NA,0.3067,0.155,0.0159,0.50537985,0.102580645,0.051842191,500,Truncatelloidea
 Flinders-HCHB,2021,Sep,MM,B19,P,1,Frozen,Boccardiella,2,NA,NA,NA,NA,NA,NA,NA,500,Boccardiella
 Flinders-HCHB,2021,Sep,MM,B19,P,1,Frozen,Salinator,4,NA,0.717,0.2969,0.029,0.414086471,0.097675985,0.040446304,500,Salinator
 Flinders-HCHB,2021,Sep,MM,B19,P,1,Frozen,Amphipoda,NA,NA,0.1255,0.017,0.012,0.135458167,0.705882353,0.09561753,500,Amphipoda
@@ -2300,7 +2300,7 @@ Flinders-HCHB,2021,Sep,MM,B19,P,2,Frozen,Amphipoda,49,NA,0.0144,0.0024,NA,0.1666
 Flinders-HCHB,2021,Sep,MM,B19,P,2,Frozen,Arthritica,10,NA,0.0162,0.0094,2e-4,0.580246914,0.021276596,0.012345679,500,Arthritica
 Flinders-HCHB,2021,Sep,MM,B19,P,2,Frozen,Simplisetia,41,NA,0.2121,0.009,NA,0.042432815,NA,NA,500,Simplisetia
 Flinders-HCHB,2021,Sep,MM,B19,P,2,Frozen,Chironomidae,64,NA,0.0318,0.0053,NA,0.166666667,NA,NA,500,Chironomidae
-Flinders-HCHB,2021,Sep,MM,B19,P,2,Frozen,Hydrobiidae,125,NA,0.2239,0.1144,0.0149,0.510942385,0.130244755,0.066547566,500,Hydrobiidae
+Flinders-HCHB,2021,Sep,MM,B19,P,2,Frozen,Hydrobiidae,125,NA,0.2239,0.1144,0.0149,0.510942385,0.130244755,0.066547566,500,Truncatelloidea
 Flinders-HCHB,2021,Sep,MM,B19,P,2,Frozen,Boccardiella,5,NA,9e-4,3e-4,NA,0.333333333,NA,NA,500,Boccardiella
 Flinders-HCHB,2021,Sep,MM,B19,P,2,Frozen,Salinator - flesh,3,NA,0.0398,0.0051,NA,0.128140704,NA,NA,500,Salinator - flesh
 Flinders-HCHB,2021,Sep,MM,B19,P,2,Frozen,Salinator - shell,NA,NA,0.0743,0.0316,7e-4,0.425302826,0.022151899,0.009421265,500,Salinator - shell
@@ -2311,7 +2311,7 @@ Flinders-HCHB,2021,Sep,MM,B19,P,3,Frozen,Amphipoda,25,NA,0.0063,0.0014,0.001,0.2
 Flinders-HCHB,2021,Sep,MM,B19,P,3,Frozen,Arthritica,17,NA,0.0237,0.0111,6e-4,0.46835443,0.054054054,0.025316456,500,Arthritica
 Flinders-HCHB,2021,Sep,MM,B19,P,3,Frozen,Simplisetia,34,NA,0.0489,0.0021,0.0022,0.042944785,1.047619048,0.044989775,500,Simplisetia
 Flinders-HCHB,2021,Sep,MM,B19,P,3,Frozen,Chironomidae,58,NA,0.0307,0.0046,0.0032,0.149837134,0.695652174,0.104234528,500,Chironomidae
-Flinders-HCHB,2021,Sep,MM,B19,P,3,Frozen,Hydrobiidae,85,NA,0.1092,0.0564,0.0071,0.516483516,0.125886525,0.065018315,500,Hydrobiidae
+Flinders-HCHB,2021,Sep,MM,B19,P,3,Frozen,Hydrobiidae,85,NA,0.1092,0.0564,0.0071,0.516483516,0.125886525,0.065018315,500,Truncatelloidea
 Flinders-HCHB,2021,Sep,MM,B19,P,3,Frozen,Salinator,7,NA,0.0348,0.0147,0.0019,0.422413793,0.129251701,0.054597701,500,Salinator
 Flinders-HCHB,2021,Sep,MM,B19,P,3,Frozen,Amphipoda,NA,NA,0.2046,0.0232,0.0149,0.113391984,0.642241379,0.072825024,500,Amphipoda
 Flinders-HCHB,2021,Sep,MM,B19,P,3,Frozen,Arthritica - flesh,155,0.3402,0.0622,0.0049,0.0035,0.078778135,0.714285714,0.056270096,500,Arthritica - flesh
@@ -2321,7 +2321,7 @@ Flinders-HCHB,2021,Sep,NL,LP,I,1,Frozen,Arthritica,23,NA,0.0194,0.0128,7e-4,0.65
 Flinders-HCHB,2021,Sep,NL,LP,I,1,Frozen,Capitella,1,NA,NA,NA,NA,NA,NA,NA,500,Capitella
 Flinders-HCHB,2021,Sep,NL,LP,I,1,Frozen,Simplisetia,84,NA,0.2904,0.0226,0.0097,0.077823691,0.42920354,0.033402204,500,Simplisetia
 Flinders-HCHB,2021,Sep,NL,LP,I,1,Frozen,Chironomidae,44,NA,0.0138,0.0021,0.0018,0.152173913,0.857142857,0.130434783,500,Chironomidae
-Flinders-HCHB,2021,Sep,NL,LP,I,1,Frozen,Hydrobiidae,3,NA,0.0016,8e-4,-2e-4,0.5,-0.25,-0.125,500,Hydrobiidae
+Flinders-HCHB,2021,Sep,NL,LP,I,1,Frozen,Hydrobiidae,3,NA,0.0016,8e-4,-2e-4,0.5,-0.25,-0.125,500,Truncatelloidea
 Flinders-HCHB,2021,Sep,NL,LP,I,1,Frozen,Spisula - flesh,1,NA,0.0042,0.0018,5e-4,0.428571429,0.277777778,0.119047619,500,Spisula
 Flinders-HCHB,2021,Sep,NL,LP,I,1,Frozen,Spisula - shell,NA,NA,0.0246,0.0235,7e-4,0.955284553,0.029787234,0.028455285,500,Spisula - shell
 Flinders-HCHB,2021,Sep,NL,LP,I,1,Frozen,Mysidacea,1,NA,0.0079,0.0013,0.001,0.164556962,0.769230769,0.126582278,500,Mysidacea
@@ -2333,7 +2333,7 @@ Flinders-HCHB,2021,Sep,NL,LP,I,2,Frozen,Arthritica,12,NA,0.0027,0.0016,1e-4,0.59
 Flinders-HCHB,2021,Sep,NL,LP,I,2,Frozen,Capitella,4,NA,2e-4,1e-4,2e-4,0.5,2,1,500,Capitella
 Flinders-HCHB,2021,Sep,NL,LP,I,2,Frozen,Simplisetia,66,NA,0.1178,0.0139,0.004,0.117996604,0.287769784,0.033955857,500,Simplisetia
 Flinders-HCHB,2021,Sep,NL,LP,I,2,Frozen,Chironomidae,52,NA,0.0206,0.0043,0.0024,0.208737864,0.558139535,0.116504854,500,Chironomidae
-Flinders-HCHB,2021,Sep,NL,LP,I,2,Frozen,Hydrobiidae,4,NA,0.0038,0.0025,3e-4,0.657894737,0.12,0.078947368,500,Hydrobiidae
+Flinders-HCHB,2021,Sep,NL,LP,I,2,Frozen,Hydrobiidae,4,NA,0.0038,0.0025,3e-4,0.657894737,0.12,0.078947368,500,Truncatelloidea
 Flinders-HCHB,2021,Sep,NL,LP,I,2,Frozen,Spisula - flesh,1,NA,0.0031,0.0013,2e-4,0.419354839,0.153846154,0.064516129,500,Spisula
 Flinders-HCHB,2021,Sep,NL,LP,I,2,Frozen,Spisula - shell,NA,NA,0.0179,0.0173,0,0.966480447,0,0,500,Spisula - shell
 Flinders-HCHB,2021,Sep,NL,LP,I,2,Frozen,Mysidacea,1,NA,6e-4,4e-4,3e-4,0.666666667,0.75,0.5,500,Mysidacea
@@ -2344,7 +2344,7 @@ Flinders-HCHB,2021,Sep,NL,LP,I,3,Frozen,Amphipoda,6,NA,8e-4,5e-4,NA,0.625,NA,NA,
 Flinders-HCHB,2021,Sep,NL,LP,I,3,Frozen,Capitella,3,NA,5e-4,0,NA,0,NA,NA,500,Capitella
 Flinders-HCHB,2021,Sep,NL,LP,I,3,Frozen,Simplisetia,64,NA,0.2196,0.0231,NA,0.105191257,NA,NA,500,Simplisetia
 Flinders-HCHB,2021,Sep,NL,LP,I,3,Frozen,Chironomidae,23,NA,0.0043,0.0012,NA,0.279069767,NA,NA,500,Chironomidae
-Flinders-HCHB,2021,Sep,NL,LP,I,3,Frozen,Hydrobiidae,3,NA,0.0055,0.0022,1e-4,0.4,0.045454545,0.018181818,500,Hydrobiidae
+Flinders-HCHB,2021,Sep,NL,LP,I,3,Frozen,Hydrobiidae,3,NA,0.0055,0.0022,1e-4,0.4,0.045454545,0.018181818,500,Truncatelloidea
 Flinders-HCHB,2021,Sep,NL,LP,I,3,Frozen,Spisula - flesh,2,NA,0.0254,0.0047,NA,0.18503937,NA,NA,500,Spisula
 Flinders-HCHB,2021,Sep,NL,LP,I,3,Frozen,Spisula - shell,NA,NA,0.0722,0.0674,0.0016,0.933518006,0.023738872,0.022160665,500,Spisula - shell
 Flinders-HCHB,2021,Sep,NL,LP,I,3,Frozen,Amphipoda,NA,NA,0.0484,0.0068,NA,0.140495868,NA,NA,500,Amphipoda
@@ -2493,27 +2493,27 @@ TLM,2023,Apr,MM,HC,,1,Ethanol,Simplisetia,1,NA,0.011,0.002,0.002,0.181818182,1,0
 TLM,2023,Apr,MM,HC,,6,Ethanol,Chironomidae,1,NA,0.002,NA,NA,0,NA,0,500,Chironomidae
 TLM,2023,Apr,MM,HC,,7,Ethanol,Simplisetia,1,NA,0.009,0.002,0.001,0.222222222,0.5,0.111111111,500,Simplisetia
 TLM,2023,Apr,MM,HC,,7,Ethanol,Mysidacea,1,NA,0.009,0.001,0.001,0.111111111,1,0.111111111,500,Mysidacea
-TLM,2023,Apr,MM,HC,,8,Ethanol,Hydrobiidae,3,NA,0.03,0.017,0,0.566666667,0,0,500,Hydrobiidae
+TLM,2023,Apr,MM,HC,,8,Ethanol,Hydrobiidae,3,NA,0.03,0.017,0,0.566666667,0,0,500,Truncatelloidea
 TLM,2023,Apr,MM,HC,,9,Ethanol,Simplisetia,1,NA,0.008,0.001,0.002,0.125,2,0.25,500,Simplisetia
 TLM,2023,Apr,MM,HC,,9,Ethanol,Amphipoda,1,NA,0.002,NA,NA,0,NA,0,500,Amphipoda
 TLM,2023,Apr,MM,HC,,10,Ethanol,Amphipoda,2,NA,0.003,NA,NA,0,NA,0,500,Amphipoda
 TLM,2023,Apr,MM,HC,,10,Ethanol,Boccardiella,NA,NA,0.003,NA,NA,0,NA,0,500,Boccardiella
 TLM,2023,Apr,MM,HC,,10,Ethanol,Chironomidae,4,NA,0.003,NA,NA,0,NA,0,500,Chironomidae
-TLM,2023,Apr,MM,HC,,10,Ethanol,Hydrobiidae,1,NA,0.013,0.006,0,0.461538462,0,0,500,Hydrobiidae
+TLM,2023,Apr,MM,HC,,10,Ethanol,Hydrobiidae,1,NA,0.013,0.006,0,0.461538462,0,0,500,Truncatelloidea
 TLM,2023,Apr,MM,MC,,2,Ethanol,Chironomidae,1,NA,0.002,0.002,0,1,0,0,500,Chironomidae
 TLM,2023,Apr,MM,MC,,3,Ethanol,Chironomidae,1,NA,0.004,0.003,0,0.75,0,0,500,Chironomidae
 TLM,2023,Apr,MM,MC,,7,Ethanol,Chironomidae,1,NA,0.002,NA,NA,0,NA,0,500,Chironomidae
 TLM,2023,Apr,MM,MC,,9,Ethanol,Simplisetia,1,NA,0.017,0.004,0.002,0.235294118,0.5,0.117647059,500,Simplisetia
-TLM,2023,Apr,MM,EI,,2,Ethanol,Hydrobiidae,14,NA,0.067,0.047,0,0.701492537,0,0,500,Hydrobiidae
+TLM,2023,Apr,MM,EI,,2,Ethanol,Hydrobiidae,14,NA,0.067,0.047,0,0.701492537,0,0,500,Truncatelloidea
 TLM,2023,Apr,MM,EI,,2,Ethanol,Chironomidae,1,NA,0.002,0.001,0,0.5,0,0,500,Chironomidae
-TLM,2023,Apr,MM,EI,,3,Ethanol,Hydrobiidae,1,NA,0.011,0.007,0,0.636363636,0,0,500,Hydrobiidae
+TLM,2023,Apr,MM,EI,,3,Ethanol,Hydrobiidae,1,NA,0.011,0.007,0,0.636363636,0,0,500,Truncatelloidea
 TLM,2023,Apr,MM,EI,,4,Ethanol,Oligochaeta,1,NA,0.005,0.004,0,0.8,0,0,500,Oligochaeta
 TLM,2023,Apr,MM,EI,,4,Ethanol,Chironomidae,1,NA,0.001,NA,NA,0,NA,0,500,Chironomidae
 TLM,2023,Apr,MM,EI,,6,Ethanol,Chironomidae,3,NA,0.002,NA,NA,0,NA,0,500,Chironomidae
 TLM,2023,Apr,MM,EI,,7,Ethanol,Amphipoda,3,NA,0.002,NA,NA,0,NA,0,500,Amphipoda
 TLM,2023,Apr,MM,EI,,7,Ethanol,Chironomidae,3,NA,0.002,0.001,0,0.5,0,0,500,Chironomidae
-TLM,2023,Apr,MM,EI,,7,Ethanol,Hydrobiidae,2,NA,0.013,0.006,0,0.461538462,0,0,500,Hydrobiidae
-TLM,2023,Apr,MM,EI,,8,Ethanol,Hydrobiidae,1,NA,0.004,0.002,0.001,0.5,0.5,0.25,500,Hydrobiidae
+TLM,2023,Apr,MM,EI,,7,Ethanol,Hydrobiidae,2,NA,0.013,0.006,0,0.461538462,0,0,500,Truncatelloidea
+TLM,2023,Apr,MM,EI,,8,Ethanol,Hydrobiidae,1,NA,0.004,0.002,0.001,0.5,0.5,0.25,500,Truncatelloidea
 TLM,2023,Apr,MM,EI,,9,Ethanol,Chironomidae,24,NA,0.003,NA,NA,0,NA,0,500,Chironomidae
 TLM,2023,Apr,MM,EI,,10,Ethanol,Chironomidae,1,NA,0.005,0,0,0,NA,0,500,Chironomidae
 TLM,2023,Apr,MM,PP,,1,Ethanol,Chironomidae,3,NA,0.001,NA,NA,0,NA,0,500,Chironomidae
@@ -2527,7 +2527,7 @@ TLM,2023,Apr,MM,PP,,5,Ethanol,Chironomidae,1,NA,0.001,NA,NA,0,NA,0,500,Chironomi
 TLM,2023,Apr,MM,PP,,6,Ethanol,Chironomidae,2,NA,0.002,0,0,0,NA,0,500,Chironomidae
 TLM,2023,Apr,MM,PP,,6,Ethanol,Simplisetia,1,NA,0.014,0.006,0.002,0.428571429,0.333333333,0.142857143,500,Simplisetia
 TLM,2023,Apr,MM,PP,,7,Ethanol,Chironomidae,1,NA,0.002,0.001,0,0.5,0,0,500,Chironomidae
-TLM,2023,Apr,MM,PP,,8,Ethanol,Hydrobiidae,1,NA,0.003,0.001,0,0.333333333,0,0,500,Hydrobiidae
+TLM,2023,Apr,MM,PP,,8,Ethanol,Hydrobiidae,1,NA,0.003,0.001,0,0.333333333,0,0,500,Truncatelloidea
 TLM,2023,Apr,MM,PP,,9,Ethanol,Chironomidae,3,NA,0.001,NA,NA,0,NA,0,500,Chironomidae
 TLM,2023,Apr,NL,MY,,1,Ethanol,Simplisetia,4,NA,0.028,0.005,0.003,0.178571429,0.6,0.107142857,500,Simplisetia
 TLM,2023,Apr,NL,MY,,1,Ethanol,Chironomidae,1,NA,0.001,NA,NA,0,NA,0,500,Chironomidae
@@ -2563,7 +2563,7 @@ TLM,2023,Apr,NL,NM,,2,Ethanol,Simplisetia,43,NA,0.078,0.019,0.009,0.243589744,0.
 TLM,2023,Apr,NL,NM,,2,Ethanol,Capitella,25,NA,0.027,0.006,0.004,0.222222222,0.666666667,0.148148148,500,Capitella
 TLM,2023,Apr,NL,NM,,2,Ethanol,Salinator,17,NA,0.015,0.008,0.002,0.533333333,0.25,0.133333333,500,Salinator
 TLM,2023,Apr,NL,NM,,2,Ethanol,Arthritica,35,NA,0.03,0.019,0.001,0.633333333,0.052631579,0.033333333,500,Arthritica
-TLM,2023,Apr,NL,NM,,2,Ethanol,Hydrobiidae,1,NA,0.001,NA,NA,0,NA,0,500,Hydrobiidae
+TLM,2023,Apr,NL,NM,,2,Ethanol,Hydrobiidae,1,NA,0.001,NA,NA,0,NA,0,500,Truncatelloidea
 TLM,2023,Apr,NL,NM,,2,Ethanol,Spisula,2,0.009,0.001,NA,NA,0,NA,0,500,Spisula
 TLM,2023,Apr,NL,NM,,3,Ethanol,Amphipoda,6,NA,0.002,NA,NA,0,NA,0,500,Amphipoda
 TLM,2023,Apr,NL,NM,,3,Ethanol,Simplisetia,40,NA,0.059,0.018,0.008,0.305084746,0.444444444,0.13559322,500,Simplisetia
@@ -2578,7 +2578,7 @@ TLM,2023,Apr,NL,NM,,4,Ethanol,Euchone,3,NA,0,NA,NA,NA,NA,NA,500,Euchone variabil
 TLM,2023,Apr,NL,NM,,4,Ethanol,Simplisetia,32,NA,0.057,0.022,0.006,0.385964912,0.272727273,0.105263158,500,Simplisetia
 TLM,2023,Apr,NL,NM,,4,Ethanol,Arthritica,3,NA,0.002,NA,NA,0,NA,0,500,Arthritica
 TLM,2023,Apr,NL,NM,,4,Ethanol,Salinator,1,NA,0.001,NA,NA,0,NA,0,500,Salinator
-TLM,2023,Apr,NL,NM,,4,Ethanol,Hydrobiidae,1,NA,0,NA,NA,NA,NA,NA,500,Hydrobiidae
+TLM,2023,Apr,NL,NM,,4,Ethanol,Hydrobiidae,1,NA,0,NA,NA,NA,NA,NA,500,Truncatelloidea
 TLM,2023,Apr,NL,NM,,5,Ethanol,Simplisetia,57,NA,0.053,0.019,0.007,0.358490566,0.368421053,0.132075472,500,Simplisetia
 TLM,2023,Apr,NL,NM,,5,Ethanol,Capitella,39,NA,0.016,0.004,0.002,0.25,0.5,0.125,500,Capitella
 TLM,2023,Apr,NL,NM,,5,Ethanol,Amphipoda,33,NA,0.015,0.002,0.001,0.133333333,0.5,0.066666667,500,Amphipoda
@@ -2594,7 +2594,7 @@ TLM,2023,Apr,NL,NM,,6,Ethanol,Euchone,3,NA,0,NA,NA,NA,NA,NA,500,Euchone variabil
 TLM,2023,Apr,NL,NM,,6,Ethanol,Arthritica,17,NA,0.012,0.008,0.001,0.666666667,0.125,0.083333333,500,Arthritica
 TLM,2023,Apr,NL,NM,,6,Ethanol,Chironomidae,2,NA,0,NA,NA,NA,NA,NA,500,Chironomidae
 TLM,2023,Apr,NL,NM,,6,Ethanol,Salinator,1,NA,0.011,0.005,0.001,0.454545455,0.2,0.090909091,500,Salinator
-TLM,2023,Apr,NL,NM,,6,Ethanol,Hydrobiidae,2,NA,0.003,0.001,0,0.333333333,0,0,500,Hydrobiidae
+TLM,2023,Apr,NL,NM,,6,Ethanol,Hydrobiidae,2,NA,0.003,0.001,0,0.333333333,0,0,500,Truncatelloidea
 TLM,2023,Apr,NL,NM,,7,Ethanol,Amphipoda,32,NA,0.022,0.003,0.002,0.136363636,0.666666667,0.090909091,500,Amphipoda
 TLM,2023,Apr,NL,NM,,7,Ethanol,Capitella,33,NA,0.015,0.003,0.002,0.2,0.666666667,0.133333333,500,Capitella
 TLM,2023,Apr,NL,NM,,7,Ethanol,Chironomidae,1,NA,0,NA,NA,NA,NA,NA,500,Chironomidae
@@ -2607,7 +2607,7 @@ TLM,2023,Apr,NL,NM,,8,Ethanol,Salinator,1,NA,0,NA,NA,NA,NA,NA,500,Salinator
 TLM,2023,Apr,NL,NM,,8,Ethanol,Euchone,6,NA,0,NA,NA,NA,NA,NA,500,Euchone variabilis
 TLM,2023,Apr,NL,NM,,8,Ethanol,Simplisetia,65,NA,0.109,0.042,0.01,0.385321101,0.238095238,0.091743119,500,Simplisetia
 TLM,2023,Apr,NL,NM,,8,Ethanol,Australonereis,2,NA,0.003,NA,NA,0,NA,0,500,Australonereis
-TLM,2023,Apr,NL,NM,,8,Ethanol,Hydrobiidae,7,NA,0.006,0.004,0.001,0.666666667,0.25,0.166666667,500,Hydrobiidae
+TLM,2023,Apr,NL,NM,,8,Ethanol,Hydrobiidae,7,NA,0.006,0.004,0.001,0.666666667,0.25,0.166666667,500,Truncatelloidea
 TLM,2023,Apr,NL,NM,,8,Ethanol,Arthritica,17,NA,0.021,0.014,0.002,0.666666667,0.142857143,0.095238095,500,Arthritica
 TLM,2023,Apr,NL,NM,,9,Ethanol,Amphipoda,13,NA,0.001,NA,NA,0,NA,0,500,Amphipoda
 TLM,2023,Apr,NL,NM,,9,Ethanol,Australonereis,4,NA,0.003,NA,NA,0,NA,0,500,Australonereis
@@ -2615,7 +2615,7 @@ TLM,2023,Apr,NL,NM,,9,Ethanol,Simplisetia,43,NA,0.055,0.019,0.008,0.345454545,0.
 TLM,2023,Apr,NL,NM,,9,Ethanol,Capitella,25,NA,0.017,0.007,0.002,0.411764706,0.285714286,0.117647059,500,Capitella
 TLM,2023,Apr,NL,NM,,9,Ethanol,Chironomidae,1,NA,0,NA,NA,NA,NA,NA,500,Chironomidae
 TLM,2023,Apr,NL,NM,,9,Ethanol,Oligochaeta,2,NA,0,NA,NA,NA,NA,NA,500,Oligochaeta
-TLM,2023,Apr,NL,NM,,9,Ethanol,Hydrobiidae,1,NA,0.001,NA,NA,0,NA,0,500,Hydrobiidae
+TLM,2023,Apr,NL,NM,,9,Ethanol,Hydrobiidae,1,NA,0.001,NA,NA,0,NA,0,500,Truncatelloidea
 TLM,2023,Apr,NL,NM,,9,Ethanol,Euchone,3,NA,0,NA,NA,NA,NA,NA,500,Euchone variabilis
 TLM,2023,Apr,NL,NM,,9,Ethanol,Arthritica,28,NA,0.024,0.016,0.002,0.666666667,0.125,0.083333333,500,Arthritica
 TLM,2023,Apr,NL,NM,,9,Ethanol,Hiatula,1,0.822,0.545,0.115,0.084,0.211009174,0.730434783,0.15412844,500,Hiatula alba
@@ -2626,7 +2626,7 @@ TLM,2023,Apr,NL,NM,,10,Ethanol,Capitella,35,NA,0.014,0.005,0.002,0.357142857,0.4
 TLM,2023,Apr,NL,NM,,10,Ethanol,Chironomidae,2,NA,0,NA,NA,NA,NA,NA,500,Chironomidae
 TLM,2023,Apr,NL,NM,,10,Ethanol,Salinator,2,NA,0.003,NA,NA,0,NA,0,500,Salinator
 TLM,2023,Apr,NL,NM,,10,Ethanol,Australonereis,3,NA,0.006,0,-0.002,0,NA,-0.333333333,500,Australonereis
-TLM,2023,Apr,NL,NM,,10,Ethanol,Hydrobiidae,1,NA,-0.002,NA,NA,0,NA,0,500,Hydrobiidae
+TLM,2023,Apr,NL,NM,,10,Ethanol,Hydrobiidae,1,NA,-0.002,NA,NA,0,NA,0,500,Truncatelloidea
 TLM,2023,Apr,NL,NM,,10,Ethanol,Arthritica,21,NA,0.025,0.015,0.001,0.6,0.066666667,0.04,500,Arthritica
 TLM,2023,Apr,SL,ParP,,1,Ethanol,Capitella,178,NA,0.052,0.009,0.008,0.173076923,0.888888889,0.153846154,500,Capitella
 TLM,2023,Apr,SL,ParP,,1,Ethanol,Chironomidae,1,NA,0,NA,NA,NA,NA,NA,500,Chironomidae
@@ -2650,7 +2650,7 @@ TLM,2023,Apr,SL,ParP,,5,Ethanol,Capitella,42,NA,0.023,0.009,0.003,0.391304348,0.
 TLM,2023,Apr,SL,ParP,,5,Ethanol,Chironomidae,3,NA,0.004,0.002,0.001,0.5,0.5,0.25,500,Chironomidae
 TLM,2023,Apr,SL,ParP,,5,Ethanol,Simplisetia,1,NA,0.001,NA,NA,0,NA,0,500,Simplisetia
 TLM,2023,Apr,SL,ParP,,5,Ethanol,Spisula,8,0.914,0.11,0.017,0.014,0.154545455,0.823529412,0.127272727,500,Spisula
-TLM,2023,Apr,SL,ParP,,5,Ethanol,Hydrobiidae,1,NA,0.014,0.009,0,0.642857143,0,0,500,Hydrobiidae
+TLM,2023,Apr,SL,ParP,,5,Ethanol,Hydrobiidae,1,NA,0.014,0.009,0,0.642857143,0,0,500,Truncatelloidea
 TLM,2023,Apr,SL,ParP,,5,Ethanol,Coxiella,1,NA,0.03,0.018,0.001,0.6,0.055555556,0.033333333,500,Coxiella
 TLM,2023,Apr,SL,ParP,,6,Ethanol,Amphipoda,4,NA,0.001,NA,NA,0,NA,0,500,Amphipoda
 TLM,2023,Apr,SL,ParP,,6,Ethanol,Capitella,64,NA,0.027,0.008,0.005,0.296296296,0.625,0.185185185,500,Capitella
@@ -2758,7 +2758,7 @@ OL,2019,June,MM,PP,,1,Ethanol,Amphipoda,65,NA,0.036,0.011,0.004,0.305555556,0.36
 OL,2019,June,MM,PP,,1,Ethanol,Capitella,189,NA,0.09,0.028,0.011,0.311111111,0.392857143,0.122222222,500,Capitella
 OL,2019,June,MM,PP,,1,Ethanol,Simplisetia,51,NA,0.251,0.055,0.03,0.219123506,0.545454545,0.119521912,500,Simplisetia
 OL,2019,June,MM,PP,,1,Ethanol,Salinator,3,NA,0.029,0.015,0.003,0.517241379,0.2,0.103448276,500,Salinator
-OL,2019,June,MM,PP,,1,Ethanol,Hydrobiidae,1,NA,0.004,0.002,0.001,0.5,0.5,0.25,500,Hydrobiidae
+OL,2019,June,MM,PP,,1,Ethanol,Hydrobiidae,1,NA,0.004,0.002,0.001,0.5,0.5,0.25,500,Truncatelloidea
 OL,2019,June,MM,PP,,2,Ethanol,Arthritica,190,NA,0.355,0.223,0.012,0.628169014,0.053811659,0.033802817,500,Arthritica
 OL,2019,June,MM,PP,,2,Ethanol,Capitella,64,NA,0.032,0.008,0.005,0.25,0.625,0.15625,500,Capitella
 OL,2019,June,MM,PP,,2,Ethanol,Simplisetia,10,NA,0.013,0.003,0.003,0.230769231,1,0.230769231,500,Simplisetia
@@ -2770,12 +2770,12 @@ OL,2019,June,MM,PP,,3,Ethanol,Simplisetia,12,NA,0.017,0.004,0.001,0.235294118,0.
 OL,2019,June,MM,PP,,4,Ethanol,Amphipoda,6,NA,0.004,0.001,0.001,0.25,1,0.25,500,Amphipoda
 OL,2019,June,MM,PP,,4,Ethanol,Arthritica,130,NA,0.172,0.107,0.007,0.622093023,0.065420561,0.040697674,500,Arthritica
 OL,2019,June,MM,PP,,4,Ethanol,Simplisetia,6,NA,0.008,0.002,0.002,0.25,1,0.25,500,Simplisetia
-OL,2019,June,MM,PP,,5,Ethanol,Hydrobiidae,2,NA,0.004,0.002,0.001,0.5,0.5,0.25,500,Hydrobiidae
+OL,2019,June,MM,PP,,5,Ethanol,Hydrobiidae,2,NA,0.004,0.002,0.001,0.5,0.5,0.25,500,Truncatelloidea
 OL,2019,June,MM,PP,,5,Ethanol,Simplisetia,7,NA,0.012,0.004,0.002,0.333333333,0.5,0.166666667,500,Simplisetia
 OL,2019,June,MM,PP,,5,Ethanol,Arthritica,242,NA,0.315,0.204,0.016,0.647619048,0.078431373,0.050793651,500,Arthritica
 OL,2019,June,MM,PP,,5,Ethanol,Amphipoda,37,NA,0.013,0.003,0.001,0.230769231,0.333333333,0.076923077,500,Amphipoda
 OL,2019,June,MM,PP,,6,Ethanol,Simplisetia,3,NA,0.01,0.005,0.002,0.5,0.4,0.2,500,Simplisetia
-OL,2019,June,MM,PP,,6,Ethanol,Hydrobiidae,4,NA,0.008,0.005,-0.001,0.625,-0.2,-0.125,500,Hydrobiidae
+OL,2019,June,MM,PP,,6,Ethanol,Hydrobiidae,4,NA,0.008,0.005,-0.001,0.625,-0.2,-0.125,500,Truncatelloidea
 OL,2019,June,MM,PP,,6,Ethanol,Arthritica,418,NA,0.693,0.472,0.078,0.681096681,0.165254237,0.112554113,500,Arthritica
 OL,2019,June,MM,PP,,7,Ethanol,Arthritica,230,NA,0.35,0.224,0.018,0.64,0.080357143,0.051428571,500,Arthritica
 OL,2019,June,MM,PP,,7,Ethanol,Amphipoda,18,NA,0.009,0.003,0.001,0.333333333,0.333333333,0.111111111,500,Amphipoda
@@ -2791,35 +2791,35 @@ OL,2019,June,MM,PP,,10,Ethanol,Amphipoda,84,NA,0.02,0.006,0.003,0.3,0.5,0.15,500
 OL,2019,June,MM,PP,,10,Ethanol,Capitella,98,NA,0.02,0.006,0.003,0.3,0.5,0.15,500,Capitella
 OL,2019,June,MM,PP,,10,Ethanol,Simplisetia,43,NA,0.123,0.035,0.011,0.284552846,0.314285714,0.089430894,500,Simplisetia
 OL,2019,June,MM,PP,,10,Ethanol,Salinator,3,NA,0.011,0.006,0,0.545454545,0,0,500,Salinator
-OL,2019,June,MM,PP,,10,Ethanol,Hydrobiidae,6,NA,0.013,0.005,0,0.384615385,0,0,500,Hydrobiidae
+OL,2019,June,MM,PP,,10,Ethanol,Hydrobiidae,6,NA,0.013,0.005,0,0.384615385,0,0,500,Truncatelloidea
 OL,2019,June,MM,PP,,11,Ethanol,Arthritica,129,NA,0.289,0.193,0.022,0.667820069,0.113989637,0.076124567,500,Arthritica
 OL,2019,June,MM,PP,,11,Ethanol,Amphipoda,51,NA,0.014,0.004,0,0.285714286,0,0,500,Amphipoda
 OL,2019,June,MM,PP,,11,Ethanol,Capitella,45,NA,0.024,0.008,0.004,0.333333333,0.5,0.166666667,500,Capitella
 OL,2019,June,MM,PP,,11,Ethanol,Simplisetia,43,NA,0.359,0.088,0.036,0.245125348,0.409090909,0.100278552,500,Simplisetia
 OL,2019,June,MM,PP,,11,Ethanol,Salinator,6,NA,0.177,0.074,0.011,0.418079096,0.148648649,0.062146893,500,Salinator
-OL,2019,June,MM,PP,,11,Ethanol,Hydrobiidae,13,NA,0.017,0.009,0.001,0.529411765,0.111111111,0.058823529,500,Hydrobiidae
+OL,2019,June,MM,PP,,11,Ethanol,Hydrobiidae,13,NA,0.017,0.009,0.001,0.529411765,0.111111111,0.058823529,500,Truncatelloidea
 OL,2019,June,MM,PP,,12,Ethanol,Arthritica,288,NA,0.455,0.296,0.051,0.650549451,0.172297297,0.112087912,500,Arthritica
 OL,2019,June,MM,PP,,12,Ethanol,Amphipoda,113,NA,0.045,0.009,0.003,0.2,0.333333333,0.066666667,500,Amphipoda
 OL,2019,June,MM,PP,,12,Ethanol,Capitella,260,NA,0.161,0.036,0.017,0.223602484,0.472222222,0.105590062,500,Capitella
 OL,2019,June,MM,PP,,12,Ethanol,Simplisetia,90,NA,0.249,0.055,0.025,0.220883534,0.454545455,0.100401606,500,Simplisetia
 OL,2019,June,MM,PP,,12,Ethanol,Salinator,9,NA,0.178,0.089,0.016,0.5,0.179775281,0.08988764,500,Salinator
-OL,2019,June,MM,PP,,12,Ethanol,Hydrobiidae,9,NA,0.013,0.006,-0.001,0.461538462,-0.166666667,-0.076923077,500,Hydrobiidae
+OL,2019,June,MM,PP,,12,Ethanol,Hydrobiidae,9,NA,0.013,0.006,-0.001,0.461538462,-0.166666667,-0.076923077,500,Truncatelloidea
 OL,2019,June,MM,PP,,13,Ethanol,Arthritica,63,NA,0.142,0.093,0.008,0.654929577,0.086021505,0.056338028,500,Arthritica
 OL,2019,June,MM,PP,,13,Ethanol,Amphipoda,476,NA,0.256,0.033,0.016,0.12890625,0.484848485,0.0625,500,Amphipoda
 OL,2019,June,MM,PP,,13,Ethanol,Capitella,71,NA,0.047,0.013,0.005,0.276595745,0.384615385,0.106382979,500,Capitella
 OL,2019,June,MM,PP,,13,Ethanol,Simplisetia,70,NA,0.242,0.066,0.026,0.272727273,0.393939394,0.107438017,500,Simplisetia
 OL,2019,June,MM,PP,,13,Ethanol,Salinator,2,NA,0.024,0.013,0.003,0.541666667,0.230769231,0.125,500,Salinator
-OL,2019,June,MM,PP,,13,Ethanol,Hydrobiidae,10,NA,0.018,0.009,0,0.5,0,0,500,Hydrobiidae
+OL,2019,June,MM,PP,,13,Ethanol,Hydrobiidae,10,NA,0.018,0.009,0,0.5,0,0,500,Truncatelloidea
 OL,2019,June,MM,PP,,14,Ethanol,Arthritica,25,NA,0.063,0.05,0.002,0.793650794,0.04,0.031746032,500,Arthritica
 OL,2019,June,MM,PP,,14,Ethanol,Amphipoda,525,NA,0.227,0.031,0.015,0.136563877,0.483870968,0.066079295,500,Amphipoda
 OL,2019,June,MM,PP,,14,Ethanol,Salinator,2,NA,0.061,0.032,0.004,0.524590164,0.125,0.06557377,500,Salinator
 OL,2019,June,MM,PP,,14,Ethanol,Simplisetia,44,NA,0.078,0.025,0.007,0.320512821,0.28,0.08974359,500,Simplisetia
-OL,2019,June,MM,PP,,14,Ethanol,Hydrobiidae,12,NA,0.023,0.013,0.002,0.565217391,0.153846154,0.086956522,500,Hydrobiidae
+OL,2019,June,MM,PP,,14,Ethanol,Hydrobiidae,12,NA,0.023,0.013,0.002,0.565217391,0.153846154,0.086956522,500,Truncatelloidea
 OL,2019,June,MM,PP,,15,Ethanol,Capitella,92,NA,0.092,0.031,0.008,0.336956522,0.258064516,0.086956522,500,Capitella
 OL,2019,June,MM,PP,,15,Ethanol,Amphipoda,563,NA,0.194,0.027,0.015,0.139175258,0.555555556,0.077319588,500,Amphipoda
 OL,2019,June,MM,PP,,15,Ethanol,Arthritica,125,NA,0.262,0.179,0.037,0.683206107,0.206703911,0.141221374,500,Arthritica
 OL,2019,June,MM,PP,,15,Ethanol,Simplisetia,72,NA,0.279,0.083,0.023,0.297491039,0.277108434,0.082437276,500,Simplisetia
-OL,2019,June,MM,PP,,15,Ethanol,Hydrobiidae,16,NA,0.036,0.023,0.002,0.638888889,0.086956522,0.055555556,500,Hydrobiidae
+OL,2019,June,MM,PP,,15,Ethanol,Hydrobiidae,16,NA,0.036,0.023,0.002,0.638888889,0.086956522,0.055555556,500,Truncatelloidea
 OL,2019,June,MM,PP,,15,Ethanol,Salinator,8,NA,0.176,0.096,0.023,0.545454545,0.239583333,0.130681818,500,Salinator
 OL,2019,June,NL,NM,,1,Ethanol,Capitella,65,NA,0.024,0.01,0.002,0.416666667,0.2,0.083333333,500,Capitella
 OL,2019,June,NL,NM,,2,Ethanol,Capitella,29,NA,0.015,0.009,0.001,0.6,0.111111111,0.066666667,500,Capitella
@@ -2843,58 +2843,58 @@ OL,2019,June,NL,NM,,14,Ethanol,Capitella,45,NA,0.021,0.009,0.002,0.428571429,0.2
 OL,2019,June,NL,NM,,15,Ethanol,Capitella,18,NA,0.009,0.004,0.001,0.444444444,0.25,0.111111111,500,Capitella
 OL,2020,Jan,MM,PP,,1,Ethanol,Arthritica,288,NA,0.38,0.23,0.028,0.605263158,0.12173913,0.073684211,500,Arthritica
 OL,2020,Jan,MM,PP,,1,Ethanol,Simplisetia,110,NA,0.498,0.124,0.056,0.248995984,0.451612903,0.112449799,500,Simplisetia
-OL,2020,Jan,MM,PP,,1,Ethanol,Hydrobiidae,46,NA,0.13,0.08,0.009,0.615384615,0.1125,0.069230769,500,Hydrobiidae
+OL,2020,Jan,MM,PP,,1,Ethanol,Hydrobiidae,46,NA,0.13,0.08,0.009,0.615384615,0.1125,0.069230769,500,Truncatelloidea
 OL,2020,Jan,MM,PP,,1,Ethanol,Salinator (shell removed),16,2.1,0.921,0.291,0.133,0.315960912,0.457044674,0.144408252,500,Salinator (shell removed)
 OL,2020,Jan,MM,PP,,2,Ethanol,Arthritica,365,NA,0.467,0.275,0.039,0.588865096,0.141818182,0.083511777,500,Arthritica
 OL,2020,Jan,MM,PP,,2,Ethanol,Simplisetia,128,NA,0.462,0.132,0.061,0.285714286,0.462121212,0.132034632,500,Simplisetia
-OL,2020,Jan,MM,PP,,2,Ethanol,Hydrobiidae,49,NA,0.146,0.091,0.012,0.623287671,0.131868132,0.082191781,500,Hydrobiidae
+OL,2020,Jan,MM,PP,,2,Ethanol,Hydrobiidae,49,NA,0.146,0.091,0.012,0.623287671,0.131868132,0.082191781,500,Truncatelloidea
 OL,2020,Jan,MM,PP,,2,Ethanol,Salinator (shell removed),8,0.723,0.378,0.128,0.053,0.338624339,0.4140625,0.14021164,500,Salinator (shell removed)
 OL,2020,Jan,MM,PP,,3,Ethanol,Arthritica,361,NA,0.578,0.353,0.041,0.610726644,0.116147309,0.070934256,500,Arthritica
 OL,2020,Jan,MM,PP,,3,Ethanol,Simplisetia,172,NA,0.675,0.141,0.069,0.208888889,0.489361702,0.102222222,500,Simplisetia
-OL,2020,Jan,MM,PP,,3,Ethanol,Hydrobiidae,45,NA,0.137,0.087,0.01,0.635036496,0.114942529,0.072992701,500,Hydrobiidae
+OL,2020,Jan,MM,PP,,3,Ethanol,Hydrobiidae,45,NA,0.137,0.087,0.01,0.635036496,0.114942529,0.072992701,500,Truncatelloidea
 OL,2020,Jan,MM,PP,,3,Ethanol,Salinator (shell removed),12,2.558,1.271,0.408,0.204,0.321007081,0.5,0.160503541,500,Salinator (shell removed)
 OL,2020,Jan,MM,PP,,4,Ethanol,Arthritica,78,NA,0.109,0.072,0.009,0.660550459,0.125,0.082568807,500,Arthritica
 OL,2020,Jan,MM,PP,,4,Ethanol,Simplisetia,125,NA,0.399,0.083,0.048,0.20802005,0.578313253,0.120300752,500,Simplisetia
-OL,2020,Jan,MM,PP,,4,Ethanol,Hydrobiidae,4,NA,0.014,0.011,0,0.785714286,0,0,500,Hydrobiidae
+OL,2020,Jan,MM,PP,,4,Ethanol,Hydrobiidae,4,NA,0.014,0.011,0,0.785714286,0,0,500,Truncatelloidea
 OL,2020,Jan,MM,PP,,4,Ethanol,Salinator (shell removed),7,0.503,0.259,0.073,0.04,0.281853282,0.547945205,0.154440154,500,Salinator (shell removed)
 OL,2020,Jan,MM,PP,,5,Ethanol,Simplisetia,108,NA,0.511,0.119,0.054,0.232876712,0.453781513,0.105675147,500,Simplisetia
 OL,2020,Jan,MM,PP,,5,Ethanol,Arthritica,45,NA,0.054,0.033,0.004,0.611111111,0.121212121,0.074074074,500,Arthritica
-OL,2020,Jan,MM,PP,,5,Ethanol,Hydrobiidae,11,NA,0.027,0.017,0.001,0.62962963,0.058823529,0.037037037,500,Hydrobiidae
+OL,2020,Jan,MM,PP,,5,Ethanol,Hydrobiidae,11,NA,0.027,0.017,0.001,0.62962963,0.058823529,0.037037037,500,Truncatelloidea
 OL,2020,Jan,MM,PP,,5,Ethanol,Salinator (shell removed),11,1.919,0.999,0.311,0.138,0.311311311,0.443729904,0.138138138,500,Salinator (shell removed)
 OL,2020,Jan,MM,PP,,6,Ethanol,Arthritica,348,NA,0.486,0.275,0.023,0.565843621,0.083636364,0.047325103,500,Arthritica
 OL,2020,Jan,MM,PP,,6,Ethanol,Simplisetia,153,NA,0.935,0.205,0.095,0.219251337,0.463414634,0.101604278,500,Simplisetia
-OL,2020,Jan,MM,PP,,6,Ethanol,Hydrobiidae,21,NA,0.027,0.018,0.003,0.666666667,0.166666667,0.111111111,500,Hydrobiidae
+OL,2020,Jan,MM,PP,,6,Ethanol,Hydrobiidae,21,NA,0.027,0.018,0.003,0.666666667,0.166666667,0.111111111,500,Truncatelloidea
 OL,2020,Jan,MM,PP,,6,Ethanol,Salinator (shell removed),2,0.392,0.201,0.059,0.029,0.293532338,0.491525424,0.144278607,500,Salinator (shell removed)
 OL,2020,Jan,MM,PP,,7,Ethanol,Arthritica,535,NA,1.231,0.917,0.037,0.744922827,0.040348964,0.030056864,500,Arthritica
-OL,2020,Jan,MM,PP,,7,Ethanol,Hydrobiidae,10,NA,0.013,0.009,0.001,0.692307692,0.111111111,0.076923077,500,Hydrobiidae
+OL,2020,Jan,MM,PP,,7,Ethanol,Hydrobiidae,10,NA,0.013,0.009,0.001,0.692307692,0.111111111,0.076923077,500,Truncatelloidea
 OL,2020,Jan,MM,PP,,7,Ethanol,Simplisetia,194,NA,0.684,0.228,0.063,0.333333333,0.276315789,0.092105263,500,Simplisetia
 OL,2020,Jan,MM,PP,,8,Ethanol,Arthritica,304,NA,0.459,0.267,0.022,0.581699346,0.082397004,0.047930283,500,Arthritica
 OL,2020,Jan,MM,PP,,8,Ethanol,Simplisetia,200,NA,0.797,0.216,0.089,0.271016311,0.412037037,0.111668758,500,Simplisetia
 OL,2020,Jan,MM,PP,,8,Ethanol,Salinator (shell removed),2,0.488,0.217,0.064,0.031,0.294930876,0.484375,0.142857143,500,Salinator (shell removed)
-OL,2020,Jan,MM,PP,,8,Ethanol,Hydrobiidae,18,NA,0.015,0.009,0,0.6,0,0,500,Hydrobiidae
-OL,2020,Jan,MM,PP,,9,Ethanol,Hydrobiidae,7,NA,0.014,0.008,0.001,0.571428571,0.125,0.071428571,500,Hydrobiidae
+OL,2020,Jan,MM,PP,,8,Ethanol,Hydrobiidae,18,NA,0.015,0.009,0,0.6,0,0,500,Truncatelloidea
+OL,2020,Jan,MM,PP,,9,Ethanol,Hydrobiidae,7,NA,0.014,0.008,0.001,0.571428571,0.125,0.071428571,500,Truncatelloidea
 OL,2020,Jan,MM,PP,,9,Ethanol,Simplisetia,154,NA,0.619,0.161,0.059,0.260096931,0.366459627,0.095315024,500,Simplisetia
 OL,2020,Jan,MM,PP,,9,Ethanol,Arthritica,203,NA,0.304,0.185,0.012,0.608552632,0.064864865,0.039473684,500,Arthritica
 OL,2020,Jan,MM,PP,,9,Ethanol,Salinator (shell removed),2,0.31,0.141,0.045,0.018,0.319148936,0.4,0.127659574,500,Salinator (shell removed)
 OL,2020,Jan,MM,PP,,10,Ethanol,Arthritica,372,NA,0.583,0.346,0.03,0.59348199,0.086705202,0.051457976,500,Arthritica
 OL,2020,Jan,MM,PP,,10,Ethanol,Simplisetia,231,NA,0.697,0.176,0.072,0.25251076,0.409090909,0.103299857,500,Simplisetia
-OL,2020,Jan,MM,PP,,10,Ethanol,Hydrobiidae,29,NA,0.043,0.028,0.003,0.651162791,0.107142857,0.069767442,500,Hydrobiidae
+OL,2020,Jan,MM,PP,,10,Ethanol,Hydrobiidae,29,NA,0.043,0.028,0.003,0.651162791,0.107142857,0.069767442,500,Truncatelloidea
 OL,2020,Jan,MM,PP,,10,Ethanol,Salinator (shell removed),3,0.329,0.161,0.049,0.021,0.304347826,0.428571429,0.130434783,500,Salinator (shell removed)
 OL,2020,Jan,MM,PP,,11,Ethanol,Salinator (shell removed),2,0.445,0.219,0.064,0.036,0.292237443,0.5625,0.164383562,500,Salinator (shell removed)
 OL,2020,Jan,MM,PP,,11,Ethanol,Arthritica,84,NA,0.109,0.065,0.006,0.596330275,0.092307692,0.055045872,500,Arthritica
 OL,2020,Jan,MM,PP,,11,Ethanol,Simplisetia,86,NA,0.305,0.066,0.032,0.216393443,0.484848485,0.104918033,500,Simplisetia
 OL,2020,Jan,MM,PP,,12,Ethanol,Arthritica,96,NA,0.174,0.106,0.01,0.609195402,0.094339623,0.057471264,500,Arthritica
 OL,2020,Jan,MM,PP,,12,Ethanol,Simplisetia,170,NA,0.463,0.125,0.049,0.269978402,0.392,0.105831533,500,Simplisetia
-OL,2020,Jan,MM,PP,,12,Ethanol,Hydrobiidae,4,NA,0.005,0.002,0,0.4,0,0,500,Hydrobiidae
+OL,2020,Jan,MM,PP,,12,Ethanol,Hydrobiidae,4,NA,0.005,0.002,0,0.4,0,0,500,Truncatelloidea
 OL,2020,Jan,MM,PP,,13,Ethanol,Arthritica,124,NA,0.198,0.124,0.014,0.626262626,0.112903226,0.070707071,500,Arthritica
 OL,2020,Jan,MM,PP,,13,Ethanol,Simplisetia,114,NA,0.46,0.081,0.051,0.176086957,0.62962963,0.110869565,500,Simplisetia
-OL,2020,Jan,MM,PP,,13,Ethanol,Hydrobiidae,5,NA,0.007,0.002,0,0.285714286,0,0,500,Hydrobiidae
+OL,2020,Jan,MM,PP,,13,Ethanol,Hydrobiidae,5,NA,0.007,0.002,0,0.285714286,0,0,500,Truncatelloidea
 OL,2020,Jan,MM,PP,,14,Ethanol,Simplisetia,89,NA,0.356,0.074,0.038,0.207865169,0.513513514,0.106741573,500,Simplisetia
-OL,2020,Jan,MM,PP,,14,Ethanol,Hydrobiidae,3,NA,0.011,0.007,0,0.636363636,0,0,500,Hydrobiidae
+OL,2020,Jan,MM,PP,,14,Ethanol,Hydrobiidae,3,NA,0.011,0.007,0,0.636363636,0,0,500,Truncatelloidea
 OL,2020,Jan,MM,PP,,14,Ethanol,Arthritica,121,NA,0.221,0.136,0.013,0.615384615,0.095588235,0.058823529,500,Arthritica
 OL,2020,Jan,MM,PP,,15,Ethanol,Arthritica,107,NA,0.156,0.091,0.008,0.583333333,0.087912088,0.051282051,500,Arthritica
 OL,2020,Jan,MM,PP,,15,Ethanol,Simplisetia,140,NA,0.547,0.126,0.056,0.230347349,0.444444444,0.1023766,500,Simplisetia
-OL,2020,Jan,MM,PP,,15,Ethanol,Hydrobiidae,9,NA,0.019,0.011,0.001,0.578947368,0.090909091,0.052631579,500,Hydrobiidae
+OL,2020,Jan,MM,PP,,15,Ethanol,Hydrobiidae,9,NA,0.019,0.011,0.001,0.578947368,0.090909091,0.052631579,500,Truncatelloidea
 OL,2020,Jan,MM,PP,,1,Ethanol,Chironomidae,5,NA,0.005,0.004,0,0.8,0,0,500,Chironomidae
 OL,2020,Jan,MM,PP,,2,Ethanol,Chironomidae,18,NA,0.007,0.005,0.001,0.714285714,0.2,0.142857143,500,Chironomidae
 OL,2020,Jan,MM,PP,,3,Ethanol,Chironomidae,31,NA,0.004,0,0,0,NA,0,500,Chironomidae
@@ -2972,36 +2972,36 @@ OL,2020,Jan,NL,NM,,14,Ethanol,Spisula,1,0.941,0.116,0.03,0.019,0.25862069,0.6333
 OL,2020,Jan,NL,NM,,15,Ethanol,Spisula,1,0.046,0.008,0.003,0.002,0.375,0.666666667,0.25,500,Spisula
 ,2020,,,HC,,1,Formalin,Arthritica,88,NA,0.1833,0.1103,0.0157,0.601745772,0.142339075,0.085651937,500,Arthritica
 ,2020,,,HC,,1,Formalin,Capitella,2,NA,0.001,3e-4,3e-4,0.3,1,0.3,500,Capitella
-,2020,,,HC,,1,Formalin,Hydrobiidae,1,NA,0.0076,0.0066,0.0027,0.868421053,0.409090909,0.355263158,500,Hydrobiidae
+,2020,,,HC,,1,Formalin,Hydrobiidae,1,NA,0.0076,0.0066,0.0027,0.868421053,0.409090909,0.355263158,500,Truncatelloidea
 ,2020,,,HC,,1,Formalin,Salinator,4,NA,0.0335,0.017,0.003,0.507462687,0.176470588,0.089552239,500,Salinator
 ,2020,,,HC,,2,Formalin,Arthritica,63,NA,0.1477,0.082,0.0042,0.555179418,0.051219512,0.028436019,500,Arthritica
-,2020,,,HC,,2,Formalin,Hydrobiidae,2,NA,0.018,0.01355,0.0047,0.752777778,0.346863469,0.261111111,500,Hydrobiidae
+,2020,,,HC,,2,Formalin,Hydrobiidae,2,NA,0.018,0.01355,0.0047,0.752777778,0.346863469,0.261111111,500,Truncatelloidea
 ,2020,,,HC,,2,Formalin,Salinator,2,NA,0.0055,0.0014,2e-4,0.254545455,0.142857143,0.036363636,500,Salinator
 ,2020,,,HC,,3,Formalin,Arthritica,171,NA,0.3033,0.15505,0.0226,0.511210023,0.145759432,0.074513683,500,Arthritica
-,2020,,,HC,,3,Formalin,Hydrobiidae,6,NA,0.0608,0.04355,0.0098,0.716282895,0.225028703,0.161184211,500,Hydrobiidae
+,2020,,,HC,,3,Formalin,Hydrobiidae,6,NA,0.0608,0.04355,0.0098,0.716282895,0.225028703,0.161184211,500,Truncatelloidea
 ,2020,,,HC,,3,Formalin,Paragrapsus,1,NA,0.029,0.0036,0.003,0.12413793100000001,0.833333333,0.103448276,500,Paragrapsus
 ,2020,,,HC,,3,Formalin,Salinator,7,NA,0.7241,0.3671,0.068,0.506974175,0.185235631,0.093909681,500,Salinator
 ,2020,,,HC,,3,Formalin,Simplisetia,1,NA,7e-4,3e-4,2e-4,0.428571429,0.666666667,0.285714286,500,Simplisetia
 ,2020,,,HC,,4,Formalin,Arthritica,106,NA,0.2115,0.13475,0.0246,0.637115839,0.182560297,0.116312057,500,Arthritica
-,2020,,,HC,,4,Formalin,Hydrobiidae,5,NA,0.034,0.0236,0.0088,0.694117647,0.372881356,0.258823529,500,Hydrobiidae
+,2020,,,HC,,4,Formalin,Hydrobiidae,5,NA,0.034,0.0236,0.0088,0.694117647,0.372881356,0.258823529,500,Truncatelloidea
 ,2020,,,HC,,4,Formalin,Salinator,1,NA,0.0167,0.00735,0.0015,0.44011976,0.204081633,0.089820359,500,Salinator
 ,2020,,,HC,,5,Formalin,Arthritica,119,NA,0.2539,0.12845,0.0196,0.505907838,0.152588556,0.077195746,500,Arthritica
-,2020,,,HC,,5,Formalin,Hydrobiidae,2,NA,0.0269,0.021,0.0076,0.780669145,0.361904762,0.282527881,500,Hydrobiidae
+,2020,,,HC,,5,Formalin,Hydrobiidae,2,NA,0.0269,0.021,0.0076,0.780669145,0.361904762,0.282527881,500,Truncatelloidea
 ,2020,,,HC,,5,Formalin,Phyllodoce,1,NA,0.0193,0.0032,0.0027,0.165803109,0.84375,0.139896373,500,Phyllodoce
 ,2020,,,HC,,5,Formalin,Salinator,1,NA,0.0134,0.0069,0.0024,0.514925373,0.347826087,0.179104478,500,Salinator
 ,2020,,,HC,,1,Formalin,Arthritica,3,NA,0.0165,0.0128,0.0037,0.775757576,0.2890625,0.224242424,2000,Arthritica
 ,2020,,,HC,,1,Formalin,Capitella,1,NA,0.0033,9.5e-4,0.0014,0.287878788,1.473684211,0.424242424,2000,Capitella
-,2020,,,HC,,1,Formalin,Hydrobiidae,44,NA,0.3973,0.32795,0.1074,0.825446766,0.327488946,0.270324692,2000,Hydrobiidae
+,2020,,,HC,,1,Formalin,Hydrobiidae,44,NA,0.3973,0.32795,0.1074,0.825446766,0.327488946,0.270324692,2000,Truncatelloidea
 ,2020,,,HC,,1,Formalin,Phyllodoce,2,NA,0.0655,0.0108,0.0104,0.164885496,0.962962963,0.158778626,2000,Phyllodoce
 ,2020,,,HC,,1,Formalin,Salinator,21,NA,2.1905,1.2135,0.2812,0.553983109,0.231726411,0.128372518,2000,Salinator
-,2020,,,HC,,2,Formalin,Hydrobiidae,3,NA,0.0431,0.03425,0.0104,0.794663573,0.303649635,0.241299304,2000,Hydrobiidae
+,2020,,,HC,,2,Formalin,Hydrobiidae,3,NA,0.0431,0.03425,0.0104,0.794663573,0.303649635,0.241299304,2000,Truncatelloidea
 ,2020,,,HC,,2,Formalin,Salinator,35,NA,3.9257,2.1568,0.4564,0.549405202,0.211609792,0.116259521,2000,Salinator
 ,2020,,,HC,,3,Formalin,Hiatula,1,NA,0.0791,0.0213,0.0279,0.269279393,1.309859155,0.352718078,2000,Hiatula alba
-,2020,,,HC,,3,Formalin,Hydrobiidae,11,NA,0.1009,0.0869,4e-4,0.861248761,0.004602992,0.003964321,2000,Hydrobiidae
+,2020,,,HC,,3,Formalin,Hydrobiidae,11,NA,0.1009,0.0869,4e-4,0.861248761,0.004602992,0.003964321,2000,Truncatelloidea
 ,2020,,,HC,,3,Formalin,Oligochaeta,1,NA,4e-4,5e-4,1.277,1.25,2554,3192.5,2000,Oligochaeta
 ,2020,,,HC,,3,Formalin,Salinator,80,NA,12.661,6.7065,0.019,0.529697496,0.002833072,0.001500671,2000,Salinator
 ,2020,,,HC,,4,Formalin,Arthritica,3,NA,0.0151,0.0103,0.0022,0.682119205,0.213592233,0.145695364,2000,Arthritica
-,2020,,,HC,,4,Formalin,Hydrobiidae,23,NA,0.2016,0.17525,0.0626,0.869295635,0.357203994,0.310515873,2000,Hydrobiidae
+,2020,,,HC,,4,Formalin,Hydrobiidae,23,NA,0.2016,0.17525,0.0626,0.869295635,0.357203994,0.310515873,2000,Truncatelloidea
 ,2020,,,HC,,4,Formalin,Paragrapsus,1,NA,0.0173,0.003,0.0019,0.173410405,0.633333333,0.10982659,2000,Paragrapsus
 ,2020,,,HC,,4,Formalin,Phyllodoce,19,NA,0.6896,0.0997,0.0747,0.144576566,0.749247743,0.108323666,2000,Phyllodoce
 ,2020,,,HC,,4,Formalin,Salinator,32,NA,4.1836,2.3115,0.5189,0.552514581,0.224486264,0.124031934,2000,Salinator
@@ -3009,7 +3009,7 @@ OL,2020,Jan,NL,NM,,15,Ethanol,Spisula,1,0.046,0.008,0.003,0.002,0.375,0.66666666
 ,2020,,,HC,,5,Formalin,Arthritica,1,NA,0.001,5.5e-4,2e-4,0.55,0.363636364,0.2,2000,Arthritica
 ,2020,,,HC,,5,Formalin,Capitella,2,NA,0.0034,5e-4,2e-4,0.147058824,0.4,0.058823529,2000,Capitella
 ,2020,,,HC,,5,Formalin,Hiatula,1,NA,0.3224,0.08955,0.0047,0.277760546,0.052484645,0.014578164,2000,Hiatula alba
-,2020,,,HC,,5,Formalin,Hydrobiidae,4,NA,0.0399,0.0283,0.025,0.709273183,0.883392226,0.626566416,2000,Hydrobiidae
+,2020,,,HC,,5,Formalin,Hydrobiidae,4,NA,0.0399,0.0283,0.025,0.709273183,0.883392226,0.626566416,2000,Truncatelloidea
 ,2020,,,HC,,5,Formalin,Nephtys,1,NA,0.1796,0.03175,0.0086,0.176781737,0.270866142,0.047884187,2000,Nephtys
 ,2020,,,HC,,5,Formalin,Paragrapsus,2,NA,0.0482,0.01295,0.0725,0.268672199,5.598455598,1.504149378,2000,Paragrapsus
 ,2020,,,HC,,5,Formalin,Salinator,11,NA,0.5256,0.2808,0.058,0.534246575,0.206552707,0.110350076,2000,Salinator
@@ -3048,24 +3048,24 @@ OL,2020,Jan,NL,NM,,15,Ethanol,Spisula,1,0.046,0.008,0.003,0.002,0.375,0.66666666
 ,2020,,,PP,,1,Formalin,Simplisetia,129,NA,0.5939,0.1084,0.0561,0.18252231,0.517527675,0.094460347,500,Simplisetia
 ,2020,,,PP,,2,Formalin,Arthritica,173,NA,0.2274,0.1644,0.0582,0.722955145,0.354014599,0.255936675,500,Arthritica
 ,2020,,,PP,,2,Formalin,Capitella,139,NA,0.3269,0.0339,0.0238,0.103701438,0.702064897,0.072805139,500,Capitella
-,2020,,,PP,,2,Formalin,Hydrobiidae,2,NA,0.0198,0.0126,0.0012,0.636363636,0.095238095,0.060606061,500,Hydrobiidae
+,2020,,,PP,,2,Formalin,Hydrobiidae,2,NA,0.0198,0.0126,0.0012,0.636363636,0.095238095,0.060606061,500,Truncatelloidea
 ,2020,,,PP,,2,Formalin,Oligochaeta,2,NA,0.0013,3e-4,3e-4,0.230769231,1,0.230769231,500,Oligochaeta
 ,2020,,,PP,,2,Formalin,Salinator,1,NA,6e-4,2e-4,0.0011,0.333333333,5.5,1.833333333,500,Salinator
 ,2020,,,PP,,2,Formalin,Simplisetia,273,NA,1.7846,0.4581,0.2743,0.256696178,0.598777559,0.153703911,500,Simplisetia
 ,2020,,,PP,,3,Formalin,Arthritica,148,NA,0.2328,0.177,0.0563,0.760309278,0.318079096,0.241838488,500,Arthritica
 ,2020,,,PP,,3,Formalin,Capitella,162,NA,0.1072,0.0178,0.0091,0.166044776,0.511235955,0.08488806,500,Capitella
-,2020,,,PP,,3,Formalin,Hydrobiidae,48,NA,0.1205,0.0828,0.0279,0.687136929,0.336956522,0.23153527,500,Hydrobiidae
+,2020,,,PP,,3,Formalin,Hydrobiidae,48,NA,0.1205,0.0828,0.0279,0.687136929,0.336956522,0.23153527,500,Truncatelloidea
 ,2020,,,PP,,3,Formalin,Salinator,12,NA,0.6109,0.4218,0.1783,0.690456703,0.422712186,0.291864462,500,Salinator
 ,2020,,,PP,,3,Formalin,Simplisetia,93,NA,0.9213,0.1881,0.0777,0.204168023,0.41307815,0.084337349,500,Simplisetia
 ,2020,,,PP,,4,Formalin,Arthritica,206,NA,0.233,0.1192,0.0228,0.511587983,0.191275168,0.097854077,500,Arthritica
 ,2020,,,PP,,4,Formalin,Boccardiella,1,NA,7e-4,3e-4,3e-4,0.428571429,1,0.428571429,500,Boccardiella
 ,2020,,,PP,,4,Formalin,Capitella,168,NA,0.2267,0.0387,0.0248,0.17071019,0.640826873,0.109395677,500,Capitella
-,2020,,,PP,,4,Formalin,Hydrobiidae,11,NA,0.0149,0.005,0.0014,0.33557047,0.28,0.093959732,500,Hydrobiidae
+,2020,,,PP,,4,Formalin,Hydrobiidae,11,NA,0.0149,0.005,0.0014,0.33557047,0.28,0.093959732,500,Truncatelloidea
 ,2020,,,PP,,4,Formalin,Salinator,5,NA,0.0043,0.002,0.0011,0.465116279,0.55,0.255813953,500,Salinator
 ,2020,,,PP,,4,Formalin,Simplisetia,283,NA,2.1809,0.4238,0.2049,0.194323444,0.483482775,0.093952038,500,Simplisetia
 ,2020,,,PP,,5,Formalin,Arthritica,147,NA,0.2116,0.1189,0.0213,0.561909263,0.179142136,0.100661626,500,Arthritica
 ,2020,,,PP,,5,Formalin,Capitella,116,NA,0.1417,0.0254,0.0156,0.179251941,0.614173228,0.110091743,500,Capitella
-,2020,,,PP,,5,Formalin,Hydrobiidae,2,NA,0.0015,5e-4,2e-4,0.333333333,0.4,0.133333333,500,Hydrobiidae
+,2020,,,PP,,5,Formalin,Hydrobiidae,2,NA,0.0015,5e-4,2e-4,0.333333333,0.4,0.133333333,500,Truncatelloidea
 ,2020,,,PP,,5,Formalin,Salinator,1,NA,0.0011,4e-4,2e-4,0.363636364,0.5,0.181818182,500,Salinator
 ,2020,,,PP,,5,Formalin,Simplisetia,285,NA,2.4187,0.4728,0.223,0.195476909,0.471658206,0.092198288,500,Simplisetia
 ,2020,,,PP,,1,Formalin,Arthritica,3,NA,0.0038,0.00195,2e-4,0.513157895,0.102564103,0.052631579,2000,Arthritica
