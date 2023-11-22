@@ -106,10 +106,10 @@ biomass_ethanol_dm_afdm_cleaned_ratios <- biomass_ethanol_dm_afdm_cleaned |>
 
 ```{r cars}
 # published mean ratios from Ricciardi and Bourget (1998)
-ricciardi_bourget <- tibble(taxa_clean = reg_summary_outliers_removed_a_sf$taxa_clean, ricc_bourg_mean_ratio = c(0.729, 0.148, 0.712, NA, NA, NA, NA, 0.792, 0.827))
+ricciardi_bourget <- tibble(taxa_clean = reg_summary_ethanol_dm_afdm_a_sf$taxa_clean, ricc_bourg_mean_ratio = c(0.729, 0.148, 0.712, NA, NA, NA, 0.792, 0.827, NA))
 
 # published mean ratios from Brey et al (2010)
-brey_et_al <- tibble(taxa_clean = reg_summary_outliers_removed_a_sf$taxa_clean, brey_mean_ratio = c(0.773, 0.116, 0.687, NA, 0.059, 0.222, 0.780, 0.842, 0.935)) 
+brey_et_al <- tibble(taxa_clean = reg_summary_ethanol_dm_afdm_a_sf$taxa_clean, brey_mean_ratio = c(0.773, 0.116, 0.687, NA, 0.222, 0.780, 0.842, 0.935, 0.059)) 
 
 # calculating error in total predicted mass as a percentage of total measured mass
 pred_mass_ethanol_dm_afdm <- taxa_nested_lm_ln_coef_sf_ethanol_dm_afdm |>
