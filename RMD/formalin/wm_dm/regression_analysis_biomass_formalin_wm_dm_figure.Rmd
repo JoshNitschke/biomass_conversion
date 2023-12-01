@@ -522,8 +522,8 @@ taxa_nested_outliers_removed_lm_ln_plot_coef_CI_BT <- taxa_nested_outliers_remov
                         .f = ~ggplot(..1, aes(x = wm_g, y = dm_g)) +
                           geom_point(fill = "grey", size = 3, alpha = 0.5, stroke = 1) +
                           geom_function(fun = function(x) (exp(..3))*(x^..2)*..4, 
-                                        col = "darkgreen", linewidth  = 1) +
-                          geom_ribbon(aes(ymin = lower_CI_line, ymax = upper_CI_line), fill = "darkgreen", 
+                                        col = "#D55E00", linewidth  = 1) +
+                          geom_ribbon(aes(ymin = lower_CI_line, ymax = upper_CI_line), fill = "#D55E00", 
                                       alpha = 0.2) +
                           ggtitle(..5) + 
                           labs(x = "wet mass (g)", y = "dry mass (g)") + 
