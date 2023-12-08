@@ -17,6 +17,8 @@ library(skimr)
 library(purrr)
 library(tidyr)
 library(RColorBrewer)
+library(ggpubr)
+
 
 ```
 
@@ -163,11 +165,11 @@ total_percentage_error_plot_ethanol_wm_dm <-
   ggplot(data = pred_mass_ethanol_wm_dm_error_long, aes(x = pred_method, y = percent_error)) +
   geom_jitter(width = 0.1, size = 3, aes(colour = taxa_clean), alpha = 0.5, stroke = 1) + 
   geom_hline(yintercept = 0, linetype = 2) +
-  ggtitle("wet mass -> dry mass") +
-  labs(x = "prediction method", y = "percentage error in total mass") +
+  ggtitle(expression("Wet mass" %->% "Dry mass")) +
+  labs(x = "Prediction method", y = "Percentage error in total mass") +
   scale_x_discrete(limits = c("reg_pred_dm_percent_error",  "ratio_pred_dm_percent_error",
                               "riccbourg_ratio_pred_dm_percent_error", "breyetal_ratio_pred_dm_percent_error"), 
-                   labels = c("log-linear regression \n(this study)", "mean ratio \n(this study)", 
+                   labels = c("Log-linear regression \n(this study)", "Mean ratio \n(this study)", 
                               "Ricciardi and Bourget \nmean ratio", "Brey et al \nmean ratio")) +
   scale_colour_manual(values = brewer.pal(8, "Dark2")) +
   #scale_colour_manual(values = cbPalette) +
@@ -187,11 +189,197 @@ total_percentage_error_plot_ethanol_wm_dm <-
 saving the plot
 
 ```{r}
-png(here("output/png/total_percentage_error_plot_ethanol_dm_wm.png"), width = 2000, height = 1400, res = 300)
-par(omi = c(1,1,1,1))  
-total_percentage_error_plot_ethanol_wm_dm
-dev.off()
+# png(here("output/png/total_percentage_error_plot_ethanol_dm_wm.png"), width = 2000, height = 1400, res = 300)
+# par(omi = c(1,1,1,1))  
+# total_percentage_error_plot_ethanol_wm_dm
+# dev.off()
 
+```
+
+# dry mass as a predictor of ash-free dry mass
+
+## Reading in cleaned data
+
+```{r}
+biomass_ethanol_dm_afdm_cleaned <- read_csv(here("data/processed/ethanol/dm_afdm/biomass_ethanol_dm_afdm_cleaned.csv"))
+```
+
+### Regression summary statistics
+
+Excluding outliers, running linear regressions on log-transformed data, and pulling out regression summary statistics
+
+```{r}
+# Getting coefficients from lm
+taxa_nested_lm_ln_coef_ethanol_dm_afdm <- biomass_ethanol_dm_afdm_cleaned |>
+  filter(keep_data == TRUE) |>
+  group_nest(taxa_clean) |>
+  mutate(lm_ln_object = map(.x = data,
+                         .f = ~ lm(log(afdm_g) ~ log(dm_g), data = .x)),
+         summary = map(.x = lm_ln_object,
+                       .f = ~ summary(.x)))
+long_summary_ethanol_dm_afdm <- taxa_nested_lm_ln_coef_ethanol_dm_afdm |>
+  mutate(coefs = map(.x = summary,
+                            ~.x[[4]]),
+         r2 = map(.x = summary,
+                            ~.x[[9]]),
+         n = map(.x = lm_ln_object,
+                 ~length(.x$residuals))) |>
+  unnest(c(coefs, r2, n)) |>
+  mutate(coef_type = c(rep(c("intercept", "slope"), times = length(taxa_clean)/2))) |>
+  pivot_wider(names_from = coef_type, values_from = coefs)
+
+intercept <- long_summary_ethanol_dm_afdm$intercept[,1]
+intercept_se <- long_summary_ethanol_dm_afdm$intercept[,2]
+slope <- long_summary_ethanol_dm_afdm$slope[,1]
+slope_se <- long_summary_ethanol_dm_afdm$slope[,2]
+p <- long_summary_ethanol_dm_afdm$slope[,4] # p-value of the slope is the same as the p-vale of the overall regression model in the case of simple regression with one predictor
+long_summary_ethanol_dm_afdm_short <- long_summary_ethanol_dm_afdm |>
+  select(taxa_clean, n, r2)
+  
+reg_summary_ethanol_dm_afdm <- add_column(long_summary_ethanol_dm_afdm_short, tibble(intercept, intercept_se, slope, slope_se, p))
+
+# Back-transforming intercept to get parameter 'a' in power equation: y = ax^b
+reg_summary_ethanol_dm_afdm_a <- reg_summary_ethanol_dm_afdm |> 
+  mutate(a = exp(intercept))
+```
+
+Calculating SF (smearing factor - mean of back-transformed residuals) as per Mährlein, M., M. Pätzig, M. Brauns and A. M. Dolman. Length–mass relationships for lake macroinvertebrates corrected for back-transformation and preservation effects. Hydrobiologia, 768, 37-50 (2016).
+
+```{r}
+taxa_nested_lm_ln_coef_sf_ethanol_dm_afdm <- taxa_nested_lm_ln_coef_ethanol_dm_afdm |>
+  mutate(sf = map(.x = lm_ln_object,
+                  .f = ~ (1/length(residuals(.x)))*sum(exp(residuals(.x)))))
+
+taxa_sf_ethanol_dm_afdm <- taxa_nested_lm_ln_coef_sf_ethanol_dm_afdm |>
+  select(taxa_clean, sf) |>
+  unnest(sf)
+
+# Adding smearing factor to lm summary table
+reg_summary_ethanol_dm_afdm_a_sf <- merge(reg_summary_ethanol_dm_afdm_a, taxa_sf_ethanol_dm_afdm)
+
+```
+
+### Calculating biomass ratios and associated summary statistics (outliers excluded)
+
+```{r}
+biomass_ethanol_dm_afdm_cleaned_ratios <- biomass_ethanol_dm_afdm_cleaned |>
+  filter(keep_data == TRUE) |>
+  mutate(afdm_dm = afdm_g/dm_g) |>
+  group_by(taxa_clean) |>
+  filter(!taxa_clean == "Salinator (shell removed)") |>
+  summarise(n = n(),
+            mean_afdm_dm = mean(afdm_dm),
+            sd_afdm_dm = sd(afdm_dm),
+            lower_ci_mean_afdm_dm = mean_afdm_dm-0.95*(sd_afdm_dm/sqrt(n)),
+            upper_ci_mean_afdm_dm = mean_afdm_dm+0.95*(sd_afdm_dm/sqrt(n)),
+            geom_mean = prod(afdm_dm)^(1/n),
+            min_afdm_dm = min(afdm_dm),
+            median_afdm_dm = median(afdm_dm),
+            max_afdm_dm = max(afdm_dm))
+```
+
+## Comparing error in predicted mass for regression and ratio methods
+
+```{r cars}
+# published mean ratios from Ricciardi and Bourget (1998)
+ricciardi_bourget <- tibble(taxa_clean = reg_summary_ethanol_dm_afdm_a_sf$taxa_clean, ricc_bourg_mean_ratio = c(0.729, 0.148, 0.712, NA, NA, NA, 0.792, 0.827, NA))
+
+# published mean ratios from Brey et al (2010)
+brey_et_al <- tibble(taxa_clean = reg_summary_ethanol_dm_afdm_a_sf$taxa_clean, brey_mean_ratio = c(0.773, 0.116, 0.687, NA, 0.222, 0.780, 0.842, 0.935, 0.059)) 
+
+# calculating error in total predicted mass as a percentage of total measured mass
+pred_mass_ethanol_dm_afdm <- taxa_nested_lm_ln_coef_sf_ethanol_dm_afdm |>
+  left_join(reg_summary_ethanol_dm_afdm_a) |>
+  left_join(ricciardi_bourget) |>
+  left_join(brey_et_al) |>
+  filter(!taxa_clean == "Salinator (shell removed)") |>
+  mutate(total_afdm = map(.x = data,
+                        .f = ~sum(.x$afdm_g)),
+         reg_pred_afdm = pmap(.l = list(data, a, slope, sf),
+                            .f = ~ sum(..2*(..1$dm_g)^..3)*..4),
+         reg_pred_afdm_percent_error = map2(.x = total_afdm,
+                                          .y = reg_pred_afdm,
+                                          .f = ~-((.x-.y)/.x)*100),
+         ratio_pred_afdm = map2(.x = data,
+                              .y = biomass_ethanol_dm_afdm_cleaned_ratios$mean_afdm_dm,
+                              .f = ~ sum(.y*.x$dm_g)),
+         ratio_pred_afdm_percent_error = map2(.x = total_afdm,
+                                          .y = ratio_pred_afdm,
+                                          .f = ~-((.x-.y)/.x)*100),
+         riccbourg_ratio_pred_afdm = map2(.x = data,
+                              .y = ricc_bourg_mean_ratio,
+                              .f = ~ sum(.y*.x$dm_g)),
+         riccbourg_ratio_pred_afdm_percent_error = map2(.x = total_afdm,
+                                          .y = riccbourg_ratio_pred_afdm,
+                                          .f = ~-((.x-.y)/.x)*100),
+         breyetal_ratio_pred_afdm = map2(.x = data,
+                              .y = brey_mean_ratio,
+                              .f = ~ sum(.y*.x$dm_g)),
+         breyetal_ratio_pred_afdm_percent_error = map2(.x = total_afdm,
+                                          .y = breyetal_ratio_pred_afdm,
+                                          .f = ~-((.x-.y)/.x)*100))
+         
+pred_mass_ethanol_dm_afdm_error <- pred_mass_ethanol_dm_afdm |>
+  select(taxa_clean, total_afdm:breyetal_ratio_pred_afdm_percent_error) |>
+  unnest(cols = c(total_afdm, reg_pred_afdm, reg_pred_afdm_percent_error, ratio_pred_afdm, ratio_pred_afdm_percent_error,
+  riccbourg_ratio_pred_afdm, riccbourg_ratio_pred_afdm_percent_error, breyetal_ratio_pred_afdm,
+  breyetal_ratio_pred_afdm_percent_error))
+
+pred_mass_ethanol_dm_afdm_error_long <- pred_mass_ethanol_dm_afdm_error |>
+  select(taxa_clean, reg_pred_afdm_percent_error, ratio_pred_afdm_percent_error, 
+         riccbourg_ratio_pred_afdm_percent_error, breyetal_ratio_pred_afdm_percent_error) |>
+  pivot_longer(cols = c(reg_pred_afdm_percent_error, ratio_pred_afdm_percent_error,
+                        riccbourg_ratio_pred_afdm_percent_error, breyetal_ratio_pred_afdm_percent_error), 
+               names_to = "pred_method", values_to = "percent_error")
+
+#colourblind palette  
+#cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
+total_percentage_error_plot_ethanol_dm_afdm <- 
+  ggplot(data = pred_mass_ethanol_dm_afdm_error_long, aes(x = pred_method, y = percent_error)) +
+  geom_jitter(width = 0.1, size = 3, aes(colour = taxa_clean), alpha = 0.5, stroke = 1) + 
+  geom_hline(yintercept = 0, linetype = 2) +
+  ggtitle(expression("Dry mass" %->% "Ash-free dry mass")) +
+  labs(x = "Prediction method", y = "Percentage error in total mass") +
+  scale_x_discrete(limits = c("reg_pred_afdm_percent_error",  "ratio_pred_afdm_percent_error",
+                              "riccbourg_ratio_pred_afdm_percent_error", "breyetal_ratio_pred_afdm_percent_error"), 
+                   labels = c("Log-linear regression \n(this study)", "Mean ratio \n(this study)", 
+                              "Ricciardi and Bourget \nmean ratio", "Brey et al \nmean ratio")) +
+  scale_y_continuous(breaks = c(100,75,50,25,0,-25,-50,-75)) +
+  scale_colour_manual(values = brewer.pal(8, "Dark2")) +
+  #scale_colour_manual(values = cbPalette) +
+  scale_fill_discrete(labels = c("Amphipoda", substitute(paste(italic("Arthritica semen"))), substitute(paste(italic("Capitella"), "spp.")), "Chironomidae", substitute(paste(italic("Salinator"), "spp.")), substitute(paste(italic("Simplisetia aequisetis"))), substitute(paste(italic("Spisula trigonella"))), "Truncatelloidea")) +
+  guides(colour = guide_legend(title = "Taxon")) +
+    theme_bw() +
+    theme(panel.border = element_blank(), 
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(), 
+          axis.line = element_line(colour = "black"),
+          axis.text = element_text(size = 10, colour = "black"), 
+          axis.title = element_text(size = 12),
+          plot.title = element_text(size = 12))
+
+```
+
+saving the plot
+
+```{r}
+# png(here("output/png/total_percentage_error_plot_ethanol_afdm_dm.png"), width = 2000, height = 1400, res = 300)
+# par(omi = c(1,1,1,1))  
+# total_percentage_error_plot_ethanol_dm_afdm
+# dev.off()
+
+```
+
+Combining the DM:WM and AFDM:DM plots
+```{r}
+png(here("output/png/total_percentage_error_plot_ethanol_combined.png"), width = 2000, height = 2800, res = 300)
+par(omi = c(1,1,1,1))  
+ggarrange(total_percentage_error_plot_ethanol_wm_dm, total_percentage_error_plot_ethanol_dm_afdm,
+                    labels = c("A", "B"),
+                    ncol = 1, nrow = 2,
+          common.legend = TRUE, legend = "right")
+dev.off()
 ```
 
 
