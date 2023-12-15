@@ -162,21 +162,34 @@ pred_mass_ethanol_wm_dm_error_long <- pred_mass_ethanol_wm_dm_error |>
 #cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
 total_percentage_error_plot_ethanol_wm_dm <- 
-  ggplot(data = pred_mass_ethanol_wm_dm_error_long, aes(x = pred_method, y = percent_error)) +
+  ggplot(data = pred_mass_ethanol_wm_dm_error_long, 
+         aes(x = pred_method, y = percent_error)) +
   geom_jitter(width = 0.1, size = 3, aes(colour = taxa_clean), alpha = 0.5, stroke = 1) + 
   geom_hline(yintercept = 0, linetype = 2) +
   ggtitle(expression("Wet mass" %->% "Dry mass")) +
   labs(x = "Prediction method", y = "Percentage error in total mass") +
-  scale_x_discrete(limits = c("reg_pred_dm_percent_error",  "ratio_pred_dm_percent_error",
-                              "riccbourg_ratio_pred_dm_percent_error", "breyetal_ratio_pred_dm_percent_error"), 
-                   labels = c("Log-linear regression \n(this study)", "Mean ratio \n(this study)", 
-                              "Ricciardi and Bourget \nmean ratio", "Brey et al \nmean ratio")) +
-  scale_colour_manual(values = brewer.pal(8, "Dark2")) +
+  scale_x_discrete(limits = c("reg_pred_dm_percent_error",  
+                              "ratio_pred_dm_percent_error",
+                              "riccbourg_ratio_pred_dm_percent_error",
+                              "breyetal_ratio_pred_dm_percent_error"), 
+                   labels = c("Log-linear regression \n(this study)", 
+                              "Mean ratio \n(this study)", 
+                              "Ricciardi and Bourget \nmean ratio", 
+                              "Brey et al. \nmean ratio")) +
+    scale_colour_manual(values = brewer.pal(8, "Dark2"), 
+                        labels = c("Amphipoda", 
+                                   substitute(paste(italic("Arthritica semen"))),
+                                   substitute(paste(italic("Capitella"), "spp.")),
+                                   "Chironomidae", 
+                                   substitute(paste(italic("Salinator"), "spp.")),
+                                   substitute(paste(italic("Simplisetia aequisetis"))),
+                                   substitute(paste(italic("Spisula trigonella"))),
+                                   "Truncatelloidea")) +
   #scale_colour_manual(values = cbPalette) +
   scale_y_continuous(breaks = c(20,0,-20,-40)) +
   guides(colour = guide_legend(title = "Taxon")) +
-    theme_bw() +
-    theme(panel.border = element_blank(), 
+  theme_bw() +
+  theme(panel.border = element_blank(), 
           panel.grid.major = element_blank(),
           panel.grid.minor = element_blank(), 
           axis.line = element_line(colour = "black"),
@@ -336,28 +349,40 @@ pred_mass_ethanol_dm_afdm_error_long <- pred_mass_ethanol_dm_afdm_error |>
 #cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
 total_percentage_error_plot_ethanol_dm_afdm <- 
-  ggplot(data = pred_mass_ethanol_dm_afdm_error_long, aes(x = pred_method, y = percent_error)) +
+  ggplot(data = pred_mass_ethanol_dm_afdm_error_long, 
+         aes(x = pred_method, y = percent_error)) +
   geom_jitter(width = 0.1, size = 3, aes(colour = taxa_clean), alpha = 0.5, stroke = 1) + 
   geom_hline(yintercept = 0, linetype = 2) +
   ggtitle(expression("Dry mass" %->% "Ash-free dry mass")) +
   labs(x = "Prediction method", y = "Percentage error in total mass") +
-  scale_x_discrete(limits = c("reg_pred_afdm_percent_error",  "ratio_pred_afdm_percent_error",
-                              "riccbourg_ratio_pred_afdm_percent_error", "breyetal_ratio_pred_afdm_percent_error"), 
-                   labels = c("Log-linear regression \n(this study)", "Mean ratio \n(this study)", 
-                              "Ricciardi and Bourget \nmean ratio", "Brey et al \nmean ratio")) +
+  scale_x_discrete(limits = c("reg_pred_afdm_percent_error", 
+                              "ratio_pred_afdm_percent_error",
+                              "riccbourg_ratio_pred_afdm_percent_error",
+                              "breyetal_ratio_pred_afdm_percent_error"), 
+                   labels = c("Log-linear regression \n(this study)", 
+                              "Mean ratio \n(this study)", 
+                              "Ricciardi and Bourget \nmean ratio", 
+                              "Brey et al. \nmean ratio")) +
   scale_y_continuous(breaks = c(100,75,50,25,0,-25,-50,-75)) +
-  scale_colour_manual(values = brewer.pal(8, "Dark2")) +
+  scale_colour_manual(values = brewer.pal(8, "Dark2"), 
+                      labels = c("Amphipoda", 
+                                 substitute(paste(italic("Arthritica semen"))),
+                                 substitute(paste(italic("Capitella"), "spp.")),
+                                 "Chironomidae", 
+                                 substitute(paste(italic("Salinator"), "spp.")),
+                                 substitute(paste(italic("Simplisetia aequisetis"))),
+                                 substitute(paste(italic("Spisula trigonella"))),
+                                 "Truncatelloidea")) +
   #scale_colour_manual(values = cbPalette) +
-  scale_fill_discrete(labels = c("Amphipoda", substitute(paste(italic("Arthritica semen"))), substitute(paste(italic("Capitella"), "spp.")), "Chironomidae", substitute(paste(italic("Salinator"), "spp.")), substitute(paste(italic("Simplisetia aequisetis"))), substitute(paste(italic("Spisula trigonella"))), "Truncatelloidea")) +
   guides(colour = guide_legend(title = "Taxon")) +
-    theme_bw() +
-    theme(panel.border = element_blank(), 
-          panel.grid.major = element_blank(),
-          panel.grid.minor = element_blank(), 
-          axis.line = element_line(colour = "black"),
-          axis.text = element_text(size = 10, colour = "black"), 
-          axis.title = element_text(size = 12),
-          plot.title = element_text(size = 12))
+  theme_bw() +
+  theme(panel.border = element_blank(), 
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black"),
+        axis.text = element_text(size = 10, colour = "black"), 
+        axis.title = element_text(size = 12),
+        plot.title = element_text(size = 12))
 
 ```
 
@@ -373,7 +398,7 @@ saving the plot
 
 Combining the DM:WM and AFDM:DM plots
 ```{r}
-png(here("output/png/total_percentage_error_plot_ethanol_combined.png"), width = 2000, height = 2800, res = 300)
+png(here("output/png/total_percentage_error_plot_ethanol_combined.png"), width = 190, height = 250, units = "mm", res = 1000)
 par(omi = c(1,1,1,1))  
 ggarrange(total_percentage_error_plot_ethanol_wm_dm, total_percentage_error_plot_ethanol_dm_afdm,
                     labels = c("A", "B"),
