@@ -10,11 +10,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 library(tidyverse)
 library(here)
-library(smatr)
 library(janitor)
 library(skimr)
-library(gridExtra)
-library(olsrr)
 library(purrr)
 library(tidyr)
 
@@ -27,7 +24,7 @@ Reading in data and creating observation number
 
 ```{r, warning=FALSE}
 biomass_data_taxaclean <-
-  read_csv(here("data/processed/biomass_data_cleannames.csv")) |> 
+  read_csv(here("data/raw/example_biomass_data.csv")) |> 
   mutate(obs_num = row_number())
 ```
 

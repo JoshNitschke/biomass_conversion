@@ -24,7 +24,7 @@ Reading in data and creating observation number
 
 ```{r, warning=FALSE}
 biomass_data_taxaclean <-
-  read_csv(here("data/processed/biomass_data_cleannames.csv")) |> 
+  read_csv(here("data/raw/example_biomass_data.csv")) |> 
   mutate(obs_num = row_number())
 ```
 
